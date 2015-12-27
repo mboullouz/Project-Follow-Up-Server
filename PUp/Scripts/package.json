@@ -1,0 +1,26 @@
+{
+  "name": "ProjectFollowUp",
+  "version": "1.0.0",
+  "description": "Project Followup",
+  "main": "App.js",
+  "scripts": {
+    "tsc": "tsc -p src -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohamedb/Enet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Private, Copyrighted!",
+  "bugs": {
+    "url": "https://github.com/mohamedb/Enet.git/issues"
+  },
+  "homepage": "https://github.com/mohamedb/Enet.git#readme",
+  "dependencies": {
+    "systemjs": "0.19.2"
+  },
+  "devDependencies": {
+    "typescript": "^1.6.2"
+  }
+}
