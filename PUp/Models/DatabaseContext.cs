@@ -6,7 +6,7 @@ namespace PUp.Models
     using System.Linq;
     using Entity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    public partial class DatabaseContext : IdentityDbContext<User>
+    public partial class DatabaseContext : IdentityDbContext<UserEntity>
     {
         public DatabaseContext()
             : base("name=PFModel")
@@ -14,8 +14,8 @@ namespace PUp.Models
         }
 
         //public virtual DbSet<Entity.Project> Projects { get; set; }
-        public virtual DbSet<Task> TaskSet { get; set; }
-        public virtual DbSet<Project> ProjectSet { get; set; }
+        public virtual DbSet<TaskEntity> TaskSet { get; set; }
+        public virtual DbSet<ProjectEntity> ProjectSet { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

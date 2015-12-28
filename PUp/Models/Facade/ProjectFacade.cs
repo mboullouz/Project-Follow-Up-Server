@@ -7,7 +7,7 @@ using System.Web;
 
 namespace PUp.Models.Facade
 {
-    public class ProjectFacade : IGenericFacade<Project>
+    public class ProjectFacade : IGenericFacade<ProjectEntity>
     {
         private DatabaseContext dbContext;
         public ProjectFacade()
@@ -18,18 +18,18 @@ namespace PUp.Models.Facade
         {
             this.dbContext = dbContext;
         }
-        public void Add(Project e)
+        public void Add(ProjectEntity e)
         {
            dbContext.ProjectSet.Add(e);
             dbContext.SaveChanges();
         }
 
-        public List<Project> GetAll()
+        public List<ProjectEntity> GetAll()
         {
             return dbContext.ProjectSet.ToList();
         }
 
-        public void remove(Project e)
+        public void remove(ProjectEntity e)
         {
             throw new NotImplementedException();
         }

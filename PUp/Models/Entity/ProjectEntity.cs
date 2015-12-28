@@ -7,19 +7,19 @@ namespace PUp.Models.Entity
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    public partial  class Project
+    public partial  class ProjectEntity
     {
          
-        public Project()
+        public ProjectEntity()
         {
-            this.Tasks = new HashSet<Task>();
+            this.Tasks = new HashSet<TaskEntity>();
         }
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
 
         
-        public virtual ICollection<Task> Tasks { get; set; }
-        public virtual User User { get; set; }
+        public virtual ICollection<TaskEntity> Tasks { get; set; }
+        public virtual UserEntity User { get; set; }
     }
 }

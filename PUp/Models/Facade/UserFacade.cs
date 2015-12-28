@@ -9,21 +9,21 @@ using System.Web;
 
 namespace PUp.Models.Facade
 {
-    public class UserFacade:IGenericFacade<User>
+    public class UserFacade:IGenericFacade<UserEntity>
     {
         private DatabaseContext dbContext;
-        private UserManager<User> manager;
+        private UserManager<UserEntity> manager;
 
         public UserFacade() 
         {
             dbContext = new DatabaseContext();
-            manager   = new UserManager<User>(new UserStore<User>(dbContext));
+            manager   = new UserManager<UserEntity>(new UserStore<UserEntity>(dbContext));
         }
         public DatabaseContext GetDbContext()
         {
             return this.dbContext;
         }
-        public void Add(User u)
+        public void Add(UserEntity u)
         {
              /**
                todo: user UserIdentity to create user properly !
@@ -32,11 +32,11 @@ namespace PUp.Models.Facade
             dbContext.SaveChanges();
         }
 
-        public User GetCurrentUser()
+        public UserEntity GetCurrentUser()
         {
             // return   manager.FindByIdAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
             string currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            User currentUser = dbContext.Users.FirstOrDefault(x => x.Id == currentUserId);
+            UserEntity currentUser = dbContext.Users.FirstOrDefault(x => x.Id == currentUserId);
             return currentUser;
         }
 
@@ -57,13 +57,13 @@ namespace PUp.Models.Facade
         /// @TODO : Get Users properly!
         /// </summary>
         /// <returns></returns>
-        public List<User> GetAll()
+        public List<UserEntity> GetAll()
         {   
             
-            return new List<User>();
+            return new List<UserEntity>();
         }
 
-        public void remove(User e)
+        public void remove(UserEntity e)
         {
             throw new NotImplementedException();
         }

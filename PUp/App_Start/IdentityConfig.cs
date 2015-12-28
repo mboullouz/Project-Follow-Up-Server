@@ -34,18 +34,18 @@ namespace PUp
     }
 
     // Configurer l'application que le gestionnaire des utilisateurs a utilisée dans cette application. UserManager est défini dans ASP.NET Identity et est utilisé par l'application.
-    public class ApplicationUserManager : UserManager<User>
+    public class ApplicationUserManager : UserManager<UserEntity>
     {
-        public ApplicationUserManager(IUserStore<User> store)
+        public ApplicationUserManager(IUserStore<UserEntity> store)
             : base(store)
         {
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<User>(new DatabaseContext()));
+            var manager = new ApplicationUserManager(new UserStore<UserEntity>(new DatabaseContext()));
             // Configurer la logique de validation pour les noms d'utilisateur
-            manager.UserValidator = new UserValidator<User>(manager)
+            manager.UserValidator = new UserValidator<UserEntity>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
@@ -68,11 +68,11 @@ namespace PUp
 
             // Inscrire les fournisseurs d'authentification à 2 facteurs. Cette application utilise le téléphone et les e-mails comme procédure de réception de code pour confirmer l'utilisateur
             // Vous pouvez écrire votre propre fournisseur et le connecter ici.
-            manager.RegisterTwoFactorProvider("Code téléphonique ", new PhoneNumberTokenProvider<User>
+            manager.RegisterTwoFactorProvider("Code téléphonique ", new PhoneNumberTokenProvider<UserEntity>
             {
                 MessageFormat = "Votre code de sécurité est {0}"
             });
-            manager.RegisterTwoFactorProvider("Code d'e-mail", new EmailTokenProvider<User>
+            manager.RegisterTwoFactorProvider("Code d'e-mail", new EmailTokenProvider<UserEntity>
             {
                 Subject = "Code de sécurité",
                 BodyFormat = "Votre code de sécurité est {0}"
@@ -83,21 +83,21 @@ namespace PUp
             if (dataProtectionProvider != null)
             {
                 manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<User>(dataProtectionProvider.Create("ASP.NET Identity"));
+                    new DataProtectorTokenProvider<UserEntity>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }
     }
 
     // Configurer le gestionnaire de connexion d'application qui est utilisé dans cette application.
-    public class ApplicationSignInManager : SignInManager<User, string>
+    public class ApplicationSignInManager : SignInManager<UserEntity, string>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
         {
         }
 
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(User user)
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync(UserEntity user)
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }

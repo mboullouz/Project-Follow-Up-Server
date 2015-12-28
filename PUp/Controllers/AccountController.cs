@@ -28,9 +28,9 @@ namespace PUp.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
-        public User CurrentUser()
+        public UserEntity CurrentUser()
         {
-            User currentUser = _userManager.FindById(User.Identity.GetUserId());
+            UserEntity currentUser = _userManager.FindById(User.Identity.GetUserId());
             return currentUser;
         }
         public ApplicationSignInManager SignInManager
@@ -156,7 +156,7 @@ namespace PUp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new UserEntity { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -372,7 +372,7 @@ namespace PUp.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new UserEntity { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

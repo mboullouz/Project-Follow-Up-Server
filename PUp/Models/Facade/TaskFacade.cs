@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PUp.Models.Facade
 {
-    public class TaskFacade :IGenericFacade<Task>
+    public class TaskFacade :IGenericFacade<TaskEntity>
     {
         private DatabaseContext dbContext;
         public TaskFacade()
@@ -21,7 +21,7 @@ namespace PUp.Models.Facade
         {
             return this.dbContext;
         }
-        public void Add(Task e)
+        public void Add(TaskEntity e)
         {
             dbContext.TaskSet.Add(e);
             dbContext.SaveChanges();
@@ -32,12 +32,12 @@ namespace PUp.Models.Facade
             throw new NotImplementedException();
         }
 
-        public List<Task> GetAll()
+        public List<TaskEntity> GetAll()
         {
             return dbContext.TaskSet.ToList();
         }
 
-        public void remove(Task e)
+        public void remove(TaskEntity e)
         {
             throw new NotImplementedException();
         }

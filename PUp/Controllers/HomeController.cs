@@ -23,18 +23,17 @@ namespace PUp.Controllers
             ProjectFacade pf = new ProjectFacade();
             pf.SetDbContext(dbContext);
 
-            List<Task> tasks = tf.GetAll();
-            Project project = new Project
+            List<TaskEntity> tasks = tf.GetAll();
+            ProjectEntity project = new ProjectEntity
             {
                 Name = "W 2: December 2015",
                 Tasks = tasks,
                 User  = uf.GetCurrentUser()
             };
-             pf.Add(project);
-            Task t1 = new Task { EditonNumber = 0, Priority = 2, Title = "Reorganize the doc", Project = project };
-            Task t2 = new Task { EditonNumber = 1, Priority = 3, Title = "Implements some interfaces", Project = project };
-            tf.Add(t1);
-            tf.Add(t2);
+             //pf.Add(project);
+            TaskEntity t1 = new TaskEntity { EditonNumber = 0, Priority = 2, Title = "Reorganize the doc", Project = project };
+            TaskEntity t2 = new TaskEntity { EditonNumber = 1, Priority = 3, Title = "Implements some interfaces", Project = project };
+           // tf.Add(t1); tf.Add(t2);
 
             ViewBag.CurrentUser = uf.UsernameCurrent();
             ViewBag.Projects = pf.GetAll();

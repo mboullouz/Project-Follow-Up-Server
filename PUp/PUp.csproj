@@ -219,9 +219,9 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\DatabaseInitializer.cs" />
-    <Compile Include="Models\Entity\Project.cs" />
-    <Compile Include="Models\Entity\Task.cs" />
-    <Compile Include="Models\Entity\User.cs" />
+    <Compile Include="Models\Entity\ProjectEntity.cs" />
+    <Compile Include="Models\Entity\TaskEntity.cs" />
+    <Compile Include="Models\Entity\UserEntity.cs" />
     <Compile Include="Models\Facade\IGenericFacade.cs" />
     <Compile Include="Models\Facade\ProjectFacade.cs" />
     <Compile Include="Models\Facade\TaskFacade.cs" />

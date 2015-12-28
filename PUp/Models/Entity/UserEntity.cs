@@ -10,16 +10,16 @@ namespace PUp.Models.Entity
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
-    public partial class User : Microsoft.AspNet.Identity.EntityFramework.IdentityUser
+    public partial class UserEntity : Microsoft.AspNet.Identity.EntityFramework.IdentityUser
     {
 
 
-        public User()
+        public UserEntity()
         {
-            this.Projects = new HashSet<Project>();
+            this.Projects = new HashSet<ProjectEntity>();
         }
-        public virtual ICollection<Project> Projects { get; set; }
-        public async System.Threading.Tasks.Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
+        public virtual ICollection<ProjectEntity> Projects { get; set; }
+        public async System.Threading.Tasks.Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<UserEntity> manager)
         {
             // Notez qu'authenticationType doit correspondre à l'élément défini dans CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
