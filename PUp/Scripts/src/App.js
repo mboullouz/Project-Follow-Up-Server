@@ -12,4 +12,5 @@ var App = (function () {
     }
     return App;
 })();
-var app = new App();
+//var app = new App();
+//# sourceMappingURL=App.js.map

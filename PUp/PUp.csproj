@@ -224,6 +224,7 @@
     <Compile Include="Models\Entity\User.cs" />
     <Compile Include="Models\Facade\IGenericFacade.cs" />
     <Compile Include="Models\Facade\ProjectFacade.cs" />
+    <Compile Include="Models\Facade\TaskFacade.cs" />
     <Compile Include="Models\Facade\UserFacade.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

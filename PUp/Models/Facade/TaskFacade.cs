@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-
 namespace PUp.Models.Facade
 {
-    public class ProjectFacade : IGenericFacade<Project>
+    public class TaskFacade :IGenericFacade<Task>
     {
         private DatabaseContext dbContext;
-        public ProjectFacade()
+        public TaskFacade()
         {
             dbContext = new DatabaseContext();
         }
@@ -18,30 +17,29 @@ namespace PUp.Models.Facade
         {
             this.dbContext = dbContext;
         }
-        public void Add(Project e)
+        public DatabaseContext GetDbContext()
         {
-           dbContext.ProjectSet.Add(e);
+            return this.dbContext;
+        }
+        public void Add(Task e)
+        {
+            dbContext.TaskSet.Add(e);
             dbContext.SaveChanges();
-        }
-
-        public List<Project> GetAll()
-        {
-            return dbContext.ProjectSet.ToList();
-        }
-
-        public void remove(Project e)
-        {
-            throw new NotImplementedException();
         }
 
         public void Dispose()
         {
-            dbContext.Dispose();
+            throw new NotImplementedException();
         }
 
-        public DatabaseContext GetDbContext()
+        public List<Task> GetAll()
         {
-            return this.dbContext;
+            return dbContext.TaskSet.ToList();
+        }
+
+        public void remove(Task e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

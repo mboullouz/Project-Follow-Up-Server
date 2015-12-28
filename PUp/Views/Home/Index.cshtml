@@ -2,30 +2,42 @@
     ViewBag.Title = "Home Page";
 }
 
- <div class="alert alert-danger" id="notif"> </div>
+<div class="alert alert-danger" id="notif"> </div>
 <b>Current User</b> @ViewBag.CurrentUser <br />
 <div class="row">
     <div class="col-md-12">
-         <h2>Pending Tasks</h2>
+        <h2>Pending Tasks</h2>
         <div class="panel panel-danger">
             <button class="btn btn-default" id="updateTasks">Update!</button>
         </div>
-         <table class="table">
-             <thead>
-                 <tr>
-                     <td>#</td>
-                     <td>Task</td>
-                 </tr>
-             </thead>
-             <tbody>
-                 <tr>
-                     <td>1</td>
-                     <td>Add some tasks for the user</td>
-                 </tr>
-
-             </tbody>
-
-         </table>
+        <table class="table">
+            <thead>
+            <th>#</th>
+            <th>Title</th>
+            </thead>
+            <tbody>
+                @{int i = 0;}
+                @foreach (var project in @ViewBag.Projects)
+                {
+                    i++;
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            @project.Name  | 
+                            <b>Tasks</b><br />
+                            @foreach (var task in  project.Tasks)
+                            {   
+                                <ul>
+                                    @project.Id |     <li> @task.Title</li>
+                                </ul>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-    
-<script src="~/Scripts/src/app/Home/App.js"></script>
+
+    <script src="~/Scripts/src/app/Home/App.js"></script>
