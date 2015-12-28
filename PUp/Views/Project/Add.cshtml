@@ -1,0 +1,31 @@
+﻿@model PUp.ViewModels.AddProjectViewModel
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add New Project </h2>
+ 
+
+ @using (Html.BeginForm())
+    {
+        <div>
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div>
+            Start At: 
+            @Html.TextBoxFor(m => m.StartAt)
+            @Html.ValidationMessageFor(m => m.StartAt)
+        </div>
+        <div>
+            End At: 
+            @Html.TextBoxFor(m => m.EndAt)
+            @Html.ValidationMessageFor(m => m.EndAt)
+        </div>
+       
+        <input type="submit" value="Submit" />
+        <br/>
+        @Html.ActionLink("Create project", "CreerCompte")
+    }
+

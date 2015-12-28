@@ -15,12 +15,16 @@ namespace PUp.Models.Entity
         public string Title { get; set; }
         public string Description { get; set; }
         public Nullable<int> Priority { get; set; }
-        public Nullable<int> EditonNumber { get; set; }
+        public Nullable<int> EditionNumber { get; set; }
         public bool Done { get; set; }
-
+        public DateTime CreateAt { get; set; }
+        public DateTime EditAt { get; set; }
+        public Nullable<DateTime> FinishAt { get; set; }
         public TaskEntity()
         {
             Done = false;
+            CreateAt = DateTime.Now;
+            EditAt = DateTime.Now;
         }
 
         public virtual ProjectEntity Project { get; set; }

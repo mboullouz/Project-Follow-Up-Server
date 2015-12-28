@@ -20,6 +20,7 @@ namespace PUp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //Enable this to when something changed and we need migration
             //System.Data.Entity.Database.SetInitializer<Models.DatabaseContext>(new Models.DatabaseInitializer());
         }
     }

@@ -31,8 +31,8 @@ namespace PUp.Controllers
                 User  = uf.GetCurrentUser()
             };
              //pf.Add(project);
-            TaskEntity t1 = new TaskEntity { EditonNumber = 0, Priority = 2, Title = "Reorganize the doc", Project = project };
-            TaskEntity t2 = new TaskEntity { EditonNumber = 1, Priority = 3, Title = "Implements some interfaces", Project = project };
+            TaskEntity t1 = new TaskEntity { EditionNumber = 0, Priority = 2, Title = "Reorganize the doc", Project = project };
+            TaskEntity t2 = new TaskEntity { EditionNumber = 1, Priority = 3, Title = "Implements some interfaces", Project = project };
            // tf.Add(t1); tf.Add(t2);
 
             ViewBag.CurrentUser = uf.UsernameCurrent();
