@@ -269,7 +269,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\src\App.js" />
     <Content Include="Scripts\src\app\Project.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -308,7 +307,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\package.json" />
     <Content Include="Scripts\tsconfig.json" />
-    <Content Include="Scripts\src\App.js.map" />
     <Content Include="Scripts\src\tsconfig.json" />
     <Content Include="Scripts\src\app\Project.js.map" />
     <Content Include="Views\Project\Add.cshtml" />
@@ -320,7 +318,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\src\App.ts" />
+    <TypeScriptCompile Include="Scripts\src\MainApp.ts" />
     <TypeScriptCompile Include="Scripts\src\app\Home\App.ts" />
     <TypeScriptCompile Include="Scripts\src\app\Project.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />

@@ -37,7 +37,7 @@ namespace PUp.Models.Facade
             return dbContext.TaskSet.ToList();
         }
 
-        public void remove(TaskEntity e)
+        public void Remove(TaskEntity e)
         {
             throw new NotImplementedException();
         }

@@ -9,7 +9,7 @@ namespace PUp.Models.Facade
     {
         List<E> GetAll();
         void Add(E e);
-        void remove(E e);
+        void Remove(E e);
         void SetDbContext(DatabaseContext dbContext);
         DatabaseContext GetDbContext();
     }

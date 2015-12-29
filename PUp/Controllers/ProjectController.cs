@@ -46,5 +46,14 @@ namespace PUp.Controllers
             pf.Dispose();
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Remove(int id)
+        {
+            ProjectFacade pf = new ProjectFacade();
+
+            pf.Remove(pf.FindById(id));
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

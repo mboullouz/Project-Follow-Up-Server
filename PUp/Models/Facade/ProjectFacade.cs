@@ -23,15 +23,20 @@ namespace PUp.Models.Facade
            dbContext.ProjectSet.Add(e);
             dbContext.SaveChanges();
         }
+        public ProjectEntity FindById(int id)
+        {
+            return dbContext.ProjectSet.SingleOrDefault(e => e.Id == id);
+        }
 
         public List<ProjectEntity> GetAll()
         {
             return dbContext.ProjectSet.ToList();
         }
 
-        public void remove(ProjectEntity e)
+        public void Remove(ProjectEntity e)
         {
-            throw new NotImplementedException();
+            dbContext.ProjectSet.Remove(e);
+            dbContext.SaveChanges();
         }
 
         public void Dispose()

@@ -10,11 +10,12 @@
         <div class="panel panel-danger">
             <button class="btn btn-default" id="updateTasks">Update!</button>
         </div>
-        <a href="~/Project/Add" title="Add project" class="btn btn-danger">New Project</a>
+        <a href="~/Project/Add" title="Add project" class="btn btn-link confirm">New Project</a>
         <table class="table">
             <thead>
             <th>#</th>
             <th>Title</th>
+            <th>Action</th>
             </thead>
             <tbody>
                 @{int i = 0;}
@@ -26,19 +27,35 @@
                             @i
                         </td>
                         <td>
-                            @project.Name  | 
+                            @project.Name  |
                             <b>Tasks</b><br />
-                            @foreach (var task in  project.Tasks)
-                            {   
+                            @foreach (var task in project.Tasks)
+                            {
                                 <ul>
-                                    @project.Id |     <li> @task.Title</li>
+                                    @project.Id |
+                                    <li> @task.Title</li>
                                 </ul>
                             }
+                        </td>
+                        <td>
+                            @Html.ActionLink(
+                                "Delete",                                     // linkText
+                                "Remove",                                    // actionName
+                                "Project",                                  // controllerName
+                                new
+                                {                                           // routeValues
+                                    id = project.Id
+                                },
+                               new                                        // htmlAttributes
+                               {
+                                  @class="btn btn-danger confirm" 
+                               }
+                            )
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-
-    <script src="~/Scripts/src/app/Home/App.js"></script>
+</div>
+<script src="~/Scripts/src/app/Home/App.js"></script>

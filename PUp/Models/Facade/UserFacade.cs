@@ -63,7 +63,7 @@ namespace PUp.Models.Facade
             return new List<UserEntity>();
         }
 
-        public void remove(UserEntity e)
+        public void Remove(UserEntity e)
         {
             throw new NotImplementedException();
         }
