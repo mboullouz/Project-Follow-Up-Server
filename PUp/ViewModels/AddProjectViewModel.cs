@@ -15,6 +15,7 @@ namespace PUp.ViewModels
          */
         public DateTime StartAt { get; set; }
         public Nullable<DateTime> EndAt { get; set; }
+        public int Id { get; set; }
         public AddProjectViewModel()
         {
             

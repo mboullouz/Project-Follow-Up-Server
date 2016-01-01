@@ -6,7 +6,7 @@ class MainApp {
         this.plugConfirm();
     }
     plugConfirm() {
-        $('button').click(this.handleClickConfirm);
+        $('.confirm').click(this.handleClickConfirm);
     }
     handleClickConfirm = (evt) => {
         return confirm("This action is dangerous, do you confirm ?");

@@ -1,0 +1,52 @@
+﻿@model PUp.ViewModels.AddTaskViewModel
+@{
+    ViewBag.Title = "Add Task to Project:" + Model.Project.Name;
+}
+
+
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <b>New task for project: @Model.Project.Name</b>
+        </div>
+
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                <label class="control-label">Title</label>
+
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Title)
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Priority</label>
+
+                @Html.TextBoxFor(m => m.Priority, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Priority)
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Description</label>
+
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Description)
+
+            </div>
+
+            @Html.HiddenFor(m => m.IdProject)
+            <input type="submit" value="Save" class="btn btn-primary" />
+
+            //  @Html.ActionLink("Create project", "CreerCompte")
+        }
+    </div>
+
+</div>
+
+
+ 
+
