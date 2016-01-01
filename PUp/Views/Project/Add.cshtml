@@ -1,31 +1,46 @@
 ﻿@model PUp.ViewModels.AddProjectViewModel
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Add new project";
 }
 
-<h2>Add New Project </h2>
- 
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <b>New Project</b>
+        </div>
 
- @using (Html.BeginForm())
-    {
-        <div>
-            @Html.LabelFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name)
-            @Html.ValidationMessageFor(m => m.Name)
-        </div>
-        <div>
-            Start At: 
-            @Html.TextBoxFor(m => m.StartAt)
-            @Html.ValidationMessageFor(m => m.StartAt)
-        </div>
-        <div>
-            End At: 
-            @Html.TextBoxFor(m => m.EndAt)
-            @Html.ValidationMessageFor(m => m.EndAt)
-        </div>
-       
-        <input type="submit" value="Submit" />
-        <br/>
-      //  @Html.ActionLink("Create project", "CreerCompte")
-    }
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                <label class="control-label">Project title:</label>
+                 
+                    @Html.TextBoxFor(m => m.Name, new {@class="form-control" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                
+            </div>
+            
+            <div class="form-group">
+                <label class="control-label">Start At:</label>
+                
+                    @Html.TextBoxFor(m => m.StartAt, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.StartAt)
+               
+            </div>
+           
+            <div class="form-group">
+                <label class="control-label">End At:</label>
+               
+                    @Html.TextBoxFor(m => m.EndAt, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.EndAt)
+               
+            </div>
+           <input type="submit" value="Save" class="btn btn-primary" />
+                 
+            //  @Html.ActionLink("Create project", "CreerCompte")
+        }
+    </div>
+
+</div>
 

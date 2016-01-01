@@ -2,20 +2,15 @@
 /// <reference path="./app/Project.ts" />
 class MainApp {
     constructor() {
-        console.log("module app loaded !");
-        $(".btn").click(function (event) {
-            console.log("clicked");
-        });
-        $('.confirm').click(this.handleClickConfirm);
-        $('.btn').click(function (evt) { confirm('conf  ?'); });
-        $('.table').addClass('table-bordered');
-        $('.btn').addClass('btn-primary');
-       // var p = new Project.Pr();
-       
+        console.log("module: MainApp !");
+        this.plugConfirm();
+    }
+    plugConfirm() {
+        $('button').click(this.handleClickConfirm);
     }
     handleClickConfirm = (evt) => {
-        var conf = confirm("This action is dangerous, do you confirm ?");
-        return conf;
+        return confirm("This action is dangerous, do you confirm ?");
     }
 }
 var mainApp = new MainApp();
+ 
