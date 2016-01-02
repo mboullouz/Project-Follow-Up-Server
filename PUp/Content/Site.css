@@ -5,8 +5,9 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
+        padding-left: 15px;
     padding-right: 15px;
+    padding-top: 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -20,11 +21,32 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+   max-width: 50%;
+   font-size:14px;
 }
 
+.navbar-default {
+    background-color: white;
+    border-color: white;
+}
+.navbar-default .navbar-nav > li > a {
+    color:#2F3240;
+    font-weight: 200;
+}
+.navbar-default .navbar-nav > li > a:hover {
+    color: #F44336;
+    font-weight: 200;
+    background-color: rgba(96, 125, 139, 0.07);
+    height: 40px;
+}
 
-
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-bottom: 1px dotted #FF5722;
+}
+.navbar-right {
+    float: right !important;
+    margin-right: 0px;
+}
 /**
  * @autor: <mohamed.boullouz@gmail.com>
     Buttons
@@ -161,11 +183,12 @@ a:HOVER {
 }
 
 .form-control {
-	height: 28px;
+	height: 30px;
 	padding: 3px 12px;
-	font-size: 12px;
+	font-size: 14px;
 	color: black;
 	border: 1px solid #9E9E9E;
+    border-radius:0px;
 }
 
 .form-control:HOVER, .form-control:ACTIVE {
