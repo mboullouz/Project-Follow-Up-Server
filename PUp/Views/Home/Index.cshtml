@@ -1,7 +1,8 @@
-﻿@{
+﻿@model  PUp.ViewModels.Project.TableProjectModelView
+@{
     ViewBag.Title = "Home Page";
 }
- 
+
 
 <div class="row">
     <div class="col-md-12">
@@ -11,61 +12,77 @@
         <div class="panel">
             <div class="panel-heading">
                 <div class="panel-title">
-                    <b>New Project</b>
+                    <b>Projects list</b>
                 </div>
 
             </div>
             <div class="panel-body">
                 <table class="table">
                     <thead>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Action</th>
+                        <tr>
+                            <td>#</td>
+                            <td>Title</td>
+                            <td>Tasks</td>
+                            <td>Action</td>
+                        </tr>
                     </thead>
                     <tbody>
                         @{int i = 0;}
-                        @foreach (var project in @ViewBag.Projects)
+                        @foreach (var project in Model.Projects)
                         {
                             i++;
-                            <tr>
+                            <tr class="v @(@Model.IsFinish(project) ? "done" : " ")" ?>
                                 <td>
                                     @i
                                 </td>
                                 <td>
                                     <a href="@Url.Action("Index", "Task", new { id = project.Id } )">
-                                      @project.Name
+                                        @project.Name
                                     </a>
                                 </td>
                                 <td>
-
-                                  @Html.ActionLink(
-                                        "Edit",                                     // linkText
-                                        "Edit",                                    // actionName
-                                        "Project",                                  // controllerName
-                                        new
-                                        {                                           // routeValues
-                                            id = project.Id
-                                        },
-                                       new                                        // htmlAttributes
-                                       {
-                                           @class = "btn"
-                                       }
-                                   )
-
-                                  @Html.ActionLink(
-                                        "Delete",                                     // linkText
-                                        "Remove",                                    // actionName
-                                        "Project",                                  // controllerName
-                                        new
-                                        {                                           // routeValues
-                                            id = project.Id
-                                        },
-                                       new                                        // htmlAttributes
-                                       {
-                                           @class = "btn btn-danger confirm"
-                                       }
-                                   )
-                                   
+                                    Total: @project.Tasks.Count <br />
+                                    Done: @Model.CountDone(project)
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dd-ctrl-projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <i class="fa fa-cog"></i>
+                                            Actions
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dd-ctrl-projects">
+                                            <li>
+                                             @Html.ActionLink(
+                                                    "Edit",                                     // linkText
+                                                    "Edit",                                    // actionName
+                                                    "Project",                                  // controllerName
+                                                    new
+                                                    {                                           // routeValues
+                                                        id = project.Id
+                                                    },
+                                                   new                                        // htmlAttributes
+                                                   {
+                                                       @class = "btn"
+                                                   }
+                                               )
+                                            </li>
+                                            <li>
+                                             @Html.ActionLink(
+                                                "Delete",                                     // linkText
+                                                "Remove",                                    // actionName
+                                                "Project",                                  // controllerName
+                                                new
+                                                {                                           // routeValues
+                                                    id = project.Id
+                                                },
+                                               new                                        // htmlAttributes
+                                               {
+                                                   @class = "btn btn-danger confirm"
+                                               }
+                                             )
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -74,5 +91,5 @@
             </div>
         </div>
     </div>
-    </div>
-    <script src="~/Scripts/src/app/Home/App.js"></script>
+</div>
+<script src="~/Scripts/src/app/Home/App.js"></script>

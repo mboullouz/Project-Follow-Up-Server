@@ -56,8 +56,6 @@ namespace PUp.Controllers
             tf.Add(task);
             project.Tasks.Add(task);  
             tf.GetDbContext().SaveChanges();
-
-
             return RedirectToAction("Index", "Task", new {id=project.Id });
         }
     }
