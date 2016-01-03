@@ -225,10 +225,12 @@
     <Compile Include="Models\Entity\ProjectEntity.cs" />
     <Compile Include="Models\Entity\TaskEntity.cs" />
     <Compile Include="Models\Entity\UserEntity.cs" />
-    <Compile Include="Models\Facade\IGenericFacade.cs" />
-    <Compile Include="Models\Facade\ProjectFacade.cs" />
-    <Compile Include="Models\Facade\TaskFacade.cs" />
-    <Compile Include="Models\Facade\UserFacade.cs" />
+    <Compile Include="Models\Repository\IProjectRepository.cs" />
+    <Compile Include="Models\Repository\ITaskRepository.cs" />
+    <Compile Include="Models\Repository\IRepository.cs" />
+    <Compile Include="Models\Repository\ProjectRepository.cs" />
+    <Compile Include="Models\Repository\TaskRepository.cs" />
+    <Compile Include="Models\Repository\UserRepository.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

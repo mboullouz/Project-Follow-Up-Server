@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PUp.ViewModels;
-using PUp.Models.Facade;
+using PUp.Models.Repository;
 using PUp.Models.Entity;
 
 namespace PUp.Controllers
@@ -34,8 +34,8 @@ namespace PUp.Controllers
                 return View(model);
             }
 
-            ProjectFacade pf = new ProjectFacade();
-            UserFacade uf = new UserFacade();
+            ProjectRepository pf = new ProjectRepository();
+            UserRepository uf = new UserRepository();
             uf.SetDbContext(pf.GetDbContext());
             ProjectEntity project = new ProjectEntity();
             project.Name = model.Name;
@@ -49,13 +49,13 @@ namespace PUp.Controllers
 
         public ActionResult Remove(int id)
         {
-            ProjectFacade pf = new ProjectFacade();
+            ProjectRepository pf = new ProjectRepository();
             pf.Remove(pf.FindById(id));
             return RedirectToAction("Index", "Home");
         }
         public ActionResult Edit(int id)
         {
-            ProjectFacade pf = new ProjectFacade();
+            ProjectRepository pf = new ProjectRepository();
             ProjectEntity project = pf.FindById(id);
             AddProjectViewModel projectModel = new AddProjectViewModel
             {   Id= project.Id,
@@ -73,7 +73,7 @@ namespace PUp.Controllers
             {
                 return View(model);
             }
-            ProjectFacade pf = new ProjectFacade();
+            ProjectRepository pf = new ProjectRepository();
             ProjectEntity project = pf.FindById(model.Id);
             project.Name = model.Name;
             project.StartAt = model.StartAt;

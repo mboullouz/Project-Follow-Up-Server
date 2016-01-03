@@ -13,12 +13,9 @@ namespace PUp.Models
     {
         protected override void Seed(DatabaseContext context)
         {
-            var UserManager = new UserManager<Entity.UserEntity>(new
+            var UserManager = new UserManager<UserEntity>(new UserStore<UserEntity>(context));
 
-                                           UserStore<UserEntity>(context));
-
-            var RoleManager = new RoleManager<IdentityRole>(new
-                                     RoleStore<IdentityRole>(context));
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             string name = "med";
             string password = "medmed";

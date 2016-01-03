@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PUp.Models.Entity;
-using PUp.Models.Facade;
+using PUp.Models.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace PUp.Controllers
         // GET api/<controller>
         public System.Web.Http.Results.NegotiatedContentResult<string> Get()
         {
-            TaskFacade tf = new TaskFacade();
+            TaskRepository tf = new TaskRepository();
             var tasks = tf.GetAll();
             var list =JsonConvert.SerializeObject(tasks,
                Formatting.None,

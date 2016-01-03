@@ -5,12 +5,12 @@ using System.Linq;
 using System.Web;
 
 
-namespace PUp.Models.Facade
+namespace PUp.Models.Repository
 {
-    public class ProjectFacade : IGenericFacade<ProjectEntity>
+    public class ProjectRepository : IProjectRepository
     {
         private DatabaseContext dbContext;
-        public ProjectFacade()
+        public ProjectRepository()
         {
             dbContext = new DatabaseContext();
         }

@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PUp.Models.Facade
+namespace PUp.Models.Repository
 {
-    public class UserFacade:IGenericFacade<UserEntity>
+    public class UserRepository:IRepository<UserEntity>
     {
         private DatabaseContext dbContext;
         private UserManager<UserEntity> manager;
 
-        public UserFacade() 
+        public UserRepository() 
         {
             dbContext = new DatabaseContext();
             manager   = new UserManager<UserEntity>(new UserStore<UserEntity>(dbContext));
@@ -26,8 +26,8 @@ namespace PUp.Models.Facade
         public void Add(UserEntity u)
         {
              /**
-               todo: user UserIdentity to create user properly !
-             */
+              * todo: user UserIdentity to create user properly !
+              */
              
             dbContext.SaveChanges();
         }
@@ -54,13 +54,13 @@ namespace PUp.Models.Facade
         }
 
         /// <summary>
-        /// @TODO : Get Users properly!
+        /// 
         /// </summary>
         /// <returns></returns>
         public List<UserEntity> GetAll()
         {   
             
-            return new List<UserEntity>();
+            return dbContext.Users.ToList();
         }
 
         public void Remove(UserEntity e)
@@ -71,6 +71,16 @@ namespace PUp.Models.Facade
         public void SetDbContext(DatabaseContext dbContext)
         {
             this.dbContext = dbContext;
+        }
+
+        public UserEntity FindById(int id)
+        {
+            throw new Exception("User Identity accepts only String as Id! ");
+            
+        }
+        public UserEntity FindById(string id)
+        {
+            return dbContext.Users.FirstOrDefault(v => v.Id == id);
         }
     }
 }

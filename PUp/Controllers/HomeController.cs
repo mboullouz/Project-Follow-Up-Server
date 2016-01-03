@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using PUp.Models;
 using PUp.Models.Entity;
-using PUp.Models.Facade;
+using PUp.Models.Repository;
 using PUp.ViewModels.Project;
 using System;
 using System.Collections.Generic;
@@ -17,8 +17,8 @@ namespace PUp.Controllers
         public ActionResult Index()
         {
 
-            UserFacade uf = new UserFacade();
-            ProjectFacade pf = new ProjectFacade(); 
+            UserRepository uf = new UserRepository();
+            ProjectRepository pf = new ProjectRepository(); 
             TableProjectModelView tableProject = new TableProjectModelView
             {
                 CurrentUser = uf.GetCurrentUser(),

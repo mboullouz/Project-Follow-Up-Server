@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PUp.Models.Facade
+namespace PUp.Models.Repository
 {
-    public class TaskFacade :IGenericFacade<TaskEntity>
+    public class TaskRepository :ITaskRepository
     {
         private DatabaseContext dbContext;
-        public TaskFacade()
+        public TaskRepository()
         {
             dbContext = new DatabaseContext();
         }
@@ -27,6 +27,11 @@ namespace PUp.Models.Facade
             dbContext.SaveChanges();
         }
 
+        public TaskEntity FindById(int id)
+        {
+            return dbContext.TaskSet.SingleOrDefault(e => e.Id == id);
+        }
+
         public void Dispose()
         {
             throw new NotImplementedException();
@@ -40,6 +45,13 @@ namespace PUp.Models.Facade
         public void Remove(TaskEntity e)
         {
             throw new NotImplementedException();
+        }
+
+        public void ChangeTaskState(int id, bool value)
+        {
+            var task = FindById(id);
+            task.Done = value;
+            dbContext.SaveChanges();
         }
     }
 }
