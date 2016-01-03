@@ -51,6 +51,11 @@ namespace PUp.Models.Repository
         {
             var task = FindById(id);
             task.Done = value;
+            task.EditionNumber += 1;
+            task.EditAt = DateTime.Now;
+            if (value) {
+                task.FinishAt = DateTime.Now;
+            }
             dbContext.SaveChanges();
         }
     }

@@ -15,5 +15,27 @@
         }
 
     }
+    export class TaskBasic {
+        private Id: number;
+        private Done: boolean;
+        constructor(id?: number, done?: boolean) {
+            this.Done = done;
+            this.Id = id;
+        }
+        
+        public getId():number{
+            return this.Id;
+        }
+        public setId(value: number) {
+            this.Id= value;
+        }
+        public getDone(): boolean {
+            return this.Done;
+        }
+        public setDone(value: boolean) {
+            this.Done = value;
+        }
+
+    }
 
 }

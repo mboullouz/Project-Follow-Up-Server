@@ -225,6 +225,8 @@
     <Compile Include="Models\Entity\ProjectEntity.cs" />
     <Compile Include="Models\Entity\TaskEntity.cs" />
     <Compile Include="Models\Entity\UserEntity.cs" />
+    <Compile Include="Models\SimpleObject\GenericJsonResponse.cs" />
+    <Compile Include="Models\SimpleObject\TaskSimpleObjects.cs" />
     <Compile Include="Models\Repository\IProjectRepository.cs" />
     <Compile Include="Models\Repository\ITaskRepository.cs" />
     <Compile Include="Models\Repository\IRepository.cs" />
@@ -323,13 +325,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\src\app\Tasks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\src\app\Shared\HttpCall.ts" />
     <TypeScriptCompile Include="Scripts\src\app\Shared\Models\Entity.ts" />
+    <TypeScriptCompile Include="Scripts\src\app\Tasks\TaskApp.ts" />
     <TypeScriptCompile Include="Scripts\src\MainApp.ts" />
     <TypeScriptCompile Include="Scripts\src\app\Home\App.ts" />
     <TypeScriptCompile Include="Scripts\src\app\Project.ts" />
