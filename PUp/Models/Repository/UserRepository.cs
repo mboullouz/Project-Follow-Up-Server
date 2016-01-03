@@ -9,7 +9,7 @@ using System.Web;
 
 namespace PUp.Models.Repository
 {
-    public class UserRepository:IRepository<UserEntity>
+    public class UserRepository:IUserRepository
     {
         private DatabaseContext dbContext;
         private UserManager<UserEntity> manager;

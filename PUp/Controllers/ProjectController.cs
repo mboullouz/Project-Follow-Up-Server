@@ -11,6 +11,17 @@ namespace PUp.Controllers
 {
     public class ProjectController : Controller
     {
+        ITaskRepository taskRepository;
+        IProjectRepository projectRepository;
+
+        public ProjectController()
+        {
+            taskRepository = new TaskRepository();
+            projectRepository = new ProjectRepository();
+            //TODO  remove this as soon as adding DI
+            projectRepository.SetDbContext(taskRepository.GetDbContext());
+        }
+
         [HttpGet]
         public ActionResult Add()
         {

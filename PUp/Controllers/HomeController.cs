@@ -12,17 +12,28 @@ using System.Web.Mvc;
 
 namespace PUp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
+        private ITaskRepository taskRepository;
+        private IProjectRepository projectRepository;
+        private IUserRepository userRepository;
+        public HomeController()
+        {
+            userRepository = new UserRepository();
+            taskRepository = new TaskRepository();
+            projectRepository = new ProjectRepository();
+            //TODO  remove this as soon as adding DI
+            userRepository.SetDbContext(taskRepository.GetDbContext());
+            projectRepository.SetDbContext(taskRepository.GetDbContext());
+        }
         public ActionResult Index()
         {
-
-            UserRepository uf = new UserRepository();
-            ProjectRepository pf = new ProjectRepository(); 
+            var user = userRepository.GetCurrentUser();
             TableProjectModelView tableProject = new TableProjectModelView
             {
-                CurrentUser = uf.GetCurrentUser(),
-                Projects = pf.GetAll().OrderByDescending(p=>p.CreateAt).ToList()
+                CurrentUser = user,
+                Projects = projectRepository.GetAll().Where(v=>v.User.Id==user.Id).OrderByDescending(p=>p.CreateAt).ToList()
             };
 
             return View(tableProject);
