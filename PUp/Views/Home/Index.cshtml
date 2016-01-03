@@ -8,7 +8,7 @@
     <div class="col-md-12">
 
 
-        <a href="~/Project/Add" title="Add project" class="btn btn-link confirm">New Project</a>
+        <a href="~/Project/Add" title="Add project" class="btn btn-link"><i class="fa fa-plus"></i>New Project</a>
         <div class="panel">
             <div class="panel-heading">
                 <div class="panel-title">
@@ -23,7 +23,7 @@
                             <td>#</td>
                             <td>Title</td>
                             <td>Tasks</td>
-                            <td>Action</td>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,7 +44,7 @@
                                     Total: @project.Tasks.Count <br />
                                     Done: @Model.CountDone(project)
                                 </td>
-                                <td>
+                                <td class="pull-right">
                                     <div class="dropdown">
                                         <button class="btn btn-default dropdown-toggle" type="button" id="dd-ctrl-projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             <i class="fa fa-cog"></i>
