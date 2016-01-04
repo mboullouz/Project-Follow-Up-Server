@@ -10,18 +10,25 @@ using System.Web.Mvc;
 
 namespace PUp.Controllers
 {
+    [Authorize]
     public class TaskController : Controller
     {
 
-        ITaskRepository taskRepository;
-        IProjectRepository projectRepository;
+        private ITaskRepository taskRepository;
+        private IProjectRepository projectRepository;
+        private INotificationRepository notificationRepository;
+        private IUserRepository userRepository;
 
         //TODO Use a container to inject dependencies 
         public TaskController()
         {
             taskRepository = new TaskRepository();
             projectRepository = new ProjectRepository();
+            notificationRepository = new NotificationRepository();
+            userRepository = new UserRepository();
+            userRepository.SetDbContext(taskRepository.GetDbContext());
             projectRepository.SetDbContext(taskRepository.GetDbContext());
+            notificationRepository.SetDbContext(taskRepository.GetDbContext());
         }
 
         // GET: Task
@@ -56,6 +63,7 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddTaskViewModel model)
         {
+            var user = userRepository.GetCurrentUser();
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {
@@ -73,9 +81,18 @@ namespace PUp.Controllers
                 EditAt = DateTime.Now,
                 EditionNumber = 1,
             };
+            
             taskRepository.Add(task);
             project.Tasks.Add(task);
             taskRepository.GetDbContext().SaveChanges();
+            NotificationEntity notification = new NotificationEntity
+            {
+                User = user,
+                CreateAt = DateTime.Now,
+                Message = "New task added! ",
+                Url = "~/Task/Add/" + task.Id
+            };
+            notificationRepository.Add(notification);
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
     }

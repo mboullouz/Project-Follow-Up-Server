@@ -13,9 +13,10 @@ namespace PUp.Models
         {
         }
 
-        //public virtual DbSet<Entity.Project> Projects { get; set; }
+        
         public virtual DbSet<TaskEntity> TaskSet { get; set; }
         public virtual DbSet<ProjectEntity> ProjectSet { get; set; }
+        public virtual DbSet<NotificationEntity> NotificationSet { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

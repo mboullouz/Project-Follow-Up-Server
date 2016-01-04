@@ -9,8 +9,7 @@ namespace PUp.Models.Entity
     using System.ComponentModel.DataAnnotations;
     public partial  class ProjectEntity
     {
-         
-        
+
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
@@ -24,19 +23,20 @@ namespace PUp.Models.Entity
         public DateTime StartAt { get; set; }
         public Nullable<DateTime> EndAt { get; set; }
 
+        public virtual ICollection<TaskEntity> Tasks { get; set; }
+        public virtual UserEntity User { get; set; }
+
         public ProjectEntity()
         {
-            this.Tasks = new HashSet<TaskEntity>();
+            Tasks = new HashSet<TaskEntity>();
             Finish = false;
             CreateAt = DateTime.Now;
             EditAt = DateTime.Now;
             StartAt = DateTime.Now.AddHours(1);
             EndAt = DateTime.Now.AddDays(7);
             FinishAt = EndAt;
-
         }
 
-        public virtual ICollection<TaskEntity> Tasks { get; set; }
-        public virtual UserEntity User { get; set; }
+        
     }
 }

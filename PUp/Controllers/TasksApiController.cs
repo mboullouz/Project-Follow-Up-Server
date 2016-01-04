@@ -10,7 +10,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 
 namespace PUp.Controllers
-{
+{   
+    [System.Web.Mvc.Authorize]
     public class TasksApiController : ApiController
     {
         // GET api/<controller>

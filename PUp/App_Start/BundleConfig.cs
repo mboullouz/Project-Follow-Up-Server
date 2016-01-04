@@ -2,7 +2,8 @@
 using System.Web.Optimization;
 
 namespace PUp
-{
+{  
+    //TODO revisit this page !
     public class BundleConfig
     {
         // Pour plus d'informations sur le regroupement, visitez http://go.microsoft.com/fwlink/?LinkId=301862
