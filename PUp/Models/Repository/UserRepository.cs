@@ -40,6 +40,17 @@ namespace PUp.Models.Repository
             return currentUser;
         }
 
+        //TODO remove and use a Helper!
+        public static List<NotificationEntity> CurrentUserNotifications()
+        {
+            // return   manager.FindByIdAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            string currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            DatabaseContext db= new DatabaseContext();
+            UserEntity currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            return db.NotificationSet.Where(n => n.User.Id == currentUser.Id).ToList();
+            
+        }
+
         public string UsernameCurrent()
         {
             return System.Web.HttpContext.Current.User.Identity.GetUserName();

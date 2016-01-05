@@ -1,10 +1,34 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts" />
 /// <reference path="./app/Project.ts" />
 /// <reference path="./app/Shared/Models/Entity.ts" />
+
+/**
+ * Manage notification UI
+ */
+class Notification {
+    constructor() {
+        console.log("notification Ui loaded");
+        $("#notificationLink").click(function () {
+            $("#notificationContainer").fadeToggle(300);
+            $("#notification_count").fadeOut("slow");
+            return false;
+        });
+
+        //Document Click
+        $(document).click(function () {
+            $("#notificationContainer").hide();
+        });
+        //Popup Click
+        $("#notificationContainer").click(function () {
+            return false
+        });
+    }
+}
 class MainApp {
     constructor() {
         console.log("module: MainApp !");
         var task = new Entity.Task();
+        var notif = new Notification();
         this.plugConfirm();
     }
     plugConfirm() {
