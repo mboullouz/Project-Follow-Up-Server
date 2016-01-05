@@ -10,10 +10,10 @@ class Notification {
         console.log("notification Ui loaded");
 
         $(".notificationElement").click(
-            function (event) {
-                var element = event.target;
-                var idClicked = $(element).data("idnotif");
-                console.log("Element clicked Id: " + idClicked);
+            function () {
+                //var element = event.target;
+                var idClicked = $(this).data("idnotif");
+                console.log("id notif " + idClicked);
             }
         );
 
