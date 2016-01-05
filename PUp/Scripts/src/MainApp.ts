@@ -8,6 +8,16 @@
 class Notification {
     constructor() {
         console.log("notification Ui loaded");
+
+        $(".notificationElement").click(
+            function (event) {
+                var element = event.target;
+                var idClicked = $(element).data("idnotif");
+                console.log("Element clicked Id: " + idClicked);
+            }
+        );
+
+
         $("#notificationLink").click(function () {
             $("#notificationContainer").fadeToggle(300);
             $("#notification_count").fadeOut("slow");

@@ -45,7 +45,9 @@
                             <div id="notificationsBody" class="notifications">
                                 @foreach (var notif in UserRepository.CurrentUserNotifications())
                                 {
-                                    <b>@notif.Message</b>  at: <i>@notif.CreateAt</i> <br/>
+                                    <div class="notificationElement" data-idnotif="@notif.Id" >
+                                        <blockquote> <b>@notif.Message</b>  </blockquote>   at: <i>@notif.CreateAt</i> <br />
+                                    </div>
                                 }
                                 
                             </div>
