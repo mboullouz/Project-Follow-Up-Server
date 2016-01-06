@@ -24,9 +24,6 @@ namespace PUp.Models.Repository
             return dbContext.NotificationSet.SingleOrDefault(e => e.Id == id);
         }
 
-       
-
-        
         public List<NotificationEntity> GetByUser(string id)
         {
             return dbContext.NotificationSet.Where(v => v.User.Id == id).ToList();

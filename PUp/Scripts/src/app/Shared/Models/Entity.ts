@@ -38,4 +38,26 @@
 
     }
 
+    export class NotificationBasic {
+        private Id: number;
+        private Seen: boolean;
+        constructor(id?: number, seen?: boolean) {
+            this.Seen = seen;
+            this.Id = id;
+        }
+
+        public getId(): number {
+            return this.Id;
+        }
+        public setId(value: number) {
+            this.Id = value;
+        }
+        public getDone(): boolean {
+            return this.Seen;
+        }
+        public setDone(value: boolean) {
+            this.Seen = value;
+        }
+    }
+
 }

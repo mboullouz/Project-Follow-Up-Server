@@ -6,17 +6,13 @@
  * Manage notification UI
  */
 class Notification {
+    private httpPost: HttpCall.PostCall = new HttpCall.PostCall();
+    private markNotificationSeenUrl: string;
     constructor() {
         console.log("notification Ui loaded");
-
-        $(".notificationElement").click(
-            function () {
-                //var element = event.target;
-                var idClicked = $(this).data("idnotif");
-                console.log("id notif " + idClicked);
-            }
-        );
-
+        this.markNotificationSeenUrl = $("#conf-notif").data("urlmarkseen");
+        console.log("url: " + this.markNotificationSeenUrl);
+        $(".notificationElement").click(this.handleSeenClick);
 
         $("#notificationLink").click(function () {
             $("#notificationContainer").fadeToggle(300);
@@ -33,6 +29,22 @@ class Notification {
             return false
         });
     }
+    private handleSeenClick = (event) => {
+        var element = event.target;
+        var idClicked = $(event.currentTarget).data("idnotif");
+        console.log("id curr target notif: " + idClicked);
+        this.markSeen(idClicked);
+    }
+    public markSeen(id: any) {
+        var notification = new Entity.NotificationBasic(id, true);
+        this.httpPost.post(notification, this.markNotificationSeenUrl, this.onSuccess, HttpCall.GenericRespnse.onError);
+    }
+    onSuccess(response) {
+        console.log("Response >>  \n" + JSON.stringify(response));
+        /*var parentTr = $("#" + response.IdEntity).closest("tr");
+        $(parentTr).addClass("done");*/
+    }
+  
 }
 class MainApp {
     constructor() {
