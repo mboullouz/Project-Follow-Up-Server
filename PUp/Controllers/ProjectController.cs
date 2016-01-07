@@ -52,7 +52,7 @@ namespace PUp.Controllers
             project.Name = model.Name;
             project.StartAt = model.StartAt;
             project.EndAt = model.EndAt;
-            project.User = uf.GetCurrentUser();
+            //project.User = uf.GetCurrentUser();
             pf.Add(project);
             pf.Dispose();
             return RedirectToAction("Index", "Home");

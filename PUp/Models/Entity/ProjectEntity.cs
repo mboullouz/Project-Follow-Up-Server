@@ -24,7 +24,7 @@ namespace PUp.Models.Entity
         public Nullable<DateTime> EndAt { get; set; }
 
         public virtual ICollection<TaskEntity> Tasks { get; set; }
-        public virtual UserEntity User { get; set; }
+        public virtual ICollection<ContributionEntity> Contributions { get; set; }
 
         public ProjectEntity()
         {

@@ -16,9 +16,9 @@ namespace PUp.Models.Entity
 
         public UserEntity()
         {
-            this.Projects = new HashSet<ProjectEntity>();
+            this.Contributions = new HashSet<ContributionEntity>();
         }
-        public virtual ICollection<ProjectEntity> Projects { get; set; }
+        public virtual ICollection<ContributionEntity> Contributions { get; set; }
         public async System.Threading.Tasks.Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<UserEntity> manager)
         {
             // Notez qu'authenticationType doit correspondre à l'élément défini dans CookieAuthenticationOptions.AuthenticationType

@@ -33,7 +33,8 @@ namespace PUp.Controllers
             TableProjectModelView tableProject = new TableProjectModelView
             {
                 CurrentUser = user,
-                Projects = projectRepository.GetAll().Where(v=>v.User.Id==user.Id).OrderByDescending(p=>p.CreateAt).ToList()
+                //TODO get project by user !
+                Projects = projectRepository.GetAll().ToList()
             };
 
             return View(tableProject);
