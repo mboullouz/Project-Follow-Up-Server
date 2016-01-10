@@ -39,7 +39,7 @@ namespace PUp.Models.Repository
 
         public List<TaskEntity> GetAll()
         {
-            return dbContext.TaskSet.ToList();
+            return dbContext.TaskSet.Where(t=>t.Deleted==false).ToList();
         }
 
         public void Remove(TaskEntity e)

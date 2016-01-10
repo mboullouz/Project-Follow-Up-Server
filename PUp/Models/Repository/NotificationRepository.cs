@@ -54,6 +54,21 @@ namespace PUp.Models.Repository
            this.dbContext=dbContext;
         }
 
-       
+        public void Add(UserEntity user, string message = "", string url = "#")
+        {
+            var notif = new NotificationEntity
+            {
+                User = user,
+                Message = message,
+                Url = url,
+                CreateAt = DateTime.Now,
+                Seen = false
+            };
+        }
+
+        public List<NotificationEntity> GetNotSeen()
+        {
+            return dbContext.NotificationSet.Where(n => n.Seen == false).OrderByDescending(n=>n.CreateAt).ToList();
+        }
     }
 }

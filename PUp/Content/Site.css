@@ -2,24 +2,40 @@
     padding-top: 50px;
     padding-bottom: 20px;
     color: black;
+    color: #444;
+    font-family: sans-serif, Arial;
 }
-
+.card{
+    /*width: 20%;*/
+    padding-left: 10px;
+    padding-right:5px;
+    padding-top:5px;
+    margin: 7px;
+    border: 1px solid #03A9F4;
+}
+.card-header {
+    color: #FF5722;
+    text-align: center;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 15px;
 }
+
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
     background-color: #FF5722;
 }
+
 thead {
     background: rgba(255, 193, 7, 0);
     color: #FF5722;
 }
-thead>tr>td{
-    border-bottom: 1px solid #FF5722;
-}
+
+    thead > tr > td {
+        border-bottom: 1px solid #FF5722;
+    }
 
 .done {
     background-color: rgba(158, 158, 158, 0.14);
@@ -354,10 +370,6 @@ li {
         font-size: 15px;
     }
 
-body {
-    color: #444;
-    font-family: 'Open sans', Arial, sans-serif;
-}
 
 .tag-box {
     padding: 0px;

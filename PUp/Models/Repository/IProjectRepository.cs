@@ -9,6 +9,6 @@ namespace PUp.Models.Repository
 {
     interface IProjectRepository:IRepository<ProjectEntity>
     {
-        List<ProjectEntity> GetByUser(UserEntity user);
+        List<ProjectEntity> GetByUser(UserEntity user,bool isDeleted=false);
     }
 }

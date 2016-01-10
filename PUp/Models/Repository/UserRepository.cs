@@ -95,5 +95,11 @@ namespace PUp.Models.Repository
         {
             return dbContext.Users.FirstOrDefault(v => v.Id == id);
         }
+
+        public void AddContribution(ContributionEntity c)
+        {
+            GetCurrentUser().Contributions.Add(c);
+            dbContext.SaveChanges();
+        }
     }
 }

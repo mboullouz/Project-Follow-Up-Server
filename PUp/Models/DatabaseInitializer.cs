@@ -20,7 +20,7 @@ namespace PUp.Models
             string name = "med";
             string password = "medmed";
             string roleName = "ADMIN";
-            string userEmail = "med@gmail.com";
+            string userEmail = "med@med.com";
 
             //Create Role Admin if it does not exist
             if (!RoleManager.RoleExists(roleName))

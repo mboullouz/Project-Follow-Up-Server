@@ -7,13 +7,14 @@ namespace PUp.Models.Entity
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    public partial  class ProjectEntity
+    public partial  class ProjectEntity 
     {
 
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public bool Finish { get; set; }
+        public bool Deleted { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime EditAt { get; set; }
         /*
@@ -36,8 +37,9 @@ namespace PUp.Models.Entity
             StartAt = DateTime.Now.AddHours(1);
             EndAt = DateTime.Now.AddDays(7);
             FinishAt = EndAt;
+            Deleted = false;
         }
 
-        
+       
     }
 }

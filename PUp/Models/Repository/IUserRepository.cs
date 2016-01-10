@@ -7,5 +7,6 @@ namespace PUp.Models.Repository
     {
         UserEntity GetCurrentUser();
         UserEntity FindById(string id);
+        void AddContribution(ContributionEntity c);
     }
 }

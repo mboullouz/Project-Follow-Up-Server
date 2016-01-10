@@ -6,11 +6,13 @@ namespace PUp.Models
     using System.Linq;
     using Entity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using System.Data.Entity.Core.Objects;
     public partial class DatabaseContext : IdentityDbContext<UserEntity>
     {
         public DatabaseContext()
             : base("name=PFModel")
         {
+           
         }
 
         
@@ -26,5 +28,8 @@ namespace PUp.Models
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
         }
+         
+
+
     }
 }

@@ -61,7 +61,7 @@ namespace PUp.Controllers
             contribution.User = userRepository.GetCurrentUser();
             contribution.StartAt = project.StartAt;
             contribution.Role = "FirstContributor";
-
+           
             project.Contributions.Add(contribution);
             projectRepository.Add(project);
             //contributionRepository.Add(contribution);

@@ -8,8 +8,7 @@ namespace PUp.Models.Entity
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    public partial class TaskEntity
-    {
+    public partial class TaskEntity { 
         [Key]
         public int Id { get; set; }
         public string Title { get; set; }
@@ -20,11 +19,13 @@ namespace PUp.Models.Entity
         public DateTime CreateAt { get; set; }
         public DateTime EditAt { get; set; }
         public Nullable<DateTime> FinishAt { get; set; }
+        public bool Deleted { get; set; }
         public TaskEntity()
         {
             Done = false;
             CreateAt = DateTime.Now;
             EditAt = DateTime.Now;
+            Deleted = false;
         }
 
         public virtual ProjectEntity Project { get; set; }

@@ -6,13 +6,14 @@ using System.Web;
 
 
 namespace PUp.Models.Repository
-{   
-    public class ProjectRepository : IProjectRepository
+{
+    public class ProjectRepository : IProjectRepository 
     {
         private DatabaseContext dbContext;
         public ProjectRepository()
         {
             dbContext = new DatabaseContext();
+
         }
         public void SetDbContext(DatabaseContext dbContext)
         {
@@ -20,27 +21,23 @@ namespace PUp.Models.Repository
         }
         public void Add(ProjectEntity e)
         {
-           dbContext.ProjectSet.Add(e);
+            dbContext.ProjectSet.Add(e);
             dbContext.SaveChanges();
         }
-        public List<ProjectEntity> GetByUser(UserEntity user)
-        {  
+        public List<ProjectEntity> GetByUser(UserEntity user,bool isDeleted=false)
+        {
             List<ProjectEntity> projects = new List<ProjectEntity>();
-            //TODO remove this and handle error before getting there!
-            if (user == null)
-            {
-                return new List<ProjectEntity>();
-            }
+             
             //TODO do it in one query !
-            List<ContributionEntity> contributions = dbContext.ContributionSet.Where(c => c.User.Id == user.Id).ToList();
+            List<ContributionEntity> contributions = dbContext.ContributionSet
+                        .Where(c => c.User.Id == user.Id && c.Project.Deleted==isDeleted).ToList();
             var query = (from c in contributions
-                         join p in  dbContext.ProjectSet
-                         on c.Project.Id  equals p.Id 
-                         into grouping                       
-                         select new { grouping }).ToList();           
-             query.ForEach(p=> p.grouping.ToList().ForEach(k=>projects.Add(k)));
+                         join p in dbContext.ProjectSet
+                         on c.Project.Id equals p.Id
+                         into grouping
+                         select new { grouping }).ToList();
+            query.ForEach(p => p.grouping.ToList().ForEach(k => projects.Add(k)));
             return projects;
-
         }
         public ProjectEntity FindById(int id)
         {
@@ -54,13 +51,13 @@ namespace PUp.Models.Repository
 
         public void Remove(ProjectEntity e)
         {
-           
+
             //remove all references 
-            foreach(var c in e.Contributions.ToList())
+            foreach (var c in e.Contributions.ToList())
             {
                 dbContext.ContributionSet.Remove(c);
             }
-            foreach(var task in e.Tasks.ToList())
+            foreach (var task in e.Tasks.ToList())
             {
                 dbContext.TaskSet.Remove(task);
             }
@@ -77,5 +74,7 @@ namespace PUp.Models.Repository
         {
             return this.dbContext;
         }
+
+         
     }
 }

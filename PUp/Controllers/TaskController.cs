@@ -18,6 +18,7 @@ namespace PUp.Controllers
         private IProjectRepository projectRepository;
         private INotificationRepository notificationRepository;
         private IUserRepository userRepository;
+        private IContributionRepository contributionRepository;
 
         //TODO Use a container to inject dependencies 
         public TaskController()
@@ -26,9 +27,11 @@ namespace PUp.Controllers
             projectRepository = new ProjectRepository();
             notificationRepository = new NotificationRepository();
             userRepository = new UserRepository();
+            contributionRepository = new ContributionRepository();
             userRepository.SetDbContext(taskRepository.GetDbContext());
             projectRepository.SetDbContext(taskRepository.GetDbContext());
             notificationRepository.SetDbContext(taskRepository.GetDbContext());
+            contributionRepository.SetDbContext(taskRepository.GetDbContext());
         }
 
         // GET: Task
@@ -81,9 +84,21 @@ namespace PUp.Controllers
                 EditAt = DateTime.Now,
                 EditionNumber = 1,
             };
+
+            var contrib = new ContributionEntity
+            {
+                StartAt = DateTime.Now,
+                EndAt = task.FinishAt,
+                Project = project,
+                User = user,
+                Role="Add-Task"
+            };
             
             taskRepository.Add(task);
+            contributionRepository.Add(contrib);
             project.Tasks.Add(task);
+            project.Contributions.Add(contrib);
+            user.Contributions.Add(contrib);
             taskRepository.GetDbContext().SaveChanges();
             NotificationEntity notification = new NotificationEntity
             {

@@ -34,11 +34,13 @@ namespace PUp.Controllers
         public ActionResult Index()
         {
             var user = userRepository.GetCurrentUser();
+
             TableProjectModelView tableProject = new TableProjectModelView
             {
                 CurrentUser = user,
-                //TODO get project by user !
-                Projects = projectRepository.GetByUser(user)
+                Projects = projectRepository.GetByUser(user),
+                OtherProjects = projectRepository.GetAll(),
+                UserContributions = user.Contributions.ToList()
             };
 
             return View(tableProject);
