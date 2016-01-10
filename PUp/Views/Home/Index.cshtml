@@ -23,6 +23,7 @@
                             <td>#</td>
                             <td>Title</td>
                             <td>Tasks</td>
+                            <td>Contibutors</td>
                             <td></td>
                         </tr>
                     </thead>
@@ -43,6 +44,12 @@
                                 <td>
                                     Total: @project.Tasks.Count <br />
                                     Done: @Model.CountDone(project)
+                                </td>
+                                <td>
+                                    @foreach(var contribution in project.Contributions)
+                                    {
+                                        <i>@contribution.User.UserName At: @contribution.StartAt</i><br /> 
+                                    } 
                                 </td>
                                 <td class="pull-right">
                                     <div class="dropdown">

@@ -54,6 +54,16 @@ namespace PUp.Models.Repository
 
         public void Remove(ProjectEntity e)
         {
+           
+            //remove all references 
+            foreach(var c in e.Contributions.ToList())
+            {
+                dbContext.ContributionSet.Remove(c);
+            }
+            foreach(var task in e.Tasks.ToList())
+            {
+                dbContext.TaskSet.Remove(task);
+            }
             dbContext.ProjectSet.Remove(e);
             dbContext.SaveChanges();
         }

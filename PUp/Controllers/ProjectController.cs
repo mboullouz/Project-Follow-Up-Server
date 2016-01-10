@@ -64,7 +64,7 @@ namespace PUp.Controllers
 
             project.Contributions.Add(contribution);
             projectRepository.Add(project);
-            contributionRepository.Add(contribution);
+            //contributionRepository.Add(contribution);
             //projectRepository.Dispose();
             return RedirectToAction("Index", "Home");
         }
