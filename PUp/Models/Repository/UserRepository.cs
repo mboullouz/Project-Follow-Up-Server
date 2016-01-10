@@ -47,6 +47,8 @@ namespace PUp.Models.Repository
             string currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             DatabaseContext db= new DatabaseContext();
             UserEntity currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            if (currentUser == null)
+                return new List<NotificationEntity>();
             return db.NotificationSet.Where(n => n.User.Id == currentUser.Id).ToList();
             
         }

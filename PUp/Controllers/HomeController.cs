@@ -18,14 +18,18 @@ namespace PUp.Controllers
         private ITaskRepository taskRepository;
         private IProjectRepository projectRepository;
         private IUserRepository userRepository;
+        private IContributionRepository contributionRepository;
         public HomeController()
         {
             userRepository = new UserRepository();
             taskRepository = new TaskRepository();
             projectRepository = new ProjectRepository();
+            contributionRepository = new ContributionRepository();
             //TODO  remove this as soon as adding DI
             userRepository.SetDbContext(taskRepository.GetDbContext());
             projectRepository.SetDbContext(taskRepository.GetDbContext());
+            contributionRepository.SetDbContext(taskRepository.GetDbContext());
+
         }
         public ActionResult Index()
         {
@@ -34,7 +38,7 @@ namespace PUp.Controllers
             {
                 CurrentUser = user,
                 //TODO get project by user !
-                Projects = projectRepository.GetAll().ToList()
+                Projects = projectRepository.GetByUser(user)
             };
 
             return View(tableProject);
@@ -52,7 +56,6 @@ namespace PUp.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

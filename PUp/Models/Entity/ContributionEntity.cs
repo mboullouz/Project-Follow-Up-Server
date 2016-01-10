@@ -17,7 +17,7 @@ namespace PUp.Models.Entity
         public DateTime StartAt { get; set; }
 
         //Default equal to end of the project!
-        public DateTime EndAt { get; set; }
+        public Nullable<DateTime> EndAt { get; set; }
         public UserEntity User { get; set; }
         public ProjectEntity Project { get; set; }
 

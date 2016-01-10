@@ -29,6 +29,7 @@ namespace PUp.Models.Entity
         public ProjectEntity()
         {
             Tasks = new HashSet<TaskEntity>();
+            Contributions = new HashSet<ContributionEntity>();
             Finish = false;
             CreateAt = DateTime.Now;
             EditAt = DateTime.Now;

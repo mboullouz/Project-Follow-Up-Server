@@ -214,6 +214,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Entity\ContributionEntity.cs" />
     <Compile Include="Models\Entity\NotificationEntity.cs" />
+    <Compile Include="Models\Repository\ContributionRepository.cs" />
+    <Compile Include="Models\Repository\IContributionRepository.cs" />
     <Compile Include="Models\Repository\INotificationRepository.cs" />
     <Compile Include="Models\Repository\IUserRepository.cs" />
     <Compile Include="Controllers\ManageController.cs" />
