@@ -34,10 +34,16 @@
                                 Total tasks: @otherProject.Tasks.Count() |
                                 Done: @otherProject.Tasks.Where(t => t.Done == true).Count() <br />
                                 
-                                Contributors: @foreach (var userContributor in Model.GetContributorsTo(otherProject))
-                                {   
-                                        <i>@userContributor.UserName</i>
-                                }
+                                Contributors:
+                                 @foreach (var ctr in Model.FindContributionByProject(otherProject))
+                                 {
+                                     if (ctr != null)
+                                     {
+                                        <i>@ctr.Id</i>
+                                        
+                                     }
+
+                                 }
                             </p>
                             @if (!otherProject.Deleted)
                             {
@@ -94,8 +100,13 @@
                                     <td>
                                         @foreach (var contribution in Model.GetContributorsTo(project))
                                         {
-                                            <i>@contribution.UserName 
-                                          </i><br /> 
+                                            if (contribution != null)
+                                            {
+                                                <i>
+                                                    @contribution.UserName
+                                               </i><br />
+                                            }
+
                                         }
                                     </td>
                                     <td class="pull-right">

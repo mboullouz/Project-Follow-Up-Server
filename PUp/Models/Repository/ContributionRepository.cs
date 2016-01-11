@@ -65,7 +65,7 @@ namespace PUp.Models.Repository
         }
         public List<ContributionEntity> GetAll()
         {
-            throw new Exception("Use instead GetByUser() or GetByProject()");
+           return dbContext.ContributionSet.ToList();
         }
     }
 }

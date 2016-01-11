@@ -1,4 +1,5 @@
 ﻿using PUp.Models.Entity;
+using PUp.Models.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,9 +42,15 @@ namespace PUp.ViewModels.Project
         }
         public List<UserEntity> GetContributorsTo(ProjectEntity p)
         {
+           
             List<UserEntity> users = new List<UserEntity>();
-            UserContributions.Where(c => c.Project.Id == p.Id).ToList().ForEach(c=>users.Add(c.User));
+            FindContributionByProject(p).ForEach(c=>users.Add(c.User));
             return users;
+        }
+        public List<ContributionEntity> FindContributionByProject(ProjectEntity project)
+        {
+            IContributionRepository repo = new ContributionRepository();
+            return repo.GetAll().ToList();
         }
     }
 }
