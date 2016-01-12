@@ -27,6 +27,15 @@ namespace PUp.Models.Repository
         public List<ProjectEntity> GetByUser(UserEntity user,bool isDeleted=false)
         {
             List<ProjectEntity> projects = new List<ProjectEntity>();
+            if (user == null)
+                return projects;
+
+            var contribs = dbContext.ContributionSet.Where(c=>c.UserId==user.Id).ToList();
+            foreach(var c in contribs)
+            {
+                projects.Add(c.Project);
+            }
+           
             //TODO Review this
             return projects;
         }

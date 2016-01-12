@@ -23,9 +23,6 @@ namespace PUp.Models.Entity
         public UserEntity User { get; set; }
         public ProjectEntity Project { get; set; }
 
-        public virtual ICollection<UserEntity> Users { get; set; }
-        public virtual ICollection<ProjectEntity> Projects { get; set; }
-
         public ContributionEntity()
         {
             StartAt = DateTime.Now;
