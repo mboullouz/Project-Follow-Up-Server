@@ -28,7 +28,7 @@ namespace PUp.Models.Repository
 
         public ContributionEntity FindById(int id)
         {
-            return dbContext.ContributionSet.SingleOrDefault(e => e.Id == id);
+            return dbContext.ContributionSet.SingleOrDefault();
         }
 
        

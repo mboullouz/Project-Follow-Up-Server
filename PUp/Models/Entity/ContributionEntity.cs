@@ -9,8 +9,10 @@ namespace PUp.Models.Entity
 {
     public class ContributionEntity
     {
-        [Key]
-        public int Id { get; set; }
+        
+
+        public int ProjectId { get; set; }
+        public string UserId { get; set; }
         //TODO use an enum
         public string Role { get; set; }
  
@@ -20,6 +22,9 @@ namespace PUp.Models.Entity
         public Nullable<DateTime> EndAt { get; set; }
         public UserEntity User { get; set; }
         public ProjectEntity Project { get; set; }
+
+        public virtual ICollection<UserEntity> Users { get; set; }
+        public virtual ICollection<ProjectEntity> Projects { get; set; }
 
         public ContributionEntity()
         {

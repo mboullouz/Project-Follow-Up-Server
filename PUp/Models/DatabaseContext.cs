@@ -12,10 +12,10 @@ namespace PUp.Models
         public DatabaseContext()
             : base("name=PFModel")
         {
-           
+
         }
 
-        
+
         public virtual DbSet<TaskEntity> TaskSet { get; set; }
         public virtual DbSet<ProjectEntity> ProjectSet { get; set; }
         public virtual DbSet<NotificationEntity> NotificationSet { get; set; }
@@ -27,8 +27,21 @@ namespace PUp.Models
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
-        }
-         
+
+            modelBuilder.Entity<ContributionEntity>()
+              .HasKey(c => new { c.UserId, c.ProjectId });
+
+                    modelBuilder.Entity<UserEntity>()
+                        .HasMany(c => c.Contributions)
+                        .WithRequired()
+                        .HasForeignKey(c => c.UserId);
+
+                    modelBuilder.Entity<ProjectEntity>()
+                        .HasMany(c => c.Contributions)
+                        .WithRequired()
+                        .HasForeignKey(c => c.ProjectId);
+                }
+
 
 
     }

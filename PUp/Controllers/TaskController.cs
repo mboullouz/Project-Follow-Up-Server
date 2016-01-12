@@ -97,8 +97,6 @@ namespace PUp.Controllers
             taskRepository.Add(task);
             contributionRepository.Add(contrib);
             project.Tasks.Add(task);
-            project.Contributions.Add(contrib);
-            user.Contributions.Add(contrib);
             taskRepository.GetDbContext().SaveChanges();
             NotificationEntity notification = new NotificationEntity
             {

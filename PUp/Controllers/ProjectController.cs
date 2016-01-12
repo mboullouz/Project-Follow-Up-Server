@@ -58,12 +58,15 @@ namespace PUp.Controllers
 
             contribution.EndAt = project.EndAt;
             contribution.Project = project;
+            contribution.ProjectId = project.Id;
             contribution.User = userRepository.GetCurrentUser();
+            contribution.UserId = userRepository.GetCurrentUser().Id;
             contribution.StartAt = project.StartAt;
             contribution.Role = "FirstContributor";
            
-            project.Contributions.Add(contribution);
+            
             projectRepository.Add(project);
+            project.Contributions.Add(contribution);
             //contributionRepository.Add(contribution);
             //projectRepository.Dispose();
             return RedirectToAction("Index", "Home");

@@ -44,7 +44,7 @@ namespace PUp.ViewModels.Project
         {
            
             List<UserEntity> users = new List<UserEntity>();
-            FindContributionByProject(p).ForEach(c=>users.Add(c.User));
+            FindContributionByProject(p).Where(c=>c.Project!=null && c.User!=null).ToList().ForEach(c=>users.Add(c.User));
             return users;
         }
         public List<ContributionEntity> FindContributionByProject(ProjectEntity project)

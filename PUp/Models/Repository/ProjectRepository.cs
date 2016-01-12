@@ -27,16 +27,7 @@ namespace PUp.Models.Repository
         public List<ProjectEntity> GetByUser(UserEntity user,bool isDeleted=false)
         {
             List<ProjectEntity> projects = new List<ProjectEntity>();
-             
-            //TODO do it in one query !
-            List<ContributionEntity> contributions = dbContext.ContributionSet
-                        .Where(c => c.User.Id == user.Id && c.Project.Deleted==isDeleted).ToList();
-            var query = (from c in contributions
-                         join p in dbContext.ProjectSet
-                         on c.Project.Id equals p.Id
-                         into grouping
-                         select new { grouping }).ToList();
-            query.ForEach(p => p.grouping.ToList().ForEach(k => projects.Add(k)));
+            //TODO Review this
             return projects;
         }
         public ProjectEntity FindById(int id)
