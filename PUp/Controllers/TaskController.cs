@@ -88,7 +88,7 @@ namespace PUp.Controllers
             var contrib = new ContributionEntity
             {
                 StartAt = DateTime.Now,
-                EndAt = task.FinishAt,
+                EndAt = task.Project.EndAt,
                 Project = project,
                 User = user,
                 Role="Add-Task"

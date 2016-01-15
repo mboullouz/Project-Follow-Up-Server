@@ -20,6 +20,8 @@ namespace PUp.ViewModels.Project
         }
         public bool IsFinish(ProjectEntity p)
         {
+            if (p == null || p.EndAt == null)
+                return false;
             if (p.EndAt <= DateTime.Now)
             {
                 return true;
@@ -29,13 +31,9 @@ namespace PUp.ViewModels.Project
         }
         public bool ImContributingTo(ProjectEntity p)
         {
-            if (CurrentUser == null || p ==null || p.Contributions ==null)
-                return false;
-            foreach(var ctr in p.Contributions)
+            foreach(var cts in p.Contributions)
             {
-                if (ctr == null || ctr.User==null)
-                    return false;
-                  if (ctr.User.Id == CurrentUser.Id)
+                if (cts.UserId == CurrentUser.Id)
                     return true;
             }
             return false;
