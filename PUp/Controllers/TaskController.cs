@@ -84,18 +84,22 @@ namespace PUp.Controllers
                 EditAt = DateTime.Now,
                 EditionNumber = 1,
             };
-
-            var contrib = new ContributionEntity
+            if (!contributionRepository.ContributionExists(project, user))
             {
-                StartAt = DateTime.Now,
-                EndAt = task.Project.EndAt,
-                Project = project,
-                User = user,
-                Role="Add-Task"
-            };
+                var contrib = new ContributionEntity
+                {
+                    StartAt = DateTime.Now,
+                    EndAt = task.Project.EndAt,
+                    ProjectId = project.Id,
+                    UserId = user.Id,
+                    Role = "Add-Task"
+                };
+                contributionRepository.Add(contrib);
+            }
+           
             
             taskRepository.Add(task);
-            contributionRepository.Add(contrib);
+            
             project.Tasks.Add(task);
             taskRepository.GetDbContext().SaveChanges();
             NotificationEntity notification = new NotificationEntity

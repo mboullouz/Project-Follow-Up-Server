@@ -33,14 +33,19 @@ namespace PUp.ViewModels.Project
         {
             foreach(var cts in p.Contributions)
             {
+                System.Diagnostics.Debug.WriteLine(" Contrib: Userid " + cts.UserId + " ProjID: "+cts.ProjectId);
                 if (cts.UserId == CurrentUser.Id)
-                    return true;
+                {
+                    System.Diagnostics.Debug.WriteLine(" TRUE :)");
+                        return true;
+                }
+                    
             }
             return false;
         }
         public List<UserEntity> GetContributorsTo(ProjectEntity p)
         {
-           
+           //TODO remove: cause model changed since !
             List<UserEntity> users = new List<UserEntity>();
             FindContributionByProject(p).Where(c=>c.Project!=null && c.User!=null).ToList().ForEach(c=>users.Add(c.User));
             return users;

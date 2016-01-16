@@ -12,5 +12,6 @@ namespace PUp.Models.Repository
         List<ContributionEntity> GetByUser(UserEntity user);
         List<ContributionEntity> GetByProject(ProjectEntity project);
         List<ContributionEntity> GetByUserAndProject(UserEntity user, ProjectEntity project);
+        bool ContributionExists(ProjectEntity project, UserEntity user);
     }
 }
