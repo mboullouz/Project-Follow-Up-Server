@@ -14,7 +14,7 @@ namespace PUp.Tests.NotificationTest
         UserEntity user;
 
         [TestInitialize]
-        public void TestInit()
+        public void Init()
         {
             nRepo.SetDbContext(uRepo.GetDbContext());
             this.user = uRepo.GetFirstOrDefault();

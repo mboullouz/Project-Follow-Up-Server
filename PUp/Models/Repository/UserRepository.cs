@@ -19,6 +19,12 @@ namespace PUp.Models.Repository
             dbContext = new DatabaseContext();
             manager   = new UserManager<UserEntity>(new UserStore<UserEntity>(dbContext));
         }
+        public UserRepository(DatabaseContext dbContext)
+        {
+            this.dbContext = dbContext;
+            manager = new UserManager<UserEntity>(new UserStore<UserEntity>(this.dbContext));
+        }
+
         public DatabaseContext GetDbContext()
         {
             return this.dbContext;
@@ -105,6 +111,11 @@ namespace PUp.Models.Repository
         public UserEntity GetFirstOrDefault()
         {
             return dbContext.Users.FirstOrDefault();
+        }
+
+        public UserEntity FindByEmail(string email)
+        {
+            return dbContext.Users.First(u => u.Email == email);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using System.Security.Principal;
+using PUp.Models.Entity;
 using PUp.Models.Repository;
 
 namespace PUp.Models.Repository
@@ -9,5 +10,6 @@ namespace PUp.Models.Repository
         UserEntity FindById(string id);
         void AddContribution(ContributionEntity c);
         UserEntity GetFirstOrDefault();
+        UserEntity FindByEmail(string email);
     }
 }
