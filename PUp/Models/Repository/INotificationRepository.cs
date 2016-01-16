@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PUp.Models.Repository
 {
-    interface INotificationRepository:IRepository<NotificationEntity>
+    public interface INotificationRepository:IRepository<NotificationEntity>
     {
         List<NotificationEntity> GetByUser(string id);
         void Add(UserEntity user, string message = "", string url = "#");

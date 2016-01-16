@@ -101,5 +101,10 @@ namespace PUp.Models.Repository
             GetCurrentUser().Contributions.Add(c);
             dbContext.SaveChanges();
         }
+
+        public UserEntity GetFirstOrDefault()
+        {
+            return dbContext.Users.FirstOrDefault();
+        }
     }
 }
