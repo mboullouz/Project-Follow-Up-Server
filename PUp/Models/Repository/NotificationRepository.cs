@@ -70,5 +70,19 @@ namespace PUp.Models.Repository
         {
             return dbContext.NotificationSet.Where(n => n.Seen == false).OrderByDescending(n=>n.CreateAt).ToList();
         }
+
+        public void RemoveAllForUser(UserEntity user)
+        {
+           var notifs = dbContext.NotificationSet.Where(n => n.User.Id == user.Id)
+                .ToList();
+            notifs.ForEach(n => dbContext.NotificationSet.Remove(n));
+            dbContext.SaveChanges();
+        }
+ 
+
+        public List<NotificationEntity> GetByUser(UserEntity user)
+        {
+            return dbContext.NotificationSet.Where(n => n.User.Id == user.Id).ToList();
+        }
     }
 }

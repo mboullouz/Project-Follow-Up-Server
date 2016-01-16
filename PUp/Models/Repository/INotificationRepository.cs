@@ -9,8 +9,11 @@ namespace PUp.Models.Repository
 {
     public interface INotificationRepository:IRepository<NotificationEntity>
     {
-        List<NotificationEntity> GetByUser(string id);
+       
         void Add(UserEntity user, string message = "", string url = "#");
         List<NotificationEntity> GetNotSeen();
+        void RemoveAllForUser(UserEntity user);
+        List<NotificationEntity> GetByUser(string id);
+        List<NotificationEntity> GetByUser(UserEntity user);
     }
 }
