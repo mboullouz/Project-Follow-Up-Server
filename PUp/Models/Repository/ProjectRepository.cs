@@ -15,6 +15,12 @@ namespace PUp.Models.Repository
             dbContext = new DatabaseContext();
 
         }
+
+        public ProjectRepository(DatabaseContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public void SetDbContext(DatabaseContext dbContext)
         {
             this.dbContext = dbContext;

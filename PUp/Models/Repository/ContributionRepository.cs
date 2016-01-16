@@ -15,6 +15,11 @@ namespace PUp.Models.Repository
             dbContext = new DatabaseContext(); 
         }
 
+        public ContributionRepository(DatabaseContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public void Add(ContributionEntity e)
         {
             dbContext.ContributionSet.Add(e);
@@ -34,6 +39,8 @@ namespace PUp.Models.Repository
        
         public bool ContributionExists(ProjectEntity p, UserEntity u)
         {
+             
+
             int n=dbContext.ContributionSet.Where(c => c.ProjectId == p.Id && c.UserId == u.Id).ToList().Count();
             
             return n>0;

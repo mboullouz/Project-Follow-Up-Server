@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using PUp.Models;
+using PUp.Models.Entity;
 using PUp.Models.Repository;
 using PUp.Models.SimpleObject;
 using PUp.ViewModels;
@@ -19,24 +20,23 @@ namespace PUp.Controllers
         private INotificationRepository notificationRepository;
         private IUserRepository userRepository;
         private IContributionRepository contributionRepository;
+        private DatabaseContext dbContext = new DatabaseContext();
 
         //TODO Use a container to inject dependencies 
         public TaskController()
         {
-            taskRepository = new TaskRepository();
-            projectRepository = new ProjectRepository();
-            notificationRepository = new NotificationRepository();
-            userRepository = new UserRepository();
-            contributionRepository = new ContributionRepository();
-            userRepository.SetDbContext(taskRepository.GetDbContext());
-            projectRepository.SetDbContext(taskRepository.GetDbContext());
-            notificationRepository.SetDbContext(taskRepository.GetDbContext());
-            contributionRepository.SetDbContext(taskRepository.GetDbContext());
+            taskRepository = new TaskRepository(dbContext);
+            projectRepository = new ProjectRepository(dbContext);
+            notificationRepository = new NotificationRepository(dbContext);
+            userRepository = new UserRepository(dbContext);
+            contributionRepository = new ContributionRepository(dbContext);
+           
         }
 
         // GET: Task
         public ActionResult Index(int id)
-        {
+        {   
+            //TODO return a list of Tasks !
             ProjectEntity project = projectRepository.FindById(id);
             return View(project);
         }
@@ -66,7 +66,9 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddTaskViewModel model)
         {
-            var user = userRepository.GetCurrentUser();
+            //This is needed for Unit test  
+            var userName = this.ControllerContext.HttpContext.User.Identity.Name;
+            var user = userRepository.FindByEmail(userName);
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {
@@ -84,7 +86,7 @@ namespace PUp.Controllers
                 EditAt = DateTime.Now,
                 EditionNumber = 1,
             };
-            if (!contributionRepository.ContributionExists(project, user))
+            if (!contributionRepository.ContributionExists(project,user ))
             {
                 var contrib = new ContributionEntity
                 {

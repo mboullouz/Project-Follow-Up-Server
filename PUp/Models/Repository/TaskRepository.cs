@@ -13,6 +13,12 @@ namespace PUp.Models.Repository
         {
             dbContext = new DatabaseContext();
         }
+
+        public TaskRepository(DatabaseContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public void SetDbContext(DatabaseContext dbContext)
         {
             this.dbContext = dbContext;

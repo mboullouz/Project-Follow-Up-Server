@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PUp.Models.Repository
 {
-    interface IProjectRepository:IRepository<ProjectEntity>
+    public interface IProjectRepository:IRepository<ProjectEntity>
     {
         List<ProjectEntity> GetByUser(UserEntity user,bool isDeleted=false);
     }

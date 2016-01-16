@@ -14,6 +14,12 @@ namespace PUp.Models.Repository
         {
             dbContext = new DatabaseContext();
         }
+
+        public NotificationRepository(DatabaseContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public void Add(NotificationEntity e)
         {
             dbContext.NotificationSet.Add(e);
