@@ -7,6 +7,7 @@ using Moq;
 using System.Security.Principal;
 using PUp.Models.Entity;
 using PUp.Models.Repository;
+using PUp.Models;
 
 namespace PUp.Tests.Helpers 
 {
@@ -30,6 +31,28 @@ namespace PUp.Tests.Helpers
             var context = FakeContext();
             IUserRepository uRep = new UserRepository();
             return uRep.FindByEmail(context.User.Identity.Name);
+        }
+
+        /// <summary>
+        /// Some operation may need the same database context
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <returns></returns>
+        public static UserEntity CurrentUserEntity(DatabaseContext dbContext)
+        {
+            var context = FakeContext();
+            IUserRepository uRep = new UserRepository(dbContext);
+            return uRep.FindByEmail(context.User.Identity.Name);
+        }
+
+        public static void InitControllerContext(Controller controller)
+        {
+            var context = FakeContext();
+            Mock<ControllerContext> controllerContext = new Mock<ControllerContext>();
+            controllerContext.Setup(p => p.HttpContext.Request.Browser.Browser).Returns("1");
+            controller.ControllerContext = controllerContext.Object;
+            var httpCxt = controller.ControllerContext.HttpContext;
+            httpCxt.User = context.User;
         }
     }
 }

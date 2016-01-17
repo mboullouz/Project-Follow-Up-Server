@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PUp.Models.Repository
 {
-    interface ITaskRepository:IRepository<TaskEntity>
+    public interface ITaskRepository:IRepository<TaskEntity>
     {   
         
         /// <summary>

@@ -39,10 +39,7 @@ namespace PUp.Models.Repository
        
         public bool ContributionExists(ProjectEntity p, UserEntity u)
         {
-             
-
             int n=dbContext.ContributionSet.Where(c => c.ProjectId == p.Id && c.UserId == u.Id).ToList().Count();
-            
             return n>0;
         }
 

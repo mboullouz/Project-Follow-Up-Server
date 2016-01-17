@@ -1,34 +1,40 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PUp.Controllers;
-using System.Web.Http.Results;
 using System.Web.Mvc;
 using PUp.Models.Entity;
 using PUp.Models.SimpleObject;
 using PUp.ViewModels;
 using PUp.Models.Repository;
 using PUp.Tests.Helpers;
-using Moq;
+using PUp.Models;
 
 namespace PUp.Tests.TaskTest
 {
     [TestClass]
     public class TaskControllerTest
     {
-        TaskController controller;
-        IProjectRepository pRep;
+        private TaskController controller;
+        private IProjectRepository pRep;
+        private ITaskRepository tRep;
+        private INotificationRepository nRep;
+        private int idProject = 1;
+        private DatabaseContext dbContext = new DatabaseContext();
 
         [TestInitialize]
         public void Init()
         {
             controller = new TaskController();
-            pRep = new ProjectRepository();
+            ContextHelper.InitControllerContext(controller);
+            pRep = new ProjectRepository(dbContext);
+            tRep = new TaskRepository(dbContext);
+            nRep = new NotificationRepository(dbContext);
         }
 
         [TestMethod]
         public void Test_taskController_index()
         {
-            ViewResult view = (ViewResult)controller.Index(1);
+            ViewResult view = (ViewResult)controller.Index(idProject);
             ProjectEntity viewModel = (ProjectEntity)view.Model;
             Assert.AreEqual(1, viewModel.Id);
             Assert.AreNotEqual(1, viewModel.Tasks.Count);
@@ -37,31 +43,28 @@ namespace PUp.Tests.TaskTest
         [TestMethod]
         public void Test_add_task()
         {
-            var context = ContextHelper.FakeContext();
-            Mock<ControllerContext> controllerContext = new Mock<ControllerContext>();
-            controllerContext.Setup(p => p.HttpContext.Request.Browser.Browser).Returns("1");
-            controller.ControllerContext = controllerContext.Object;
-            var httpCxt = controller.ControllerContext.HttpContext;
-            httpCxt.User = context.User;
-            Assert.IsNotNull(context.User.Identity.Name);
-             AddTaskViewModel model = new AddTaskViewModel
+            int initialNumberOfTasks = tRep.GetAll().Count;
+            int initialNumberOfNotifs = nRep.GetAll().Count;
+            AddTaskViewModel model = new AddTaskViewModel
             {
                 CreateAt = DateTime.Now,
                 Description = "Some description",
                 Done = false,
-                EditionNumber=1,
-                FinishAt= DateTime.Now.AddDays(7),
-                Project = pRep.FindById(1),
-                Priority= 1,
-                Title="some task",
-                IdProject= 1
+                EditionNumber = 1,
+                FinishAt = DateTime.Now.AddDays(7),
+                Project = pRep.FindById(idProject),
+                Priority = 1,
+                Title = "some task",
+                IdProject = this.idProject
             };
-            System.Web.Mvc.RedirectToRouteResult result = (System.Web.Mvc.RedirectToRouteResult)controller.Add(model);
+            RedirectToRouteResult result = (RedirectToRouteResult)controller.Add(model);
             Assert.AreEqual("Index", result.RouteValues["action"]);
             Assert.AreEqual("Task", result.RouteValues["controller"]);
-            var data = new { id = pRep.FindById(1).Id };
             Assert.IsTrue(result.RouteValues.ContainsKey("id"));
-            Assert.IsTrue(result.RouteValues.ContainsValue(data.id)); 
+            Assert.IsTrue(result.RouteValues.ContainsValue(idProject));
+            Assert.IsTrue(tRep.GetAll().Count > initialNumberOfTasks);
+            //Add task musk generate a new notifi
+            Assert.IsTrue(nRep.GetAll().Count > initialNumberOfNotifs);
         }
 
         [TestMethod]

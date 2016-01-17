@@ -2,29 +2,23 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PUp.Models.Entity;
 using PUp.Models.Repository;
+using PUp.Tests.Helpers;
+using PUp.Models;
 
 namespace PUp.Tests.NotificationTest
 {
     [TestClass]
     public class NotificationModelTest
     {
-
-        IUserRepository uRepo = new UserRepository();
-        INotificationRepository nRepo = new NotificationRepository();
-        UserEntity user;
+        private INotificationRepository nRepo;
+        private UserEntity user;
+        private DatabaseContext dbContext = new DatabaseContext();
 
         [TestInitialize]
         public void Init()
         {
-            nRepo.SetDbContext(uRepo.GetDbContext());
-            this.user = uRepo.GetFirstOrDefault();
-           
-        }
-
-        [TestMethod]
-        public void Test_user_not_null()
-        {
-            Assert.IsNotNull(this.user);
+            user = ContextHelper.CurrentUserEntity(dbContext);
+            nRepo = new NotificationRepository(dbContext);
         }
 
         [TestMethod]
@@ -51,6 +45,10 @@ namespace PUp.Tests.NotificationTest
             Assert.AreEqual(n, 0);
         }
 
-        
+        [TestCleanup]
+        public void Clean()
+        {
+            dbContext.Dispose();
+        }
     }
 }

@@ -4,9 +4,6 @@ using PUp.Models.Repository;
 using PUp.Models.SimpleObject;
 using PUp.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PUp.Controllers
@@ -66,7 +63,7 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddTaskViewModel model)
         {
-            //This is needed for Unit test  
+            //This is needed for Unit test  so we can set the correct context!
             var userName = this.ControllerContext.HttpContext.User.Identity.Name;
             var user = userRepository.FindByEmail(userName);
             ProjectEntity project = projectRepository.FindById(model.IdProject);
@@ -103,7 +100,7 @@ namespace PUp.Controllers
             taskRepository.Add(task);
             
             project.Tasks.Add(task);
-            taskRepository.GetDbContext().SaveChanges();
+            taskRepository.GetDbContext().SaveChanges();//?
             NotificationEntity notification = new NotificationEntity
             {
                 User = user,
