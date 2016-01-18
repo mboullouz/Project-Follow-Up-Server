@@ -39,7 +39,7 @@ namespace PUp.Models.Repository
             var contribs = dbContext.ContributionSet.Where(c=>c.UserId==user.Id).ToList();
             foreach(var c in contribs)
             {
-                projects.Add(c.Project);
+                projects.Add(FindById(c.ProjectId));
             }
            
             //TODO Review this

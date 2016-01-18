@@ -1,10 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PUp.Controllers;
-using System.Web.Mvc;
 using PUp.Models.Entity;
-using PUp.Models.SimpleObject;
-using PUp.ViewModels;
 using PUp.Models.Repository;
 using PUp.Tests.Helpers;
 using PUp.Models;
@@ -34,11 +30,10 @@ namespace PUp.Tests.HomeTest
             user = ContextHelper.CurrentUserEntity(dbContext);
         }
 
-         
-
         [TestMethod]
         public void Test_index_current_user_should_be_in_contibutors_list()
-        {   /*
+        {  
+            /*
             int initialNumberOfTasks = tRep.GetAll().Count;
             int initialNumberOfNotifs = nRep.GetAll().Count;
             bool isContribBeforeAddingTask = contribRepo.ContributionExists(pRep.FindById(idProject), user);
@@ -65,7 +60,8 @@ namespace PUp.Tests.HomeTest
             if (!isContribBeforeAddingTask) //in case no contrib must be true
             {
                 Assert.IsTrue(contribRepo.ContributionExists(pRep.FindById(idProject), user));
-            }*/
+            }
+            */
         }
 
         

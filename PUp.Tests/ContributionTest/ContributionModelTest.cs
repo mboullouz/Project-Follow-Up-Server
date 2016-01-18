@@ -5,7 +5,6 @@ using PUp.Models.Entity;
 using PUp.Models;
 using PUp.Tests.Helpers;
 using Moq;
-using System.Collections.Generic;
 
 namespace PUp.Tests.ContributionTest
 {

@@ -34,7 +34,7 @@ namespace PUp.Controllers
             TableProjectModelView tableProject = new TableProjectModelView
             {
                 CurrentUser = user,
-                Projects = projectRepository.GetAll(),
+                Projects = projectRepository.GetByUser(user),
                 OtherProjects = projectRepository.GetAll(),
                 UserContributions = user.Contributions.ToList()
             };

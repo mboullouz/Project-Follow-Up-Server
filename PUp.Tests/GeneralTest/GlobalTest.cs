@@ -1,13 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Routing;
-using System.Web.Mvc;
-using System.Web;
-using Moq;
 using PUp.Tests.Helpers;
-using System.Security.Principal;
-using Microsoft.AspNet.Identity;
-using PUp.Models.Repository;
 
 namespace PUp.Tests.GeneralTest
 {
