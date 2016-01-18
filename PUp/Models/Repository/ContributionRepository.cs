@@ -39,8 +39,8 @@ namespace PUp.Models.Repository
        
         public bool ContributionExists(ProjectEntity p, UserEntity u)
         {
-            int n=dbContext.ContributionSet.Where(c => c.ProjectId == p.Id && c.UserId == u.Id).ToList().Count();
-            return n>0;
+           // int n=dbContext.ContributionSet.Where(c => c.ProjectId == p.Id && c.UserId == u.Id).ToList().Count();
+            return GetByUserAndProject(u,p).Count>0;
         }
 
         public List<ContributionEntity> GetByProject(ProjectEntity project)
@@ -76,6 +76,25 @@ namespace PUp.Models.Repository
         public List<ContributionEntity> GetAll()
         {
            return dbContext.ContributionSet.ToList();
+        }
+
+        public void RemoveAllForUser(UserEntity user)
+        {
+            var contribs = dbContext.ContributionSet.Where(n => n.UserId == user.Id)
+                .ToList();
+            contribs.ForEach(n => dbContext.ContributionSet.Remove(n));
+            dbContext.SaveChanges();
+        }
+
+        public HashSet<UserEntity> UsersByProject(ProjectEntity p)
+        {
+            var contribs = p.Contributions;
+            HashSet<UserEntity> users = new HashSet<UserEntity>();
+            foreach(var c in contribs)
+            {
+                users.Add(c.User);
+            }
+            return users;
         }
     }
 }

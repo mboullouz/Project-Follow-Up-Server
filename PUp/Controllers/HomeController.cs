@@ -19,22 +19,18 @@ namespace PUp.Controllers
         private IProjectRepository projectRepository;
         private IUserRepository userRepository;
         private IContributionRepository contributionRepository;
+        private DatabaseContext dbContext = new DatabaseContext();
         public HomeController()
         {
-            userRepository = new UserRepository();
-            taskRepository = new TaskRepository();
-            projectRepository = new ProjectRepository();
-            contributionRepository = new ContributionRepository();
-            //TODO  remove this as soon as adding DI
-            userRepository.SetDbContext(taskRepository.GetDbContext());
-            projectRepository.SetDbContext(taskRepository.GetDbContext());
-            contributionRepository.SetDbContext(taskRepository.GetDbContext());
+            userRepository = new UserRepository(dbContext);
+            taskRepository = new TaskRepository(dbContext);
+            projectRepository = new ProjectRepository(dbContext);
+            contributionRepository = new ContributionRepository(dbContext);
 
         }
         public ActionResult Index()
         {
             var user = userRepository.GetCurrentUser();
-
             TableProjectModelView tableProject = new TableProjectModelView
             {
                 CurrentUser = user,
@@ -46,18 +42,16 @@ namespace PUp.Controllers
             return View(tableProject);
         }
 
-
-
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Application description page.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Contact page.";
             return View();
         }
     }

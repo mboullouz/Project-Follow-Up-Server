@@ -53,6 +53,13 @@ namespace PUp.Controllers
             return Json(res);
         }
 
+
+        /// <summary>
+        /// Get Method, this is useful just to go the the view that contains the form
+        /// id (idProject) must be in sent in the POST
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Add(int id)
         {
             ProjectEntity project = projectRepository.FindById(id);
