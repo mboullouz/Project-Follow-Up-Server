@@ -90,5 +90,17 @@ namespace PUp.Models.Repository
         {
             return dbContext.NotificationSet.Where(n => n.User.Id == user.Id).ToList();
         }
+
+        public bool RemoveById(int id)
+        {
+            if (FindById(id) != null)
+            {
+                dbContext.NotificationSet.Remove(FindById(id));
+                dbContext.SaveChanges();
+                return true;
+            }
+            return false;
+                
+        }
     }
 }

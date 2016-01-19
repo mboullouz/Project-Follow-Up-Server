@@ -1,21 +1,16 @@
 ﻿using Newtonsoft.Json;
-using PUp.Models.Entity;
 using PUp.Models.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Mvc;
+using System.Web.Http.Results;
 
 namespace PUp.Controllers
-{   
+{
     [System.Web.Mvc.Authorize]
     public class TasksApiController : ApiController
     {
         // GET api/<controller>
-        public System.Web.Http.Results.NegotiatedContentResult<string> Get()
+        public  NegotiatedContentResult<string> Get()
         {
             TaskRepository tf = new TaskRepository();
             var tasks = tf.GetAll();

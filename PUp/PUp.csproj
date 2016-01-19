@@ -212,6 +212,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NotificationApiController.cs" />
     <Compile Include="Models\Entity\ContributionEntity.cs" />
     <Compile Include="Models\Entity\NotificationEntity.cs" />
     <Compile Include="Models\Repository\ContributionRepository.cs" />

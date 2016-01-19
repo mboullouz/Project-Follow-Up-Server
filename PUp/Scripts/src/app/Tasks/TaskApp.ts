@@ -19,7 +19,7 @@ class TaskApp {
     public changeTaskState(idTask, state) {
         this.taskBasic.setId(idTask);
         this.taskBasic.setDone(state);
-        this.httpPost.post(this.taskBasic, this.changeStateUrl, this.onSuccess, HttpCall.GenericRespnse.onError);
+        this.httpPost.send(this.taskBasic, this.changeStateUrl, this.onSuccess, HttpCall.GenericRespnse.onError);
     }
     onSuccess(response) {
         console.log("Response >>  \n"+JSON.stringify(response));

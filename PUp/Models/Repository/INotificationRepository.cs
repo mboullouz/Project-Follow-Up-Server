@@ -15,5 +15,6 @@ namespace PUp.Models.Repository
         void RemoveAllForUser(UserEntity user);
         List<NotificationEntity> GetByUser(string id);
         List<NotificationEntity> GetByUser(UserEntity user);
+        bool RemoveById(int id);
     }
 }

@@ -5,12 +5,12 @@ module HttpCall{
         constructor() { 
             console.log("HttpCall:PostCall class loaded!");
         }
-        post(data: any, url:any, callbackSuccess: (response: any) => any, callbackError: (response: any) => any) {
+        send(data: any, url:any, callbackSuccess: (response: any) => any, callbackError: (response: any) => any,method="POST") {
             console.log("post reached !");
             console.info("data to send:" + JSON.stringify(data));
             var obj = {
                 url: url,
-                type: 'POST',
+                type: method,
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 success: function (serverResp) {

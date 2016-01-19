@@ -10,7 +10,7 @@ class Notification {
     private markNotificationSeenUrl: string;
     constructor() {
         console.log("notification Ui loaded");
-        this.markNotificationSeenUrl = $("#conf-notif").data("urlmarkseen");
+        this.markNotificationSeenUrl = "/api/NotificationApi/" /*$("#conf-notif").data("urlmarkseen")*/;
         console.log("url: " + this.markNotificationSeenUrl);
         $(".notificationElement").click(this.handleSeenClick);
 
@@ -36,8 +36,8 @@ class Notification {
         this.markSeen(idClicked);
     }
     public markSeen(id: any) {
-        var notification = new Entity.NotificationBasic(id, true);
-        this.httpPost.post(notification, this.markNotificationSeenUrl, this.onSuccess, HttpCall.GenericRespnse.onError);
+        var notification = id/*new Entity.NotificationBasic(id, true)*/;
+        this.httpPost.send(notification, this.markNotificationSeenUrl+id, this.onSuccess, HttpCall.GenericRespnse.onError,"DELETE");
     }
     onSuccess(response) {
         console.log("Response >>  \n" + JSON.stringify(response));
