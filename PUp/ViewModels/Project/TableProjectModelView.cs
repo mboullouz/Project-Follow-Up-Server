@@ -45,9 +45,22 @@ namespace PUp.ViewModels.Project
         }
         public List<UserEntity> GetContributorsTo(ProjectEntity p)
         {
-           //TODO remove: cause model changed since !
-            List<UserEntity> users = new List<UserEntity>();
-            FindContributionByProject(p).Where(c=>c.Project!=null && c.User!=null).ToList().ForEach(c=>users.Add(c.User));
+            IContributionRepository contribRepo = new ContributionRepository();
+            IUserRepository userRepo = new UserRepository();
+            var users = new List<UserEntity>();
+            var contribs = contribRepo.GetByProject(p);
+            var allUsers = userRepo.GetAll();
+            //TODO remove this and replace it all!
+            foreach(var c in contribs)
+            {
+                foreach (var u in allUsers)
+                {
+                    if (c.UserId == u.Id)
+                    {
+                        users.Add(u);
+                    }
+                }
+            }
             return users;
         }
         public List<ContributionEntity> FindContributionByProject(ProjectEntity project)

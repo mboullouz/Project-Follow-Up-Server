@@ -41,6 +41,13 @@ thead {
     background-color: rgba(158, 158, 158, 0.14);
     text-decoration: line-through;
 }
+.notificationElement{
+  border: 1px solid #607D8B;
+}
+.notificationElement:hover{
+  cursor:pointer;
+  background-color: burlywood;
+}
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,

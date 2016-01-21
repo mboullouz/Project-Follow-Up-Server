@@ -41,8 +41,6 @@ class Notification {
     }
     onSuccess(response) {
         console.log("Response >>  \n" + JSON.stringify(response));
-        /*var parentTr = $("#" + response.IdEntity).closest("tr");
-        $(parentTr).addClass("done");*/
     }
   
 }
