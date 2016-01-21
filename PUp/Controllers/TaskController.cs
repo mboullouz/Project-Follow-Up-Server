@@ -108,14 +108,19 @@ namespace PUp.Controllers
             
             project.Tasks.Add(task);
             taskRepository.GetDbContext().SaveChanges();//?
-            NotificationEntity notification = new NotificationEntity
+            //TODO DO IT CLEANLY!
+            var allUsers =userRepository.GetAll();
+            foreach(var u in allUsers)
             {
-                User = user,
-                CreateAt = DateTime.Now,
-                Message = "New task added! ",
-                Url = "~/Task/Add/" + task.Id
-            };
-            notificationRepository.Add(notification);
+                NotificationEntity notification = new NotificationEntity
+                {
+                    User = u,
+                    CreateAt = DateTime.Now,
+                    Message = "New task added! by: "+u.Email,
+                    Url = "~/Task/Add/" + task.Id
+                };
+                notificationRepository.Add(notification);
+            }            
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
     }
