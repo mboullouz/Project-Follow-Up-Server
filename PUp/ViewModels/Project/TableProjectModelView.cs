@@ -43,30 +43,30 @@ namespace PUp.ViewModels.Project
             }
             return false;
         }
-        public List<UserEntity> GetContributorsTo(ProjectEntity p)
-        {
-            IContributionRepository contribRepo = new ContributionRepository();
-            IUserRepository userRepo = new UserRepository();
-            var users = new List<UserEntity>();
-            var contribs = contribRepo.GetByProject(p);
-            var allUsers = userRepo.GetAll();
-            //TODO remove this and replace it all!
-            foreach(var c in contribs)
-            {
-                foreach (var u in allUsers)
-                {
-                    if (c.UserId == u.Id)
-                    {
-                        users.Add(u);
-                    }
-                }
-            }
-            return users;
+        public List<Contributor> GetContributorsTo(ProjectEntity p)
+        {    
+            //TODO move this to a repository
+            Models.DatabaseContext dbContext = new Models.DatabaseContext();
+            var contribs = dbContext.ContributionSet.Where(v => v.Project.Id ==p.Id);
+            var res = from u in dbContext.Users
+                      join c in contribs on u.Id equals c.UserId
+                      select new Contributor
+                      {
+                          Email = u.Email
+                      };
+                      
+
+            return res.ToList();
         }
         public List<ContributionEntity> FindContributionByProject(ProjectEntity project)
         {
             IContributionRepository repo = new ContributionRepository();
             return repo.GetAll().ToList();
         }
+    }
+
+    public class Contributor
+    {
+        public String Email  { get; set; }
     }
 }
