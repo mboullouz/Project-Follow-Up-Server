@@ -49,7 +49,9 @@ namespace PUp.ViewModels.Project
             Models.DatabaseContext dbContext = new Models.DatabaseContext();
             var contribs = dbContext.ContributionSet.Where(v => v.Project.Id ==p.Id);
             var res = from u in dbContext.Users
-                      join c in contribs on u.Id equals c.UserId
+                      join c in dbContext.ContributionSet on u.Id equals c.UserId
+                      join pr in dbContext.ProjectSet on  c.ProjectId equals pr.Id 
+                      where   pr.Id == p.Id
                       select new Contributor
                       {
                           Email = u.Email
