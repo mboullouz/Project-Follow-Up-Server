@@ -10,5 +10,6 @@ namespace PUp.Models.Repository
     public interface IProjectRepository:IRepository<ProjectEntity>
     {
         List<ProjectEntity> GetByUser(UserEntity user,bool isDeleted=false);
+        void Remove(int id);
     }
 }

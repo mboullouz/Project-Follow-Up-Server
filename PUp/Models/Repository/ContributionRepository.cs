@@ -96,5 +96,21 @@ namespace PUp.Models.Repository
             }
             return users;
         }
+
+        public void AddContributionIfNotExists(ProjectEntity project, UserEntity user, TaskEntity task)
+        {
+            if (!ContributionExists(project, user))
+            {
+                var contrib = new ContributionEntity
+                {
+                    StartAt = DateTime.Now,
+                    EndAt = task.Project.EndAt,
+                    ProjectId = project.Id,
+                    UserId = user.Id,
+                    Role = "Add-Task"
+                };
+                Add(contrib);
+            }
+        }
     }
 }

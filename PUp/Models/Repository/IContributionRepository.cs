@@ -1,9 +1,5 @@
 ﻿using PUp.Models.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PUp.Models.Repository
 {
@@ -15,5 +11,6 @@ namespace PUp.Models.Repository
         bool ContributionExists(ProjectEntity project, UserEntity user);
         void RemoveAllForUser(UserEntity user);
         HashSet<UserEntity> UsersByProject(ProjectEntity p);
+        void AddContributionIfNotExists(ProjectEntity project, UserEntity user, TaskEntity task);
     }
 }

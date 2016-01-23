@@ -35,13 +35,9 @@
                                 Done: @otherProject.Tasks.Where(t => t.Done == true).Count() <br />
                                 
                                 Contributors:
-                                 @foreach (var ctr in Model.FindContributionByProject(otherProject))
+                                 @foreach (var ctr in Model.GetContributorsTo(otherProject))
                                  {
-                                     if (ctr != null)
-                                     {
-                                        <i>pID = @ctr.ProjectId</i>
-                                        
-                                     }
+                                    <i>@ctr.Email  </i> <b> | </b>
 
                                  }
                             </p>
@@ -113,6 +109,21 @@
                                                 Actions
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dd-ctrl-projects">
+                                                <li>
+                                                    @Html.ActionLink(
+                                                        "Details",                                     // linkText
+                                                        "Details",                                    // actionName
+                                                        "Project",                                  // controllerName
+                                                        new
+                                                        {                                           // routeValues
+                                                            id = project.Id
+                                                        },
+                                                       new                                        // htmlAttributes
+                                                       {
+                                                           @class = "btn"
+                                                       }
+                                                   )
+                                                </li>
                                                 <li>
                                                  @Html.ActionLink(
                                                         "Edit",                                     // linkText

@@ -54,7 +54,8 @@ namespace PUp.ViewModels.Project
                       where   pr.Id == p.Id
                       select new Contributor
                       {
-                          Email = u.Email
+                          Email = u.Email,
+                          
                       };
                       
 

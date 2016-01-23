@@ -1,0 +1,30 @@
+﻿@model PUp.ViewModels.AddProjectViewModel
+@{
+    ViewBag.Title = "Add new project";
+}
+
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <b>@Model.Name</b>
+        </div>
+
+    </div>
+    <div class="panel-body">
+            <div class="form-group">
+                <label class="control-label">Project title:</label>
+                   @Model.Name
+            </div>
+            
+            <div class="form-group">
+                <label class="control-label">Start At:</label>
+                    @Model.StartAt
+            </div>
+            <div class="form-group">
+                <label class="control-label">End At:</label>               
+                @Model.EndAt
+            </div>
+    </div>
+
+</div>
+

@@ -78,9 +78,12 @@ namespace PUp.Models.Repository
 
         public DatabaseContext GetDbContext()
         {
-            return this.dbContext;
+            return dbContext;
         }
 
-         
+        public void Remove(int id)
+        {
+            dbContext.ProjectSet.Remove(FindById(id));
+        }
     }
 }

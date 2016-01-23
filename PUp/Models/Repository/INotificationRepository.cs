@@ -16,5 +16,8 @@ namespace PUp.Models.Repository
         List<NotificationEntity> GetByUser(string id);
         List<NotificationEntity> GetByUser(UserEntity user);
         bool RemoveById(int id);
+        void GenerateFor(ProjectEntity project, List<UserEntity> users);
+        void GenerateFor(TaskEntity taskEntity, List<UserEntity> user);
+
     }
 }

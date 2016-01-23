@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PUp.ViewModels;
 using PUp.Models.Repository;
 using PUp.Models.Entity;
+using PUp.Models;
 
 namespace PUp.Controllers
 {
@@ -15,17 +16,17 @@ namespace PUp.Controllers
         IProjectRepository projectRepository;
         IContributionRepository contributionRepository;
         IUserRepository userRepository;
+        INotificationRepository notifRepository;
+        DatabaseContext dbContext = new DatabaseContext();
         public ProjectController()
         {
-            taskRepository = new TaskRepository();
-            projectRepository = new ProjectRepository();
-            userRepository = new UserRepository();
-            contributionRepository = new ContributionRepository();
-            //TODO  remove this as soon as adding DI
-            projectRepository.SetDbContext(taskRepository.GetDbContext());
-            projectRepository.SetDbContext(taskRepository.GetDbContext());
-            userRepository.SetDbContext(taskRepository.GetDbContext());
-            contributionRepository.SetDbContext(taskRepository.GetDbContext());
+            taskRepository = new TaskRepository(dbContext);
+            projectRepository = new ProjectRepository(dbContext);
+            userRepository = new UserRepository(dbContext);
+            contributionRepository = new ContributionRepository(dbContext);
+            notifRepository = new NotificationRepository(dbContext);
+            
+            
         }
 
         [HttpGet]
@@ -55,7 +56,6 @@ namespace PUp.Controllers
             project.StartAt = model.StartAt;
             project.EndAt = model.EndAt;
             ContributionEntity contribution = new ContributionEntity();
-
             contribution.EndAt = project.EndAt;
             contribution.Project = project;
             contribution.ProjectId = project.Id;
@@ -63,25 +63,24 @@ namespace PUp.Controllers
             contribution.UserId = userRepository.GetCurrentUser().Id;
             contribution.StartAt = project.StartAt;
             contribution.Role = "FirstContributor";
-           
-            
+
             projectRepository.Add(project);
             project.Contributions.Add(contribution);
-            //contributionRepository.Add(contribution);
-            //projectRepository.Dispose();
+            notifRepository.GenerateFor(project, userRepository.GetAll());
+             
+
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Remove(int id)
-        {
-            ProjectRepository pf = new ProjectRepository();
-            pf.Remove(pf.FindById(id));
+        {   
+            projectRepository.Remove(id);
             return RedirectToAction("Index", "Home");
         }
         public ActionResult Edit(int id)
         {
-            ProjectRepository pf = new ProjectRepository();
-            ProjectEntity project = pf.FindById(id);
+            
+            ProjectEntity project = projectRepository.FindById(id);
             AddProjectViewModel projectModel = new AddProjectViewModel
             {
                 Id = project.Id,
@@ -92,6 +91,20 @@ namespace PUp.Controllers
             return View("~/Views/Project/Add.cshtml", projectModel);
         }
 
+        public ActionResult Details(int id) 
+        {
+
+            ProjectEntity project = projectRepository.FindById(id);
+            AddProjectViewModel projectModel = new AddProjectViewModel
+            {
+                Id = project.Id,
+                EndAt = project.EndAt,
+                StartAt = project.StartAt,
+                Name = project.Name
+            };
+            return View("~/Views/Project/Details.cshtml", projectModel);
+        }
+
         [HttpPost]
         public ActionResult Edit(AddProjectViewModel model)
         {
@@ -99,12 +112,12 @@ namespace PUp.Controllers
             {
                 return View(model);
             }
-            ProjectRepository pf = new ProjectRepository();
-            ProjectEntity project = pf.FindById(model.Id);
+   
+            ProjectEntity project = projectRepository.FindById(model.Id);
             project.Name = model.Name;
             project.StartAt = model.StartAt;
             project.EndAt = model.EndAt;
-            pf.GetDbContext().SaveChanges();
+            projectRepository.GetDbContext().SaveChanges();
 
 
             return RedirectToAction("Index", "Home");

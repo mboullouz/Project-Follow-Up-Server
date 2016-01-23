@@ -57,7 +57,7 @@ namespace PUp.Models.Repository
 
         public void SetDbContext(DatabaseContext dbContext)
         {
-           this.dbContext=dbContext;
+            this.dbContext = dbContext;
         }
 
         public void Add(UserEntity user, string message = "", string url = "#")
@@ -74,17 +74,17 @@ namespace PUp.Models.Repository
 
         public List<NotificationEntity> GetNotSeen()
         {
-            return dbContext.NotificationSet.Where(n => n.Seen == false).OrderByDescending(n=>n.CreateAt).ToList();
+            return dbContext.NotificationSet.Where(n => n.Seen == false).OrderByDescending(n => n.CreateAt).ToList();
         }
 
         public void RemoveAllForUser(UserEntity user)
         {
-           var notifs = dbContext.NotificationSet.Where(n => n.User.Id == user.Id)
-                .ToList();
+            var notifs = dbContext.NotificationSet.Where(n => n.User.Id == user.Id)
+                 .ToList();
             notifs.ForEach(n => dbContext.NotificationSet.Remove(n));
             dbContext.SaveChanges();
         }
- 
+
 
         public List<NotificationEntity> GetByUser(UserEntity user)
         {
@@ -100,7 +100,37 @@ namespace PUp.Models.Repository
                 return true;
             }
             return false;
-                
+
+        }
+
+        public void GenerateFor(ProjectEntity project, List<UserEntity> users)
+        {
+            foreach (var u in users)
+            {
+                NotificationEntity notification = new NotificationEntity
+                {
+                    User = u,
+                    CreateAt = DateTime.Now,
+                    Message = "New project: ' " + project.Name + "' Added by" + u.Email,
+                    Url = "~/Home/Index/" + project.Id
+                };
+                Add(notification);
+            }
+        }
+
+        public void GenerateFor(TaskEntity taskEntity, List<UserEntity> users)
+        {
+            foreach (var u in users)
+            {
+                NotificationEntity notification = new NotificationEntity
+                {
+                    User = u,
+                    CreateAt = DateTime.Now,
+                    Message = "New task: ' " + taskEntity.Title + "' Added by" + u.Email,
+                    Url = "~/Task/Add/" + taskEntity.Id
+                };
+                Add(notification);
+            }
         }
     }
 }

@@ -90,37 +90,10 @@ namespace PUp.Controllers
                 EditAt = DateTime.Now,
                 EditionNumber = 1,
             };
-            if (!contributionRepository.ContributionExists(project,user ))
-            {
-                var contrib = new ContributionEntity
-                {
-                    StartAt = DateTime.Now,
-                    EndAt = task.Project.EndAt,
-                    ProjectId = project.Id,
-                    UserId = user.Id,
-                    Role = "Add-Task"
-                };
-                contributionRepository.Add(contrib);
-            }
-           
-            
-            taskRepository.Add(task);
-            
+            contributionRepository.AddContributionIfNotExists(project, user, task);                      
+            taskRepository.Add(task);            
             project.Tasks.Add(task);
-            taskRepository.GetDbContext().SaveChanges();//?
-            //TODO DO IT CLEANLY!
-            var allUsers =userRepository.GetAll();
-            foreach(var u in allUsers)
-            {
-                NotificationEntity notification = new NotificationEntity
-                {
-                    User = u,
-                    CreateAt = DateTime.Now,
-                    Message = "New task added! by: "+u.Email,
-                    Url = "~/Task/Add/" + task.Id
-                };
-                notificationRepository.Add(notification);
-            }            
+            notificationRepository.GenerateFor(task, userRepository.GetAll());
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
     }
