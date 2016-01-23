@@ -9,10 +9,11 @@
 
 
         <a href="~/Project/Add" title="Add project" class="btn btn-link"><i class="fa fa-plus"></i>New Project</a>
-            <div class="row">
+            <div class="row"> 
                 @foreach (var otherProject in Model.OtherProjects)
                 {
-                    <div class="col-sm-3 card @(@Model.IsFinish(otherProject) ? "done" : " ")">
+                    <div data-toggle="tooltip" data-placement="right" title=" @(otherProject.Deleted? "This project was deleted": " " )"
+                         class="col-sm-3 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted ? "deleted" : " ") ">
                         <h4 class="card-header">@otherProject.Name</h4>
                        
                             <b>
@@ -41,17 +42,13 @@
 
                                  }
                             </p>
-                            @if (!otherProject.Deleted)
+                            @if ( !Model.ImContributingTo(otherProject) && !otherProject.Deleted)
                             {
                                 <a href="@Url.Action("Index", "Task", new { id = otherProject.Id } )">
                                     Start contributing!  ->
                                 </a>
                             }
-                            else
-                            {
-                                <span style="color:orangered">This project is deleted!</span>
-                            }
-
+                           
                         </div>
                     </div>
                 }

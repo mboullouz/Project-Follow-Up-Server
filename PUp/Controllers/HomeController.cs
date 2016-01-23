@@ -35,7 +35,7 @@ namespace PUp.Controllers
             {
                 CurrentUser = user,
                 Projects = projectRepository.GetByUser(user),
-                OtherProjects = projectRepository.GetAll(),
+                OtherProjects = projectRepository.GetActive(),
                 UserContributions = user.Contributions.ToList()
             };
 

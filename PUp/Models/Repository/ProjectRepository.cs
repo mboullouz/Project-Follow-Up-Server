@@ -1,9 +1,7 @@
 ﻿using PUp.Models.Entity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-
+using System;
 
 namespace PUp.Models.Repository
 {
@@ -84,6 +82,18 @@ namespace PUp.Models.Repository
         public void Remove(int id)
         {
             dbContext.ProjectSet.Remove(FindById(id));
+        }
+
+        public void SoftRemove(int id)
+        {
+            var p = FindById(id);
+            p.Deleted = true;
+            dbContext.SaveChanges();
+        }
+
+        public List<ProjectEntity> GetActive()
+        {
+            return dbContext.ProjectSet.Where(p => p.EditAt >= DateTime.Now).ToList();
         }
     }
 }

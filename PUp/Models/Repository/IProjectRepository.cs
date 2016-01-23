@@ -11,5 +11,7 @@ namespace PUp.Models.Repository
     {
         List<ProjectEntity> GetByUser(UserEntity user,bool isDeleted=false);
         void Remove(int id);
+        void SoftRemove(int id);
+        List<ProjectEntity> GetActive();
     }
 }

@@ -35,8 +35,8 @@
                             <i class="fa fa-list"></i> Projects
                         </a>
                      </li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     <li id="notification_li">
                         @using PUp.Models.Repository
                         <span id="notification_count">@UserRepository.CurrentUserNotifications().Count</span>

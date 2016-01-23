@@ -74,6 +74,11 @@ namespace PUp.Controllers
 
         public ActionResult Remove(int id)
         {   
+            projectRepository.SoftRemove(id);
+            return RedirectToAction("Index", "Home");
+        }
+        public ActionResult HardRemove(int id)
+        {
             projectRepository.Remove(id);
             return RedirectToAction("Index", "Home");
         }

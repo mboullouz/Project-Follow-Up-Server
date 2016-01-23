@@ -35,13 +35,14 @@ namespace PUp.Controllers
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)
         {
+
         }
 
         // DELETE api/<controller>/5
         public NegotiatedContentResult<string> Delete(int id)
         {
             notifRepo.RemoveById(id);
-            return Content(HttpStatusCode.OK, notifRepo.RemoveById(id)==true?"Deleted":"Nothing to delete!");
+            return Content(HttpStatusCode.OK, notifRepo.RemoveById(id)? "Deleted":"Nothing to delete!");
         }
     }
 }

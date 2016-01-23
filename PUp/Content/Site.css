@@ -41,6 +41,13 @@ thead {
     background-color: rgba(158, 158, 158, 0.14);
     text-decoration: line-through;
 }
+
+.deleted {
+    color:  crimson;
+    text-decoration: line-through;
+}
+
+
 .notificationElement{
   border: 1px solid #607D8B;
 }
