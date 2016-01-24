@@ -5,36 +5,29 @@ using System;
 
 namespace PUp.Models.Repository
 {
-    public class ProjectRepository : IProjectRepository 
+    public class ProjectRepository : AbstractRepository<ProjectEntity>
     {
-        private DatabaseContext dbContext;
-        public ProjectRepository()
+         
+        public ProjectRepository():base()
         {
-            dbContext = new DatabaseContext();
-
         }
 
-        public ProjectRepository(DatabaseContext dbContext)
+        public ProjectRepository(DatabaseContext dbContext):base(dbContext)
         {
-            this.dbContext = dbContext;
         }
 
         public void SetDbContext(DatabaseContext dbContext)
         {
-            this.dbContext = dbContext;
+            this.DbContext = dbContext;
         }
-        public void Add(ProjectEntity e)
-        {
-            dbContext.ProjectSet.Add(e);
-            dbContext.SaveChanges();
-        }
+         
         public List<ProjectEntity> GetByUser(UserEntity user,bool isDeleted=false)
         {
             List<ProjectEntity> projects = new List<ProjectEntity>();
             if (user == null)
                 return projects;
 
-            var contribs = dbContext.ContributionSet.Where(c=>c.UserId==user.Id).ToList();
+            var contribs = DbContext.ContributionSet.Where(c=>c.UserId==user.Id).ToList();
             foreach(var c in contribs)
             {
                 projects.Add(FindById(c.ProjectId));
@@ -43,57 +36,46 @@ namespace PUp.Models.Repository
             //TODO Review this
             return projects;
         }
-        public ProjectEntity FindById(int id)
+        public override ProjectEntity FindById(int id)
         {
-            return dbContext.ProjectSet.SingleOrDefault(e => e.Id == id);
+            return DbContext.ProjectSet.SingleOrDefault(e => e.Id == id);
         }
 
-        public List<ProjectEntity> GetAll()
-        {
-            return dbContext.ProjectSet.ToList();
-        }
 
-        public void Remove(ProjectEntity e)
+        public override void Remove(ProjectEntity e)
         {
 
             //remove all references 
             foreach (var c in e.Contributions.ToList())
             {
-                dbContext.ContributionSet.Remove(c);
+                DbContext.ContributionSet.Remove(c);
             }
             foreach (var task in e.Tasks.ToList())
             {
-                dbContext.TaskSet.Remove(task);
+                DbContext.TaskSet.Remove(task);
             }
-            dbContext.ProjectSet.Remove(e);
-            dbContext.SaveChanges();
+            DbContext.ProjectSet.Remove(e);
+            DbContext.SaveChanges();
         }
 
-        public void Dispose()
-        {
-            dbContext.Dispose();
-        }
-
-        public DatabaseContext GetDbContext()
-        {
-            return dbContext;
-        }
+      
+ 
 
         public void Remove(int id)
         {
-            dbContext.ProjectSet.Remove(FindById(id));
+            DbContext.ProjectSet.Remove(FindById(id));
         }
 
-        public void SoftRemove(int id)
+        public override void MarkDeleted(ProjectEntity p)
         {
-            var p = FindById(id);
-            p.Deleted = true;
-            dbContext.SaveChanges();
+            var pr = FindById(p.Id);
+            pr.Deleted = true;
+            DbContext.SaveChanges();
         }
 
         public List<ProjectEntity> GetActive()
         {
-            return dbContext.ProjectSet.Where(p => p.EndAt >= DateTime.Now).ToList();
+            return DbContext.ProjectSet.Where(p => p.EndAt >= DateTime.Now).ToList();
         }
     }
 }

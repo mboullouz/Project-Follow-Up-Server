@@ -12,11 +12,11 @@ namespace PUp.Controllers
     public class TaskController : Controller
     {
 
-        private ITaskRepository taskRepository;
-        private IProjectRepository projectRepository;
-        private INotificationRepository notificationRepository;
-        private IUserRepository userRepository;
-        private IContributionRepository contributionRepository;
+        private TaskRepository taskRepository;
+        private ProjectRepository projectRepository;
+        private UserRepository userRepository;
+        private ContributionRepository contributionRepository;
+        private NotificationRepository notificationRepository;
         private DatabaseContext dbContext = new DatabaseContext();
 
         //TODO Use a container to inject dependencies 
@@ -88,7 +88,6 @@ namespace PUp.Controllers
                 Project = project,
                 CreateAt = DateTime.Now,
                 EditAt = DateTime.Now,
-                EditionNumber = 1,
             };
             contributionRepository.AddContributionIfNotExists(project, user, task);                      
             taskRepository.Add(task);            

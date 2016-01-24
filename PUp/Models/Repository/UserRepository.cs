@@ -9,40 +9,31 @@ using System.Web;
 
 namespace PUp.Models.Repository
 {
-    public class UserRepository:IUserRepository
+    public class UserRepository:AbstractRepository<UserEntity>
     {
-        private DatabaseContext dbContext;
+        
         private UserManager<UserEntity> manager;
 
-        public UserRepository() 
+        public UserRepository():base() 
         {
-            dbContext = new DatabaseContext();
-            manager   = new UserManager<UserEntity>(new UserStore<UserEntity>(dbContext));
+            manager   = new UserManager<UserEntity>(new UserStore<UserEntity>(DbContext));
         }
-        public UserRepository(DatabaseContext dbContext)
+        public UserRepository(DatabaseContext dbContext):base(dbContext)
         {
-            this.dbContext = dbContext;
-            manager = new UserManager<UserEntity>(new UserStore<UserEntity>(this.dbContext));
+            manager = new UserManager<UserEntity>(new UserStore<UserEntity>(this.DbContext));
         }
 
         public DatabaseContext GetDbContext()
         {
-            return this.dbContext;
+            return this.DbContext;
         }
-        public void Add(UserEntity u)
-        {
-             /**
-              * todo: user UserIdentity to create user properly !
-              */
-             
-            dbContext.SaveChanges();
-        }
+        
 
         public UserEntity GetCurrentUser()
         {
             // return   manager.FindByIdAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
             string currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            UserEntity currentUser = dbContext.Users.FirstOrDefault(x => x.Id == currentUserId);
+            UserEntity currentUser = DbContext.Users.FirstOrDefault(x => x.Id == currentUserId);
             return currentUser;
         }
 
@@ -63,59 +54,48 @@ namespace PUp.Models.Repository
         {
             return System.Web.HttpContext.Current.User.Identity.GetUserName();
         }
-
-
-         
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<UserEntity> GetAll()
-        {   
-            
-            return dbContext.Users.ToList();
-        }
-
-        public void Remove(UserEntity e)
-        {
-            throw new NotImplementedException();
-        }
-
+ 
         public void SetDbContext(DatabaseContext dbContext)
         {
-            this.dbContext = dbContext;
+            this.DbContext = dbContext;
         }
 
-        public UserEntity FindById(int id)
+        public UserEntity FindByStringId(int id)
         {
             throw new Exception("User Identity accepts only String as Id! ");
             
         }
-        public UserEntity FindById(string id)
+        public  UserEntity FindById(string id)
         {
-            return dbContext.Users.FirstOrDefault(v => v.Id == id);
+            return DbContext.Users.FirstOrDefault(v => v.Id == id);
         }
 
         public void AddContribution(ContributionEntity c)
         {
             GetCurrentUser().Contributions.Add(c);
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
         }
 
         public UserEntity GetFirstOrDefault()
         {
-            return dbContext.Users.FirstOrDefault();
+            return DbContext.Users.FirstOrDefault();
         }
 
         public UserEntity FindByEmail(string email)
         {
-            return dbContext.Users.First(u => u.Email == email);
+            return DbContext.Users.First(u => u.Email == email);
+        }
+
+       
+
+        public override void MarkDeleted(UserEntity e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override UserEntity FindById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

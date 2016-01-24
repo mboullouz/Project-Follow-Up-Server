@@ -15,12 +15,12 @@ namespace PUp.Tests.TaskTest
     public class TaskControllerTest
     {
         private TaskController controller;
-        private IProjectRepository pRep;
-        private ITaskRepository tRep;
-        private INotificationRepository nRep;
+        private  ProjectRepository pRep;
+        private  TaskRepository tRep;
+        private  NotificationRepository nRep;
         private int idProject = 1;
         private DatabaseContext dbContext = new DatabaseContext();
-        private IContributionRepository contribRepo;
+        private ContributionRepository contribRepo;
         private UserEntity user;
         [TestInitialize]
         public void Init()
@@ -54,7 +54,6 @@ namespace PUp.Tests.TaskTest
                 CreateAt = DateTime.Now,
                 Description = "Some description",
                 Done = false,
-                EditionNumber = 1,
                 FinishAt = DateTime.Now.AddDays(7),
                 Project = pRep.FindById(idProject),
                 Priority = 1,

@@ -6,34 +6,24 @@ using PUp.Models.Entity;
 
 namespace PUp.Models.Repository
 {
-    public class ContributionRepository : IContributionRepository
+    public class ContributionRepository : AbstractRepository<ContributionEntity>
     {
 
-        private DatabaseContext dbContext;
-        public ContributionRepository()
+        
+        public ContributionRepository():base()
         {
-            dbContext = new DatabaseContext(); 
         }
 
-        public ContributionRepository(DatabaseContext dbContext)
+        public ContributionRepository(DatabaseContext dbContext):base(dbContext)
         {
-            this.dbContext = dbContext;
         }
 
-        public void Add(ContributionEntity e)
-        {
-            dbContext.ContributionSet.Add(e);
-            dbContext.SaveChanges();
-        }
+       
+ 
 
-        public void Dispose()
+        public override ContributionEntity FindById(int id)
         {
-            dbContext.Dispose();
-        }
-
-        public ContributionEntity FindById(int id)
-        {
-            return dbContext.ContributionSet.SingleOrDefault();
+            return DbContext.ContributionSet.SingleOrDefault();
         }
 
        
@@ -45,45 +35,27 @@ namespace PUp.Models.Repository
 
         public List<ContributionEntity> GetByProject(ProjectEntity project)
         {
-            return dbContext.ContributionSet.Where(v=>v.Project.Id==project.Id).ToList();
+            return DbContext.ContributionSet.Where(v=>v.Project.Id==project.Id).ToList();
         }
 
         public List<ContributionEntity> GetByUser(UserEntity user)
         {
-            return dbContext.ContributionSet.Where(v => v.User.Id == user.Id).ToList();
+            return DbContext.ContributionSet.Where(v => v.User.Id == user.Id).ToList();
         }
 
         public List<ContributionEntity> GetByUserAndProject(UserEntity user, ProjectEntity project)
         {
-            return dbContext.ContributionSet.Where(v => v.User.Id == user.Id && v.Project.Id==project.Id).ToList();
+            return DbContext.ContributionSet.Where(v => v.User.Id == user.Id && v.Project.Id==project.Id).ToList();
         }
-
-        public DatabaseContext GetDbContext()
-        {
-            return this.dbContext;
-        }
-
-        public void Remove(ContributionEntity e)
-        {
-            dbContext.ContributionSet.Remove(e);
-            dbContext.SaveChanges();
-        }
-
-        public void SetDbContext(DatabaseContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
-        public List<ContributionEntity> GetAll()
-        {
-           return dbContext.ContributionSet.ToList();
-        }
+ 
+  
 
         public void RemoveAllForUser(UserEntity user)
         {
-            var contribs = dbContext.ContributionSet.Where(n => n.UserId == user.Id)
+            var contribs = DbContext.ContributionSet.Where(n => n.UserId == user.Id)
                 .ToList();
-            contribs.ForEach(n => dbContext.ContributionSet.Remove(n));
-            dbContext.SaveChanges();
+            contribs.ForEach(n => DbContext.ContributionSet.Remove(n));
+            DbContext.SaveChanges();
         }
 
         public HashSet<UserEntity> UsersByProject(ProjectEntity p)
@@ -111,6 +83,11 @@ namespace PUp.Models.Repository
                 };
                 Add(contrib);
             }
+        }
+
+        public override void MarkDeleted(ContributionEntity e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

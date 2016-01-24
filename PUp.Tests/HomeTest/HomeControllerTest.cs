@@ -11,12 +11,12 @@ namespace PUp.Tests.HomeTest
     public class HomeControllerTest
     {
         private HomeController controller;
-        private IProjectRepository pRep;
-        private ITaskRepository tRep;
-        private INotificationRepository nRep;
+        private  ProjectRepository pRep;
+        private TaskRepository tRep;
+        private  NotificationRepository nRep;
         private int idProject = 1;
         private DatabaseContext dbContext = new DatabaseContext();
-        private IContributionRepository contribRepo;
+        private  ContributionRepository contribRepo;
         private UserEntity user;
         [TestInitialize]
         public void Init()

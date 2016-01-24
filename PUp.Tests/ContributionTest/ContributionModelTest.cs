@@ -11,10 +11,10 @@ namespace PUp.Tests.ContributionTest
     [TestClass]
     public class ContributionModelTest
     {
-        private INotificationRepository notifRepo;
-        private IContributionRepository contribRepo;
-        private IProjectRepository projectRepo;         
-        private ITaskRepository taskRepo;
+        private NotificationRepository notifRepo;
+        private ContributionRepository contribRepo;
+        private ProjectRepository projectRepo;         
+        private TaskRepository taskRepo;
         private UserEntity user;
         private DatabaseContext dbContext = new DatabaseContext();
 

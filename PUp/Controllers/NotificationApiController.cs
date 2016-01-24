@@ -13,7 +13,7 @@ namespace PUp.Controllers
     public class NotificationApiController : ApiController
     {
         //private DatabaseContext dbContext = new DatabaseContext();
-        INotificationRepository notifRepo = new NotificationRepository();
+        NotificationRepository notifRepo = new NotificationRepository();
 
         // GET api/<controller>
         public IEnumerable<string> Get()

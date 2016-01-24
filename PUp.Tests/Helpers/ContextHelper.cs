@@ -29,7 +29,7 @@ namespace PUp.Tests.Helpers
         public static UserEntity CurrentUserEntity()
         {
             var context = FakeContext();
-            IUserRepository uRep = new UserRepository();
+            UserRepository uRep = new UserRepository();
             return uRep.FindByEmail(context.User.Identity.Name);
         }
 
@@ -41,7 +41,7 @@ namespace PUp.Tests.Helpers
         public static UserEntity CurrentUserEntity(DatabaseContext dbContext)
         {
             var context = FakeContext();
-            IUserRepository uRep = new UserRepository(dbContext);
+            UserRepository uRep = new UserRepository(dbContext);
             return uRep.FindByEmail(context.User.Identity.Name);
         }
 

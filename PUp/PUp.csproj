@@ -214,11 +214,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotificationApiController.cs" />
     <Compile Include="Models\Entity\ContributionEntity.cs" />
+    <Compile Include="Models\Entity\IssueEntity.cs" />
     <Compile Include="Models\Entity\NotificationEntity.cs" />
+    <Compile Include="Models\Repository\AbstractRepository.cs" />
     <Compile Include="Models\Repository\ContributionRepository.cs" />
-    <Compile Include="Models\Repository\IContributionRepository.cs" />
-    <Compile Include="Models\Repository\INotificationRepository.cs" />
-    <Compile Include="Models\Repository\IUserRepository.cs" />
+    <Compile Include="Models\Repository\IssueRepository.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
@@ -235,8 +235,6 @@
     <Compile Include="Models\Repository\NotificationRepository.cs" />
     <Compile Include="Models\SimpleObject\GenericJsonResponse.cs" />
     <Compile Include="Models\SimpleObject\TaskSimpleObjects.cs" />
-    <Compile Include="Models\Repository\IProjectRepository.cs" />
-    <Compile Include="Models\Repository\ITaskRepository.cs" />
     <Compile Include="Models\Repository\IRepository.cs" />
     <Compile Include="Models\Repository\ProjectRepository.cs" />
     <Compile Include="Models\Repository\TaskRepository.cs" />
@@ -264,9 +262,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\zsLib\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\zsLib\ai.0.15.0-build58334.min.js" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -280,6 +275,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="ApplicationInsights.config" />
+    <Content Include="zDoc\ImprovedDbModel_v2.png" />
     <None Include="Properties\PublishProfiles\1p.pubxml" />
     <None Include="Scripts\zsLib\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\zsLib\bootstrap.js" />
@@ -339,6 +336,7 @@
     <Content Include="Views\Task\Index.cshtml" />
     <Content Include="Views\Task\Add.cshtml" />
     <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="zDoc\ImprovedDbModel_v2.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

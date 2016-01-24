@@ -63,7 +63,7 @@ namespace PUp.ViewModels.Project
         }
         public List<ContributionEntity> FindContributionByProject(ProjectEntity project)
         {
-            IContributionRepository repo = new ContributionRepository();
+            ContributionRepository repo = new ContributionRepository();
             return repo.GetAll().ToList();
         }
     }

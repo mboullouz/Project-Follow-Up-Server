@@ -10,7 +10,7 @@ namespace PUp.Tests.NotificationTest
     [TestClass]
     public class NotificationModelTest
     {
-        private INotificationRepository nRepo;
+        private  NotificationRepository nRepo;
         private UserEntity user;
         private DatabaseContext dbContext = new DatabaseContext();
 

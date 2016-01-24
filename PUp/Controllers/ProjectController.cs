@@ -12,12 +12,13 @@ namespace PUp.Controllers
 {
     public class ProjectController : Controller
     {
-        ITaskRepository taskRepository;
-        IProjectRepository projectRepository;
-        IContributionRepository contributionRepository;
-        IUserRepository userRepository;
-        INotificationRepository notifRepository;
-        DatabaseContext dbContext = new DatabaseContext();
+        private TaskRepository taskRepository;
+        private ProjectRepository projectRepository;
+        private UserRepository userRepository;
+        private ContributionRepository contributionRepository;
+        private NotificationRepository notifRepository;
+        private DatabaseContext dbContext = new DatabaseContext();
+         
         public ProjectController()
         {
             taskRepository = new TaskRepository(dbContext);
@@ -74,7 +75,7 @@ namespace PUp.Controllers
 
         public ActionResult Remove(int id)
         {   
-            projectRepository.SoftRemove(id);
+            //projectRepository.MarkDeleted(id);
             return RedirectToAction("Index", "Home");
         }
         public ActionResult HardRemove(int id)
@@ -122,7 +123,7 @@ namespace PUp.Controllers
             project.Name = model.Name;
             project.StartAt = model.StartAt;
             project.EndAt = model.EndAt;
-            projectRepository.GetDbContext().SaveChanges();
+             
 
 
             return RedirectToAction("Index", "Home");

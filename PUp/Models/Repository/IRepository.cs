@@ -10,8 +10,8 @@ namespace PUp.Models.Repository
         List<E> GetAll();
         void Add(E e);
         void Remove(E e);
+        void MarkDeleted(E e);
         E FindById(int id);
-        void SetDbContext(DatabaseContext dbContext);
-        DatabaseContext GetDbContext();
+         
     }
 }

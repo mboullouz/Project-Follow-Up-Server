@@ -6,59 +6,32 @@ using PUp.Models.Entity;
 
 namespace PUp.Models.Repository
 {
-    public class NotificationRepository : INotificationRepository
+    public class NotificationRepository : AbstractRepository<NotificationEntity>
     {
-        private DatabaseContext dbContext;
+        
 
-        public NotificationRepository()
+        public NotificationRepository():base()
         {
-            dbContext = new DatabaseContext();
+             
         }
 
-        public NotificationRepository(DatabaseContext dbContext)
+        public NotificationRepository(DatabaseContext dbContext):base(dbContext)
         {
-            this.dbContext = dbContext;
+          
         }
 
-        public void Add(NotificationEntity e)
+        
+        public override NotificationEntity FindById(int id)
         {
-            dbContext.NotificationSet.Add(e);
-            dbContext.SaveChanges();
-        }
-        public NotificationEntity FindById(int id)
-        {
-            return dbContext.NotificationSet.SingleOrDefault(e => e.Id == id);
+            return DbContext.NotificationSet.SingleOrDefault(e => e.Id == id);
         }
 
         public List<NotificationEntity> GetByUser(string id)
         {
-            return dbContext.NotificationSet.Where(v => v.User.Id == id).ToList();
+            return DbContext.NotificationSet.Where(v => v.User.Id == id).ToList();
         }
-        public List<NotificationEntity> GetAll()
-        {
-            return dbContext.NotificationSet.ToList();
-        }
-        public void Remove(NotificationEntity e)
-        {
-            dbContext.NotificationSet.Remove(e);
-            dbContext.SaveChanges();
-        }
-
-        public DatabaseContext GetDbContext()
-        {
-            return dbContext;
-        }
-
-        //TODO Do a clean design
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetDbContext(DatabaseContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+        
+   
 
         public void Add(UserEntity user, string message = "", string url = "#")
         {
@@ -74,29 +47,29 @@ namespace PUp.Models.Repository
 
         public List<NotificationEntity> GetNotSeen()
         {
-            return dbContext.NotificationSet.Where(n => n.Seen == false).OrderByDescending(n => n.CreateAt).ToList();
+            return DbContext.NotificationSet.Where(n => n.Seen == false).OrderByDescending(n => n.CreateAt).ToList();
         }
 
         public void RemoveAllForUser(UserEntity user)
         {
-            var notifs = dbContext.NotificationSet.Where(n => n.User.Id == user.Id)
+            var notifs = DbContext.NotificationSet.Where(n => n.User.Id == user.Id)
                  .ToList();
-            notifs.ForEach(n => dbContext.NotificationSet.Remove(n));
-            dbContext.SaveChanges();
+            notifs.ForEach(n => DbContext.NotificationSet.Remove(n));
+            DbContext.SaveChanges();
         }
 
 
         public List<NotificationEntity> GetByUser(UserEntity user)
         {
-            return dbContext.NotificationSet.Where(n => n.User.Id == user.Id).ToList();
+            return DbContext.NotificationSet.Where(n => n.User.Id == user.Id).ToList();
         }
 
         public bool RemoveById(int id)
         {
             if (FindById(id) != null)
             {
-                dbContext.NotificationSet.Remove(FindById(id));
-                dbContext.SaveChanges();
+                DbContext.NotificationSet.Remove(FindById(id));
+                DbContext.SaveChanges();
                 return true;
             }
             return false;
@@ -131,6 +104,11 @@ namespace PUp.Models.Repository
                 };
                 Add(notification);
             }
+        }
+
+        public override void MarkDeleted(NotificationEntity e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

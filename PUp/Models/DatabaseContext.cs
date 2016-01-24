@@ -20,6 +20,7 @@ namespace PUp.Models
         public virtual DbSet<ProjectEntity> ProjectSet { get; set; }
         public virtual DbSet<NotificationEntity> NotificationSet { get; set; }
         public virtual DbSet<ContributionEntity> ContributionSet { get; set; }
+        public virtual DbSet<IssueEntity> IssueSet { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

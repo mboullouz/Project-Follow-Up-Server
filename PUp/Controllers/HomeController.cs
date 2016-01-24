@@ -14,12 +14,15 @@ namespace PUp.Controllers
 {
     [Authorize]
     public class HomeController : Controller
-    {
-        private ITaskRepository taskRepository;
-        private IProjectRepository projectRepository;
-        private IUserRepository userRepository;
-        private IContributionRepository contributionRepository;
+    {   
+
+        //TODO user a simple factory 
+        private TaskRepository taskRepository;
+        private ProjectRepository projectRepository;
+        private UserRepository userRepository;
+        private ContributionRepository contributionRepository;
         private DatabaseContext dbContext = new DatabaseContext();
+
         public HomeController()
         {
             userRepository = new UserRepository(dbContext);

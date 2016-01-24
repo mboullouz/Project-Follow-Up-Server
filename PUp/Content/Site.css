@@ -5,14 +5,13 @@
     color: #444;
     font-family: sans-serif, Arial;
 }
-.card{
-    /*width: 20%;*/
-    padding-left: 10px;
-    padding-right:5px;
-    padding-top:5px;
-    margin: 7px;
-    border: 1px solid #03A9F4;
+
+.card {
+    border: 1px solid #9E9E9E;
+    max-height: 180px;
+    font-size: 13px;
 }
+
 .card-header {
     color: #FF5722;
     text-align: center;
@@ -43,18 +42,19 @@ thead {
 }
 
 .deleted {
-    color:  crimson;
+    color: crimson;
     text-decoration: line-through;
 }
 
 
-.notificationElement{
-  border: 1px solid #607D8B;
+.notificationElement {
+    border: 1px solid #607D8B;
 }
-.notificationElement:hover{
-  cursor:pointer;
-  background-color: burlywood;
-}
+
+    .notificationElement:hover {
+        cursor: pointer;
+        background-color: burlywood;
+    }
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
@@ -68,19 +68,16 @@ textarea {
     background-color: white;
     border-color: white;
 }
-
     .navbar-default .navbar-nav > li > a {
         color: #2196F3;
         font-weight: 200;
     }
-
         .navbar-default .navbar-nav > li > a:hover {
             color: #F44336;
             font-weight: 200;
             background-color: rgba(96, 125, 139, 0.07);
             height: 40px;
         }
-
     .navbar-default .navbar-collapse, .navbar-default .navbar-form {
         border-bottom: 1px dotted #FF5722;
     }

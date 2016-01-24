@@ -5,15 +5,16 @@
             console.log('Home->Index loaded ');
             $('#updateTasks').click(this.handleClickCallServer);
             $("#deletedProjectVisibility").click(this.handleDeletedProjectVisibility);
-            
+            $('.deleted').hide();//initial state
             
         }
+       
         handleDeletedProjectVisibility = (event) => {
             if ($('#deletedProjectVisibility').is(':checked')) {
-                $('.deleted').hide();
+                $('.deleted').show();
             }
             else {
-                $('.deleted').show();
+                $('.deleted').hide();
             }
         }
         handleClickCallServer = (event) => {

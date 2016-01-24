@@ -6,30 +6,32 @@
 
 <div class="row">
     <div class="col-md-12">
-
-
-        <a href="~/Project/Add" title="Add project" class="btn btn-link"><i class="fa fa-plus"></i>New Project</a>
-        <div class="topControl pull-right">
-           Show deleted | <input type="checkbox" id="deletedProjectVisibility" checked="checked" />
+        <div class="row">
+            <a href="~/Project/Add" title="Add project" class="btn btn-link"><i class="fa fa-plus"></i>New Project</a>
+            <div class="topControl pull-right">
+                Show deleted | <input type="checkbox" id="deletedProjectVisibility" />
+            </div>
         </div>
-        
+
         <div class="row">
             @foreach (var otherProject in Model.OtherProjects)
             {
                 <div data-toggle="tooltip" data-placement="right" title=" @(otherProject.Deleted ? "This project was deleted" : " " ) "
-                     class="col-sm-3 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted ? "deleted" : " ") ">
+                     class="col-md-4 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted ? "deleted" : " ") ">
                     <h4 class="card-header">@otherProject.Name</h4>
 
                     <b>
                         @if (Model.ImContributingTo(otherProject))
                         {
                             <i>
-                                You are already contributing !
+                                Already contributing !
                             </i>
                         }
                         else
                         {
-                            <span>It may be a good idea to see what's going in this project!</span>
+                            <a href="@Url.Action("Index", "Task", new { id = otherProject.Id } )">
+                                Start contributing!  ->
+                            </a>
                         }
                     </b>
 
@@ -46,12 +48,7 @@
 
                             }
                         </p>
-                        @if (!Model.ImContributingTo(otherProject) && !otherProject.Deleted)
-                        {
-                            <a href="@Url.Action("Index", "Task", new { id = otherProject.Id } )">
-                                Start contributing!  ->
-                            </a>
-                        }
+
 
                     </div>
                 </div>
