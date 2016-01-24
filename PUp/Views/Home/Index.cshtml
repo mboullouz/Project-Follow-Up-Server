@@ -7,7 +7,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="row">
-            <a href="~/Project/Add" title="Add project" class="btn btn-link"><i class="fa fa-plus"></i>New Project</a>
+            <a href="~/Project/Add" title="Add project" class="btn btn-primary">
+                <i class="fa fa-plus"></i> New Project
+            </a>
             <div class="topControl pull-right">
                 Show deleted | <input type="checkbox" id="deletedProjectVisibility" />
             </div>
@@ -17,98 +19,101 @@
             @foreach (var otherProject in Model.OtherProjects)
             {
                 <div data-toggle="tooltip" data-placement="right" title=" @(otherProject.Deleted ? "This project was deleted" : " " ) "
-                     class="col-md-4 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted ? "deleted" : " ") ">
-                    <h4 class="card-header">@otherProject.Name</h4>
-
-                    <b>
-                        @if (Model.ImContributingTo(otherProject))
-                        {
-                            <i>
-                                Already contributing !
-                            </i>
-                        }
-                        else
-                        {
-                            <a href="@Url.Action("Index", "Task", new { id = otherProject.Id } )">
-                                Start contributing!  ->
-                            </a>
-                        }
-                    </b>
-
+                     class="col-md-3 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted ? "deleted" : " ") ">
+                    <b class="card-header">@otherProject.Name</b>
                     <div class="card-block">
                         <p class="card-text">
-                            Start at:  @otherProject.StartAt  | End at  :  @otherProject.EndAt <br />
-                            Total tasks: @otherProject.Tasks.Count() |
-                            Done: @otherProject.Tasks.Where(t => t.Done == true).Count() <br />
-
-                            Contributors:
-                            @foreach (var ctr in Model.GetContributorsTo(otherProject))
-                            {
-                                <i>@ctr.Email  </i> <b> | </b>
-
-                            }
+                            From: <b>@otherProject.StartAt.ToString("d/MMM/yyyy HH:mm")</b> 
+                            To  : <b>@otherProject.EndAt.ToString("d/MMM/yyyy HH:mm")</b> <br />
+                            Done: @otherProject.Tasks.Where(t => t.Done == true).Count() |
+                             
                         </p>
+                        <div class="card-control">
+                            @if (!Model.ImContributingTo(otherProject))
+                            {
+                                <a href="@Url.Action("Index", "Task", new { id = otherProject.Id } )">
+                                    contribute  <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Index", "Task", new { id = otherProject.Id } )">
+                                  @otherProject.Tasks.Count()  Tasks  <i class="fa fa-arrow-circle-right"></i>
+                                </a>
+                            }
+                            <a href="@Url.Action("Add", "Task", new { id = otherProject.Id } )">
+                                Add task  <i class="fa fa-plus-circle"></i>
+                            </a>
 
+                            <a href="@Url.Action("Add", "Task", new { id = otherProject.Id } )">
+                              @otherProject.Issues.Count  Issues  <i class="fa fa-exclamation-circle"></i>
+                            </a>
 
+                            <a href="@Url.Action("Add", "Task", new { id = otherProject.Id } )">
+                                @Model.GetContributorsTo(otherProject).Count Contributors  <i class="fa fa-user-plus"></i>
+                            </a>
+
+                        </div>
                     </div>
                 </div>
             }
 
         </div>
-        <div class="panel">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <b>Projects list</b>
+        <div class="row">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <b>Projects list</b>
+                    </div>
+
                 </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>#</td>
+                                <td>Title</td>
+                                <td>Tasks</td>
+                                <td>Contibutors</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = 0;}
 
-            </div>
-            <div class="panel-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <td>#</td>
-                            <td>Title</td>
-                            <td>Tasks</td>
-                            <td>Contibutors</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{int i = 0;}
-
-                        @foreach (var project in Model.Projects)
-                        {
-                            i++;
-                            <tr class="v @(@Model.IsFinish(project) ? "done" : " ")">
-                                <td>
-                                    @i
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("Index", "Task", new { id = project.Id } )">
-                                        @project.Name
-                                    </a>
-                                </td>
-                                <td>
-                                    Total: @project.Tasks.Count <br />
-                                    Done : @Model.CountDone(project)
-                                </td>
-                                <td>
-                                    @foreach (var contributor in Model.GetContributorsTo(project))
-                                    {
-                                        <i>
-                                            @contributor.Email
-                                        </i><br />
-                                    }
-                                </td>
-                                <td class="pull-right">
-                                    <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dd-ctrl-projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <i class="fa fa-cog"></i>
-                                            Actions
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dd-ctrl-projects">
-                                            <li>
-                                                @Html.ActionLink(
+                            @foreach (var project in Model.Projects)
+                            {
+                                i++;
+                                <tr class="v @(@Model.IsFinish(project) ? "done" : " ") @(project.Deleted ? "deleted" : " ")  ">
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Index", "Task", new { id = project.Id } )">
+                                            @project.Name
+                                        </a>
+                                    </td>
+                                    <td>
+                                        Total: @project.Tasks.Count <br />
+                                        Done : @Model.CountDone(project)
+                                    </td>
+                                    <td>
+                                        @foreach (var contributor in Model.GetContributorsTo(project))
+                                        {
+                                            <i>
+                                                @contributor.Email
+                                            </i><br />
+                                        }
+                                    </td>
+                                    <td class="pull-right">
+                                        <div class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="dd-ctrl-projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <i class="fa fa-cog"></i>
+                                                Actions
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dd-ctrl-projects">
+                                                <li>
+                                                    @Html.ActionLink(
                                                         "Details",                                     // linkText
                                                         "Details",                                    // actionName
                                                         "Project",                                  // controllerName
@@ -121,9 +126,9 @@
                                                            @class = "btn"
                                                        }
                                                    )
-                                            </li>
-                                            <li>
-                                                @Html.ActionLink(
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(
                                                         "Edit",                                     // linkText
                                                         "Edit",                                    // actionName
                                                         "Project",                                  // controllerName
@@ -136,9 +141,9 @@
                                                            @class = "btn"
                                                        }
                                                    )
-                                            </li>
-                                            <li>
-                                                @Html.ActionLink(
+                                                </li>
+                                                <li>
+                                                    @Html.ActionLink(
                                                     "Delete",                                     // linkText
                                                     "Remove",                                    // actionName
                                                     "Project",                                  // controllerName
@@ -151,14 +156,15 @@
                                                        @class = "btn btn-danger confirm"
                                                    }
                                                  )
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

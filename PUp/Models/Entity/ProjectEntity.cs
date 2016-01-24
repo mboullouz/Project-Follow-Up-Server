@@ -22,7 +22,7 @@ namespace PUp.Models.Entity
         /// <summary>
         /// A project may finish before estimated finish date time!
         /// </summary>
-        public Nullable<DateTime> FinishAt { get; set; }
+        public  DateTime  FinishAt { get; set; }
         public DateTime StartAt { get; set; }
 
 
@@ -30,7 +30,7 @@ namespace PUp.Models.Entity
         /// This the max date to finish the task, if not the task is considered undone 
         /// note: it is not related to the estimatedTimeInMinutes
         /// </summary>
-        public Nullable<DateTime> EndAt { get; set; }
+        public  DateTime  EndAt { get; set; }
 
 
         /// <summary>

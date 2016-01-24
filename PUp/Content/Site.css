@@ -11,7 +11,12 @@
     max-height: 180px;
     font-size: 13px;
 }
-
+.card-control>a {
+    margin: 3px;
+    background: #F7F7F7;
+    padding: 3px;
+}
+ 
 .card-header {
     color: #FF5722;
     text-align: center;
@@ -127,7 +132,11 @@ textarea {
         -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     }
-
+.btn-primary:hover {
+        color: #2196F3 !important;
+        background-color: whitesmoke;
+        border-color: white;
+    }
 .link-next {
     color: #2196F3 !important;
 }

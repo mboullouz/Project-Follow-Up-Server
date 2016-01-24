@@ -75,7 +75,7 @@ namespace PUp.Controllers
 
         public ActionResult Remove(int id)
         {   
-            //projectRepository.MarkDeleted(id);
+            projectRepository.MarkDeleted(projectRepository.FindById(id));
             return RedirectToAction("Index", "Home");
         }
         public ActionResult HardRemove(int id)

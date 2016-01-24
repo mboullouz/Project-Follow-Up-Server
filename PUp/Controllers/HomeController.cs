@@ -34,6 +34,10 @@ namespace PUp.Controllers
         public ActionResult Index()
         {
             var user = userRepository.GetCurrentUser();
+            if(user==null)
+            {
+                return RedirectToAction("Register", "Account");
+            }
             TableProjectModelView tableProject = new TableProjectModelView
             {
                 CurrentUser = user,
