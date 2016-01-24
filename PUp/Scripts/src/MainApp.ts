@@ -32,8 +32,11 @@ class Notification {
     private handleSeenClick = (event) => {
         var element = event.target;
         var idClicked = $(event.currentTarget).data("idnotif");
+       
         console.log("id curr target notif: " + idClicked);
         this.markSeen(idClicked);
+
+        $(event.target).parent("div").hide();
     }
     public markSeen(id: any) {
         var notification = id/*new Entity.NotificationBasic(id, true)*/;

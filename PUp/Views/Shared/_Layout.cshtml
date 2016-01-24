@@ -39,21 +39,25 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     <li id="notification_li">
                         @using PUp.Models.Repository
-                        <span id="notification_count">@UserRepository.CurrentUserNotifications().Count</span>
-                        <a href="#" id="notificationLink">Notifications</a>
-                        <div id="notificationContainer">
-                            <div id="notificationTitle">Notifications</div>
-                            <div id="notificationsBody" class="notifications">
-                                @foreach (var notif in UserRepository.CurrentUserNotifications())
-                                {
-                                    <div class="notificationElement" data-idnotif="@notif.Id" id="@notif.Id" >
-                                          <b>@notif.Message</b>     at: <i>@notif.CreateAt</i> <br />
-                                    </div><br />
-                                }
-                                
+                        @if (@UserRepository.CurrentUserNotifications().Count > 0)
+                        {
+                            <span id="notification_count">@UserRepository.CurrentUserNotifications().Count</span>
+                            <a href="#" id="notificationLink">Notifications</a>
+                            <div id="notificationContainer">
+                                <div id="notificationTitle">Notifications</div>
+                                <div id="notificationsBody" class="notifications">
+                                    @foreach (var notif in UserRepository.CurrentUserNotifications())
+                                    {
+                                        <div class="notificationElement" data-idnotif="@notif.Id" id="@notif.Id">
+                                            <b>@notif.Message</b>     at: <i>@notif.CreateAt</i> <i class="fa fa-remove"> </i><br />
+
+                                        </div><br />
+                                    }
+
+                                </div>
+                                <div id="notificationFooter"><a href="#">See All</a></div>
                             </div>
-                            <div id="notificationFooter"><a href="#">See All</a></div>
-                        </div>
+                        }                        
                     </li>
                 </ul>
                 @Html.Partial("_LoginPartial")

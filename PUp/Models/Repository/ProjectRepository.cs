@@ -93,7 +93,7 @@ namespace PUp.Models.Repository
 
         public List<ProjectEntity> GetActive()
         {
-            return dbContext.ProjectSet.Where(p => p.EditAt >= DateTime.Now).ToList();
+            return dbContext.ProjectSet.Where(p => p.EndAt >= DateTime.Now).ToList();
         }
     }
 }

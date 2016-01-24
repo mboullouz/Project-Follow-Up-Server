@@ -9,105 +9,109 @@
 
 
         <a href="~/Project/Add" title="Add project" class="btn btn-link"><i class="fa fa-plus"></i>New Project</a>
-            <div class="row"> 
-                @foreach (var otherProject in Model.OtherProjects)
-                {
-                    <div data-toggle="tooltip" data-placement="right" title=" @(otherProject.Deleted? "This project was deleted": " " )"
-                         class="col-sm-3 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted ? "deleted" : " ") ">
-                        <h4 class="card-header">@otherProject.Name</h4>
-                       
-                            <b>
-                                @if (Model.ImContributingTo(otherProject))
-                                {
-                                    <i>
-                                        You are already contributing !
-                                    </i>
-                                }
-                                else
-                                {
-                                    <span>It may be a good idea to see what's going in this project!</span>
-                                }
-                            </b>
-                       
-                        <div class="card-block">
-                            <p class="card-text">
-                                Start at:  @otherProject.StartAt  | End at  :  @otherProject.EndAt <br />
-                                Total tasks: @otherProject.Tasks.Count() |
-                                Done: @otherProject.Tasks.Where(t => t.Done == true).Count() <br />
-                                
-                                Contributors:
-                                 @foreach (var ctr in Model.GetContributorsTo(otherProject))
-                                 {
-                                    <i>@ctr.Email  </i> <b> | </b>
+        <div class="topControl pull-right">
+           Show deleted | <input type="checkbox" id="deletedProjectVisibility" checked="checked" />
+        </div>
+        
+        <div class="row">
+            @foreach (var otherProject in Model.OtherProjects)
+            {
+                <div data-toggle="tooltip" data-placement="right" title=" @(otherProject.Deleted ? "This project was deleted" : " " ) "
+                     class="col-sm-3 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted ? "deleted" : " ") ">
+                    <h4 class="card-header">@otherProject.Name</h4>
 
-                                 }
-                            </p>
-                            @if ( !Model.ImContributingTo(otherProject) && !otherProject.Deleted)
+                    <b>
+                        @if (Model.ImContributingTo(otherProject))
+                        {
+                            <i>
+                                You are already contributing !
+                            </i>
+                        }
+                        else
+                        {
+                            <span>It may be a good idea to see what's going in this project!</span>
+                        }
+                    </b>
+
+                    <div class="card-block">
+                        <p class="card-text">
+                            Start at:  @otherProject.StartAt  | End at  :  @otherProject.EndAt <br />
+                            Total tasks: @otherProject.Tasks.Count() |
+                            Done: @otherProject.Tasks.Where(t => t.Done == true).Count() <br />
+
+                            Contributors:
+                            @foreach (var ctr in Model.GetContributorsTo(otherProject))
                             {
-                                <a href="@Url.Action("Index", "Task", new { id = otherProject.Id } )">
-                                    Start contributing!  ->
-                                </a>
-                            }
-                           
-                        </div>
-                    </div>
-                }
-               
-           </div>
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        <b>Projects list</b>
-                    </div>
+                                <i>@ctr.Email  </i> <b> | </b>
 
+                            }
+                        </p>
+                        @if (!Model.ImContributingTo(otherProject) && !otherProject.Deleted)
+                        {
+                            <a href="@Url.Action("Index", "Task", new { id = otherProject.Id } )">
+                                Start contributing!  ->
+                            </a>
+                        }
+
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>#</td>
-                                <td>Title</td>
-                                <td>Tasks</td>
-                                <td>Contibutors</td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @{int i = 0;}
-                            
-                            @foreach (var project in Model.Projects)
-                            {   
-                                i++;
-                                <tr class="v @(@Model.IsFinish(project) ? "done" : " ")" >
-                                    <td>
-                                        @i
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Index", "Task", new { id = project.Id } )">
-                                            @project.Name
-                                        </a>
-                                    </td>
-                                    <td>
-                                        Total: @project.Tasks.Count <br />
-                                        Done : @Model.CountDone(project)
-                                    </td>
-                                    <td>
-                                        @foreach (var contributor in Model.GetContributorsTo(project))
-                                        {
-                                               <i>
-                                                    @contributor.Email
-                                               </i><br />
-                                        }
-                                    </td>
-                                    <td class="pull-right">
-                                        <div class="dropdown">
-                                            <button class="btn btn-default dropdown-toggle" type="button" id="dd-ctrl-projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <i class="fa fa-cog"></i>
-                                                Actions
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dd-ctrl-projects">
-                                                <li>
-                                                    @Html.ActionLink(
+            }
+
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <b>Projects list</b>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Title</td>
+                            <td>Tasks</td>
+                            <td>Contibutors</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 0;}
+
+                        @foreach (var project in Model.Projects)
+                        {
+                            i++;
+                            <tr class="v @(@Model.IsFinish(project) ? "done" : " ")">
+                                <td>
+                                    @i
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Index", "Task", new { id = project.Id } )">
+                                        @project.Name
+                                    </a>
+                                </td>
+                                <td>
+                                    Total: @project.Tasks.Count <br />
+                                    Done : @Model.CountDone(project)
+                                </td>
+                                <td>
+                                    @foreach (var contributor in Model.GetContributorsTo(project))
+                                    {
+                                        <i>
+                                            @contributor.Email
+                                        </i><br />
+                                    }
+                                </td>
+                                <td class="pull-right">
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dd-ctrl-projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <i class="fa fa-cog"></i>
+                                            Actions
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dd-ctrl-projects">
+                                            <li>
+                                                @Html.ActionLink(
                                                         "Details",                                     // linkText
                                                         "Details",                                    // actionName
                                                         "Project",                                  // controllerName
@@ -120,9 +124,9 @@
                                                            @class = "btn"
                                                        }
                                                    )
-                                                </li>
-                                                <li>
-                                                 @Html.ActionLink(
+                                            </li>
+                                            <li>
+                                                @Html.ActionLink(
                                                         "Edit",                                     // linkText
                                                         "Edit",                                    // actionName
                                                         "Project",                                  // controllerName
@@ -135,8 +139,8 @@
                                                            @class = "btn"
                                                        }
                                                    )
-                                                </li>
-                                                <li>
+                                            </li>
+                                            <li>
                                                 @Html.ActionLink(
                                                     "Delete",                                     // linkText
                                                     "Remove",                                    // actionName
@@ -150,16 +154,16 @@
                                                        @class = "btn btn-danger confirm"
                                                    }
                                                  )
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 </div>
 <script src="~/Scripts/src/app/Home/App.js"></script>
