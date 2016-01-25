@@ -29,5 +29,18 @@ namespace PUp.ViewModels
             CreateAt = DateTime.Now;
            
         }
+        public AddIssueViewModel( )
+        {
+            StatusList = new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Selected = true, Text = "Open", Value = "0"},
+                    new SelectListItem { Selected = false, Text = "Resolved", Value = "1"},
+                }, "Value", "Text", 1);
+            Deleted = false;
+            
+            CreateAt = DateTime.Now;
+
+        }
     }
 }
