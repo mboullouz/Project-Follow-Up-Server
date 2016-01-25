@@ -244,6 +244,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AddIssueViewModel.cs" />
     <Compile Include="ViewModels\AddProjectViewModel.cs" />
     <Compile Include="ViewModels\AddTaskViewModel.cs" />
     <Compile Include="ViewModels\Project\TableProjectModelView.cs" />
@@ -339,6 +340,7 @@
     <Content Include="Views\Project\Details.cshtml" />
     <Content Include="zDoc\ImprovedDbModel_v2.pdf" />
     <Content Include="Views\Issue\Index.cshtml" />
+    <Content Include="Views\Issue\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

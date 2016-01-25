@@ -1,5 +1,6 @@
 ﻿using PUp.Models;
 using PUp.Models.Repository;
+using PUp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,12 @@ namespace PUp.Controllers
         public ActionResult Index(int id)
         {             
             return View(projectRepository.FindById(id));
+        }
+
+        public ActionResult Add(int id)
+        {
+            AddIssueViewModel addIssueVM = new AddIssueViewModel(id);            
+            return View(addIssueVM);
         }
     }
 }

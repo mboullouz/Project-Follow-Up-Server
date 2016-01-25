@@ -13,7 +13,6 @@ namespace PUp.ViewModels
         public string Title { get; set; }
         public string Description { get; set; }
         public Nullable<int> Priority { get; set; }
-        public Nullable<int> EditionNumber { get; set; }
 
         [Required]
         [Display(Name = "Task done ?")]
