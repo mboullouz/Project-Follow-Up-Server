@@ -7,12 +7,13 @@
 }
 
 .card {
-    border: 1px solid #9E9E9E;
     max-height: 180px;
     font-size: 13px;
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .card-control>a {
-    margin: 3px;
+    margin: 4px;
     background: #F7F7F7;
     padding: 3px;
 }
@@ -74,7 +75,7 @@ textarea {
     border-color: white;
 }
     .navbar-default .navbar-nav > li > a {
-        color: #2196F3;
+            color: #397AB7;
         font-weight: 200;
     }
         .navbar-default .navbar-nav > li > a:hover {

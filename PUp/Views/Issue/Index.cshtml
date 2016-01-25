@@ -1,0 +1,58 @@
+﻿@model PUp.Models.Entity.ProjectEntity
+    @{
+        ViewBag.Title = "Liste of issues for the project: "+Model.Name;
+    }
+    <div id="conf" data-url="@Url.Action("ChangeState", "Task")">
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+ 
+            <a href="@Url.Action("Add", "Task", new { id = Model.Id } )" class="btn">
+                Add another Issue
+            </a>
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <b>Issues list for project: @Model.Name</b>
+                    </div>
+
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Created at</td>
+                                <td>Last edit</td>
+                                <td>Status</td>
+                                <td>Description</td>
+                                <td>Related area</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Issues)
+                            {
+                                <tr class="v @(@item.Status=="RESOLVED" ? "done" : " ")">
+                                    <td> @item.CreateAt.ToString("d/MMM/yyyy HH:mm")</td>
+                                    <td> @item.EditAt.ToString("d/MMM/yyyy HH:mm")</td>
+                                    <td>@if (item.Status=="RESOLVED")
+                                    {
+                                        <b>Resolved</b>
+                                    }
+                                    else { <b>Open</b>}
+                                    </td>
+                                    <td>@item.Description</td>
+                                    <td>@item.RelatedArea</td>
+                                    <td><button class="btn changeState" id="@item.Id">Mark resolved</button></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- TODO re organise js imports!-->
+<script src="~/Scripts/src/app/Shared/HttpCall.js"></script>
+<script src="~/Scripts/src/app/Shared/Models/Entity.js"></script>
+<script src="~/Scripts/src/app/Tasks/TaskApp.js"></script>

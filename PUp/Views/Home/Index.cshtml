@@ -14,12 +14,12 @@
                 Show deleted | <input type="checkbox" id="deletedProjectVisibility" />
             </div>
         </div>
-
+        <br />
         <div class="row">
             @foreach (var otherProject in Model.OtherProjects)
             {
                 <div data-toggle="tooltip" data-placement="right" title=" @(otherProject.Deleted ? "This project was deleted" : " " ) "
-                     class="col-md-3 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted ? "deleted" : " ") ">
+                     class="col-md-5 col-lg-offset-1 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted ? "deleted" : " ") ">
                     <b class="card-header">@otherProject.Name</b>
                     <div class="card-block">
                         <p class="card-text">
@@ -32,25 +32,25 @@
                             @if (!Model.ImContributingTo(otherProject))
                             {
                                 <a href="@Url.Action("Index", "Task", new { id = otherProject.Id } )">
-                                    contribute  <i class="fa fa-arrow-circle-right"></i>
+                                    <i class="fa fa-arrow-circle-right"></i> Contribute  
                                 </a>
                             }
                             else
                             {
                                 <a href="@Url.Action("Index", "Task", new { id = otherProject.Id } )">
-                                  @otherProject.Tasks.Count()  Tasks  <i class="fa fa-arrow-circle-right"></i>
+                                 <i class="fa fa-arrow-circle-right"></i> Tasks (@otherProject.Tasks.Count())
                                 </a>
                             }
                             <a href="@Url.Action("Add", "Task", new { id = otherProject.Id } )">
-                                Add task  <i class="fa fa-plus-circle"></i>
+                                 <i class="fa fa-plus-circle"></i> Add task 
+                            </a>
+
+                            <a href="@Url.Action("Index", "Issue", new { id = otherProject.Id } )">
+                                <i class="fa fa-exclamation-circle"></i> Issues  (@otherProject.Issues.Count) 
                             </a>
 
                             <a href="@Url.Action("Add", "Task", new { id = otherProject.Id } )">
-                              @otherProject.Issues.Count  Issues  <i class="fa fa-exclamation-circle"></i>
-                            </a>
-
-                            <a href="@Url.Action("Add", "Task", new { id = otherProject.Id } )">
-                                @Model.GetContributorsTo(otherProject).Count Contributors  <i class="fa fa-user-plus"></i>
+                                <i class="fa fa-user-plus"></i> Contributors (@Model.GetContributorsTo(otherProject).Count) 
                             </a>
 
                         </div>
@@ -59,6 +59,7 @@
             }
 
         </div>
+        <br />
         <div class="row">
             <div class="panel">
                 <div class="panel-heading">

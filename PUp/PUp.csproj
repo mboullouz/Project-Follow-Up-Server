@@ -212,6 +212,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssueController.cs" />
     <Compile Include="Controllers\NotificationApiController.cs" />
     <Compile Include="Models\Entity\ContributionEntity.cs" />
     <Compile Include="Models\Entity\IssueEntity.cs" />
@@ -337,6 +338,7 @@
     <Content Include="Views\Task\Add.cshtml" />
     <Content Include="Views\Project\Details.cshtml" />
     <Content Include="zDoc\ImprovedDbModel_v2.pdf" />
+    <Content Include="Views\Issue\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
