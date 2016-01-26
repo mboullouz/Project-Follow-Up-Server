@@ -20,7 +20,19 @@
                     @Html.ValidationMessageFor(m => m.Name)
                 
             </div>
-            
+
+            <div class="form-group">
+                <label class="control-label">Benifite</label>
+                @Html.TextAreaFor(m => m.Benifite, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Benifite)
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Objectives</label>
+                @Html.TextAreaFor(m => m.Objective, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Objective)
+            </div>
+
             <div class="form-group">
                 <label class="control-label">Start At:</label>
                 
@@ -36,6 +48,8 @@
                     @Html.ValidationMessageFor(m => m.EndAt)
                
             </div>
+            
+
            <input type="submit" value="Save" class="btn btn-primary" />
                  
             //  @Html.ActionLink("Create project", "CreerCompte")

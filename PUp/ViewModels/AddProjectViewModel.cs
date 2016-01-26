@@ -16,6 +16,10 @@ namespace PUp.ViewModels
         public DateTime StartAt { get; set; }
         public DateTime EndAt { get; set; }
         public int Id { get; set; }
+
+        public string Benifite { get; set; }
+        public string Objective { get; set; }
+
         public AddProjectViewModel()
         {
 

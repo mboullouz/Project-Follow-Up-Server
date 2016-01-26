@@ -23,10 +23,15 @@
                     <b class="card-header">@otherProject.Name</b>
                     <div class="card-block">
                         <p class="card-text">
-                            From: <b>@otherProject.StartAt.ToString("d/MMM/yyyy HH:mm")</b> 
-                            To  : <b>@otherProject.EndAt.ToString("d/MMM/yyyy HH:mm")</b> <br />
-                            Done: @otherProject.Tasks.Where(t => t.Done == true).Count() |
-                             
+                            From: <b>@otherProject.StartAt.ToString("d/MMM yyyy")</b> 
+                            To  : <b>@otherProject.EndAt.ToString("d/MMM yyyy")</b> 
+                            Done: @otherProject.Tasks.Where(t => t.Done == true).Count() 
+                        </p>
+                        <p>
+                          <span style="color:darkblue">Objective</span>: @otherProject.objective
+                        </p>
+                        <p>
+                         <span style="color:darkblue">Benifite</span> :   @otherProject.benifite
                         </p>
                         <div class="card-control">
                             @if (!Model.ImContributingTo(otherProject))

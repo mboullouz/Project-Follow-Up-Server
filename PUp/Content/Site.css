@@ -12,12 +12,13 @@
     -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.card-control>a {
+
+.card-control > a {
     margin: 4px;
     background: #F7F7F7;
     padding: 3px;
 }
- 
+
 .card-header {
     color: #FF5722;
     text-align: center;
@@ -34,12 +35,12 @@
 }
 
 thead {
-    background: rgba(255, 193, 7, 0);
-    color: #FF5722;
+    background: #3F92CF;
+    color: #FFFFFF;
 }
 
     thead > tr > td {
-        border-bottom: 1px solid #FF5722;
+        border: 1px solid white ;
     }
 
 .done {
@@ -74,16 +75,19 @@ textarea {
     background-color: white;
     border-color: white;
 }
+
     .navbar-default .navbar-nav > li > a {
-            color: #397AB7;
+        color: #397AB7;
         font-weight: 200;
     }
+
         .navbar-default .navbar-nav > li > a:hover {
             color: #F44336;
             font-weight: 200;
             background-color: rgba(96, 125, 139, 0.07);
             height: 40px;
         }
+
     .navbar-default .navbar-collapse, .navbar-default .navbar-form {
         border-bottom: 1px dotted #FF5722;
     }
@@ -133,11 +137,13 @@ textarea {
         -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     }
+
 .btn-primary:hover {
-        color: #2196F3 !important;
-        background-color: whitesmoke;
-        border-color: white;
-    }
+    color: #2196F3 !important;
+    background-color: whitesmoke;
+    border-color: white;
+}
+
 .link-next {
     color: #2196F3 !important;
 }

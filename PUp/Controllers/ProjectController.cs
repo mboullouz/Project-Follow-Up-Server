@@ -38,8 +38,9 @@ namespace PUp.Controllers
             {
                 EndAt = DateTime.Now.AddDays(7),
                 StartAt = DateTime.Now.AddHours(1),
-                Name = "Week 2: Exciting project!"
-
+                Name = "Week 2: Exciting project!",
+                Benifite= "Define the benefits and related assumptions,associated with the project...",
+                Objective= "what is the project trying to achieve? What functionalities or departments are involved?... "
             };
             return View(projectModel);
 
@@ -56,6 +57,8 @@ namespace PUp.Controllers
             project.Name = model.Name;
             project.StartAt = model.StartAt;
             project.EndAt = model.EndAt;
+            project.objective = model.Objective;
+            project.benifite = model.Benifite;
             ContributionEntity contribution = new ContributionEntity();
             contribution.EndAt = project.EndAt;
             contribution.Project = project;

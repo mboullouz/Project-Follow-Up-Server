@@ -8,7 +8,7 @@ namespace PUp.Models.Entity
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    public partial  class ProjectEntity 
+    public partial class ProjectEntity
     {
 
         [Key]
@@ -22,7 +22,7 @@ namespace PUp.Models.Entity
         /// <summary>
         /// A project may finish before estimated finish date time!
         /// </summary>
-        public  DateTime  FinishAt { get; set; }
+        public DateTime FinishAt { get; set; }
         public DateTime StartAt { get; set; }
 
 
@@ -30,7 +30,7 @@ namespace PUp.Models.Entity
         /// This the max date to finish the task, if not the task is considered undone 
         /// note: it is not related to the estimatedTimeInMinutes
         /// </summary>
-        public  DateTime  EndAt { get; set; }
+        public DateTime EndAt { get; set; }
 
 
         /// <summary>
@@ -68,6 +68,6 @@ namespace PUp.Models.Entity
             Deleted = false;
         }
 
-       
+
     }
 }
