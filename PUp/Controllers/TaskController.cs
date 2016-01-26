@@ -88,6 +88,9 @@ namespace PUp.Controllers
                 Project = project,
                 CreateAt = DateTime.Now,
                 EditAt = DateTime.Now,
+                estimatedTimeInMinutes = model.estimatedTimeInMinutes,
+                keyFactor = model.keyFactor,
+                Deleted = false,
             };
             contributionRepository.AddContributionIfNotExists(project, user, task);                      
             taskRepository.Add(task);            

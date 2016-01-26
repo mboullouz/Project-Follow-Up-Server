@@ -16,37 +16,37 @@
         {
             <div class="form-group">
                 <label class="control-label">Title</label>
-
                 @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Title)
-
             </div>
 
             <div class="form-group">
                 <label class="control-label">Priority</label>
-
-                @Html.TextBoxFor(m => m.Priority, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Priority)
-
+                @Html.DropDownListFor(m => m.Priority, Model.PriorityList, "Select one")
             </div>
 
             <div class="form-group">
-                <label class="control-label">Description</label>
-
-                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Description)
-
+                <label class="control-label">Estimated time</label>
+                @Html.DropDownListFor(m => m.estimatedTimeInMinutes, Model.EstimatedMinList, "Select one")
             </div>
 
-            @Html.HiddenFor(m => m.IdProject)
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group">
+                <label class="control-label">This task is a key factor </label>
+                @Html.CheckBoxFor(m => m.keyFactor)
+            </div>
+            <div class="form-group">
+                <label class="control-label">Description</label>
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
 
-            //  @Html.ActionLink("Create project", "CreerCompte")
+                @Html.HiddenFor(m => m.IdProject)
+                <input type="submit" value="Save" class="btn btn-primary" />
         }
     </div>
 
 </div>
 
 
- 
+
 
