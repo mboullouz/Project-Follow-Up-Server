@@ -40,14 +40,15 @@ namespace PUp.Models.Repository
                 User = user,
                 Message = message,
                 Url = url,
-                CreateAt = DateTime.Now,
-                Seen = false
+                AddAt = DateTime.Now,
+                Seen = false,
+                Deleted = false
             };
         }
 
         public List<NotificationEntity> GetNotSeen()
         {
-            return DbContext.NotificationSet.Where(n => n.Seen == false).OrderByDescending(n => n.CreateAt).ToList();
+            return DbContext.NotificationSet.Where(n => n.Seen == false).OrderByDescending(n => n.AddAt).ToList();
         }
 
         public void RemoveAllForUser(UserEntity user)
@@ -83,9 +84,10 @@ namespace PUp.Models.Repository
                 NotificationEntity notification = new NotificationEntity
                 {
                     User = u,
-                    CreateAt = DateTime.Now,
+                    AddAt = DateTime.Now,
                     Message = "New project: ' " + project.Name + "' Added by" + u.Email,
-                    Url = "~/Home/Index/" + project.Id
+                    Url = "~/Home/Index/" + project.Id,
+                    Deleted=false,
                 };
                 Add(notification);
             }
@@ -98,9 +100,10 @@ namespace PUp.Models.Repository
                 NotificationEntity notification = new NotificationEntity
                 {
                     User = u,
-                    CreateAt = DateTime.Now,
+                    AddAt = DateTime.Now,
                     Message = "New task: ' " + taskEntity.Title + "' Added by" + u.Email,
-                    Url = "~/Task/Add/" + taskEntity.Id
+                    Url = "~/Task/Add/" + taskEntity.Id,
+                    Deleted=false,
                 };
                 Add(notification);
             }
@@ -108,7 +111,8 @@ namespace PUp.Models.Repository
 
         public override void MarkDeleted(NotificationEntity e)
         {
-            throw new NotImplementedException();
+            e.Deleted = true;
+            DbContext.SaveChanges();
         }
     }
 }

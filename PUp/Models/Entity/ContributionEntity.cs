@@ -7,7 +7,7 @@ using System.Web;
 
 namespace PUp.Models.Entity
 {
-    public class ContributionEntity
+    public class ContributionEntity:IBasicEntity
     {
         
 
@@ -16,16 +16,29 @@ namespace PUp.Models.Entity
         //TODO use an enum
         public string Role { get; set; }
  
-        public DateTime StartAt { get; set; }
+        public DateTime AddAt { get; set; }
+        public bool? Deleted { get; set; }
 
         //Default equal to end of the project!
         public Nullable<DateTime> EndAt { get; set; }
         public UserEntity User { get; set; }
         public ProjectEntity Project { get; set; }
 
+        public DateTime? EditAt
+        {
+            get; set;
+        }
+
+        public DateTime? DeleteAt
+        {
+            get; set;
+        }
+
         public ContributionEntity()
         {
-            StartAt = DateTime.Now;
+            AddAt = DateTime.Now;
+            Deleted = false;
+            
         }
     }
 }

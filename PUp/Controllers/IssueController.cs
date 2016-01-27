@@ -53,7 +53,7 @@ namespace PUp.Controllers
             }
             IssueEntity issue = new IssueEntity
             {
-                CreateAt= DateTime.Now,               
+                AddAt= DateTime.Now,               
                 EditAt  = DateTime.Now,
                 Deleted = false,
                 Project = project,

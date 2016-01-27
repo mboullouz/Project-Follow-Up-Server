@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace PUp.Models.Entity
+﻿namespace PUp.Models.Entity
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    public partial class TaskEntity { 
+    public partial class TaskEntity:IBasicEntity
+    {
         [Key]
         public int Id { get; set; }
         public string Title { get; set; }
@@ -18,8 +13,8 @@ namespace PUp.Models.Entity
         public string Description { get; set; }
 
         public bool Done { get; set; }
-        public DateTime CreateAt { get; set; }
-        public DateTime EditAt { get; set; }
+        public DateTime AddAt { get; set; }
+        public DateTime? EditAt { get; set; }
         public Nullable<DateTime> FinishAt { get; set; }
 
         /// <summary>
@@ -35,19 +30,19 @@ namespace PUp.Models.Entity
         /// --not related to the priority 
         /// </summary>
         public bool keyFactor { get; set; }
-        
+
         /// <summary>
         /// Estimated time in minutes 
         /// its NOT equivalent to the difference between start date and finish date
         /// </summary>
         public int estimatedTimeInMinutes { get; set; }
-
-        public bool Deleted { get; set; }
+        public DateTime? DeleteAt { get; set; }
+        public bool? Deleted { get; set; }
         public TaskEntity()
         {
             Done = false;
             Priority = 1;
-            CreateAt = DateTime.Now;
+            AddAt = DateTime.Now;
             EditAt = DateTime.Now;
             keyFactor = false;
             estimatedTimeInMinutes = 60;
@@ -55,5 +50,8 @@ namespace PUp.Models.Entity
         }
 
         public virtual ProjectEntity Project { get; set; }
+ 
+
+       
     }
 }

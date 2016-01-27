@@ -8,16 +8,16 @@ namespace PUp.Models.Entity
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    public partial class ProjectEntity
+    public partial class ProjectEntity:IBasicEntity
     {
 
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public bool Finish { get; set; }
-        public bool Deleted { get; set; }
-        public DateTime CreateAt { get; set; }
-        public DateTime EditAt { get; set; }
+        public bool? Deleted { get; set; }
+        
+        public DateTime? EditAt { get; set; }
 
         /// <summary>
         /// A project may finish before estimated finish date time!
@@ -54,18 +54,26 @@ namespace PUp.Models.Entity
         public virtual ICollection<IssueEntity> Issues { get; set; }
         public virtual ICollection<ContributionEntity> Contributions { get; set; }
 
+       
+
+        public DateTime? DeleteAt { get; set; }
+
+
+        public DateTime AddAt { get; set; }
+
         public ProjectEntity()
         {
             Tasks = new HashSet<TaskEntity>();
             Issues = new HashSet<IssueEntity>();
             Contributions = new HashSet<ContributionEntity>();
             Finish = false;
-            CreateAt = DateTime.Now;
+            AddAt = DateTime.Now;
             EditAt = DateTime.Now;
             StartAt = DateTime.Now.AddHours(1);
             EndAt = DateTime.Now.AddDays(7);
-            FinishAt = EndAt;
+            FinishAt = DateTime.Now.AddDays(900); 
             Deleted = false;
+            DeleteAt= DateTime.Now.AddYears(1);
         }
 
 

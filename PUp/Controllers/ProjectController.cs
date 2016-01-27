@@ -7,6 +7,7 @@ using PUp.ViewModels;
 using PUp.Models.Repository;
 using PUp.Models.Entity;
 using PUp.Models;
+using PUp.ViewModels.Project;
 
 namespace PUp.Controllers
 {
@@ -59,13 +60,14 @@ namespace PUp.Controllers
             project.EndAt = model.EndAt;
             project.objective = model.Objective;
             project.benifite = model.Benifite;
+            
             ContributionEntity contribution = new ContributionEntity();
             contribution.EndAt = project.EndAt;
             contribution.Project = project;
             contribution.ProjectId = project.Id;
             contribution.User = userRepository.GetCurrentUser();
             contribution.UserId = userRepository.GetCurrentUser().Id;
-            contribution.StartAt = project.StartAt;
+            contribution.AddAt = project.StartAt;
             contribution.Role = "FirstContributor";
 
             projectRepository.Add(project);
@@ -93,7 +95,7 @@ namespace PUp.Controllers
             AddProjectViewModel projectModel = new AddProjectViewModel
             {
                 Id = project.Id,
-                EndAt = project.EndAt,
+                EndAt = (DateTime)project.EndAt,
                 StartAt = project.StartAt,
                 Name = project.Name
             };
@@ -104,14 +106,9 @@ namespace PUp.Controllers
         {
 
             ProjectEntity project = projectRepository.FindById(id);
-            AddProjectViewModel projectModel = new AddProjectViewModel
-            {
-                Id = project.Id,
-                EndAt = project.EndAt,
-                StartAt = project.StartAt,
-                Name = project.Name
-            };
-            return View("~/Views/Project/Details.cshtml", projectModel);
+            ProjectTimelineViewModel projectTimeline = new ProjectTimelineViewModel(project);
+            
+            return View("~/Views/Project/Details.cshtml", projectTimeline);
         }
 
         [HttpPost]

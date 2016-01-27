@@ -7,7 +7,7 @@ using System.Web;
 
 namespace PUp.Models.Entity
 {
-    public class NotificationEntity
+    public class NotificationEntity : IBasicEntity
     {
         [Key]
         public int Id { get; set; }
@@ -15,14 +15,28 @@ namespace PUp.Models.Entity
         [Column(TypeName = "ntext")]
         public string Message { get; set; }
         public bool Seen { get; set; }
-        public DateTime CreateAt { get; set; }
         public UserEntity User { get; set; }
+
+        public DateTime AddAt
+        { get; set; }
+
+        public DateTime? EditAt
+        { get; set; }
+
+        public DateTime? DeleteAt
+        { get; set; }
+
+        public bool? Deleted
+        {
+            get; set;
+        }
 
         public NotificationEntity()
         {
             Seen = false;
             Url = "#";
-            CreateAt = DateTime.Now;
+            AddAt = DateTime.Now;
+            Deleted = false;
 
         }
     }

@@ -75,7 +75,7 @@ namespace PUp.Models.Repository
             {
                 var contrib = new ContributionEntity
                 {
-                    StartAt = DateTime.Now,
+                    AddAt = DateTime.Now,
                     EndAt = task.Project.EndAt,
                     ProjectId = project.Id,
                     UserId = user.Id,

@@ -19,8 +19,8 @@
         <div class="row">
             @foreach (var project in Model.Projects)
             {
-            <div data-toggle="tooltip" data-placement="right" title="@(project.Deleted ? "This project was deleted" : " " )"
-                 class="col-md-5 col-lg-offset-1 card @(@Model.IsFinish(project) ? "done" : " ") @(project.Deleted ? "deleted" : " ") ">
+            <div data-toggle="tooltip" data-placement="right" title="@(project.Deleted==true? "This project was deleted" : " " )"
+                 class="col-md-5 col-lg-offset-1 card @(@Model.IsFinish(project) ? "done" : " ") @(project.Deleted==true? "deleted" : " ") ">
                 <div class="dropdown pull-right">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dd-ctrl-projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <i class="fa fa-cog"></i>
@@ -128,13 +128,13 @@
         <div class="row">
             @foreach (var otherProject in Model.OtherProjects)
             {
-                <div data-toggle="tooltip" data-placement="right" title=" @(otherProject.Deleted ? "This project was deleted" : " " ) "
-                     class="col-md-5 col-lg-offset-1 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted ? "deleted" : " ") ">
+                <div data-toggle="tooltip" data-placement="right" title=" @(otherProject.Deleted==true? "This project was deleted" : " " ) "
+                     class="col-md-5 col-lg-offset-1 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted==true? "deleted" : " ") ">
                     <b class="card-header">@otherProject.Name</b>
                     <div class="card-block">
                         <p class="card-text">
                             From: <b>@otherProject.StartAt.ToString("d/MMM yyyy")</b>
-                            To  : <b>@otherProject.EndAt.ToString("d/MMM yyyy")</b>
+                            To  : <b>@otherProject.EndAt?.ToString("d/MMM yyyy")</b>
                             Done: @otherProject.Tasks.Where(t => t.Done == true).Count()
                         </p>
                         <p>

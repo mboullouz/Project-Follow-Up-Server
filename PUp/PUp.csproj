@@ -215,6 +215,7 @@
     <Compile Include="Controllers\IssueController.cs" />
     <Compile Include="Controllers\NotificationApiController.cs" />
     <Compile Include="Models\Entity\ContributionEntity.cs" />
+    <Compile Include="Models\Entity\IBasicEntity.cs" />
     <Compile Include="Models\Entity\IssueEntity.cs" />
     <Compile Include="Models\Entity\NotificationEntity.cs" />
     <Compile Include="Models\Repository\AbstractRepository.cs" />

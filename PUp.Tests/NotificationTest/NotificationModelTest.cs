@@ -26,11 +26,12 @@ namespace PUp.Tests.NotificationTest
         {  
             NotificationEntity notif = new NotificationEntity
             {
-                CreateAt = DateTime.Now,
+                AddAt = DateTime.Now,
                 User = user,
                 Message = "TEST message",
                 Seen = false,
-                Url = "#/a/b"
+                Url = "#/a/b",
+                Deleted=false,
             };
             nRepo.Add(notif);
             int n = nRepo.GetByUser(user.Id).Count;

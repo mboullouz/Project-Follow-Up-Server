@@ -51,7 +51,7 @@ namespace PUp.Tests.ContributionTest
             projectRepo.Add(projectEntity);
             var contrib = new ContributionEntity
             {
-                StartAt = DateTime.Now,
+                AddAt = DateTime.Now,
                 EndAt = projectEntity.EndAt,
                 ProjectId = projectEntity.Id,
                 UserId = user.Id,

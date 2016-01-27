@@ -33,8 +33,8 @@
                             @foreach (var item in Model.Issues)
                             {
                                 <tr class="v @(@item.Status=="RESOLVED" ? "done" : " ")">
-                                    <td> @item.CreateAt.ToString("d/MMM/yyyy HH:mm")</td>
-                                    <td> @item.EditAt.ToString("d/MMM/yyyy HH:mm")</td>
+                                    <td> @item.AddAt.ToString("d/MMM/yyyy HH:mm")</td>
+                                    <td> @item.EditAt?.ToString("d/MMM/yyyy HH:mm")</td>
                                     <td>@if (item.Status=="RESOLVED")
                                     {
                                         <b>Resolved</b>

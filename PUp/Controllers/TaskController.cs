@@ -86,7 +86,7 @@ namespace PUp.Controllers
                 Priority = model.Priority,
                 Done = model.Done,
                 Project = project,
-                CreateAt = DateTime.Now,
+                AddAt = DateTime.Now,
                 EditAt = DateTime.Now,
                 estimatedTimeInMinutes = model.estimatedTimeInMinutes,
                 keyFactor = model.keyFactor,
