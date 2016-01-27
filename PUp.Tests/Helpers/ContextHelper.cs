@@ -20,7 +20,7 @@ namespace PUp.Tests.Helpers
             new HttpResponse(new System.IO.StringWriter())
             );
             HttpContext.Current.User = new GenericPrincipal(
-                new GenericIdentity("a@b.com"),
+                new GenericIdentity("med@med.com"),
                 new string[] { "ADMIN" }
             );
             return HttpContext.Current;

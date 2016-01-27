@@ -21,7 +21,7 @@ namespace PUp.Tests.GeneralTest
         public void Test_test_current_user_not_null_build_simple_context()
         {
             var context = ContextHelper.FakeContext();          
-            Assert.AreEqual("a@b.com", context.User.Identity.Name);
+            Assert.AreEqual("med@med.com", context.User.Identity.Name);
             Assert.AreEqual(true, context.User.IsInRole("ADMIN"));
             Assert.IsTrue(context.User.Identity.IsAuthenticated);
         }
@@ -31,7 +31,7 @@ namespace PUp.Tests.GeneralTest
         {
              
             Assert.IsNotNull(ContextHelper.CurrentUserEntity()); 
-            Assert.AreEqual("a@b.com", ContextHelper.CurrentUserEntity().Email);
+            Assert.AreEqual("med@med.com", ContextHelper.CurrentUserEntity().Email);
         }
        
     }

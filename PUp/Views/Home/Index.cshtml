@@ -80,6 +80,7 @@
                         From: <b>@project.StartAt.ToString("d/MMM yyyy")</b>
                         To  : <b>@project.EndAt.ToString("d/MMM yyyy")</b>
                         Done: @project.Tasks.Where(t => t.Done == true).Count()
+                        Time left: @((int)(project.EndAt-DateTime.Now).TotalDays) days
                     </p>
                     <p>
                         <span style="color:#3288E6;">Objective</span>: @project.objective

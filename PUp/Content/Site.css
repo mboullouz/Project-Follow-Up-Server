@@ -11,6 +11,7 @@
     font-size: 13px;
     -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    margin-bottom: 17px;
 }
 
 .card-control > a {
@@ -40,7 +41,7 @@ thead {
 }
 
     thead > tr > td {
-        border: 1px solid white ;
+        border: 1px solid white;
     }
 
 .done {
@@ -253,8 +254,11 @@ input, select, textarea {
     color: black;
     border: 1px solid #9E9E9E;
 }
+    input[type="checkbox"], input[type="radio"] {
+        height:12px !important;
+    }
 
-[type="checkbox"]:not (:checked ), [type="checkbox"]:checked {
+[type="checkbox"]:not(:checked ), [type="checkbox"]:checked {
     height: 11px;
     margin: -1px;
 }
