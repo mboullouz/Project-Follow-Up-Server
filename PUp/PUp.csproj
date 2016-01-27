@@ -247,6 +247,7 @@
     <Compile Include="ViewModels\AddIssueViewModel.cs" />
     <Compile Include="ViewModels\AddProjectViewModel.cs" />
     <Compile Include="ViewModels\AddTaskViewModel.cs" />
+    <Compile Include="ViewModels\Project\ProjectTimelineViewModel.cs" />
     <Compile Include="ViewModels\Project\TableProjectModelView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -257,6 +258,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\notif.css" />
+    <Content Include="Content\timeline.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
