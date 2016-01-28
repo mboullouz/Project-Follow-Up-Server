@@ -84,13 +84,13 @@
                             <span>@(((float)project.Tasks.Where(t => t.Done == true).Count()/ (float)project.Tasks.Count()*100))%</span>
                         }
                          
-                        <span style="color:crimson">Time left: @((int)(project.EndAt - DateTime.Now).TotalDays) days </span>
+                        <span style="color:crimson;">Time left: @((int)(project.EndAt - DateTime.Now).TotalDays) days </span>
                     </p>
                     <p>
-                        <span style="color:#3288E6;">Objective</span>: @project.objective
+                        <span style="color:#3288E6;">Objective</span>: @( new string(project.objective.Take(80).ToArray()) )...
                     </p>
                     <p>
-                        <span style="color:#3288E6;">Benifite</span> :   @project.benifite
+                        <span style="color:#3288E6;">Benifite</span> :  @( new string(project.benifite.Take(80).ToArray()) )...
                     </p>
                     <div class="card-control">
                         <a href="@Url.Action("Index", "Task", new { id = project.Id } )">

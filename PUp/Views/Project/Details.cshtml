@@ -6,7 +6,6 @@
 
 <div class="container">
     <div class="row">
-
         <div class="timeline-centered">
 
             <article class="timeline-entry">
@@ -29,50 +28,38 @@
             {
                if (element is TaskEntity) {
                 <article class="timeline-entry">
-
                     <div class="timeline-entry-inner">
-
-                        <div class="timeline-icon bg-secondary">
+                        <div class="timeline-icon ">
                             <i class="fa fa-star"></i>
                         </div>
-
                         <div class="timeline-label">
                             <h2><a href="#">
-                                
                                       @(  ((TaskEntity)element).Title )  
-                                       
-                              
                                 </a>
                             </h2>
-                            <p>You have a meeting at <strong>Laborator Office</strong> Today.</p>
+                            <p>@(  ((TaskEntity)element).Description )  
+                               <strong> @(  ((TaskEntity)element).AddAt.ToShortTimeString() )  </strong>
+                            </p>
                         </div>
                     </div>
-
                 </article>
                 }
                 if (element is NotificationEntity)
                 {
                     <article class="timeline-entry">
-
                         <div class="timeline-entry-inner">
-
                             <div class="timeline-icon bg-secondary">
                                 <i class="fa fa-bullhorn"></i>
                             </div>
-
                             <div class="timeline-label">
                                 <h2>
                                     <a href="#">
-
                                         @(  ((NotificationEntity)element).Message )
-
-
                                     </a>
                                 </h2>
-                                <p>You have a meeting at <strong>Laborator Office</strong> Today.</p>
+                                <p>@(  ((NotificationEntity)element).Url )</p>
                             </div>
                         </div>
-
                     </article>
                 }
             }
@@ -87,9 +74,7 @@
 
                     <div class="timeline-label">
                         <h2><a href="#">Arber Nushi</a> <span>changed his</span> <a href="#">Profile Picture</a></h2>
-
                         <blockquote>Pianoforte principles our unaffected not for astonished travelling are particular.</blockquote>
-
                         <img src="http://themes.laborator.co/neon/assets/images/timeline-image-3.png" class="img-responsive img-rounded full-width">
                     </div>
                 </div>
