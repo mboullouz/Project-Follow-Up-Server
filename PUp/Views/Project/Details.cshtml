@@ -18,7 +18,8 @@
 
                     <div class="timeline-label">
                         <h2><a href="#">Project start</a> <span>@Model.Project.StartAt.ToString("d/MMM yyyy")</span></h2>
-                        <p><i class="fa fa-chevron-right"></i> @Model.Project.objective </p>
+                        <p>Objective: <i class="fa fa-chevron-right"></i> @Model.Project.objective </p>
+                        <p>Benifites: <i class="fa fa-chevron-right"></i>@Model.Project.benifite</p>
                     </div>
                 </div>
 
@@ -26,23 +27,26 @@
 
             @foreach (var element in Model.Elements)
             {
-               if (element is TaskEntity) {
-                <article class="timeline-entry">
-                    <div class="timeline-entry-inner">
-                        <div class="timeline-icon ">
-                            <i class="fa fa-star"></i>
+                if (element is TaskEntity)
+                {
+                    <article class="timeline-entry">
+                        <div class="timeline-entry-inner">
+                            <div class="timeline-icon timeline-icon-task">
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="timeline-label">
+                                <h2>
+                                    <a href="#">
+                                        @(  ((TaskEntity)element).Title )
+                                    </a>
+                                </h2>
+                                <p>
+                                    @(  ((TaskEntity)element).Description )
+                                    <strong> @(  ((TaskEntity)element).AddAt.ToShortTimeString() )  </strong>
+                                </p>
+                            </div>
                         </div>
-                        <div class="timeline-label">
-                            <h2><a href="#">
-                                      @(  ((TaskEntity)element).Title )  
-                                </a>
-                            </h2>
-                            <p>@(  ((TaskEntity)element).Description )  
-                               <strong> @(  ((TaskEntity)element).AddAt.ToShortTimeString() )  </strong>
-                            </p>
-                        </div>
-                    </div>
-                </article>
+                    </article>
                 }
                 if (element is NotificationEntity)
                 {
@@ -57,31 +61,32 @@
                                         @(  ((NotificationEntity)element).Message )
                                     </a>
                                 </h2>
-                                <p>@(  ((NotificationEntity)element).Url )</p>
+                                <p> <a href="@(  ((NotificationEntity)element).Url )"> Details</a></p>
+                            </div>
+                        </div>
+                    </article>
+                }
+
+                if (element is IssueEntity)
+                {
+                    <article class="timeline-entry">
+                        <div class="timeline-entry-inner">
+                            <div class="timeline-icon bg-secondary">
+                                <i class="fa fa-exclamation-circle"></i>
+                            </div>
+                            <div class="timeline-label">
+                                <h2>
+                                    <a href="#">
+                                        @(  ((IssueEntity)element).Description )
+                                    </a>
+                                </h2>
+                                <p>Status:  @(  ((IssueEntity)element).Status ) </p>
+                                <p>Related area(s):  @(  ((IssueEntity)element).RelatedArea ) </p>
                             </div>
                         </div>
                     </article>
                 }
             }
-
-            <article class="timeline-entry">
-
-                <div class="timeline-entry-inner">
-
-                    <div class="timeline-icon bg-warning">
-                        <i class="entypo-camera"></i>
-                    </div>
-
-                    <div class="timeline-label">
-                        <h2><a href="#">Arber Nushi</a> <span>changed his</span> <a href="#">Profile Picture</a></h2>
-                        <blockquote>Pianoforte principles our unaffected not for astonished travelling are particular.</blockquote>
-                        <img src="http://themes.laborator.co/neon/assets/images/timeline-image-3.png" class="img-responsive img-rounded full-width">
-                    </div>
-                </div>
-
-            </article>
-
-
             <article class="timeline-entry begin">
 
                 <div class="timeline-entry-inner">

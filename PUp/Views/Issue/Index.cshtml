@@ -34,7 +34,7 @@
                             {
                                 <tr class="v @(@item.Status=="RESOLVED" ? "done" : " ")">
                                     <td> @item.AddAt.ToString("d/MMM/yyyy HH:mm")</td>
-                                    <td> @item.EditAt?.ToString("d/MMM/yyyy HH:mm")</td>
+                                    <td> @(item.EditAt?.ToString("d/MMM/yyyy HH:mm") )</td>
                                     <td>@if (item.Status=="RESOLVED")
                                     {
                                         <b>Resolved</b>

@@ -182,8 +182,8 @@ img {
                     }
 
             .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon {
-                background: #fff;
-                color: #737881;
+                background: white;
+                color: #3F51B5;
                 display: block;
                 width: 40px;
                 height: 40px;
@@ -202,88 +202,93 @@ img {
                 float: left;
             }
 
-                .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-primary {
-                    background-color: #303641;
-                    color: #fff;
-                }
+.timeline-icon-task {
+    background: white !important;
+    color: #2196F3 !important;
+}
 
-                .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-secondary {
-                    background-color: #ee4749;
-                    color: #fff;
-                }
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-primary {
+    background-color: #303641;
+    color: #fff;
+}
 
-                .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-success {
-                    background-color: #00a651;
-                    color: #fff;
-                }
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-secondary {
+    background-color: #F1F1F1;
+    color: #F44336;
+}
 
-                .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-info {
-                    background-color: #21a9e1;
-                    color: #fff;
-                }
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-success {
+    background-color: #00a651;
+    color: #fff;
+}
 
-                .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-warning {
-                    background-color: #fad839;
-                    color: #fff;
-                }
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-info {
+    background-color: #21a9e1;
+    color: #fff;
+}
 
-                .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-danger {
-                    background-color: #cc2424;
-                    color: #fff;
-                }
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-warning {
+    background-color: #fad839;
+    color: #fff;
+}
 
-            .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label {
-                position: relative;
-                background: #f5f5f6;
-                padding: 1em;
-                margin-left: 60px;
-                -webkit-background-clip: padding-box;
-                -moz-background-clip: padding;
-                background-clip: padding-box;
-                -webkit-border-radius: 3px;
-                -moz-border-radius: 3px;
-                border-radius: 3px;
-            }
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-danger {
+    background-color: #cc2424;
+    color: #fff;
+}
 
-                .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label:after {
-                    content: '';
-                    display: block;
-                    position: absolute;
-                    width: 0;
-                    height: 0;
-                    border-style: solid;
-                    border-width: 9px 9px 9px 0;
-                    border-color: transparent #f5f5f6 transparent transparent;
-                    left: 0;
-                    top: 10px;
-                    margin-left: -9px;
-                }
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-label {
+    position: relative;
+    background: #f5f5f6;
+    padding: 1em;
+    margin-left: 60px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
 
-                .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2, .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label p {
-                    color: #737881;
-                    font-family: "Noto Sans",sans-serif;
-                    font-size: 12px;
-                    margin: 0;
-                    line-height: 1.428571429;
-                }
+    .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label:after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 9px 9px 9px 0;
+        border-color: transparent #f5f5f6 transparent transparent;
+        left: 0;
+        top: 10px;
+        margin-left: -9px;
+    }
 
-                    .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label p + p {
-                        margin-top: 15px;
-                    }
+    .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2, .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label p {
+        color: #737881;
+        font-family: "Noto Sans",sans-serif;
+        font-size: 12px;
+        margin: 0;
+        line-height: 1.428571429;
+    }
 
-                .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2 {
-                    font-size: 16px;
-                    margin-bottom: 10px;
-                }
+        .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label p + p {
+            margin-top: 15px;
+        }
 
-                    .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2 a {
-                        color: #303641;
-                    }
+    .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
 
-                    .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2 span {
-                        -webkit-opacity: .6;
-                        -moz-opacity: .6;
-                        opacity: .6;
-                        -ms-filter: alpha(opacity=60);
-                        filter: alpha(opacity=60);
-                    }
+        .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2 a {
+            color: #303641;
+        }
+
+        .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2 span {
+            -webkit-opacity: .6;
+            -moz-opacity: .6;
+            opacity: .6;
+            -ms-filter: alpha(opacity=60);
+            filter: alpha(opacity=60);
+        }
