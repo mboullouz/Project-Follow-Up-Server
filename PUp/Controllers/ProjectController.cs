@@ -83,6 +83,14 @@ namespace PUp.Controllers
             projectRepository.MarkDeleted(projectRepository.FindById(id));
             return RedirectToAction("Index", "Home");
         }
+        
+        //Remove permenently a record 
+        public ActionResult HardRemove(int id)
+        {   
+            projectRepository.Remove(projectRepository.FindById(id));
+            return RedirectToAction("Index", "Home");
+        }
+        
         public ActionResult HardRemove(int id)
         {
             projectRepository.Remove(id);
