@@ -1,16 +1,19 @@
-﻿body {
+﻿@import url(https://fonts.googleapis.com/css?family=Noto+Sans);
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     color: black;
     color: #444;
-    font-family: sans-serif, Arial;
+    //font-family: sans-serif, Arial;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .card {
-    max-height: 180px;
-    font-size: 13px;
-    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    max-height: 240px;
+    font-size: 14px;
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 4px -2px 1px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 4px -2px 1px rgba(0, 0, 0, 0.23);
     margin-bottom: 17px;
 }
 
@@ -90,7 +93,7 @@ textarea {
         }
 
     .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-        border-bottom: 1px dotted #FF5722;
+            border-bottom: 1px solid #397AB7;
     }
 
 .navbar-right {
@@ -254,8 +257,9 @@ input, select, textarea {
     color: black;
     border: 1px solid #9E9E9E;
 }
+
     input[type="checkbox"], input[type="radio"] {
-        height:12px !important;
+        height: 12px !important;
     }
 
 [type="checkbox"]:not(:checked ), [type="checkbox"]:checked {

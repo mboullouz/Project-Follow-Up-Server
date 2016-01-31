@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using Quartz;
+using Quartz.Impl;
+using System.Web;
 using System.Web.Optimization;
 
 namespace PUp
@@ -30,6 +32,8 @@ namespace PUp
                       "~/Content/notif.css",
                       "~/Content/timeline.css"
                       ));
+
+           
         }
     }
 }

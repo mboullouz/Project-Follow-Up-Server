@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PUp.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+
 
 namespace PUp
 {
@@ -20,6 +22,11 @@ namespace PUp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //This is an attempt to start job scheduler when the App starts 
+            //JobSchedulerConfig.StartSimpleConfig(); 
+            
+
             //Enable this to when something changed and we need migration
             //System.Data.Entity.Database.SetInitializer<Models.DatabaseContext>(new Models.DatabaseInitializer());
         }
