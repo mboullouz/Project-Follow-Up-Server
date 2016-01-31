@@ -24,7 +24,7 @@ namespace PUp
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             //This is an attempt to start job scheduler when the App starts 
-            //JobSchedulerConfig.StartSimpleConfig(); 
+            JobSchedulerConfig.StartProjectDeadLineJob(); 
             
 
             //Enable this to when something changed and we need migration

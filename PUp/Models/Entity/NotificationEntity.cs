@@ -12,9 +12,12 @@ namespace PUp.Models.Entity
         [Key]
         public int Id { get; set; }
         public string Url { get; set; }
+
         [Column(TypeName = "ntext")]
         public string Message { get; set; }
+
         public bool Seen { get; set; }
+
         public UserEntity User { get; set; }
 
         public DateTime AddAt
@@ -37,6 +40,7 @@ namespace PUp.Models.Entity
             Url = "#";
             AddAt = DateTime.Now;
             Deleted = false;
+            EditAt = AddAt;
 
         }
     }
