@@ -21,6 +21,11 @@
         public bool Urgent { get; set; }
         public bool Important { get; set; }
 
+        /// <summary>
+        /// A Task may be postponed depending on the U/I Matrix
+        /// </summary>
+        public bool Postponed { get; set; }
+
         public DateTime AddAt { get; set; }
         public DateTime? EditAt { get; set; }
         public Nullable<DateTime> FinishAt { get; set; }
@@ -53,6 +58,7 @@
         public TaskEntity()
         {
             Done = false;
+            Postponed = false;
             Priority = 1;
             Urgent = false;
             Important = false;

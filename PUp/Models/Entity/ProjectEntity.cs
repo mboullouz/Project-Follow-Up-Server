@@ -40,7 +40,7 @@ namespace PUp.Models.Entity
         /// if applicable
         /// </summary>
         [Column(TypeName = "ntext")]
-        public string benifite { get; set; }
+        public string Benifite { get; set; }
 
         /// <summary>
         /// Insert a summary of the project objectives and scopeformally agreed. 
@@ -48,7 +48,7 @@ namespace PUp.Models.Entity
         /// --TODO :handle this after :What functionalities or departments are involved?  Which are not involved
         /// </summary>
         [Column(TypeName = "ntext")]
-        public string objective { get; set; }
+        public string Objective { get; set; }
 
         public virtual ICollection<TaskEntity> Tasks { get; set; }
         public virtual ICollection<IssueEntity> Issues { get; set; }

@@ -12,13 +12,15 @@ namespace PUp.Models.Entity
     using System.Security.Claims;
     public partial class UserEntity : Microsoft.AspNet.Identity.EntityFramework.IdentityUser
     {
-
+        public virtual ICollection<ContributionEntity> Contributions { get; set; }
+        public virtual ICollection<TaskEntity> Tasks { get; set; }
 
         public UserEntity()
         {
-            this.Contributions = new HashSet<ContributionEntity>();
+            Contributions = new HashSet<ContributionEntity>();
+            Tasks         = new HashSet<TaskEntity>();
         }
-        public virtual ICollection<ContributionEntity> Contributions { get; set; }
+        
         public async System.Threading.Tasks.Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<UserEntity> manager)
         {
             // Notez qu'authenticationType doit correspondre à l'élément défini dans CookieAuthenticationOptions.AuthenticationType

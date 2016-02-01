@@ -58,8 +58,8 @@ namespace PUp.Controllers
             project.Name = model.Name;
             project.StartAt = model.StartAt;
             project.EndAt = model.EndAt;
-            project.objective = model.Objective;
-            project.benifite = model.Benifite;
+            project.Objective = model.Objective;
+            project.Benifite = model.Benifite;
             
             ContributionEntity contribution = new ContributionEntity();
             contribution.EndAt = project.EndAt;
