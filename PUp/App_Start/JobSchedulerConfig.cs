@@ -9,16 +9,14 @@ namespace PUp.App_Start
 {
     public class JobSchedulerConfig
     {
-        public static void StartSimpleConfig()
+        public static void StartTaskEndingJobConfig()
         {
             // Grab the Scheduler instance from the Factory 
             IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
 
             // and start it off
             scheduler.Start();
-            Common.Logging.LogManager.Adapter = new Common.Logging.Simple.ConsoleOutLoggerFactoryAdapter { Level = Common.Logging.LogLevel.Info };
-            // define the job and tie it to our HelloJob class
-            IJobDetail job = JobBuilder.Create<Jobs.TestJob>()
+            IJobDetail job = JobBuilder.Create<Jobs.TaskEndingJob>()
                 .WithIdentity("job1", "group1")
                 .Build();
 
@@ -27,7 +25,7 @@ namespace PUp.App_Start
                 .WithIdentity("trigger1", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(10)
+                    .WithIntervalInSeconds(3599)
                     .RepeatForever())
                 .Build();
 
@@ -40,11 +38,11 @@ namespace PUp.App_Start
             IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
             scheduler.Start();
             IJobDetail job = JobBuilder.Create<Jobs.ProjectDeadlineJob>()
-               .WithIdentity("ProjectDeadLineJob", "group1")
+               .WithIdentity("ProjectDeadLineJob", "group2")
                .Build();
 
             ITrigger trigger = TriggerBuilder.Create()
-                .WithIdentity("trigger1", "group1")
+                .WithIdentity("trigger2", "group2")
                 .StartNow()
                 .WithSimpleSchedule(x => x
                     .WithIntervalInHours(10) //Todo use:  .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(9, 30)) // execute job daily at 9:30
@@ -53,6 +51,12 @@ namespace PUp.App_Start
 
            
             scheduler.ScheduleJob(job, trigger);
+        }
+
+        public static void StartAll()
+        {
+            StartTaskEndingJobConfig();
+            StartProjectDeadLineJob();
         }
     }
 }

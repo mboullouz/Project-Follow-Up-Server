@@ -221,6 +221,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\JobSchedulerConfig.cs" />
     <Compile Include="App_Start\Jobs\ProjectDeadlineJob.cs" />
+    <Compile Include="App_Start\Jobs\TaskEndingJob.cs" />
     <Compile Include="App_Start\Jobs\TestJob.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
