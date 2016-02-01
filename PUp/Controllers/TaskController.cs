@@ -88,7 +88,7 @@ namespace PUp.Controllers
                 Project = project,
                 AddAt = DateTime.Now,
                 EditAt = DateTime.Now,
-                estimatedTimeInMinutes = model.estimatedTimeInMinutes,
+                EstimatedTimeInMinutes = model.estimatedTimeInMinutes,
                 keyFactor = model.keyFactor,
                 Deleted = false,
             };

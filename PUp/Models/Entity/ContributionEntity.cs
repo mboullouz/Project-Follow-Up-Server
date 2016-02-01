@@ -37,8 +37,7 @@ namespace PUp.Models.Entity
         public ContributionEntity()
         {
             AddAt = DateTime.Now;
-            Deleted = false;
-            
+            Deleted = false;   
         }
     }
 }

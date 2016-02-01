@@ -13,6 +13,14 @@
         public string Description { get; set; }
 
         public bool Done { get; set; }
+
+
+        /// <summary>
+        /// Use Urgent/Important matrix
+        /// </summary>
+        public bool Urgent { get; set; }
+        public bool Important { get; set; }
+
         public DateTime AddAt { get; set; }
         public DateTime? EditAt { get; set; }
         public Nullable<DateTime> FinishAt { get; set; }
@@ -35,17 +43,23 @@
         /// Estimated time in minutes 
         /// its NOT equivalent to the difference between start date and finish date
         /// </summary>
-        public int estimatedTimeInMinutes { get; set; }
+        public int EstimatedTimeInMinutes { get; set; }
         public DateTime? DeleteAt { get; set; }
         public bool? Deleted { get; set; }
+
+        public UserEntity AssignedBy { set; get; }
+        public UserEntity Executor { set; get; }
+
         public TaskEntity()
         {
             Done = false;
             Priority = 1;
+            Urgent = false;
+            Important = false;
             AddAt = DateTime.Now;
             EditAt = DateTime.Now;
             keyFactor = false;
-            estimatedTimeInMinutes = 60;
+            EstimatedTimeInMinutes = 60;
             Deleted = false;
         }
 
