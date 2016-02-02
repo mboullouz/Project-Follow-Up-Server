@@ -91,10 +91,10 @@
 
                     </p>
                     <p>
-                        <span style="color:#3288E6;">Objective</span>: @( new string(project.objective.Take(80).ToArray()) )...
+                        <span style="color:#3288E6;">Objective</span>: @( new string(project.Objective.Take(80).ToArray()) )...
                     </p>
                     <p>
-                        <span style="color:#3288E6;">Benifite</span> :  @( new string(project.benifite.Take(80).ToArray()) )...
+                        <span style="color:#3288E6;">Benifite</span> :  @( new string(project.Benifite.Take(80).ToArray()) )...
                     </p>
                     <div class="card-control">
                         <a href="@Url.Action("Index", "Task", new { id = project.Id } )">
@@ -142,10 +142,10 @@
                             Done: @otherProject.Tasks.Where(t => t.Done == true).Count()
                         </p>
                         <p>
-                            <span style="color: #3288E6;">Objective</span>: @otherProject.objective
+                            <span style="color: #3288E6;">Objective</span>: @otherProject.Objective
                         </p>
                         <p>
-                            <span style="color:#3288E6;">Benifite</span> :   @otherProject.benifite
+                            <span style="color:#3288E6;">Benifite</span> :   @otherProject.Benifite
                         </p>
                         <div class="card-control">
                             @if (!Model.ImContributingTo(otherProject))
