@@ -28,6 +28,22 @@
                     <ul class="dropdown-menu" aria-labelledby="dd-ctrl-projects">
                         <li>
                             @Html.ActionLink(
+                                                        "Matrix",                                     // linkText
+                                                        "Matrix",                                    // actionName
+                                                        "Project",                                  // controllerName
+                                                        new
+                                                        {                                           // routeValues
+                                                            id = project.Id
+                                                        },
+                                                       new                                        // htmlAttributes
+                                                       {
+                                                           @class = "btn"
+                                                       }
+                                                   )
+                        </li>
+
+                        <li>
+                            @Html.ActionLink(
                                                         "Details",                                     // linkText
                                                         "Details",                                    // actionName
                                                         "Project",                                  // controllerName
@@ -41,6 +57,7 @@
                                                        }
                                                    )
                         </li>
+
                         <li>
                             @Html.ActionLink(
                                                         "Edit",                                     // linkText

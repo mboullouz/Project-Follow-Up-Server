@@ -19,7 +19,7 @@ namespace PUp.Controllers
         private ContributionRepository contributionRepository;
         private NotificationRepository notifRepository;
         private DatabaseContext dbContext = new DatabaseContext();
-         
+
         public ProjectController()
         {
             taskRepository = new TaskRepository(dbContext);
@@ -27,8 +27,8 @@ namespace PUp.Controllers
             userRepository = new UserRepository(dbContext);
             contributionRepository = new ContributionRepository(dbContext);
             notifRepository = new NotificationRepository(dbContext);
-            
-            
+
+
         }
 
         [HttpGet]
@@ -40,8 +40,8 @@ namespace PUp.Controllers
                 EndAt = DateTime.Now.AddDays(7),
                 StartAt = DateTime.Now.AddHours(1),
                 Name = "Week 2: Exciting project!",
-                Benifite= "Define the benefits and related assumptions,associated with the project...",
-                Objective= "what is the project trying to achieve? What functionalities or departments are involved?... "
+                Benifite = "Define the benefits and related assumptions,associated with the project...",
+                Objective = "what is the project trying to achieve? What functionalities or departments are involved?... "
             };
             return View(projectModel);
 
@@ -60,7 +60,7 @@ namespace PUp.Controllers
             project.EndAt = model.EndAt;
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
-            
+
             ContributionEntity contribution = new ContributionEntity();
             contribution.EndAt = project.EndAt;
             contribution.Project = project;
@@ -73,28 +73,28 @@ namespace PUp.Controllers
             projectRepository.Add(project);
             project.Contributions.Add(contribution);
             notifRepository.GenerateFor(project, userRepository.GetAll());
-             
+
 
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Remove(int id)
-        {   
+        {
             projectRepository.MarkDeleted(projectRepository.FindById(id));
             return RedirectToAction("Index", "Home");
         }
-        
+
         //Remove permenently a record 
         public ActionResult HardRemove(int id)
-        {   
+        {
             projectRepository.Remove(projectRepository.FindById(id));
             return RedirectToAction("Index", "Home");
         }
-        
-        
+
+
         public ActionResult Edit(int id)
         {
-            
+
             ProjectEntity project = projectRepository.FindById(id);
             AddProjectViewModel projectModel = new AddProjectViewModel
             {
@@ -106,13 +106,19 @@ namespace PUp.Controllers
             return View("~/Views/Project/Add.cshtml", projectModel);
         }
 
-        public ActionResult Details(int id) 
+        public ActionResult Details(int id)
         {
 
             ProjectEntity project = projectRepository.FindById(id);
             ProjectTimelineViewModel projectTimeline = new ProjectTimelineViewModel(project);
-            
+
             return View("~/Views/Project/Details.cshtml", projectTimeline);
+        }
+
+        public ActionResult Matrix(int id)
+        {
+            ProjectEntity project = projectRepository.FindById(id);
+            return View("~/Views/Project/Matrix.cshtml", project);
         }
 
         [HttpPost]
@@ -122,12 +128,12 @@ namespace PUp.Controllers
             {
                 return View(model);
             }
-   
+
             ProjectEntity project = projectRepository.FindById(model.Id);
             project.Name = model.Name;
             project.StartAt = model.StartAt;
             project.EndAt = model.EndAt;
-             
+
 
 
             return RedirectToAction("Index", "Home");
