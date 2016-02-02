@@ -26,8 +26,18 @@
             </div>
 
             <div class="form-group">
+                <label class="control-label">Important</label>
+                @Html.DropDownListFor(m => m.Important, Model.ImportantList, "Select one")
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Urgent</label>
+                @Html.DropDownListFor(m => m.Urgent, Model.UrgentList, "Select one")
+            </div>
+
+            <div class="form-group">
                 <label class="control-label">Estimated time</label>
-                @Html.DropDownListFor(m => m.estimatedTimeInMinutes, Model.EstimatedMinList, "Select one")
+                @Html.DropDownListFor(m => m.EstimatedTimeInMinutes, Model.EstimatedMinList, "Select one")
             </div>
 
             <div class="form-group">

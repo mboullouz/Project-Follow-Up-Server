@@ -17,13 +17,13 @@
                     <td>
                         @foreach (var task in Model.ImportantAndUrgent)
                         {
-                            <p>@task.Title</p>
+                            <p style="background: rgba(233, 30, 99, 0.12);">@task.Title</p>
                         } 
                     </td>
                     <td>
                         @foreach (var task in Model.ImportantNotUrgent)
                         {
-                            <p>@task.Title</p>
+                            <p style="background: rgba(158, 158, 158, 0.12);">@task.Title</p>
                         }
                     </td>
                 </tr>
@@ -37,13 +37,13 @@
                     <td>
                         @foreach (var task in Model.NotImportantButUrgent)
                         {
-                            <p>@task.Title</p>
+                            <p style="background: rgba(63, 81, 181, 0.14);">@task.Title</p>
                         }                       
                     </td>
                     <td>
                         @foreach (var task in Model.NotImportantNotUrgent)
                         {
-                            <p>@task.Title</p>
+                            <p style="background: rgba(205, 220, 57, 0.31);">@task.Title</p>
                         }                        
                     </td>
                 </tr>

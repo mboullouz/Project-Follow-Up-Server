@@ -26,9 +26,16 @@ namespace PUp.ViewModels
         public int IdProject { get; set; } 
         public ProjectEntity Project { get; set; }
         public bool keyFactor { get; set; }
-        public int estimatedTimeInMinutes { get; set; }
+        public int EstimatedTimeInMinutes { get; set; }
 
         public SelectList EstimatedMinList { get; set; } 
+
+        public SelectList UrgentList { get; set; }
+        public bool Urgent { get; set; }
+
+
+        public SelectList ImportantList { get; set; }
+        public bool Important { get; set; }
 
         public AddTaskViewModel()
         {
@@ -52,6 +59,22 @@ namespace PUp.ViewModels
                     new SelectListItem { Selected = false, Text = "1 day",   Value = "420"},
                     new SelectListItem { Selected = false, Text = "2 days",   Value = "840"},
                 }, "Value", "Text", 1);
+
+            UrgentList = new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Selected = true,  Text = "Yes", Value = "true"},
+                    new SelectListItem { Selected = false, Text = "No" ,   Value = "false"},
+                }, "Value", "Text", 1);
+
+
+            ImportantList = new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Selected = true,  Text = "Yes", Value = "true"},
+                    new SelectListItem { Selected = false, Text = "No" ,   Value = "false"},
+                }, "Value", "Text", 1);
+
             CreateAt = DateTime.Now;
             EditAt = DateTime.Now;
         }
