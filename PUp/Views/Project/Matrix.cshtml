@@ -1,4 +1,4 @@
-﻿@model  PUp.Models.Entity.ProjectEntity
+﻿@model  PUp.ViewModels.Project.MatrixViewModel
 @{
     ViewBag.Title = "Matrix ";
 }
@@ -8,24 +8,47 @@
     <div class="col-md-12">
         <div class="row">
 
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered">
                 <tr>
-                    <td>
-                        <i>Important and Urgent</i>
-                    </td>
-                    <td>
-                        <i>Important and NOT Urgent</i>
-                    </td>
+                    <th>Important and Urgent</th>
+                    <th>Important and NOT Urgent</th>
                 </tr>
                 <tr>
                     <td>
-                        <i>NOT Important and Urgent</i>
+                        @foreach (var task in Model.ImportantAndUrgent)
+                        {
+                            <p>@task.Title</p>
+                        } 
                     </td>
                     <td>
-                        <i>NOT Important and NOT Urgent</i>
+                        @foreach (var task in Model.ImportantNotUrgent)
+                        {
+                            <p>@task.Title</p>
+                        }
                     </td>
                 </tr>
             </table>
+            <table class="table table-bordered">
+                <tr>
+                    <th>NOT Important and Urgent</th>
+                    <th>NOT Important and NOT Urgent</th>
+                </tr>
+                <tr>
+                    <td>
+                        @foreach (var task in Model.NotImportantButUrgent)
+                        {
+                            <p>@task.Title</p>
+                        }                       
+                    </td>
+                    <td>
+                        @foreach (var task in Model.NotImportantNotUrgent)
+                        {
+                            <p>@task.Title</p>
+                        }                        
+                    </td>
+                </tr>
+            </table>
+
         </div>
     </div>
 </div>
