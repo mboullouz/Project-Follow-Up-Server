@@ -6,44 +6,44 @@
 
 <div class="container">
     <div class="col-md-12">
-        <div class="row">
+        <div class="row" id="matrix-container">
 
-            <table class="table table-bordered">
+            <table class="table">
                 <tr>
                     <th>Important and Urgent</th>
                     <th>Important and NOT Urgent</th>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="background: rgba(233, 30, 99, 0.12);">
                         @foreach (var task in Model.ImportantAndUrgent)
                         {
-                            <p style="background: rgba(233, 30, 99, 0.12);">@task.Title</p>
+                            <p >@task.Title</p>
                         } 
                     </td>
-                    <td>
+                    <td style="background: rgba(158, 158, 158, 0.12);">
                         @foreach (var task in Model.ImportantNotUrgent)
                         {
-                            <p style="background: rgba(158, 158, 158, 0.12);">@task.Title</p>
+                            <p >@task.Title</p>
                         }
                     </td>
                 </tr>
             </table>
-            <table class="table table-bordered">
+            <table class="table">
                 <tr>
                     <th>NOT Important and Urgent</th>
                     <th>NOT Important and NOT Urgent</th>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="background: rgba(63, 81, 181, 0.14);">
                         @foreach (var task in Model.NotImportantButUrgent)
                         {
-                            <p style="background: rgba(63, 81, 181, 0.14);">@task.Title</p>
+                            <p >@task.Title</p>
                         }                       
                     </td>
-                    <td>
+                    <td style="background: rgba(205, 220, 57, 0.31);">
                         @foreach (var task in Model.NotImportantNotUrgent)
                         {
-                            <p style="background: rgba(205, 220, 57, 0.31);">@task.Title</p>
+                            <p>@task.Title</p>
                         }                        
                     </td>
                 </tr>

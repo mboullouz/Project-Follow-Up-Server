@@ -91,6 +91,8 @@ namespace PUp.Controllers
                 EstimatedTimeInMinutes = model.EstimatedTimeInMinutes,
                 keyFactor = model.keyFactor,
                 Deleted = false,
+                Important= model.Important,
+                Urgent= model.Urgent,
             };
             contributionRepository.AddContributionIfNotExists(project, user, task);                      
             taskRepository.Add(task);            

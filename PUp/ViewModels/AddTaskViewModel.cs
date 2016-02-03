@@ -63,7 +63,7 @@ namespace PUp.ViewModels
             UrgentList = new SelectList(
                 new List<SelectListItem>
                 {
-                    new SelectListItem { Selected = true,  Text = "Yes", Value = "true"},
+                    new SelectListItem { Selected = true,  Text = "Yes",   Value = "true"},
                     new SelectListItem { Selected = false, Text = "No" ,   Value = "false"},
                 }, "Value", "Text", 1);
 

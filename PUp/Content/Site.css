@@ -17,6 +17,13 @@ body {
     margin-bottom: 17px;
 }
 
+#matrix-container>table{
+    //margin-bottom: 0px;  
+}
+#matrix-container>table>tbody>tr>th{
+    width: 50%;  
+}
+
 .card-control > a {
     margin: 4px;
     background: #F7F7F7;
