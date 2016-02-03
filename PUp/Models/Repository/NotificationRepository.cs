@@ -77,7 +77,7 @@ namespace PUp.Models.Repository
 
         }
 
-        public void GenerateFor(ProjectEntity project, List<UserEntity> users)
+        public void GenerateFor(ProjectEntity project, HashSet<UserEntity> users)
         {
             foreach (var u in users)
             {
@@ -93,7 +93,7 @@ namespace PUp.Models.Repository
             }
         }
 
-        public void GenerateFor(TaskEntity taskEntity, List<UserEntity> users)
+        public void GenerateFor(TaskEntity taskEntity, HashSet<UserEntity>  users)
         {
             foreach (var u in users)
             {

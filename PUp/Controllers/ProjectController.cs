@@ -72,7 +72,7 @@ namespace PUp.Controllers
 
             projectRepository.Add(project);
             project.Contributions.Add(contribution);
-            notifRepository.GenerateFor(project, userRepository.GetAll());
+            notifRepository.GenerateFor(project, new HashSet<UserEntity>(userRepository.GetAll()));
 
 
             return RedirectToAction("Index", "Home");

@@ -4,6 +4,7 @@ using PUp.Models.Repository;
 using PUp.Models.SimpleObject;
 using PUp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace PUp.Controllers
@@ -98,9 +99,11 @@ namespace PUp.Controllers
                 AssignedBy= user
             };
             contributionRepository.AddContributionIfNotExists(project, user, task);                      
+            contributionRepository.AddContributionIfNotExists(project, task.Executor, task);  //Add  contrib for the task executor 
             taskRepository.Add(task);            
             project.Tasks.Add(task);
-            notificationRepository.GenerateFor(task, userRepository.GetAll());
+           
+            notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
     }
