@@ -63,7 +63,8 @@ namespace PUp.Controllers
         public ActionResult Add(int id)
         {
             ProjectEntity project = projectRepository.FindById(id);
-            AddTaskViewModel addTaskVM = new AddTaskViewModel { Project = project, IdProject = project.Id };
+            AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, userRepository.GetAll());
+            addTaskVM.Project = project;
             return View(addTaskVM);
         }
 
@@ -93,6 +94,8 @@ namespace PUp.Controllers
                 Deleted = false,
                 Important= model.Important,
                 Urgent= model.Urgent,
+                Executor= userRepository.FindById( model.ExecutorId),
+                AssignedBy= user
             };
             contributionRepository.AddContributionIfNotExists(project, user, task);                      
             taskRepository.Add(task);            

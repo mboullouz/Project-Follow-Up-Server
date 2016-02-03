@@ -37,8 +37,18 @@ namespace PUp.ViewModels
         public SelectList ImportantList { get; set; }
         public bool Important { get; set; }
 
+        public List<UserEntity> Users = new List<UserEntity>();
+        public SelectList UsersList { get; set; }
+        
+        public string ExecutorId { set; get; }
         public AddTaskViewModel()
         {
+            //No parameterless constructor/...
+        }
+        public AddTaskViewModel(int idProject, List<UserEntity>users)
+        {
+            IdProject = idProject;
+            Users = users;
             Done = false;
             keyFactor = false;
             PriorityList = new SelectList(
@@ -74,6 +84,11 @@ namespace PUp.ViewModels
                     new SelectListItem { Selected = true,  Text = "Yes", Value = "true"},
                     new SelectListItem { Selected = false, Text = "No" ,   Value = "false"},
                 }, "Value", "Text", 1);
+
+            var items = new List<SelectListItem>();
+            Users.ForEach(u => items.Add(new SelectListItem { Selected = true, Text = u.Email, Value = u.Id }));
+
+            UsersList = new SelectList(items, "Value", "Text", 1);
 
             CreateAt = DateTime.Now;
             EditAt = DateTime.Now;

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PUp.App_Start.Jobs
+namespace PUp.Jobs
 {
     public class TestJob : IJob
     {

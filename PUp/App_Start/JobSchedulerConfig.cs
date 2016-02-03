@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using PUp.Jobs;
+using Quartz;
 using Quartz.Impl;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace PUp.App_Start
 
             // and start it off
             scheduler.Start();
-            IJobDetail job = JobBuilder.Create<Jobs.TaskEndingJob>()
+            IJobDetail job = JobBuilder.Create<TaskEndingJob>()
                 .WithIdentity("job1", "group1")
                 .Build();
 
@@ -37,7 +38,7 @@ namespace PUp.App_Start
         {
             IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
             scheduler.Start();
-            IJobDetail job = JobBuilder.Create<Jobs.ProjectDeadlineJob>()
+            IJobDetail job = JobBuilder.Create<ProjectDeadlineJob>()
                .WithIdentity("ProjectDeadLineJob", "group2")
                .Build();
 
