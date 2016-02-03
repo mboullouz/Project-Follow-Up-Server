@@ -85,7 +85,7 @@ namespace PUp.Models.Repository
                 {
                     User = u,
                     AddAt = DateTime.Now,
-                    Message = "New project: ' " + project.Name + "' Added by" + u.Email,
+                    Message = "New project: ' " + project.Name + "' Added by " + u.Email,
                     Url = "~/Home/Index/" + project.Id,
                     Deleted=false,
                 };

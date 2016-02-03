@@ -183,7 +183,7 @@ img {
 
             .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon {
                 background: white;
-                color: #3F51B5;
+                color: #0262C2;
                 display: block;
                 width: 40px;
                 height: 40px;
@@ -196,7 +196,7 @@ img {
                 text-align: center;
                 -moz-box-shadow: 0 0 0 5px #f5f5f6;
                 -webkit-box-shadow: 0 0 0 5px #f5f5f6;
-                box-shadow: 0 0 0 5px #f5f5f6;
+                box-shadow: 0 0 0 2px rgb(2, 98, 194);
                 line-height: 40px;
                 font-size: 15px;
                 float: left;
@@ -204,7 +204,6 @@ img {
 
 .timeline-icon-task {
     background: white !important;
-    color: #2196F3 !important;
 }
 
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-primary {
@@ -213,8 +212,8 @@ img {
 }
 
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-secondary {
-    background-color: #F1F1F1;
-    color: #F44336;
+        color: #F44336;
+    box-shadow: 0 0 0 2px #F44336;
 }
 
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-success {
@@ -248,6 +247,10 @@ img {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+    border: 1px solid;
+    border-color: #0262C2;
+    background: #E3F2FD;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
     .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label:after {
@@ -258,16 +261,15 @@ img {
         height: 0;
         border-style: solid;
         border-width: 9px 9px 9px 0;
-        border-color: transparent #f5f5f6 transparent transparent;
+        border-color: transparent #0262C2 transparent transparent;
         left: 0;
         top: 10px;
         margin-left: -9px;
     }
 
     .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2, .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label p {
-        color: #737881;
-        font-family: "Noto Sans",sans-serif;
-        font-size: 12px;
+        color: black;
+        font-size: 14.5px;
         margin: 0;
         line-height: 1.428571429;
     }
