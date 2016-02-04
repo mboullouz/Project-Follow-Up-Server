@@ -27,10 +27,9 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dd-ctrl-projects">
                         <li>
-                            @Html.ActionLink(
-                                                        "Matrix",                                     // linkText
-                                                        "Matrix",                                    // actionName
-                                                        "Project",                                  // controllerName
+                            @Html.ActionLink(  "Matrix",                                     // linkText
+                                                "Matrix",                                    // actionName
+                                               "Project",                                  // controllerName
                                                         new
                                                         {                                           // routeValues
                                                             id = project.Id
@@ -124,7 +123,7 @@
                             <i class="fa fa-exclamation-circle"></i> Issues  (@project.Issues.Count)
                         </a>
                         <a href="@Url.Action("Add", "Task", new { id = project.Id } )">
-                            <i class="fa fa-user-plus"></i> Contributors (@Model.GetContributorsTo(project).Count)
+                            <i class="fa fa-user-plus"></i> People (@Model.GetContributorsTo(project).Count)
                         </a>
                     </div>
                 </div>
@@ -186,7 +185,7 @@
                             </a>
 
                             <a href="@Url.Action("Add", "Task", new { id = otherProject.Id } )">
-                                <i class="fa fa-user-plus"></i> Contributors (@Model.GetContributorsTo(otherProject).Count)
+                                <i class="fa fa-user-plus"></i> People (@Model.GetContributorsTo(otherProject).Count)
                             </a>
 
                         </div>

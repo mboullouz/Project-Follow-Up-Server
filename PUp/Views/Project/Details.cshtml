@@ -17,9 +17,9 @@
                     </div>
 
                     <div class="timeline-label">
-                        <h2><a href="#">Project start</a> <span>@Model.Project.StartAt.ToString("d/MMM yyyy")</span></h2>
-                        <p>Objective: <i class="fa fa-chevron-right"></i> @Model.Project.Objective </p>
-                        <p>Benifites: <i class="fa fa-chevron-right"></i>@Model.Project.Benifite</p>
+                        <h2>@Model.Project.Name</h2> <span>@Model.Project.StartAt.ToString("dd/MMM yyyy")</span>
+                        <p>Objective : @Model.Project.Objective </p>
+                        <p>Benifites : @Model.Project.Benifite  </p>
                     </div>
                 </div>
 
@@ -35,14 +35,9 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="timeline-label">
-                                <h2>
-                                    <a href="#">
-                                        @(  ((TaskEntity)element).Title )
-                                    </a>
-                                </h2>
+                                <h2> @(  ((TaskEntity)element).Title ) </h2><span> @(  ((TaskEntity)element).AddAt.ToString("dd/MMM yyyy") )  </span>
                                 <p>
                                     @(  ((TaskEntity)element).Description )
-                                    <strong> @(  ((TaskEntity)element).AddAt.ToShortTimeString() )  </strong>
                                 </p>
                             </div>
                         </div>
@@ -56,11 +51,7 @@
                                 <i class="fa fa-bullhorn"></i>
                             </div>
                             <div class="timeline-label">
-                                <h2>
-                                    <a href="#">
-                                        @(  ((NotificationEntity)element).Message )
-                                    </a>
-                                </h2>
+                                <h2> @(  ((NotificationEntity)element).Message )</h2>
                                 <p> <a href="@(  ((NotificationEntity)element).Url )"> Details</a></p>
                             </div>
                         </div>
@@ -75,12 +66,8 @@
                                 <i class="fa fa-exclamation-circle"></i>
                             </div>
                             <div class="timeline-label">
-                                <h2>
-                                    <a href="#">
-                                        @(  ((IssueEntity)element).Description )
-                                    </a>
-                                </h2>
-                                <p>Status:  @(  ((IssueEntity)element).Status ) </p>
+                                <h2> @(  ((IssueEntity)element).Description ) </h2>
+                                <p>Status:  @(  ((IssueEntity)element).Status=="0" ? "In progress" : "Done" ) </p>
                                 <p>Related area(s):  @(  ((IssueEntity)element).RelatedArea ) </p>
                             </div>
                         </div>
@@ -94,9 +81,11 @@
                     <div class="timeline-icon" style="-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);">
                         <i class="fa fa-hourglass"></i>
                     </div>
-
+                    <div class="timeline-label">
+                        <p>End</p>
+                        <span>@Model.Project.EndAt.ToString("dd/MMM yyyy")</span>
+                    </div>
                 </div>
-
             </article>
 
         </div>
