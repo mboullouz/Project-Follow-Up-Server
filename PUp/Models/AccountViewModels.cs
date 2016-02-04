@@ -75,6 +75,12 @@ namespace PUp.Models
         [Display(Name = "Mot de passe")]
         public string Password { get; set; }
 
+        [Required]
+        [StringLength(100, ErrorMessage = "La chaîne {0} doit comporter au moins {2} caractères.", MinimumLength = 6)]
+        [DataType(DataType.Text)]
+        [Display(Name = "Full Name")]
+        public string Name { get; set; }
+
         [DataType(DataType.Password)]
         [Display(Name = "Confirmer le mot de passe ")]
         [Compare("Password", ErrorMessage = "Le mot de passe et le mot de passe de confirmation ne correspondent pas.")]

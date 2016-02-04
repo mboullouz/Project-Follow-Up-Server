@@ -28,7 +28,8 @@ namespace PUp.Jobs
                         var user = usRepo.FindById(contrib.UserId);
                         NotificationEntity notif = new NotificationEntity();
                         notif.User = user;
-                        notif.Message = "Warning! the project: " + p.Name + "Ends today";
+                        notif.Message = "Warning! the project: " + p.Name + "Ends today, "
+                            +p.Tasks.Where(t=>!t.Done).Count() + " Task(s) pending";
                         nfRepo.Add(notif);
                     }
                 }

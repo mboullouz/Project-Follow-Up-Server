@@ -28,7 +28,8 @@ namespace PUp.Jobs
                         {
                             NotificationEntity notif = new NotificationEntity();
                             notif.User = u;
-                            notif.Message = "Action require attention! The task: " + task.Title + " from the project: "+p.Name+" Ends today !";
+                            notif.Message = "Action require attention! The task: " + task.Title
+                                + " from the project: "+p.Name+" Ends today!"+ (task.keyFactor?" This task is a key factor":"");
                             nfRepo.Add(notif);
                         }
                     }

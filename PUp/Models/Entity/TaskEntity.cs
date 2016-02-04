@@ -49,6 +49,12 @@
         /// its NOT equivalent to the difference between start date and finish date
         /// </summary>
         public int EstimatedTimeInMinutes { get; set; }
+
+        /// <summary>
+        /// The time spent on the task, default equal estimated
+        /// </summary>
+        ///public int SpentTimeInMinutes { get; set; }
+
         public DateTime? DeleteAt { get; set; }
         public bool? Deleted { get; set; }
 

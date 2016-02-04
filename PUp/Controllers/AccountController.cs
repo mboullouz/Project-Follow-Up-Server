@@ -156,7 +156,7 @@ namespace PUp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new UserEntity { UserName = model.Email, Email = model.Email };
+                var user = new UserEntity {Name=model.Name, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

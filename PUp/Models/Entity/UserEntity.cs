@@ -11,7 +11,11 @@ namespace PUp.Models.Entity
     using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     public partial class UserEntity : Microsoft.AspNet.Identity.EntityFramework.IdentityUser
-    {
+    {   
+
+        public string Name { get; set; }
+
+
         public virtual ICollection<ContributionEntity> Contributions { get; set; }
         public virtual ICollection<TaskEntity> Tasks { get; set; }
 

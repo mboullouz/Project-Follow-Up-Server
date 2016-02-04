@@ -17,7 +17,7 @@ namespace PUp.Models
 
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
-            string name = "med";
+            string userName = "med@med.com";
             string password = "med123*Aa";
             string roleName = "ADMIN";
             string userEmail = "med@med.com";
@@ -28,8 +28,9 @@ namespace PUp.Models
                 var roleresult = RoleManager.Create(new IdentityRole(roleName));
             }
             var user = new UserEntity();
-            user.UserName = name;
+            user.UserName = userName;
             user.Email = userEmail;
+            user.Name = "Med Bllz";
             
             var adminresult = UserManager.Create(user, password);
 

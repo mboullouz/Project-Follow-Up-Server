@@ -221,6 +221,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\JobSchedulerConfig.cs" />
     <Compile Include="Jobs\MorningSummaryJob.cs" />
+    <Compile Include="Jobs\ProjectCoherenceAnalyserJob.cs" />
     <Compile Include="Jobs\ProjectDeadlineJob.cs" />
     <Compile Include="Jobs\TaskEndingJob.cs" />
     <Compile Include="Jobs\TestJob.cs" />
