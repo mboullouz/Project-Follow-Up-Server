@@ -8,12 +8,15 @@ namespace PUp.ViewModels.Project
 {
     public class MatrixViewModel
     {   
+        public ProjectEntity Project { get; set; }
         public List<TaskEntity> ImportantAndUrgent { get; set; }
         public List<TaskEntity> ImportantNotUrgent { get; set; }
         public List<TaskEntity> NotImportantButUrgent { get; set; }
         public List<TaskEntity> NotImportantNotUrgent { get; set; }
+
         public MatrixViewModel(ProjectEntity project)
         {
+            Project = project;
             Init(project);
         }
         public void Init(ProjectEntity project)

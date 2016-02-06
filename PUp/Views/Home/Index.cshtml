@@ -87,8 +87,9 @@
                         </li>
                     </ul>
                 </div>
-                <b class="card-header">@project.Name</b> 
-                 <span style="color:crimson;"> ( Time left: @((int)(project.EndAt - DateTime.Now).TotalDays) days )</span> 
+                <a href="@Url.Action("Details", "Project", new {id = project.Id })">
+                   <h3>@project.Name </h3> 
+                </a> 
                 <div class="card-block">
                     <p class="card-text">
                         From: <b>@project.StartAt.ToString("d/MMM yyyy")</b>
@@ -102,7 +103,7 @@
                         {
                             <b>0 %</b>
                         }
-
+                        <small style="color:crimson;"> ( Time left: @((int)(project.EndAt - DateTime.Now).TotalDays) days )</small> 
                     </p>
                     <p>
                         <span style="color:#3288E6;">Objective</span>: @( new string(project.Objective.Take(80).ToArray()) )...
@@ -152,7 +153,7 @@
                     <div class="card-block">
                         <p class="card-text">
                             From: <b>@otherProject.StartAt.ToString("d/MMM yyyy")</b>
-                            To  : <b>@otherProject.EndAt?.ToString("d/MMM yyyy")</b>
+                            To  : <b>@otherProject.EndAt.ToString("d/MMM yyyy")</b>
                             Done: @otherProject.Tasks.Where(t => t.Done == true).Count()
                         </p>
                         <p>

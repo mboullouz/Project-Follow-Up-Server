@@ -17,14 +17,8 @@ body {
     margin-bottom: 17px;
 }
 
-#matrix-container > table {
-    //margin-bottom: 0px;
-}
-
-    #matrix-container > table > tbody > tr > th {
-        width: 50%;
-    }
-
+ 
+    
 .card-control > a {
     margin: 4px;
     background: #F7F7F7;
@@ -32,8 +26,8 @@ body {
 }
 
 .card-header {
-    color: #FF5722;
-    text-align: center;
+    color: #337AB7;
+    font-size: 18px;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {

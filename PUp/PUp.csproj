@@ -302,6 +302,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="ApplicationInsights.config" />
+    <Content Include="zDoc\handleTasksPerImportance.png" />
     <Content Include="zDoc\Importance-Vs-Urgency.gif" />
     <Content Include="zDoc\ImprovedDbModel_v2.png" />
     <None Include="job_scheduling_data_2_0.xsd">
