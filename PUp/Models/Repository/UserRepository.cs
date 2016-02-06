@@ -71,7 +71,7 @@ namespace PUp.Models.Repository
  
         public void SetDbContext(DatabaseContext dbContext)
         {
-            this.DbContext = dbContext;
+            DbContext = dbContext;
         }
 
         public UserEntity FindByStringId(int id)
@@ -104,12 +104,12 @@ namespace PUp.Models.Repository
 
         public override void MarkDeleted(UserEntity e)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("This is not supported yet, users must not be deleted anyway");
         }
 
         public override UserEntity FindById(int id)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("The UserEntity is a String! ");
         }
     }
 }

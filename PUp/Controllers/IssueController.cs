@@ -64,6 +64,21 @@ namespace PUp.Controllers
 
             issueRepository.Add(issue);
             project.Issues.Add(issue);
+            var contrib = new ContributionEntity
+            {
+                AddAt = DateTime.Now,
+                Deleted=false,
+                Project=project,
+                EndAt=project.EndAt,
+                ProjectId= project.Id,
+                EditAt= issue.EditAt,
+                UserId=user.Id,
+                User=user,
+                Role= "Issue-submitter"
+            };
+            contributionRepository.Add(contrib);
+            project.Contributions.Add(contrib);
+           
 
             return RedirectToAction("Index", "Issue", new { id = project.Id });
         }

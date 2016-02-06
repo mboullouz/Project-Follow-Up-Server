@@ -39,6 +39,9 @@ namespace PUp.Tests.ContributionTest
         {
             var projectEntity = new ProjectEntity ();
             projectEntity.Name = "Gen From Test!";
+            projectEntity.Benifite = "Some string about the project";
+            projectEntity.Objective = "The great objective of the project"; 
+           
             projectRepo.Add(projectEntity);
             Assert.IsFalse(contribRepo.ContributionExists(projectEntity, user));
         }
