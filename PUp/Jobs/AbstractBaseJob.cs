@@ -1,3 +1,5 @@
+using PUp.Models;
+using PUp.Models.Repository;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -23,7 +25,8 @@ namespace PUp.Jobs
         notificationRepo = new NotificationRepository(dbContext);
         userRepo = new UserRepository(dbContext);
       }
-    
+
+      public abstract void Execute(IJobExecutionContext context);
     }
     
 }

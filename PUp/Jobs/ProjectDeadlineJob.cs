@@ -8,16 +8,12 @@ using System.Web;
 
 namespace PUp.Jobs
 {
-    public class ProjectDeadlineJob : IJob
+    public class ProjectDeadlineJob : AbstractBaseJob
     {
-        public void Execute(IJobExecutionContext context)
+        public override void Execute(IJobExecutionContext context)
         {
-            ProjectRepository prRepo = new ProjectRepository();
-            NotificationRepository nfRepo = new NotificationRepository(prRepo.DbContext);
-            UserRepository usRepo = new UserRepository(prRepo.DbContext);
-            
-
-            var projects = prRepo.GetActive();
+            base.Init();
+            var projects = projectRepo.GetActive();
             foreach(var p in projects)
             {
                 var now = DateTime.Now;
@@ -25,12 +21,12 @@ namespace PUp.Jobs
                 {
                     foreach(var contrib in p.Contributions)
                     {
-                        var user = usRepo.FindById(contrib.UserId);
+                        var user = userRepo.FindById(contrib.UserId);
                         NotificationEntity notif = new NotificationEntity();
                         notif.User = user;
                         notif.Message = "Warning! the project: " + p.Name + "Ends today, "
                             +p.Tasks.Where(t=>!t.Done).Count() + " Task(s) pending";
-                        nfRepo.Add(notif);
+                        notificationRepo.Add(notif);
                     }
                 }
             }

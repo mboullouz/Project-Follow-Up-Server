@@ -1,4 +1,5 @@
-﻿using PUp.Models.Repository;
+﻿using PUp.Models.Entity;
+using PUp.Models.Repository;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,36 @@ namespace PUp.Jobs
     ///     Tasks start to be added near project deadlines
     ///     Too small objective or description text for the project
     /// </summary>
-    public class ProjectCoherenceAnalyserJob : IJob
+    public class ProjectCoherenceAnalyserJob : AbstractBaseJob
     {
-        public void Execute(IJobExecutionContext context)
+        public override void Execute(IJobExecutionContext context)
         {
-            ProjectRepository prRepo = new ProjectRepository();
-            NotificationRepository nfRepo = new NotificationRepository(prRepo.DbContext);
-            UserRepository usRepo = new UserRepository(prRepo.DbContext);
+            base.Init();
+            NoTaskInTheProjectAfterCreatingIt();
+
+        }
+
+        public void NoTaskInTheProjectAfterCreatingIt()
+        {
+            var projects = projectRepo.GetAll().Where(p =>
+                    p.AddAt <= DateTime.Now.AddMinutes(10)
+                    && p.Tasks.Count <= 0
+                    && p.EndAt >= DateTime.Now.AddHours(1)
+                   ).ToList();
+            var users = new List<UserEntity>();
+            foreach (var p in projects)
+            {
+                p.Contributions.ToList().ForEach(c => users.Add(userRepo.FindById(c.UserId)));
+                foreach (var u in users)
+                {
+                    NotificationEntity notif = new NotificationEntity();
+                    notif.User = u;
+                    notif.Message = "Warning! the project: " + p.Name + " does not contain any tasks ";
+                    notificationRepo.Add(notif);
+                }
+            }
+
+
         }
     }
 }
