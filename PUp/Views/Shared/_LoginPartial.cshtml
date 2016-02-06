@@ -6,6 +6,29 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
+        <li id="notification_li">
+            @using PUp.Models.Repository
+            @if (@UserRepository.CurrentUserNotifications().Count > 0)
+            {
+                <span id="notification_count">@UserRepository.CurrentUserNotifications().Count</span>
+                            <a href="#" id="notificationLink">Notifications</a>
+                            <div id="notificationContainer">
+                                <div id="notificationTitle">Notifications</div>
+                                <div id="notificationsBody" class="notifications">
+                                    @foreach (var notif in UserRepository.CurrentUserNotifications())
+                                    {
+                                        <div class="notificationElement" data-idnotif="@notif.Id" id="@notif.Id">
+                                            <i style="font-size:19px;" class="fa fa-remove pull-right"> </i>
+                                            @notif.Message     at: <i>@notif.AddAt</i> 
+                                        </div> 
+                                    }
+
+                                </div>
+                                <div id="notificationFooter"><a href="#">See All</a></div>
+                            </div>
+            }
+        </li>
+
         <li>
             @Html.ActionLink("Hi " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>

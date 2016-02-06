@@ -42,6 +42,9 @@
 #notificationsBody {
     padding: 33px 0px 0px 0px !important;
     min-height: 300px;
+    background: #F1F3E5;
+    max-height: 400px;
+    overflow: auto;
 }
 
 #notificationFooter {

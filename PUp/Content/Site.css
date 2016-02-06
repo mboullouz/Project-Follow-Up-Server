@@ -17,12 +17,13 @@ body {
     margin-bottom: 17px;
 }
 
-#matrix-container>table{
-    //margin-bottom: 0px;  
+#matrix-container > table {
+    //margin-bottom: 0px;
 }
-#matrix-container>table>tbody>tr>th{
-    width: 50%;  
-}
+
+    #matrix-container > table > tbody > tr > th {
+        width: 50%;
+    }
 
 .card-control > a {
     margin: 4px;
@@ -66,12 +67,18 @@ thead {
 
 
 .notificationElement {
-    border: 1px solid #607D8B;
+    padding: 5px;
+    padding-bottom: 0px;
+    margin: 5px 5px 0px 4px;
+    background: rgb(255, 255, 255);
+    color: black;  
+    font-size: 13px;
 }
 
     .notificationElement:hover {
         cursor: pointer;
-        background-color: burlywood;
+        background-color: white;
+        color: #3288E6;
     }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -100,7 +107,7 @@ textarea {
         }
 
     .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-            border-bottom: 1px solid #397AB7;
+        border-bottom: 1px solid #397AB7;
     }
 
 .navbar-right {

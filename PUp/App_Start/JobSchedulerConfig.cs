@@ -60,7 +60,7 @@ namespace PUp.App_Start
                 .WithIdentity("trigger3", "group3")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInMinutes(90)
+                    .WithIntervalInMinutes(150)
                     .RepeatForever())
                 .Build();
             scheduler.ScheduleJob(job, trigger);

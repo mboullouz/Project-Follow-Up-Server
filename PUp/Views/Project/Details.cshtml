@@ -13,7 +13,9 @@
                         <i class="fa fa-hourglass-start"></i>
                     </div>
                     <div class="timeline-label">
-                        <h2>@Model.Project.Name</h2> <span>@Model.Project.StartAt.ToString("dd/MMM yyyy")</span>
+                        <h2>@Model.Project.Name 
+                            <span class="pull-right">@Model.Project.StartAt.ToString("dd/MMM yyyy")</span>
+                        </h2> 
                         <p>Objective : @Model.Project.Objective </p>
                         <p>Benifites : @Model.Project.Benifite  </p>
                     </div>
@@ -29,7 +31,9 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="timeline-label">
-                                <h2> @(  ((TaskEntity)element).Title ) </h2><span> @(  ((TaskEntity)element).AddAt.ToString("dd/MMM yyyy") )  </span>
+                                <h2> <span class="pull-right"> @(  ((TaskEntity)element).AddAt.ToString("dd/MMM yyyy") )  </span>  @(  ((TaskEntity)element).Title )
+                                     
+                                </h2>
                                 <p>
                                     @(  ((TaskEntity)element).Description )
                                 </p>
@@ -39,13 +43,15 @@
                 }
                 if (element is NotificationEntity)
                 {
-                    <article class="timeline-entry">
+                    <article class="timeline-entry" >
                         <div class="timeline-entry-inner">
                             <div class="timeline-icon bg-secondary">
                                 <i class="fa fa-bullhorn"></i>
                             </div>
-                            <div class="timeline-label">
-                                <h2> @(  ((NotificationEntity)element).Message )</h2>
+                            <div class="timeline-label" style="border-color: #FF9800;">
+                                <h2> @(  ((NotificationEntity)element).Message )
+                                   <span class="pull-right">@(  ((NotificationEntity)element).AddAt.ToString("dd/MMM yyyy") ) </span>
+                                 </h2>
                                 <p> <a href="@(  ((NotificationEntity)element).Url )"> Details</a></p>
                             </div>
                         </div>
@@ -58,9 +64,13 @@
                             <div class="timeline-icon bg-secondary">
                                 <i class="fa fa-exclamation-circle"></i>
                             </div>
-                            <div class="timeline-label">
-                                <h2> @(  ((IssueEntity)element).Description ) </h2>
-                                <p>Status:  @(  ((IssueEntity)element).Status=="0" ? "In progress" : "Done" ) </p>
+                            <div class="timeline-label timeline-label-yellow">
+                                <h2> Status:  @(  ((IssueEntity)element).Status == "0" ? "In progress" : "Done" )
+                                    <span class="pull-right">@(  ((IssueEntity)element).AddAt.ToString("dd/MMM yyyy") ) </span>
+                                 </h2>
+                                <p>
+                                  Description:   @(  ((IssueEntity)element).Description )
+                                </p>
                                 <p>Related area(s):  @(  ((IssueEntity)element).RelatedArea ) </p>
                             </div>
                         </div>
