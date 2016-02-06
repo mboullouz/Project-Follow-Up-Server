@@ -1,0 +1,72 @@
+﻿@model PUp.Models.Entity.ProjectEntity
+    @{
+        ViewBag.Title = "Tasks list";
+    }
+    <div id="conf" data-url="@Url.Action("ChangeState", "Task")">
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+ 
+            <a href="@Url.Action("Add", "Task", new { id = Model.Id } )" class="btn">
+                Add a Task
+            </a>
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <b>Tasks list for project: @Model.Name</b>
+                    </div>
+
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Title</td>
+                                <td>Description</td>
+                                <td>Done</td>
+                                <td>Estimated time</td>
+                                <td>Key factor</td>
+                                <td>Priority</td>
+                                <td>Created at</td>
+                                <td>Last edit</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in Model.Tasks)
+                            {
+                                <tr class="v @(@task.Done ? "done" : " ")">
+                                    <td> @task.Title</td>
+                                    <td> @task.Description</td>
+                                    <td>@if(task.Done)
+                                    {
+                                        @task.FinishAt
+                                    }
+                                    else { <b>In progress</b>}
+                                    </td>
+                                    <td>@task.EstimatedTimeInMinutes (min)</td>
+                                    <td> @(task.keyFactor?"Yes":"No")</td>
+                                    <td>@task.Priority</td>
+                                    <td>@task.AddAt.ToString("HH:mm d-MMM yyyy ")</td>
+                                    <td>
+                                        @if (task.EditAt!=null)
+                                        { var d = (DateTime)task.EditAt;
+                                            d.ToString("HH:mm d-MMM yyyy ");
+                                        }
+                                    </td>
+                                    <td>
+                                        <button class="btn changeState" id="@task.Id">
+                                         <i class="fa fa-check-square"></i> Mark done</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- TODO re organise js imports!-->
+<script src="~/Scripts/src/app/Shared/HttpCall.js"></script>
+<script src="~/Scripts/src/app/Shared/Models/Entity.js"></script>
+<script src="~/Scripts/src/app/Tasks/TaskApp.js"></script>

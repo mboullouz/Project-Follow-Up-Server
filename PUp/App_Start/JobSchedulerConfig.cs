@@ -10,13 +10,11 @@ namespace PUp.App_Start
 {
     public class JobSchedulerConfig
     {
+        // Grab the Scheduler instance from the Factory 
+        static IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
         public static void StartTaskEndingJobConfig()
         {
-            // Grab the Scheduler instance from the Factory 
-            IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
-
-            // and start it off
-            scheduler.Start();
+ 
             IJobDetail job = JobBuilder.Create<TaskEndingJob>()
                 .WithIdentity("job1", "group1")
                 .Build();
@@ -35,9 +33,7 @@ namespace PUp.App_Start
         }
 
         public static void  StartProjectDeadLineJob()
-        {
-            IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
-            scheduler.Start();
+        { 
             IJobDetail job = JobBuilder.Create<ProjectDeadlineJob>()
                .WithIdentity("ProjectDeadLineJob", "group2")
                .Build();
@@ -54,10 +50,28 @@ namespace PUp.App_Start
             scheduler.ScheduleJob(job, trigger);
         }
 
+        public static void StartProjectCoherenceAnalyzis()
+        {
+         
+            IJobDetail job = JobBuilder.Create<ProjectCoherenceAnalyserJob>()
+                .WithIdentity("job3", "group3")
+                .Build();
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("trigger3", "group3")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInMinutes(90)
+                    .RepeatForever())
+                .Build();
+            scheduler.ScheduleJob(job, trigger);
+        }
+
         public static void StartAll()
         {
+            scheduler.Start();
             StartTaskEndingJobConfig();
             StartProjectDeadLineJob();
+            StartProjectCoherenceAnalyzis();
         }
     }
 }
