@@ -21,7 +21,28 @@ namespace PUp.Jobs
         {
             base.Init();
             NoTaskInTheProjectAfterCreatingIt();
+            TasksCanBeDeletedOrPostponed();
+        }
 
+        public void TasksCanBeDeletedOrPostponed()
+        {
+            var projects = projectRepo.GetAll().Where(p =>
+                    p.AddAt <= DateTime.Now.AddMinutes(10)
+                    && p.Tasks.Count > 0
+                    && p.EndAt >= DateTime.Now.AddHours(1)
+                   ).ToList();
+            foreach (var p in projects)
+            {
+                var tasks =p.Tasks.ToList().Where(t =>!t.Urgent && !t.Important).ToList();
+                foreach (var t in tasks)
+                {
+                    NotificationEntity notif = new NotificationEntity();
+                    notif.User = t.Executor;
+                    notif.Message = " Warning! the task: " + t.Title+ 
+                                    " from the project: "+p.Name+" can be postponed";
+                    notificationRepo.Add(notif);
+                }
+            }
         }
 
         public void NoTaskInTheProjectAfterCreatingIt()
@@ -43,8 +64,6 @@ namespace PUp.Jobs
                     notificationRepo.Add(notif);
                 }
             }
-
-
         }
     }
 }

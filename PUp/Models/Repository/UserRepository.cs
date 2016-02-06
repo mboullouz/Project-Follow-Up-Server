@@ -27,7 +27,21 @@ namespace PUp.Models.Repository
         {
             return this.DbContext;
         }
-        
+
+
+        /// <summary>
+        /// This method to use exclusivly from the view
+        /// Attention: it uses a static DatabaseContext
+        /// </summary>
+        /// <returns></returns>
+        public static UserEntity CurrentUser()
+        {
+            // return   manager.FindByIdAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            string currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var stDbContext = new DatabaseContext();
+            UserEntity currentUser = stDbContext.Users.FirstOrDefault(x => x.Id == currentUserId);
+            return currentUser;
+        }
 
         public UserEntity GetCurrentUser()
         {

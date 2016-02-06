@@ -66,12 +66,29 @@ namespace PUp.App_Start
             scheduler.ScheduleJob(job, trigger);
         }
 
+        public static void StartIssuesAnalyer()
+        {
+
+            IJobDetail job = JobBuilder.Create<IssuesAnalyzerJob>()
+                .WithIdentity("job4", "group4")
+                .Build();
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("trigger4", "group4")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInHours(2)
+                    .RepeatForever())
+                .Build();
+            scheduler.ScheduleJob(job, trigger);
+        }
+
         public static void StartAll()
         {
             scheduler.Start();
             StartTaskEndingJobConfig();
             StartProjectDeadLineJob();
             StartProjectCoherenceAnalyzis();
+            StartIssuesAnalyer();
         }
     }
 }
