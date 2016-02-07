@@ -52,6 +52,12 @@ namespace PUp.Controllers
         {
             if (!ModelState.IsValid)
             {
+               
+                return View(model);
+            }
+            if (model.EndAt<=model.StartAt || model.StartAt<=DateTime.Now.AddMinutes(30))
+            {
+                ModelState.AddModelError("", "Dates are not valid! .");
                 return View(model);
             }
             ProjectEntity project = new ProjectEntity();
@@ -94,15 +100,9 @@ namespace PUp.Controllers
 
         public ActionResult Edit(int id)
         {
-
             ProjectEntity project = projectRepository.FindById(id);
-            AddProjectViewModel projectModel = new AddProjectViewModel
-            {
-                Id = project.Id,
-                EndAt = (DateTime)project.EndAt,
-                StartAt = project.StartAt,
-                Name = project.Name
-            };
+            AddProjectViewModel projectModel = new AddProjectViewModel(project);
+           
             return View("~/Views/Project/Add.cshtml", projectModel);
         }
 

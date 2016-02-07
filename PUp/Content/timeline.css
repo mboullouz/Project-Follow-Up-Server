@@ -31,7 +31,15 @@ img {
 .img-circle {
     border-radius: 50%;
 }
-
+border-danger{
+   border-color: #F44336;
+   box-shadow: 0 0 0 2px #F44336;
+   color: red;
+}
+border-danger:after {
+    border-color: #F44336;
+    box-shadow: 0 0 0 2px #F44336;
+}
 .timeline-centered {
     position: relative;
     margin-bottom: 30px;

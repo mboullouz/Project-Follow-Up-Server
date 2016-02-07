@@ -17,6 +17,9 @@ body {
     margin-bottom: 17px;
 }
 
+.field-validation-error {
+    color: #F44336;
+}
  
     
 .card-control > a {

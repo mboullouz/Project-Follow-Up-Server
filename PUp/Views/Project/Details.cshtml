@@ -61,10 +61,10 @@
                 {
                     <article class="timeline-entry">
                         <div class="timeline-entry-inner">
-                            <div class="timeline-icon bg-secondary">
+                            <div class="timeline-icon border-danger" style="border-color: #F44336;">
                                 <i class="fa fa-exclamation-circle"></i>
                             </div>
-                            <div class="timeline-label timeline-label-yellow">
+                            <div class="timeline-label timeline-label-yellow" style="border-color: #F44336;">
                                 <h2> Status:  @(  ((IssueEntity)element).Status == "0" ? "In progress" : "Done" )
                                     <span class="pull-right">@(  ((IssueEntity)element).AddAt.ToString("dd/MMM yyyy") ) </span>
                                  </h2>

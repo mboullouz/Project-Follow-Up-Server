@@ -11,6 +11,8 @@
 
     </div>
     <div class="panel-body">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         @using (Html.BeginForm())
         {
             <div class="form-group">
@@ -23,13 +25,13 @@
 
             <div class="form-group">
                 <label class="control-label">Benifite</label>
-                @Html.TextAreaFor(m => m.Benifite, new { @class = "form-control" })
+                @Html.TextAreaFor(m => m.Benifite, new { @class = "form-control", @rows = 15 })
                 @Html.ValidationMessageFor(m => m.Benifite)
             </div>
 
             <div class="form-group">
                 <label class="control-label">Objectives</label>
-                @Html.TextAreaFor(m => m.Objective, new { @class = "form-control" })
+                @Html.TextAreaFor(m => m.Objective, new { @class = "form-control",@rows = 15 })
                 @Html.ValidationMessageFor(m => m.Objective)
             </div>
 
