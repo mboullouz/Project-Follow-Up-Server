@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using PUp.Models;
+using PUp.Models.Entity;
 using PUp.Models.Repository;
 using Quartz;
 using System;
@@ -26,8 +27,9 @@ namespace PUp.Jobs
                         {
                             NotificationEntity notif = new NotificationEntity();
                             notif.User = u;
-                            notif.Message = "Action require attention! The task: " + task.Title
+                            notif.Message = "The task: " + task.Title
                                 + " from the project: "+p.Name+" Ends today!"+ (task.KeyFactor?" This task is a key factor":"");
+                            notif.Level = LevelFlag.DANGER;
                             notificationRepo.Add(notif);
                         }
                     }

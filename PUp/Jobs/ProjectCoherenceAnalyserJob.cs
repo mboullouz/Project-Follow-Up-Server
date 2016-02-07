@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using PUp.Models;
+using PUp.Models.Entity;
 using PUp.Models.Repository;
 using Quartz;
 using System;
@@ -38,8 +39,9 @@ namespace PUp.Jobs
                 {
                     NotificationEntity notif = new NotificationEntity();
                     notif.User = t.Executor;
-                    notif.Message = " Warning! the task: " + t.Title+ 
+                    notif.Message = " The task: " + t.Title+ 
                                     " from the project: "+p.Name+" can be postponed";
+                    notif.Level = LevelFlag.WARNING;
                     notificationRepo.Add(notif);
                 }
             }
@@ -60,8 +62,10 @@ namespace PUp.Jobs
                 {
                     NotificationEntity notif = new NotificationEntity();
                     notif.User = u;
-                    notif.Message = "Warning! the project: " + p.Name + " does not contain any tasks ";
+                    notif.Message = "The project: " + p.Name + " does not contain any tasks ";
+                    notif.Level = LevelFlag.DANGER;
                     notificationRepo.Add(notif);
+
                 }
             }
         }

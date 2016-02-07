@@ -50,7 +50,7 @@ namespace PUp.Models.Entity
             AddAt = DateTime.Now;
             Deleted = false;
             EditAt = AddAt;
-            Level = 0;
+            Level = LevelFlag.INFO;
         }
     }
 }

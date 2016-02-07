@@ -101,7 +101,7 @@ namespace PUp.Models.Repository
                     User = user,
                     Project = project,
                     UserId = user.Id,
-                    Role =  ContributionEntity.RolesToString(3)
+                    Role =  RoleContribution.FlagToString(RoleContribution.ISSUE_SUBMIT)
                 };
                 Add(contrib);
                 project.Contributions.Add(contrib);

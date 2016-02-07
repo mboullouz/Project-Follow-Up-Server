@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using PUp.Models;
+using PUp.Models.Entity;
 using PUp.Models.Repository;
 using Quartz;
 using System;
@@ -24,8 +25,9 @@ namespace PUp.Jobs
                         var user = userRepo.FindById(contrib.UserId);
                         NotificationEntity notif = new NotificationEntity();
                         notif.User = user;
-                        notif.Message = "Warning! the project: " + p.Name + "Ends today, "
+                        notif.Message = "The project: " + p.Name + "Ends today, "
                             +p.Tasks.Where(t=>!t.Done).Count() + " Task(s) pending";
+                        notif.Level = LevelFlag.DANGER;
                         notificationRepo.Add(notif);
                     }
                 }

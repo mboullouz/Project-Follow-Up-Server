@@ -40,22 +40,9 @@ namespace PUp.Models.Entity
         {
             AddAt = DateTime.Now;
             Deleted = false;
-            Role = RolesToString((int)Roles.TaskAdd);
+            Role = RoleContribution.FlagToString(RoleContribution.TASK_ASSIGNED_TO);
         }
-        public enum Roles:int { FisrstContributor = 0, AssignedTo, TaskAdd, IssueSubmit };
-
-        public static string RolesToString(int roleId)
-        {           
-            switch (roleId)
-            {
-                case (int)Roles.AssignedTo :return "AssignedTo";
-                case (int)Roles.FisrstContributor: return "FisrstContributor";
-                case (int)Roles.IssueSubmit: return "IssueSubmit";
-                case (int)Roles.TaskAdd: return "TaskAdd";
-                default:
-                    throw new System.ComponentModel.InvalidEnumArgumentException();            
-            }
-        }
+       
     }
 
 }

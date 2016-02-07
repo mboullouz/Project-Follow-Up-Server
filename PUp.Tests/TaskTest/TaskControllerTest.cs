@@ -56,7 +56,6 @@ namespace PUp.Tests.TaskTest
                 Done = false,
                 FinishAt = DateTime.Now.AddDays(7),
                 Project = pRep.FindById(idProject),
-                Priority = 1,
                 Title = "some task",
                 IdProject = this.idProject
             };

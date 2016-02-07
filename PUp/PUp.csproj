@@ -238,6 +238,7 @@
     <Compile Include="Models\Entity\IBasicEntity.cs" />
     <Compile Include="Models\Entity\IssueEntity.cs" />
     <Compile Include="Models\Entity\NotificationEntity.cs" />
+    <Compile Include="Models\EntityHelper.cs" />
     <Compile Include="Models\Repository\AbstractRepository.cs" />
     <Compile Include="Models\Repository\ContributionRepository.cs" />
     <Compile Include="Models\Repository\IssueRepository.cs" />

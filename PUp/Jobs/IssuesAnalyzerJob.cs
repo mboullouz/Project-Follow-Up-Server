@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Quartz;
 using PUp.Models.Entity;
+using PUp.Models;
 
 namespace PUp.Jobs
 {
@@ -21,7 +22,7 @@ namespace PUp.Jobs
             foreach (var p in projects)
             {
                 p.Contributions.ToList().ForEach(c => users.Add(userRepo.FindById(c.UserId)));
-                string message = "Warning! the project: " + p.Name + " contains more than 3 issues "; ;
+                string message = "The project: " + p.Name + " contains more than 3 issues "; ;
                 NotifyAboutTooMuchIssues(users, message);
             }
         }
@@ -33,6 +34,7 @@ namespace PUp.Jobs
                 NotificationEntity notif = new NotificationEntity();
                 notif.User = u;
                 notif.Message = message;
+                notif.Level = LevelFlag.WARNING;
                 notificationRepo.Add(notif);
             }
         }

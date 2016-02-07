@@ -15,7 +15,7 @@
                             <div id="notificationContainer">
                                 <div id="notificationTitle">Notifications</div>
                                 <div id="notificationsBody" class="notifications">
-                                    @foreach (var notif in UserRepository.CurrentUserNotifications())
+                                    @foreach (var notif in UserRepository.CurrentUserNotifications().OrderByDescending(c=>c.AddAt))
                                     {
                                         <div class="notificationElement notificationElement_@(notif.Level)"
                                              data-idnotif="@notif.Id" id="@notif.Id">
