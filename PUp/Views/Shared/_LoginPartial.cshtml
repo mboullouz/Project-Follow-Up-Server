@@ -17,9 +17,10 @@
                                 <div id="notificationsBody" class="notifications">
                                     @foreach (var notif in UserRepository.CurrentUserNotifications())
                                     {
-                                        <div class="notificationElement" data-idnotif="@notif.Id" id="@notif.Id">
+                                        <div class="notificationElement notificationElement_@(notif.Level)"
+                                             data-idnotif="@notif.Id" id="@notif.Id">
                                             <i style="font-size:19px;" class="fa fa-remove pull-right"> </i>
-                                            @notif.Message     at: <i>@notif.AddAt</i> 
+                                            @notif.Message     at: <i>@notif.AddAt.ToString("HH:mm dd-MMM")</i> 
                                         </div> 
                                     }
 

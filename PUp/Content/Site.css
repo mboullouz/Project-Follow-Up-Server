@@ -74,13 +74,13 @@ thead {
         background-color: white;
         color: #3288E6;
     }
-.notificationInfo{
+.notificationElement_0{
   border-left: 3px solid #3F92CF;
 }
-.notificationWarning{
-      border-left: 3px solid #FF9800;
+.notificationElement_1{
+      border-left: 3px solid #FFEB3B;
 }
-.notificationDanger{
+.notificationElement_2{
       border-left: 3px solid #FF5722;
 }
 
