@@ -33,7 +33,7 @@ namespace PUp.Jobs
                    ).ToList();
             foreach (var p in projects)
             {
-                var tasks =p.Tasks.ToList().Where(t =>!t.Urgent && !t.Important).ToList();
+                var tasks =p.Tasks.ToList().Where(t =>!t.Urgent && !t.Critical).ToList();
                 foreach (var t in tasks)
                 {
                     NotificationEntity notif = new NotificationEntity();

@@ -13,7 +13,7 @@ namespace PUp.ViewModels
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public Nullable<int> Priority { get; set; }
+        
 
         public SelectList PriorityList { get; set; }
 
@@ -25,7 +25,7 @@ namespace PUp.ViewModels
         public Nullable<DateTime> FinishAt { get; set; }
         public int IdProject { get; set; } 
         public ProjectEntity Project { get; set; }
-        public bool keyFactor { get; set; }
+        public bool KeyFactor { get; set; }
         public int EstimatedTimeInMinutes { get; set; }
 
         public SelectList EstimatedMinList { get; set; } 
@@ -50,14 +50,8 @@ namespace PUp.ViewModels
             IdProject = idProject;
             Users = users;
             Done = false;
-            keyFactor = false;
-            PriorityList = new SelectList(
-                new List<SelectListItem>
-                {
-                    new SelectListItem { Selected = true,  Text = "Normal", Value = "1"},
-                    new SelectListItem { Selected = false, Text = "Low" ,   Value = "0"},
-                    new SelectListItem { Selected = false, Text = "High",   Value = "2"},
-                }, "Value", "Text", 1);
+            KeyFactor = false;
+          
             EstimatedMinList = new SelectList(
                 new List<SelectListItem>
                 {

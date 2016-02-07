@@ -26,7 +26,7 @@ namespace PUp
             //This is an attempt to start job scheduler when the App starts 
             JobSchedulerConfig.StartAll(); 
             //Enable this to when something changed and we need migration
-            //System.Data.Entity.Database.SetInitializer<Models.DatabaseContext>(new Models.DatabaseInitializer());
+           // System.Data.Entity.Database.SetInitializer<Models.DatabaseContext>(new Models.DatabaseInitializer());
         }
     }
 }

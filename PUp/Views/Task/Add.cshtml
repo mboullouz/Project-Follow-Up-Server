@@ -21,11 +21,6 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label">Priority</label>
-                @Html.DropDownListFor(m => m.Priority, Model.PriorityList, "Select one")
-            </div>
-
-            <div class="form-group">
                 <label class="control-label">Important</label>
                 @Html.DropDownListFor(m => m.Important, Model.ImportantList, "Select one")
             </div>
@@ -47,7 +42,7 @@
 
             <div class="form-group">
                 <label class="control-label">This task is a key factor </label>
-                @Html.CheckBoxFor(m => m.keyFactor)
+                @Html.CheckBoxFor(m => m.KeyFactor)
             </div>
             <div class="form-group">
                 <label class="control-label">Description</label>

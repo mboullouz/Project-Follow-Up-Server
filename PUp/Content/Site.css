@@ -74,6 +74,15 @@ thead {
         background-color: white;
         color: #3288E6;
     }
+.notificationInfo{
+  border-left: 3px solid #3F92CF;
+}
+.notificationWarning{
+      border-left: 3px solid #FF9800;
+}
+.notificationDanger{
+      border-left: 3px solid #FF5722;
+}
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,

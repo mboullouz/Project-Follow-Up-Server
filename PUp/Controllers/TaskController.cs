@@ -81,27 +81,28 @@ namespace PUp.Controllers
                 model.Project = project;
                 return View(model);
             }
+            var executor = userRepository.FindById(model.ExecutorId);
             TaskEntity task = new TaskEntity
             {
                 Title = model.Title,
-                Description = model.Description,
-                Priority = model.Priority,
+                Description = model.Description, 
                 Done = model.Done,
                 Project = project,
                 AddAt = DateTime.Now,
                 EditAt = DateTime.Now,
                 EstimatedTimeInMinutes = model.EstimatedTimeInMinutes,
-                keyFactor = model.keyFactor,
+                KeyFactor = model.KeyFactor,
                 Deleted = false,
-                Important= model.Important,
+                Critical= model.Important,
                 Urgent= model.Urgent,
-                Executor= userRepository.FindById( model.ExecutorId),
+                Executor= executor!=null?executor:user,//if not found!
                 AssignedBy= user
             };
+            taskRepository.Add(task);
+            project.Tasks.Add(task);
             contributionRepository.AddContributionIfNotExists(project, user, task);                      
             contributionRepository.AddContributionIfNotExists(project, task.Executor, task);  //Add  contrib for the task executor 
-            taskRepository.Add(task);            
-            project.Tasks.Add(task);
+            
            
             notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
             return RedirectToAction("Index", "Task", new { id = project.Id });

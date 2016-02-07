@@ -24,7 +24,6 @@
                                 <td>Done</td>
                                 <td>Estimated time</td>
                                 <td>Key factor</td>
-                                <td>Priority</td>
                                 <td>Created at</td>
                                 <td>Last edit</td>
                                 <td></td>
@@ -43,8 +42,7 @@
                                     else { <b>In progress</b>}
                                     </td>
                                     <td>@task.EstimatedTimeInMinutes (min)</td>
-                                    <td> @(task.keyFactor?"Yes":"No")</td>
-                                    <td>@task.Priority</td>
+                                    <td> @(task.KeyFactor?"Yes":"No")</td>
                                     <td>@task.AddAt.ToString("HH:mm d-MMM yyyy ")</td>
                                     <td>
                                         @if (task.EditAt!=null)

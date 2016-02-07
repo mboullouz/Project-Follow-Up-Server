@@ -79,9 +79,33 @@ namespace PUp.Models.Repository
                     EndAt = task.Project.EndAt,
                     ProjectId = project.Id,
                     UserId = user.Id,
-                    Role = "Add-Task"
+                    User=user,
+                    Project=project,
+                    Role = "AddTask"
                 };
                 Add(contrib);
+                project.Contributions.Add(contrib);
+                user.Contributions.Add(contrib);
+            }
+        }
+
+        public void AddContributionIfNotExists(ProjectEntity project, UserEntity user, IssueEntity issue)
+        {
+            if (!ContributionExists(project, user))
+            {
+                var contrib = new ContributionEntity
+                {
+                    AddAt = DateTime.Now,
+                    EndAt = project.EndAt,
+                    ProjectId = project.Id,
+                    User = user,
+                    Project = project,
+                    UserId = user.Id,
+                    Role =  ContributionEntity.RolesToString(3)
+                };
+                Add(contrib);
+                project.Contributions.Add(contrib);
+                user.Contributions.Add(contrib);
             }
         }
 

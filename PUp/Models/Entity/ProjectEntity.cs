@@ -8,26 +8,29 @@ namespace PUp.Models.Entity
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    public partial class ProjectEntity:IBasicEntity
+    public partial class ProjectEntity : IBasicEntity
     {
 
         [Key]
         public int Id { get; set; }
+
+        [MinLength(10)]
         public string Name { get; set; }
         public bool Finish { get; set; }
         public bool? Deleted { get; set; }
-        
+
         public DateTime? EditAt { get; set; }
 
         /// <summary>
         /// A project may finish before estimated finish date time!
+        /// default finishedAt= endAt
         /// </summary>
-        public DateTime FinishAt { get; set; }
+        public DateTime FinishedAt { get; set; }
         public DateTime StartAt { get; set; }
 
 
         /// <summary>
-        /// This the max date to finish the task, if not the task is considered undone 
+        /// This the max date to finish the project, if not the task is considered undone 
         /// note: it is not related to the estimatedTimeInMinutes
         /// </summary>
         public DateTime EndAt { get; set; }
@@ -40,6 +43,8 @@ namespace PUp.Models.Entity
         /// if applicable
         /// </summary>
         [Column(TypeName = "ntext")]
+        [MinLength(100)]
+        [MaxLength(100000)]
         public string Benifite { get; set; }
 
         /// <summary>
@@ -48,13 +53,15 @@ namespace PUp.Models.Entity
         /// --TODO :handle this after :What functionalities or departments are involved?  Which are not involved
         /// </summary>
         [Column(TypeName = "ntext")]
+        [MinLength(100)]
+        [MaxLength(100000)]
         public string Objective { get; set; }
 
         public virtual ICollection<TaskEntity> Tasks { get; set; }
         public virtual ICollection<IssueEntity> Issues { get; set; }
         public virtual ICollection<ContributionEntity> Contributions { get; set; }
 
-       
+
 
         public DateTime? DeleteAt { get; set; }
 
@@ -71,9 +78,9 @@ namespace PUp.Models.Entity
             EditAt = DateTime.Now;
             StartAt = DateTime.Now.AddHours(1);
             EndAt = DateTime.Now.AddDays(7);
-            FinishAt = DateTime.Now.AddDays(900); 
+            FinishedAt = DateTime.Now.AddDays(900);
             Deleted = false;
-            DeleteAt= DateTime.Now.AddYears(1);
+            DeleteAt = DateTime.Now.AddYears(2);
         }
 
 

@@ -7,9 +7,11 @@
     {
         [Key]
         public int Id { get; set; }
+        [MinLength(10)]
         public string Title { get; set; }
 
         [Column(TypeName = "ntext")]
+        [MinLength(30)]
         public string Description { get; set; }
 
         public bool Done { get; set; }
@@ -19,7 +21,7 @@
         /// Use Urgent/Important matrix
         /// </summary>
         public bool Urgent { get; set; }
-        public bool Important { get; set; }
+        public bool Critical { get; set; }
 
         /// <summary>
         /// A Task may be postponed depending on the U/I Matrix
@@ -31,23 +33,16 @@
         public Nullable<DateTime> FinishAt { get; set; }
 
         /// <summary>
-        /// High priority mean must be executed as soon as possible 
-        /// example Priority = 0 => low priority
-        ///         Priority = 1 => normal 
-        ///         Priority = 2 => High
-        /// </summary>
-        public Nullable<int> Priority { get; set; }
-
-        /// <summary>
         /// What are the keyTasks in the project that have more impact?
         /// --not related to the priority 
         /// </summary>
-        public bool keyFactor { get; set; }
+        public bool KeyFactor { get; set; }
 
         /// <summary>
         /// Estimated time in minutes 
         /// its NOT equivalent to the difference between start date and finish date
         /// </summary>
+        [Range(30,1000)]
         public int EstimatedTimeInMinutes { get; set; }
 
         /// <summary>
@@ -58,6 +53,7 @@
         public DateTime? DeleteAt { get; set; }
         public bool? Deleted { get; set; }
 
+        [Required]
         public UserEntity AssignedBy { set; get; }
         public UserEntity Executor { set; get; }
 
@@ -65,19 +61,15 @@
         {
             Done = false;
             Postponed = false;
-            Priority = 1;
             Urgent = false;
-            Important = false;
+            Critical = false;
             AddAt = DateTime.Now;
             EditAt = DateTime.Now;
-            keyFactor = false;
+            KeyFactor = false;
             EstimatedTimeInMinutes = 60;
             Deleted = false;
         }
 
         public virtual ProjectEntity Project { get; set; }
- 
-
-       
     }
 }

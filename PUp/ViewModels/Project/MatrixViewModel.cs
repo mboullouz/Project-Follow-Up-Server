@@ -27,10 +27,10 @@ namespace PUp.ViewModels.Project
             NotImportantButUrgent = new List<TaskEntity>();
             NotImportantNotUrgent = new List<TaskEntity>();
 
-            ImportantAndUrgent.AddRange(tasks.Where(t => t.Important && t.Urgent));
-            ImportantNotUrgent.AddRange(tasks.Where(t => t.Important && !t.Urgent));
-            NotImportantButUrgent.AddRange(tasks.Where(t => !t.Important && t.Urgent));
-            NotImportantNotUrgent.AddRange(tasks.Where(t => !t.Important && !t.Urgent));
+            ImportantAndUrgent.AddRange(tasks.Where(t => t.Critical && t.Urgent));
+            ImportantNotUrgent.AddRange(tasks.Where(t => t.Critical && !t.Urgent));
+            NotImportantButUrgent.AddRange(tasks.Where(t => !t.Critical && t.Urgent));
+            NotImportantNotUrgent.AddRange(tasks.Where(t => !t.Critical && !t.Urgent));
         }
     }
 }

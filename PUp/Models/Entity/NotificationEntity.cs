@@ -18,6 +18,15 @@ namespace PUp.Models.Entity
 
         public bool Seen { get; set; }
 
+
+        /// <summary>
+        /// Level of criticity; helps UI set the appropriat Color
+        /// 0:information=>just let you know; default
+        /// 1:warning =>action adviced
+        /// 2:danger  =>action required
+        /// </summary>
+        public int Level { get; set; }
+
         public UserEntity User { get; set; }
 
         public DateTime AddAt
@@ -41,7 +50,7 @@ namespace PUp.Models.Entity
             AddAt = DateTime.Now;
             Deleted = false;
             EditAt = AddAt;
-
+            Level = 0;
         }
     }
 }
