@@ -20,7 +20,7 @@ namespace PUp.Jobs
                 var now = DateTime.Now;
                 foreach (var task in p.Tasks)
                 {
-                    if ( !task.Done && task.EstimatedTimeInMinutes<59)//1 hour before
+                    if ( !task.Done)//1 hour before && task.EstimatedTimeInMinutes<59
                     {
                         var users = userRepo.GetAll();
                         foreach (var u in users)
