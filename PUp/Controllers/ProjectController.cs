@@ -48,14 +48,42 @@ namespace PUp.Controllers
         }
 
         [HttpPost]
+        public ActionResult Edit(AddProjectViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                return View(model);
+            }
+            ProjectEntity project = projectRepository.FindById(model.Id);
+            project.Name = model.Name;
+            project.StartAt = model.StartAt;
+            project.EndAt = model.EndAt;
+            project.Objective = model.Objective;
+            project.Benifite = model.Benifite;
+            projectRepository.DbContext.SaveChanges();
+            var notif = new NotificationEntity ();
+            notif.Message = "Project: " + project.Name + " updated";
+            notif.Url = "~/Project/Details" + project.Id;
+            notif.Level = LevelFlag.INFO;
+            foreach(var u in userRepository.GetByProject(project))
+            {
+                notif.User = u;
+                notifRepository.Add(notif);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        [HttpPost]
         public ActionResult Add(AddProjectViewModel model)
         {
             if (!ModelState.IsValid)
             {
-               
+
                 return View(model);
             }
-            if (model.EndAt<=model.StartAt || model.StartAt<=DateTime.Now.AddMinutes(30))
+            if (model.EndAt <= model.StartAt || model.StartAt <= DateTime.Now.AddMinutes(30))
             {
                 ModelState.AddModelError("", "Dates are not valid! .");
                 return View(model);
@@ -102,9 +130,10 @@ namespace PUp.Controllers
         {
             ProjectEntity project = projectRepository.FindById(id);
             AddProjectViewModel projectModel = new AddProjectViewModel(project);
-           
+            projectModel.Id = id;
             return View("~/Views/Project/Add.cshtml", projectModel);
         }
+
 
         public ActionResult Details(int id)
         {
@@ -122,22 +151,6 @@ namespace PUp.Controllers
             return View("~/Views/Project/Matrix.cshtml", mVM);
         }
 
-        [HttpPost]
-        public ActionResult Edit(AddProjectViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
 
-            ProjectEntity project = projectRepository.FindById(model.Id);
-            project.Name = model.Name;
-            project.StartAt = model.StartAt;
-            project.EndAt = model.EndAt;
-
-
-
-            return RedirectToAction("Index", "Home");
-        }
     }
 }

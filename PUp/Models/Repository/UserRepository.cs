@@ -28,6 +28,15 @@ namespace PUp.Models.Repository
             return this.DbContext;
         }
 
+        public HashSet<UserEntity> GetByProject(ProjectEntity p)
+        {
+            var users = new HashSet<UserEntity>();
+            foreach(var c in p.Contributions)
+            {
+                users.Add(FindById(c.UserId));
+            }
+            return users;
+        }
 
         /// <summary>
         /// This method to use exclusivly from the view
