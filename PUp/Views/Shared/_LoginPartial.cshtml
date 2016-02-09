@@ -31,7 +31,11 @@
         </li>
 
         <li>
-            @Html.ActionLink("Hi " + UserRepository.CurrentUser().Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @if (UserRepository.CurrentUser() != null)
+            {
+                @Html.ActionLink("Hi " + UserRepository.CurrentUser().Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            }
+            
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
     </ul>

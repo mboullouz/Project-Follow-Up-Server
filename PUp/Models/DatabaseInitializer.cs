@@ -12,7 +12,7 @@ namespace PUp.Models
     public class DatabaseInitializer : DropCreateDatabaseAlways<DatabaseContext>
     {
         protected override void Seed(DatabaseContext context)
-        {
+        {  /*
             var UserManager = new UserManager<UserEntity>(new UserStore<UserEntity>(context));
 
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
@@ -38,7 +38,7 @@ namespace PUp.Models
             if (adminresult.Succeeded)
             {
                 var result = UserManager.AddToRole(user.Id, roleName);
-            }
+            }*/
             base.Seed(context);
         }
     }

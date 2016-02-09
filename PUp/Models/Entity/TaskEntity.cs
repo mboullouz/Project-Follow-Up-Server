@@ -41,8 +41,12 @@
         /// </summary>
         public bool KeyFactor { get; set; }
 
-        public DateTime StartAt { get; set; }
-        public DateTime EndAt  { get; set; }
+
+        /// <summary>
+        /// The Executor may choose dates later
+        /// </summary>
+        public DateTime? StartAt { get; set; }
+        public DateTime? EndAt  { get; set; }
 
      
 
