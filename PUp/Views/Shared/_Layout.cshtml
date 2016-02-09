@@ -31,13 +31,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                     <li>
+                        <a href="@Url.Action("Index", "Home")">
+                            <i class="fa fa-list"></i> Dashboard
+                        </a>
+                     </li>
                      <li> 
                         <a href="@Url.Action("Index", "Home")">
                             <i class="fa fa-list"></i> Projects
                         </a>
                      </li>
-                    
-                   
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

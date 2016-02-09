@@ -220,6 +220,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\JobSchedulerConfig.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Jobs\AbstractBaseJob.cs" />
     <Compile Include="Jobs\IssuesAnalyzerJob.cs" />
     <Compile Include="Jobs\MorningSummaryJob.cs" />
@@ -373,6 +374,7 @@
     <Content Include="Views\Issue\Index.cshtml" />
     <Content Include="Views\Issue\Add.cshtml" />
     <Content Include="Views\Project\Matrix.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
