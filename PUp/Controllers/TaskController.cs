@@ -90,6 +90,10 @@ namespace PUp.Controllers
                 Project = project,
                 AddAt = DateTime.Now,
                 EditAt = DateTime.Now,
+
+                StartAt= model.StartAt,
+                EndAt= model.EndAt,
+
                 KeyFactor = model.KeyFactor,
                 Deleted = false,
                 Critical= model.Important,
