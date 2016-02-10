@@ -37,8 +37,12 @@ namespace PUp.Controllers
             DashboardModelView dashboardMV = new DashboardModelView();
             //TODO this just for test! write a true linq query
             var currentTasks = taskRepository.GetAll().Where(t => t.Executor.Id == currentUser.Id
-                                     && t.StartAt >=DateTime.Now ).ToList();
+                                     && t.EndAt >=DateTime.Now ).ToList();
             dashboardMV.CurrentTasks = currentTasks;
+            var otherTasks = taskRepository.GetAll()
+                                            .Where(t => t.Executor.Id == currentUser.Id )
+                                            .Where(t=>!currentTasks.Contains(t)).ToList();
+            dashboardMV.OtherTasks = otherTasks;
             return View(dashboardMV);
         }
     }

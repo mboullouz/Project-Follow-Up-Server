@@ -101,7 +101,7 @@ namespace PUp.Models.Repository
                 {
                     User = u,
                     AddAt = DateTime.Now,
-                    Message = "New task: ' " + taskEntity.Title + "' Added by" + u.Email,
+                    Message = "New task: ' " + taskEntity.Title + "' Added by: " + u.Email,
                     Url = "~/Task/Add/" + taskEntity.Id,
                     Deleted=false,
                 };

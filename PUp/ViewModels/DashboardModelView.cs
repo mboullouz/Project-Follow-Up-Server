@@ -9,6 +9,6 @@ namespace PUp.ViewModels
     public class DashboardModelView
     {
         public List<TaskEntity> CurrentTasks = new List<TaskEntity>();
-
+        public List<TaskEntity> OtherTasks   = new List<TaskEntity>();
     }
 }

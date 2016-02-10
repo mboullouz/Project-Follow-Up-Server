@@ -1,4 +1,4 @@
-﻿@model  PUp.ViewModels.DashboardModelView 
+﻿@model  PUp.ViewModels.DashboardModelView
 @{
     ViewBag.Title = "My DashBorad";
 }
@@ -9,18 +9,16 @@
         <h2>My DashBorad</h2>
 
         <div class="col-md-6" style="background: rgba(158, 158, 158, 0.19);">
-           <h4>Current-Day</h4>
+            <h4>Current-Day</h4>
             <div class="panel-body">
                 <table class="table">
                     <thead>
                         <tr>
                             <td>Title</td>
-                            <td>Description</td>
+
                             <td>Done</td>
-                           
                             <td>Key factor</td>
-                            <td>Created at</td>
-                            <td>Last edit</td>
+                            <td>Start</td>
                             <td></td>
                         </tr>
                     </thead>
@@ -29,30 +27,24 @@
                         {
                             <tr class="v @(@task.Done ? "done" : " ")">
                                 <td> @task.Title</td>
-                                <td> @task.Description</td>
                                 <td>
                                     @if (task.Done)
-                                {
-                                    @task.FinishAt
-                                }
-                                else { <b>In progress</b>}
-                            </td>
+                                    {
+                                        @task.FinishAt
+                                    }
+                                    else { <b>In progress</b>}
+                                </td>
 
-                            <td> @(task.KeyFactor ? "Yes" : "No")</td>
-                            <td>@task.AddAt.ToString("HH:mm d-MMM yyyy ")</td>
-                            <td>
-                                @if (task.EditAt != null)
-                                {
-                                    var d = (DateTime)task.EditAt;
-                                    d.ToString("HH:mm d-MMM yyyy ");
-                                }
-                            </td>
-                            <td>
-                                <button class="btn changeState" id="@task.Id">
-                                    <i class="fa fa-check-square"></i> Mark done
-                                </button>
-                            </td>
-                        </tr>
+                                <td> @(task.KeyFactor ? "Yes" : "No")</td>
+                                <td> 
+                                    @(task.StartAt?.ToString("HH:mm")) 
+                                </td>
+                                <td>
+                                    <button class="btn changeState" id="@task.Id">
+                                        <i class="fa fa-check-square"></i> Mark done
+                                    </button>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -61,7 +53,40 @@
 
 
 
-        <div class="col-md-6" style="background: rgba(255, 235, 59, 0.36);">Planification</div>
+        <div class="col-md-6" style="background: rgba(255, 235, 59, 0.36);">
+            <h4> Other tasks waiting! </h4>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Title</td>
+                            <td>Description</td>
+                            <td>Key factor</td>
+                            <td>Added at</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var task in Model.OtherTasks)
+                        {
+                            <tr class="v @(@task.Done ? "done" : " ")">
+                                <td> @task.Title</td>
+                                <td> @task.Description</td>
+
+
+                                <td> @(task.KeyFactor ? "Yes" : "No")</td>
+                                <td>@task.AddAt.ToString("HH:mm d-MMM yyyy ")</td>
+                                <td>
+                                    <button class="btn changeState" id="@task.Id">
+                                        <i class="fa fa-check-square"></i> Mark done
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
 
 
