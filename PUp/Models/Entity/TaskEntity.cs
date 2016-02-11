@@ -16,6 +16,12 @@
 
         public bool Done { get; set; }
 
+        /// <summary>
+        /// Estimated time in minutes 
+        /// its NOT equivalent to the difference between start date and finish date
+        /// </summary>
+        [Range(30, 1000)]
+        public int EstimatedTimeInMinutes { get; set; }
 
         /// <summary>
         /// Use Urgent/Important matrix
@@ -71,7 +77,7 @@
             AddAt = DateTime.Now;
             EditAt = DateTime.Now;
             KeyFactor = false;
-            
+            EstimatedTimeInMinutes = 60;
             Deleted = false;
         }
 
