@@ -18,12 +18,12 @@ namespace PUp.Jobs
                    && p.Issues.Count >= 3
                    && p.EndAt >= DateTime.Now.AddHours(1)
                   ).ToList();
-            var users = new List<UserEntity>();
+            
             foreach (var p in projects)
             {
-                p.Contributions.ToList().ForEach(c => users.Add(userRepo.FindById(c.UserId)));
+                
                 string message = "The project: " + p.Name + " contains more than 3 issues "; ;
-                NotifyAboutTooMuchIssues(users, message);
+                NotifyAboutTooMuchIssues(p.Contributors.ToList(), message);
             }
         }
 

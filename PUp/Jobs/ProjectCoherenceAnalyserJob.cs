@@ -54,11 +54,11 @@ namespace PUp.Jobs
                     && p.Tasks.Count <= 0
                     && p.EndAt >= DateTime.Now.AddHours(1)
                    ).ToList();
-            var users = new List<UserEntity>();
+            
             foreach (var p in projects)
             {
-                p.Contributions.ToList().ForEach(c => users.Add(userRepo.FindById(c.UserId)));
-                foreach (var u in users)
+               
+                foreach (var u in p.Contributors.ToList())
                 {
                     NotificationEntity notif = new NotificationEntity();
                     notif.User = u;

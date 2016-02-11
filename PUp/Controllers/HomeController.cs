@@ -20,7 +20,7 @@ namespace PUp.Controllers
         private TaskRepository taskRepository;
         private ProjectRepository projectRepository;
         private UserRepository userRepository;
-        private ContributionRepository contributionRepository;
+        
         private DatabaseContext dbContext = new DatabaseContext();
 
         public HomeController()
@@ -28,7 +28,7 @@ namespace PUp.Controllers
             userRepository = new UserRepository(dbContext);
             taskRepository = new TaskRepository(dbContext);
             projectRepository = new ProjectRepository(dbContext);
-            contributionRepository = new ContributionRepository(dbContext);
+           
 
         }
         public ActionResult Index()
@@ -38,13 +38,13 @@ namespace PUp.Controllers
             {
                 return RedirectToAction("Register", "Account");
             }
-            var projectsByUser = projectRepository.GetByUser(user).ToList();
+            var projectsByUser = projectRepository.GetAll().Where(p=>p.Owner.Id==user.Id).ToList();
             TableProjectModelView tableProject = new TableProjectModelView
             {
                 CurrentUser = user,
                 Projects = projectsByUser,
-                OtherProjects = (List<ProjectEntity>)projectRepository.GetActive().Where(p=>!projectsByUser.Contains(p)).ToList(),
-                UserContributions = user.Contributions.ToList()
+                OtherProjects = projectRepository.GetActive().Where(p => !projectsByUser.Contains(p)).ToList(),
+                
             };
 
             return View(tableProject);

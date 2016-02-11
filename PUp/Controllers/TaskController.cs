@@ -16,7 +16,6 @@ namespace PUp.Controllers
         private TaskRepository taskRepository;
         private ProjectRepository projectRepository;
         private UserRepository userRepository;
-        private ContributionRepository contributionRepository;
         private NotificationRepository notificationRepository;
         private DatabaseContext dbContext = new DatabaseContext();
 
@@ -27,7 +26,6 @@ namespace PUp.Controllers
             projectRepository = new ProjectRepository(dbContext);
             notificationRepository = new NotificationRepository(dbContext);
             userRepository = new UserRepository(dbContext);
-            contributionRepository = new ContributionRepository(dbContext);
            
         }
 
@@ -103,8 +101,8 @@ namespace PUp.Controllers
             };
             taskRepository.Add(task);
             project.Tasks.Add(task);
-            contributionRepository.AddContributionIfNotExists(project, user, task);                      
-            contributionRepository.AddContributionIfNotExists(project, task.Executor, task);  //Add  contrib for the task executor 
+            //contributionRepository.AddContributionIfNotExists(project, user, task);                      
+            //contributionRepository.AddContributionIfNotExists(project, task.Executor, task);  //Add  contrib for the task executor 
             
            
             notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });

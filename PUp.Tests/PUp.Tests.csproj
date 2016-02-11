@@ -144,7 +144,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ContributionTest\ContributionModelTest.cs" />
     <Compile Include="Helpers\ContextHelper.cs" />
     <Compile Include="GeneralTest\GlobalTest.cs" />
     <Compile Include="Helpers\RouterDataHelper.cs" />

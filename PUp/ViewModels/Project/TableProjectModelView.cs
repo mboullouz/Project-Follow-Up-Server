@@ -11,7 +11,7 @@ namespace PUp.ViewModels.Project
     {
         public List<ProjectEntity> Projects { get; set; }
         public List<ProjectEntity> OtherProjects { get; set; }
-        public List<ContributionEntity> UserContributions { get; set; }
+       
         public UserEntity CurrentUser { get; set; }
 
         public int CountDone(ProjectEntity p)
@@ -31,41 +31,25 @@ namespace PUp.ViewModels.Project
         }
         public bool ImContributingTo(ProjectEntity p)
         {
-            foreach(var cts in p.Contributions)
+            foreach(var cts in p.Contributors)
             {
-                System.Diagnostics.Debug.WriteLine(" Contrib: Userid " + cts.UserId + " ProjID: "+cts.ProjectId);
-                if (cts.UserId == CurrentUser.Id)
+                
+                if (cts.Id == CurrentUser.Id)
                 {
-                    System.Diagnostics.Debug.WriteLine(" TRUE :)");
+                   
                         return true;
                 }
                     
             }
             return false;
         }
-        public List<Contributor> GetContributorsTo(ProjectEntity p)
+        public List<UserEntity> GetContributorsTo(ProjectEntity p)
         {    
             //TODO move this to a repository
             Models.DatabaseContext dbContext = new Models.DatabaseContext();
-            var contribs = dbContext.ContributionSet.Where(v => v.Project.Id ==p.Id);
-            var res = from u in dbContext.Users
-                      join c in dbContext.ContributionSet on u.Id equals c.UserId
-                      join pr in dbContext.ProjectSet on  c.ProjectId equals pr.Id 
-                      where   pr.Id == p.Id
-                      select new Contributor
-                      {
-                          Email = u.Email,
-                          
-                      };
-                      
-
-            return res.ToList();
+            return p.Contributors.ToList();
         }
-        public List<ContributionEntity> FindContributionByProject(ProjectEntity project)
-        {
-            ContributionRepository repo = new ContributionRepository();
-            return repo.GetAll().ToList();
-        }
+       
     }
 
     public class Contributor

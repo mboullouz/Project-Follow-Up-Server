@@ -227,7 +227,6 @@
     <Compile Include="Jobs\ProjectCoherenceAnalyserJob.cs" />
     <Compile Include="Jobs\ProjectDeadlineJob.cs" />
     <Compile Include="Jobs\TaskEndingJob.cs" />
-    <Compile Include="Jobs\TestJob.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -235,13 +234,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssueController.cs" />
     <Compile Include="Controllers\NotificationApiController.cs" />
-    <Compile Include="Models\Entity\ContributionEntity.cs" />
     <Compile Include="Models\Entity\IBasicEntity.cs" />
     <Compile Include="Models\Entity\IssueEntity.cs" />
     <Compile Include="Models\Entity\NotificationEntity.cs" />
     <Compile Include="Models\EntityHelper.cs" />
     <Compile Include="Models\Repository\AbstractRepository.cs" />
-    <Compile Include="Models\Repository\ContributionRepository.cs" />
     <Compile Include="Models\Repository\IssueRepository.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />

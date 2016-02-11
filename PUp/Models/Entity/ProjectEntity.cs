@@ -30,6 +30,18 @@ namespace PUp.Models.Entity
 
 
         /// <summary>
+        /// Project owner: default=>project creator!
+        /// </summary>
+        [Required]
+        public UserEntity Owner { get; set; }
+
+
+        /// <summary>
+        /// Contributors in the project includs Owner
+        /// </summary>
+        public ICollection<UserEntity> Contributors { get; set; }
+
+        /// <summary>
         /// This the max date to finish the project, if not the task is considered undone 
         /// note: it is not related to the estimatedTimeInMinutes
         /// </summary>
@@ -59,9 +71,7 @@ namespace PUp.Models.Entity
 
         public virtual ICollection<TaskEntity> Tasks { get; set; }
         public virtual ICollection<IssueEntity> Issues { get; set; }
-        public virtual ICollection<ContributionEntity> Contributions { get; set; }
-
-
+       
 
         public DateTime? DeleteAt { get; set; }
 
@@ -72,7 +82,7 @@ namespace PUp.Models.Entity
         {
             Tasks = new HashSet<TaskEntity>();
             Issues = new HashSet<IssueEntity>();
-            Contributions = new HashSet<ContributionEntity>();
+            Contributors = new HashSet<UserEntity>();
             Finish = false;
             AddAt = DateTime.Now;
             EditAt = DateTime.Now;

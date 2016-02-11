@@ -20,9 +20,9 @@ namespace PUp.Jobs
                 var now = DateTime.Now;
                 if ((p.EndAt - now).TotalDays >= 0 && (p.EndAt - now).TotalDays <1 )
                 {
-                    foreach(var contrib in p.Contributions)
+                    foreach(var user in p.Contributors.ToList())
                     {
-                        var user = userRepo.FindById(contrib.UserId);
+                      
                         NotificationEntity notif = new NotificationEntity();
                         notif.User = user;
                         notif.Message = "The project: " + p.Name + "Ends today, "

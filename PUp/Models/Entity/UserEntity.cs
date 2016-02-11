@@ -16,12 +16,12 @@ namespace PUp.Models.Entity
         public string Name { get; set; }
 
 
-        public virtual ICollection<ContributionEntity> Contributions { get; set; }
+        public virtual ICollection<ProjectEntity> Projects { get; set; }
         public virtual ICollection<TaskEntity> Tasks { get; set; }
 
         public UserEntity()
         {
-            Contributions = new HashSet<ContributionEntity>();
+            Projects      = new HashSet<ProjectEntity>();
             Tasks         = new HashSet<TaskEntity>();
         }
         

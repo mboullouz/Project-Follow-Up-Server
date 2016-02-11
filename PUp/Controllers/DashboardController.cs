@@ -15,7 +15,7 @@ namespace PUp.Controllers
         private TaskRepository taskRepository;
         private ProjectRepository projectRepository;
         private UserRepository userRepository;
-        private ContributionRepository contributionRepository;
+       
         private NotificationRepository notifRepository;
         private DatabaseContext dbContext = new DatabaseContext();
         UserEntity currentUser;
@@ -24,7 +24,7 @@ namespace PUp.Controllers
             taskRepository = new TaskRepository(dbContext);
             projectRepository = new ProjectRepository(dbContext);
             userRepository = new UserRepository(dbContext);
-            contributionRepository = new ContributionRepository(dbContext);
+           
             notifRepository = new NotificationRepository(dbContext);
             //userName = ControllerContext.HttpContext.User.Identity.Name;
             currentUser = userRepository.GetCurrentUser();

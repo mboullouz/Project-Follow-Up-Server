@@ -20,7 +20,7 @@ namespace PUp.Tests.TaskTest
         private  NotificationRepository nRep;
         private int idProject = 1;
         private DatabaseContext dbContext = new DatabaseContext();
-        private ContributionRepository contribRepo;
+     
         private UserEntity user;
         [TestInitialize]
         public void Init()
@@ -30,7 +30,7 @@ namespace PUp.Tests.TaskTest
             pRep = new ProjectRepository(dbContext);
             tRep = new TaskRepository(dbContext);
             nRep = new NotificationRepository(dbContext);
-            contribRepo = new ContributionRepository(dbContext);
+           
             user = ContextHelper.CurrentUserEntity(dbContext);
         }
 
@@ -48,7 +48,7 @@ namespace PUp.Tests.TaskTest
         {
             int initialNumberOfTasks = tRep.GetAll().Count;
             int initialNumberOfNotifs = nRep.GetAll().Count;
-            bool isContribBeforeAddingTask = contribRepo.ContributionExists(pRep.FindById(idProject), user);
+           
             AddTaskViewModel model = new AddTaskViewModel
             {
                 CreateAt = DateTime.Now,
@@ -67,10 +67,7 @@ namespace PUp.Tests.TaskTest
             Assert.IsTrue(tRep.GetAll().Count > initialNumberOfTasks);
             //Add task musk generate a new notifi
             Assert.IsTrue(nRep.GetAll().Count > initialNumberOfNotifs);
-            if (!isContribBeforeAddingTask) //in case no contrib must be true
-            {
-                Assert.IsTrue(contribRepo.ContributionExists(pRep.FindById(idProject), user));
-            }
+           
         }
 
         [TestMethod]

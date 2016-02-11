@@ -21,21 +21,7 @@ namespace PUp.Models.Repository
             this.DbContext = dbContext;
         }
          
-        public List<ProjectEntity> GetByUser(UserEntity user,bool isDeleted=false)
-        {
-            List<ProjectEntity> projects = new List<ProjectEntity>();
-            if (user == null)
-                return projects;
-
-            var contribs = DbContext.ContributionSet.Where(c=>c.UserId==user.Id).ToList();
-            foreach(var c in contribs)
-            {
-                projects.Add(FindById(c.ProjectId));
-            }
-           
-            //TODO Review this
-            return projects;
-        }
+        
         public override ProjectEntity FindById(int id)
         {
             return DbContext.ProjectSet.SingleOrDefault(e => e.Id == id);
@@ -44,12 +30,7 @@ namespace PUp.Models.Repository
 
         public override void Remove(ProjectEntity e)
         {
-
-            //remove all references 
-            foreach (var c in e.Contributions.ToList())
-            {
-                DbContext.ContributionSet.Remove(c);
-            }
+ 
             foreach (var task in e.Tasks.ToList())
             {
                 DbContext.TaskSet.Remove(task);

@@ -16,7 +16,7 @@ namespace PUp.Tests.HomeTest
         private  NotificationRepository nRep;
         private int idProject = 1;
         private DatabaseContext dbContext = new DatabaseContext();
-        private  ContributionRepository contribRepo;
+      
         private UserEntity user;
         [TestInitialize]
         public void Init()
@@ -26,7 +26,7 @@ namespace PUp.Tests.HomeTest
             pRep = new ProjectRepository(dbContext);
             tRep = new TaskRepository(dbContext);
             nRep = new NotificationRepository(dbContext);
-            contribRepo = new ContributionRepository(dbContext);
+           
             user = ContextHelper.CurrentUserEntity(dbContext);
         }
 

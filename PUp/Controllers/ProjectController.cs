@@ -16,7 +16,7 @@ namespace PUp.Controllers
         private TaskRepository taskRepository;
         private ProjectRepository projectRepository;
         private UserRepository userRepository;
-        private ContributionRepository contributionRepository;
+     
         private NotificationRepository notifRepository;
         private DatabaseContext dbContext = new DatabaseContext();
 
@@ -25,7 +25,7 @@ namespace PUp.Controllers
             taskRepository = new TaskRepository(dbContext);
             projectRepository = new ProjectRepository(dbContext);
             userRepository = new UserRepository(dbContext);
-            contributionRepository = new ContributionRepository(dbContext);
+           
             notifRepository = new NotificationRepository(dbContext);
 
 
@@ -66,7 +66,7 @@ namespace PUp.Controllers
             notif.Message = "Project: " + project.Name + " updated";
             notif.Url = "~/Project/Details" + project.Id;
             notif.Level = LevelFlag.INFO;
-            foreach(var u in userRepository.GetByProject(project))
+            foreach(var u in project.Contributors)
             {
                 notif.User = u;
                 notifRepository.Add(notif);
@@ -94,18 +94,10 @@ namespace PUp.Controllers
             project.EndAt = model.EndAt;
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
-
-            ContributionEntity contribution = new ContributionEntity();
-            contribution.EndAt = project.EndAt;
-            contribution.Project = project;
-            contribution.ProjectId = project.Id;
-            contribution.User = userRepository.GetCurrentUser();
-            contribution.UserId = userRepository.GetCurrentUser().Id;
-            contribution.AddAt = project.StartAt;
-            contribution.Role = RoleContribution.FlagToString(RoleContribution.FIRST_CONTRIBUTOR);
+ 
 
             projectRepository.Add(project);
-            project.Contributions.Add(contribution);
+            
             notifRepository.GenerateFor(project, new HashSet<UserEntity>(userRepository.GetAll()));
 
 

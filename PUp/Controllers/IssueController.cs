@@ -16,7 +16,7 @@ namespace PUp.Controllers
         private TaskRepository taskRepository;
         private ProjectRepository projectRepository;
         private UserRepository userRepository;
-        private ContributionRepository contributionRepository;
+        
         private IssueRepository issueRepository;
         private DatabaseContext dbContext = new DatabaseContext();
 
@@ -25,7 +25,7 @@ namespace PUp.Controllers
             userRepository = new UserRepository(dbContext);
             taskRepository = new TaskRepository(dbContext);
             projectRepository = new ProjectRepository(dbContext);
-            contributionRepository = new ContributionRepository(dbContext);
+         
             issueRepository = new IssueRepository(dbContext);
         }
         // GET: liste of  Issues by project id
@@ -64,7 +64,7 @@ namespace PUp.Controllers
 
             issueRepository.Add(issue);
             project.Issues.Add(issue);          
-            contributionRepository.AddContributionIfNotExists(project,user,issue);
+          
 
            
 
