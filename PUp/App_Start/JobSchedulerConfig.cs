@@ -66,7 +66,7 @@ namespace PUp.App_Start
             scheduler.ScheduleJob(job, trigger);
         }
 
-        public static void StartIssuesAnalyer()
+        public static void StartIssuesAnalysis()
         {
 
             IJobDetail job = JobBuilder.Create<IssuesAnalyzerJob>()
@@ -88,7 +88,7 @@ namespace PUp.App_Start
             StartTaskEndingJobConfig();
             StartProjectDeadLineJob();
             StartProjectCoherenceAnalyzis();
-            StartIssuesAnalyer();
+            StartIssuesAnalysis();
         }
     }
 }

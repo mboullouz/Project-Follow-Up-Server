@@ -31,41 +31,46 @@ namespace PUp.Jobs
                     p.AddAt <= DateTime.Now.AddMinutes(10)
                     && p.Tasks.Count > 0
                     && p.EndAt >= DateTime.Now.AddHours(1)
+                    &&  p.Deleted==false
                    ).ToList();
             foreach (var p in projects)
             {
-                var tasks =p.Tasks.ToList().Where(t =>!t.Urgent && !t.Critical).ToList();
+                var tasks =p.Tasks.ToList().Where(t =>
+                           !t.Urgent
+                           && !t.Critical
+                           && t.Deleted==false
+                           ).ToList();
                 foreach (var t in tasks)
                 {
                     NotificationEntity notif = new NotificationEntity();
                     notif.User = t.Executor;
-                    notif.Message = " The task: " + t.Title+ 
-                                    " from the project: "+p.Name+" can be postponed";
+                    notif.Message = " The task: <" + t.Title+ 
+                                    "> from the project: <"+p.Name+"> can be postponed";
                     notif.Level = LevelFlag.WARNING;
                     notificationRepo.Add(notif);
                 }
             }
         }
 
+       
+
         public void NoTaskInTheProjectAfterCreatingIt()
         {
             var projects = projectRepo.GetAll().Where(p =>
                     p.AddAt <= DateTime.Now.AddMinutes(10)
-                    && p.Tasks.Count <= 0
+                    && p.Tasks.Where(t=>t.Deleted==false).ToList().Count <= 0
                     && p.EndAt >= DateTime.Now.AddHours(1)
                    ).ToList();
             
             foreach (var p in projects)
-            {
-               
+            {            
                 foreach (var u in p.Contributors.ToList())
                 {
                     NotificationEntity notif = new NotificationEntity();
                     notif.User = u;
-                    notif.Message = "The project: " + p.Name + " does not contain any tasks ";
+                    notif.Message = "The project: <" + p.Name + "> does not contain any tasks ";
                     notif.Level = LevelFlag.DANGER;
                     notificationRepo.Add(notif);
-
                 }
             }
         }
