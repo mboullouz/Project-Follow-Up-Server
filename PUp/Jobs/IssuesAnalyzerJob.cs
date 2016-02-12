@@ -28,7 +28,7 @@ namespace PUp.Jobs
                    p.AddAt <= DateTime.Now.AddMinutes(10)
                    && p.EndAt >= DateTime.Now.AddHours(1)
                    && p.Deleted == false
-                   && p.Issues.Where(i => i.Status == IssueStatus.OPEN && i.Deleted == false).ToList().Count >= 3
+                   && p.Issues.Where(i => i.Status == IssueStatus.Open && i.Deleted == false).ToList().Count >= 3
                   ).ToList();
 
             foreach (var p in projects)
@@ -45,14 +45,14 @@ namespace PUp.Jobs
                    && p.EndAt >= DateTime.Now.AddHours(1)
                    && p.Deleted == false
                    &&
-                      p.Issues.Where(i => i.Status == IssueStatus.OPEN && i.Deleted == false).ToList().Count
+                      p.Issues.Where(i => i.Status == IssueStatus.Open && i.Deleted == false).ToList().Count
                       >=
                       p.Tasks.Where(t => t.Deleted == false && t.Done == false).ToList().Count
                   ).ToList();
             foreach (var p in projects)
             {
                 string message = "The project: <" + p.Name + "> contains more issues than tasks! ";
-                notificationRepo.NotifyAllUserInProject(p, message,LevelFlag.DANGER);
+                notificationRepo.NotifyAllUserInProject(p, message,LevelFlag.Danger);
             }
         }
     }

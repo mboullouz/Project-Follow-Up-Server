@@ -22,8 +22,8 @@ namespace PUp.ViewModels
             StatusList = new SelectList(
                 new List<SelectListItem>
                 {
-                    new SelectListItem { Selected = false, Text = IssueStatus.OPEN, Value = IssueStatus.OPEN},
-                    new SelectListItem { Selected = false, Text = IssueStatus.RESOLVED, Value = IssueStatus.RESOLVED},
+                    new SelectListItem { Selected = false, Text = IssueStatus.Open, Value = IssueStatus.Open},
+                    new SelectListItem { Selected = false, Text = IssueStatus.Resolved, Value = IssueStatus.Resolved},
                 }, "Value", "Text", 1);
             Deleted = false;
             IdProject = idProject;

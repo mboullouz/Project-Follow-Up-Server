@@ -29,7 +29,7 @@ namespace PUp.Jobs
                             notif.User = u;
                             notif.Message = "The task: " + task.Title
                                 + " from the project: "+p.Name+" Ends today!"+ (task.KeyFactor?" This task is a key factor":"");
-                            notif.Level = LevelFlag.DANGER;
+                            notif.Level = LevelFlag.Danger;
                             notificationRepo.Add(notif);
                         }
                     }

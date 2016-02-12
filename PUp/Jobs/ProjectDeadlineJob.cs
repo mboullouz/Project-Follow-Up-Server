@@ -27,7 +27,7 @@ namespace PUp.Jobs
                         notif.User = user;
                         notif.Message = "The project: " + p.Name + "Ends today, "
                             +p.Tasks.Where(t=>!t.Done).Count() + " Task(s) pending";
-                        notif.Level = LevelFlag.DANGER;
+                        notif.Level = LevelFlag.Danger;
                         notificationRepo.Add(notif);
                     }
                 }

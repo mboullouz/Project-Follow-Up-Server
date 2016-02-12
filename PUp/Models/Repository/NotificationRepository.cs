@@ -47,9 +47,8 @@ namespace PUp.Models.Repository
             Add(notif);
         }
 
-        public void NotifyAllUserInProject(ProjectEntity p, string message, int level = LevelFlag.WARNING)
+        public void NotifyAllUserInProject(ProjectEntity p, string message, int level = LevelFlag.Warning)
         {
-
             foreach (var u in p.Contributors)
             {
                 NotificationEntity notif = new NotificationEntity();

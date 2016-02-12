@@ -46,7 +46,7 @@ namespace PUp.Jobs
                     notif.User = t.Executor;
                     notif.Message = " The task: <" + t.Title+ 
                                     "> from the project: <"+p.Name+"> can be postponed";
-                    notif.Level = LevelFlag.WARNING;
+                    notif.Level = LevelFlag.Warning;
                     notificationRepo.Add(notif);
                 }
             }
@@ -69,7 +69,7 @@ namespace PUp.Jobs
                     NotificationEntity notif = new NotificationEntity();
                     notif.User = u;
                     notif.Message = "The project: <" + p.Name + "> does not contain any tasks ";
-                    notif.Level = LevelFlag.DANGER;
+                    notif.Level = LevelFlag.Danger;
                     notificationRepo.Add(notif);
                 }
             }

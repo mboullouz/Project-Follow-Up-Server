@@ -65,7 +65,7 @@ namespace PUp.Controllers
             var notif = new NotificationEntity ();
             notif.Message = "Project: " + project.Name + " updated";
             notif.Url = "~/Project/Details" + project.Id;
-            notif.Level = LevelFlag.INFO;
+            notif.Level = LevelFlag.Info;
             foreach(var u in project.Contributors)
             {
                 notif.User = u;

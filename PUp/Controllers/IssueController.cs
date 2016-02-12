@@ -16,7 +16,7 @@ namespace PUp.Controllers
         private TaskRepository taskRepository;
         private ProjectRepository projectRepository;
         private UserRepository userRepository;
-        
+        private NotificationRepository notificationRepo;
         private IssueRepository issueRepository;
         private DatabaseContext dbContext = new DatabaseContext();
 
@@ -25,7 +25,7 @@ namespace PUp.Controllers
             userRepository = new UserRepository(dbContext);
             taskRepository = new TaskRepository(dbContext);
             projectRepository = new ProjectRepository(dbContext);
-         
+            notificationRepo = new NotificationRepository(dbContext);
             issueRepository = new IssueRepository(dbContext);
         }
         // GET: liste of  Issues by project id
@@ -39,6 +39,8 @@ namespace PUp.Controllers
             AddIssueViewModel addIssueVM = new AddIssueViewModel(id);
             return View(addIssueVM);
         }
+
+
 
         [HttpPost]
         public ActionResult Add(AddIssueViewModel model)
@@ -63,12 +65,13 @@ namespace PUp.Controllers
             };
 
             issueRepository.Add(issue);
-            project.Issues.Add(issue);          
-          
-
-           
+            project.Issues.Add(issue);
+            string message = "New Issue is declared for the project <" + project.Name + ">";
+            notificationRepo.NotifyAllUserInProject(project, message);         
 
             return RedirectToAction("Index", "Issue", new { id = project.Id });
         }
+
+         
     }
 }
