@@ -80,7 +80,6 @@ namespace PUp.Controllers
         {
             if (!ModelState.IsValid)
             {
-
                 return View(model);
             }
             if (model.EndAt <= model.StartAt || model.StartAt <= DateTime.Now.AddMinutes(30))
@@ -94,13 +93,11 @@ namespace PUp.Controllers
             project.EndAt = model.EndAt;
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
- 
+            project.Owner = userRepository.GetCurrentUser();
 
             projectRepository.Add(project);
             
             notifRepository.GenerateFor(project, new HashSet<UserEntity>(userRepository.GetAll()));
-
-
             return RedirectToAction("Index", "Home");
         }
 

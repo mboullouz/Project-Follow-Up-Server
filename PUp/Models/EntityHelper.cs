@@ -18,6 +18,12 @@ namespace PUp.Models
         public const int DAYS_PER_WEEK = 5;
     }
 
+    public class IssueStatus
+    {
+        public const string OPEN = "Open";
+        public const string RESOLVED = "Resolved";
+    }
+
     public class RoleContribution
     {
         public  const int  FIRST_CONTRIBUTOR = 0, TASK_ASSIGNED_TO=1, TASK_ADD=2, ISSUE_SUBMIT=3 ;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PUp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,8 +22,8 @@ namespace PUp.ViewModels
             StatusList = new SelectList(
                 new List<SelectListItem>
                 {
-                    new SelectListItem { Selected = true, Text = "Open", Value = "0"},
-                    new SelectListItem { Selected = false, Text = "Resolved", Value = "1"},
+                    new SelectListItem { Selected = false, Text = IssueStatus.OPEN, Value = IssueStatus.OPEN},
+                    new SelectListItem { Selected = false, Text = IssueStatus.RESOLVED, Value = IssueStatus.RESOLVED},
                 }, "Value", "Text", 1);
             Deleted = false;
             IdProject = idProject;

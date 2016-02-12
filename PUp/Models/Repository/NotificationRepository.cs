@@ -44,6 +44,20 @@ namespace PUp.Models.Repository
                 Seen = false,
                 Deleted = false
             };
+            Add(notif);
+        }
+
+        public void NotifyAllUserInProject(ProjectEntity p, string message, int level = LevelFlag.WARNING)
+        {
+
+            foreach (var u in p.Contributors)
+            {
+                NotificationEntity notif = new NotificationEntity();
+                notif.User = u; 
+                notif.Message = message;
+                notif.Level = level;
+                Add(notif);
+            }
         }
 
         public List<NotificationEntity> GetNotSeen()
