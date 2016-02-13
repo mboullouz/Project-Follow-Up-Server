@@ -27,15 +27,23 @@ namespace PUp.ViewModels
         public ProjectEntity Project { get; set; }
         public bool KeyFactor { get; set; }
         public int EstimatedTimeInMinutes { get; set; }
-        public SelectList EstimatedMinList { get; set; }
+        public SelectList EstimatedMinList = new SelectList(
+               new List<SelectListItem>
+               {
+                    new SelectListItem { Selected = false,  Text ="30 min", Value = "60"},
+                    new SelectListItem { Selected = true, Text  = "1H" ,   Value = "60"},
+                    new SelectListItem { Selected = false, Text = "2H",   Value = "120"},
+                    new SelectListItem { Selected = false, Text = "3H",   Value = "180"},
+                    new SelectListItem { Selected = false, Text = "4H",   Value = "240"},
+                    new SelectListItem { Selected = false, Text = "1 day",   Value = "420"},
+                    new SelectListItem { Selected = false, Text = "2 days",   Value = "840"},
+               }, "Value", "Text", 1);
 
-        [Required]
+        
         [DataType(DataType.DateTime)]
         public DateTime StartAt { get; set; }
 
-        [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime EndAt { get; set; }
+        
        
 
 
@@ -43,7 +51,13 @@ namespace PUp.ViewModels
         public bool Urgent { get; set; }
 
 
-        public SelectList ImportantList { get; set; }
+        public SelectList ImportantList = new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Selected = true,  Text = "Yes", Value = "true"},
+                    new SelectListItem { Selected = false, Text = "No" ,   Value = "false"},
+                }, "Value", "Text", 1);
+
         public bool Important { get; set; }
 
         public List<UserEntity> Users = new List<UserEntity>();
@@ -61,7 +75,7 @@ namespace PUp.ViewModels
             Done = false;
             KeyFactor = false;
             StartAt = DateTime.Now.AddHours(1);
-            EndAt = DateTime.Now.AddHours(3);
+            
 
             EstimatedMinList = new SelectList(
                new List<SelectListItem>

@@ -23,11 +23,11 @@ namespace PUp.ViewModels
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100000, ErrorMessage = "The {0} must be minimum {2} caracters.", MinimumLength = 100)]
+        [StringLength(100000, ErrorMessage = "The {0} must be minimum {2} caracters.", MinimumLength = 30)]
         public string Benifite { get; set; }
 
         [Required]
-        [StringLength(100000, ErrorMessage = "The {0} must be minimum {2} caracters.", MinimumLength = 100)]
+        [StringLength(100000, ErrorMessage = "The {0} must be minimum {2} caracters.", MinimumLength = 30)]
         public string Objective { get; set; }
 
         public AddProjectViewModel()
