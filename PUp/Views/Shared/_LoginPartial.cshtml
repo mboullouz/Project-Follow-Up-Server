@@ -3,42 +3,65 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li id="notification_li">
-            @using PUp.Models.Repository
-            @if (@UserRepository.CurrentUserNotifications().Count > 0)
-            {
-                <span id="notification_count">@UserRepository.CurrentUserNotifications().Count</span>
-                            <a href="#" id="notificationLink">Notifications</a>
+        <ul class="nav navbar-nav navbar-right">
+            <li id="notification_li">
+                @using PUp.Models.Repository
+                @if (@UserRepository.CurrentUserNotifications().Count > 0)
+                {
+                    <span id="notification_count">@UserRepository.CurrentUserNotifications().Count</span>
+                    <a href="#" id="notificationLink">Notifications</a>
                             <div id="notificationContainer">
                                 <div id="notificationTitle">Notifications</div>
                                 <div id="notificationsBody" class="notifications">
-                                    @foreach (var notif in UserRepository.CurrentUserNotifications().OrderByDescending(c=>c.AddAt))
+                                    @foreach (var notif in UserRepository.CurrentUserNotifications().OrderByDescending(c => c.AddAt))
                                     {
                                         <div class="notificationElement notificationElement_@(notif.Level)"
                                              data-idnotif="@notif.Id" id="@notif.Id">
                                             <i style="font-size:19px;" class="fa fa-remove pull-right"> </i>
-                                            @notif.Message     at: <i>@notif.AddAt.ToString("HH:mm dd-MMM")</i> 
-                                        </div> 
+                                            @notif.Message     <br />
+                                            @{ var diff = DateTime.Now - notif.AddAt;  }
+                                            <i>
+                                                @if (diff.TotalMinutes < 1)
+                                                {
+                                                    <span>@((int)diff.TotalSeconds) s ago</span>
+                                                }
+                                                else if (diff.TotalHours < 1)
+                                                {
+                                                    <span>@((int)diff.TotalMinutes) min ago</span>
+                                                }
+                                                else if (diff.TotalDays < 1)
+                                                {
+                                                     <span>since: @notif.AddAt.ToString("HH\\Hmm")</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>since: @notif.AddAt.ToString("d-M-Y HH\\Hmm")</span>
+                                                }
+                                                
+                                            </i>
+
+
+
+                                        </div>
                                     }
 
                                 </div>
                                 <div id="notificationFooter"><a href="#">See All</a></div>
                             </div>
-            }
-        </li>
+                }
+            </li>
 
-        <li>
-            @if (UserRepository.CurrentUser() != null)
-            {
-                @Html.ActionLink("Hi " + UserRepository.CurrentUser().Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            }
-            
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
-    </ul>
+            <li>
+                @if (UserRepository.CurrentUser() != null)
+                {
+                    @Html.ActionLink("Hi " + UserRepository.CurrentUser().Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                }
+
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+        </ul>
     }
 }
 else
