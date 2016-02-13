@@ -21,7 +21,7 @@ namespace PUp.Models.Repository
         public void Add(E e) {
             DbContext.Set<E>().Add(e);
             DbContext.SaveChanges();
-        }
+        } 
         
         public List<E> GetAll()
         {

@@ -55,7 +55,7 @@ namespace PUp.Models.Entity
         /// if applicable
         /// </summary>
         [Column(TypeName = "ntext")]
-        [MinLength(100)]
+        [MinLength(30)]
         [MaxLength(100000)]
         public string Benifite { get; set; }
 
@@ -65,7 +65,7 @@ namespace PUp.Models.Entity
         /// --TODO :handle this after :What functionalities or departments are involved?  Which are not involved
         /// </summary>
         [Column(TypeName = "ntext")]
-        [MinLength(100)]
+        [MinLength(30)]
         [MaxLength(100000)]
         public string Objective { get; set; }
 
