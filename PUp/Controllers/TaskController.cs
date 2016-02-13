@@ -76,8 +76,7 @@ namespace PUp.Controllers
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {
-                model.Project = project;
-                return View(model);
+                return Add(project.Id);
             }
             var executor = userRepository.FindById(model.ExecutorId);
             TaskEntity task = new TaskEntity
@@ -90,19 +89,19 @@ namespace PUp.Controllers
                 EditAt = DateTime.Now,
 
                 StartAt= model.StartAt,
-                EndAt= model.EndAt,
+                 
 
                 KeyFactor = model.KeyFactor,
                 Deleted = false,
                 Critical= model.Important,
                 Urgent= model.Urgent,
                 Executor= executor!=null?executor:user,//if not found!
-                AssignedBy= user
+                
             };
             taskRepository.Add(task);
             project.Tasks.Add(task);
-            //contributionRepository.AddContributionIfNotExists(project, user, task);                      
-            //contributionRepository.AddContributionIfNotExists(project, task.Executor, task);  //Add  contrib for the task executor 
+            project.Contributors.Add(user);
+            
             
            
             notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });

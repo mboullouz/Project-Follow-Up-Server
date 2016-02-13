@@ -38,7 +38,7 @@ namespace PUp.Controllers
             {
                 return RedirectToAction("Register", "Account");
             }
-            var projectsByUser = projectRepository.GetAll().Where(p=>p.Owner.Id==user.Id).ToList();
+            var projectsByUser = projectRepository.GetAll().Where(p=>p.Owner==user|| p.Contributors.Contains(user)).ToList();
             TableProjectModelView tableProject = new TableProjectModelView
             {
                 CurrentUser = user,
