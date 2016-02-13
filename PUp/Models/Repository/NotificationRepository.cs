@@ -33,7 +33,7 @@ namespace PUp.Models.Repository
         
    
 
-        public void Add(UserEntity user, string message = "", string url = "#")
+        public void Add(UserEntity user, string message = "", string url = "#",int level=LevelFlag.Info)
         {
             var notif = new NotificationEntity
             {
@@ -45,6 +45,7 @@ namespace PUp.Models.Repository
                 Deleted = false
             };
             Add(notif);
+            DbContext.SaveChanges();
         }
 
         public void NotifyAllUserInProject(ProjectEntity p, string message, int level = LevelFlag.Warning)
@@ -52,11 +53,8 @@ namespace PUp.Models.Repository
             foreach (var u in p.Contributors)
             {
                 NotificationEntity notif = new NotificationEntity();
-                notif.User = u; 
-                notif.Message = message;
-                notif.Level = level;
-                Add(notif);
-            }
+                Add(u, message, "~/Home/Index", LevelFlag.Warning); 
+            } 
         }
 
         public List<NotificationEntity> GetNotSeen()
@@ -76,6 +74,11 @@ namespace PUp.Models.Repository
         public List<NotificationEntity> GetByUser(UserEntity user)
         {
             return DbContext.NotificationSet.Where(n => n.User.Id == user.Id).ToList();
+        }
+
+        public List<NotificationEntity> GetByUserId(string userId)
+        {
+            return DbContext.NotificationSet.Where(n => n.User.Id == userId).ToList();
         }
 
         public bool RemoveById(int id)

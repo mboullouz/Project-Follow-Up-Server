@@ -94,7 +94,7 @@ namespace PUp.Controllers
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
             project.Owner = userRepository.GetCurrentUser();
-
+            project.Contributors.Add(project.Owner);
             projectRepository.Add(project);
             
             notifRepository.GenerateFor(project, new HashSet<UserEntity>(userRepository.GetAll()));
