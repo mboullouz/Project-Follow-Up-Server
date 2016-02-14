@@ -16,7 +16,7 @@
                         <tr>
                             <td>Title</td>
                             <td>Done</td>
-                            <td>Key factor</td>
+                            <td>time </td>
                             <td>Start</td>
                             <td></td>
                         </tr>
@@ -27,21 +27,25 @@
                             <tr class="v @(@task.Done ? "done" : " ")">
                                 <td> @task.Title</td>
                                 <td>
-                                    @if (task.Done)
-                                    {
-                                        @task.FinishAt
-                                    }
-                                    else { <b>In progress</b>}
+                                   <b>@Model.TaskStatus((DateTime)task.StartAt, task.Done, task.EstimatedTimeInMinutes / 60)</b>
                                 </td>
 
-                                <td> @(task.KeyFactor ? "Yes" : "No")</td>
+                                <td> @(task.EstimatedTimeInMinutes/60) Hour(s)</td>
                                 <td> 
                                     @(task.StartAt?.ToString("HH:mm")) 
                                 </td>
                                 <td>
-                                    <button class="btn changeState" id="@task.Id">
-                                        <i class="fa fa-check-square"></i> Mark done
-                                    </button>
+                                    @if (!task.Done)
+                                    {
+                                        <button class="btn changeState" id="@task.Id">
+                                            <i class="fa fa-check-square"></i> Mark done
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <b><i class="fa fa-music"></i> Nice job</b>
+                                    }
+
                                 </td>
                             </tr>
                         }
@@ -53,34 +57,42 @@
 
 
         <div class="col-md-6" style="background: rgba(255, 235, 59, 0.36);">
-            <h4> Other tasks waiting! </h4>
-            <div class="panel-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <td>Title</td>
-                            <td>Key factor</td>
-                            <td>Added at</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var task in Model.OtherTasks)
-                        {
-                            <tr class="v @(@task.Done ? "done" : " ")">
-                                <td> @task.Title</td>
-                                <td> @(task.KeyFactor ? "Yes" : "No")</td>
-                                <td>@task.AddAt.ToString("HH:mm d-MMM ")</td>
-                                <td>
-                                    <button class="btn changeState" id="@task.Id">
-                                        <i class="fa fa-check-square"></i> Plan for today
-                                    </button>
-                                </td>
+            @if (Model.IsWorkingDayOver())
+            {
+                <b>Working hours are over, please come tomorrow!</b>
+            }
+            else
+            {
+                <h4> Other tasks waiting! </h4>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Title</td>
+                                <td>Key factor</td>
+                                <td>Added at</td>
+                                <td></td>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in Model.OtherTasks)
+                            {
+                                <tr class="v @(@task.Done ? "done" : " ")">
+                                    <td> @task.Title</td>
+                                    <td> @(task.KeyFactor ? "Yes" : "No")</td>
+                                    <td>@task.AddAt.ToString("HH:mm d-MMM ")</td>
+                                    <td>
+                                        <button class="btn changeState" id="@task.Id">
+                                            <i class="fa fa-check-square"></i> Plan for today
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            
         </div>
 
 

@@ -40,8 +40,8 @@ namespace PUp.Controllers
             //TODO this just for tests! write a true linq query
             var currentTasks = taskRepository.GetAll().Where(
                 t => t.Executor == currentUser
-                  && t.EndAt >=DateTime.Now
-                  && !t.Done
+                 
+                  && t.StartAt!=null
                   ).ToList();
             dashboardMV.CurrentTasks = currentTasks;
             var otherTasks = taskRepository.GetAll()
@@ -51,6 +51,9 @@ namespace PUp.Controllers
             return View(dashboardMV);
         }
 
+        /*
+        //TODO clean it
+        */
         public ActionResult Interval()
         {
             var currentTasks = taskRepository.GetAll();

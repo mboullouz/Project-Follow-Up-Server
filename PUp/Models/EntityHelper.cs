@@ -16,7 +16,7 @@ namespace PUp.Models
     {
         public const int HoursPerDay = 10;
         public const int DayStart = 8;
-        public const int DayEnd   = 18;
+        public const int DayEnd   = 17;
         public const int DaysPerWeek = 5;
     }
 

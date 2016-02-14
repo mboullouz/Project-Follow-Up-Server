@@ -27,7 +27,7 @@ namespace PUp.Models
         {   
             int startH = startDate.Hour;
             
-            if(startH < AppConst.DayStart || startH> AppConst.DayEnd)
+            if(startH < AppConst.DayStart || startH > AppConst.DayEnd)
             {
                 return Interval;
             } 
