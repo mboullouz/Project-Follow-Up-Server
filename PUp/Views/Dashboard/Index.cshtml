@@ -59,7 +59,6 @@
                     <thead>
                         <tr>
                             <td>Title</td>
-                            <td>Description</td>
                             <td>Key factor</td>
                             <td>Added at</td>
                             <td></td>
@@ -70,14 +69,11 @@
                         {
                             <tr class="v @(@task.Done ? "done" : " ")">
                                 <td> @task.Title</td>
-                                <td> @task.Description</td>
-
-
                                 <td> @(task.KeyFactor ? "Yes" : "No")</td>
-                                <td>@task.AddAt.ToString("HH:mm d-MMM yyyy ")</td>
+                                <td>@task.AddAt.ToString("HH:mm d-MMM ")</td>
                                 <td>
                                     <button class="btn changeState" id="@task.Id">
-                                        <i class="fa fa-check-square"></i> Mark done
+                                        <i class="fa fa-check-square"></i> Plan for today
                                     </button>
                                 </td>
                             </tr>

@@ -1,4 +1,5 @@
-﻿using PUp.Models;
+﻿using Newtonsoft.Json;
+using PUp.Models;
 using PUp.Models.Entity;
 using PUp.Models.Repository;
 using PUp.ViewModels;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 
 namespace PUp.Controllers
@@ -36,14 +38,47 @@ namespace PUp.Controllers
         {
             DashboardModelView dashboardMV = new DashboardModelView();
             //TODO this just for tests! write a true linq query
-            var currentTasks = taskRepository.GetAll().Where(t => t.Executor == currentUser
-                                     && t.EndAt >=DateTime.Now ).ToList();
+            var currentTasks = taskRepository.GetAll().Where(
+                t => t.Executor == currentUser
+                  && t.EndAt >=DateTime.Now
+                  && !t.Done
+                  ).ToList();
             dashboardMV.CurrentTasks = currentTasks;
             var otherTasks = taskRepository.GetAll()
-                                            .Where(t => t.Executor== currentUser )
-                                            .Where(t=>!currentTasks.Contains(t)).ToList();
+                                            .Where(t => t.Executor== currentUser && !t.Done && t.StartAt==null )
+                                            .ToList();
             dashboardMV.OtherTasks = otherTasks;
             return View(dashboardMV);
+        }
+
+        public ActionResult Interval()
+        {
+            var currentTasks = taskRepository.GetAll();
+              /*  .Where(
+                t => t.Executor == currentUser
+                  && t.EndAt >= DateTime.Now
+                  && !t.Done
+                  ).ToList();*/
+            GroundInterval intervalManager = new GroundInterval();
+            
+            foreach(var t in currentTasks)
+            {
+ 
+                if (t.StartAt != null)
+                {
+                    intervalManager.AddDate((DateTime)t.StartAt, t.EstimatedTimeInMinutes/60);
+                }
+                
+            }
+
+            var list = JsonConvert.SerializeObject(intervalManager.Interval,
+               Formatting.None,
+               new JsonSerializerSettings()
+               {
+                   ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                   MaxDepth = 1,
+               });
+            return Json(list);
         }
     }
 }

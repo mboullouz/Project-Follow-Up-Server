@@ -256,6 +256,7 @@
     <Compile Include="Models\Entity\UserEntity.cs" />
     <Compile Include="Models\Repository\NotificationRepository.cs" />
     <Compile Include="Models\SimpleObject\GenericJsonResponse.cs" />
+    <Compile Include="Models\GroundInterval.cs" />
     <Compile Include="Models\SimpleObject\TaskSimpleObjects.cs" />
     <Compile Include="Models\Repository\IRepository.cs" />
     <Compile Include="Models\Repository\ProjectRepository.cs" />
