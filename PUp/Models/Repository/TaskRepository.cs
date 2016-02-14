@@ -34,6 +34,23 @@ namespace PUp.Models.Repository
             DbContext.SaveChanges();
            
         }
+        public GroundInterval AvelaibleHorsForUserAndDate(UserEntity user,DateTime dateEndMin)
+        {
+            Console.WriteLine(dateEndMin.ToLongDateString());
+            var currentTasks = GetAll().Where(
+                t => t.Executor == user
+                  && !t.Done && t.StartAt!=null
+                  ).ToList();
+            GroundInterval intervalManager = new GroundInterval();
+            foreach (var t in currentTasks)
+            {
+                if (t.StartAt != null)
+                {
+                    intervalManager.AddDate((DateTime)t.StartAt, t.EstimatedTimeInMinutes / 60);
+                }
+            }
+            return intervalManager;
+        }
         public override void MarkDeleted(TaskEntity e)
         {
             throw new NotImplementedException();

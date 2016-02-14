@@ -56,12 +56,11 @@ namespace PUp.Controllers
         */
         public ActionResult Interval()
         {
-            var currentTasks = taskRepository.GetAll();
-              /*  .Where(
+            var currentTasks = taskRepository.GetAll().Where(
                 t => t.Executor == currentUser
                   && t.EndAt >= DateTime.Now
                   && !t.Done
-                  ).ToList();*/
+                  ).ToList(); 
             GroundInterval intervalManager = new GroundInterval();
             
             foreach(var t in currentTasks)

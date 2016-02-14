@@ -9,7 +9,15 @@
         <div class="panel-title">
             <b>New task for project: @Model.Project.Name</b>
         </div>
-
+        <p>Avelaible hours for today: 
+          @foreach(var vK in Model.AvelaibleDates.Interval)
+          {
+              if (!vK.Value)
+              {
+                  @vK.Key<i>H |</i> 
+              }
+          }
+        </p>
     </div>
     <div class="panel-body">
         @using (Html.BeginForm())

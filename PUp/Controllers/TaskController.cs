@@ -18,6 +18,8 @@ namespace PUp.Controllers
         private UserRepository userRepository;
         private NotificationRepository notificationRepository;
         private DatabaseContext dbContext = new DatabaseContext();
+        // string userName = null;
+        UserEntity user = null;
 
         //TODO Use a container to inject dependencies 
         public TaskController()
@@ -26,7 +28,9 @@ namespace PUp.Controllers
             projectRepository = new ProjectRepository(dbContext);
             notificationRepository = new NotificationRepository(dbContext);
             userRepository = new UserRepository(dbContext);
-           
+           // userName = this.ControllerContext.HttpContext.User.Identity.Name;
+           user = userRepository.GetCurrentUser();
+
         }
 
         // GET: Task
@@ -64,6 +68,7 @@ namespace PUp.Controllers
             ProjectEntity project = projectRepository.FindById(id);
             AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, userRepository.GetAll());
             addTaskVM.Project = project;
+            addTaskVM.AvelaibleDates = taskRepository.AvelaibleHorsForUserAndDate(user, DateTime.Parse("00:01"));
             return View(addTaskVM);
         }
 
@@ -71,8 +76,8 @@ namespace PUp.Controllers
         public ActionResult Add(AddTaskViewModel model)
         {
             //This is needed for Unit test  so we can set the correct context!
-            var userName = this.ControllerContext.HttpContext.User.Identity.Name;
-            var user = userRepository.FindByEmail(userName);
+            
+
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {
@@ -82,8 +87,8 @@ namespace PUp.Controllers
             TaskEntity task = new TaskEntity
             {
                 Title = model.Title,
-                Description = model.Description, 
-                Done = model.Done,
+                Description = model.Description,
+                Done = false,
                 Project = project,
                 AddAt = DateTime.Now,
                 EditAt = DateTime.Now,

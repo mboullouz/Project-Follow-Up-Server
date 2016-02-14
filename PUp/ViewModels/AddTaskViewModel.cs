@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using PUp.Models;
+using PUp.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,45 +11,38 @@ namespace PUp.ViewModels
 {
     public class AddTaskViewModel
     {
-        public int Id { get; set; }
+      
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be between {1} and {2} caracters.", MinimumLength = 30)]
         public string Title { get; set; }
-        public string Description { get; set; }
-        
-
-        public SelectList PriorityList { get; set; }
 
         [Required]
-        [Display(Name = "Task done ?")]
-        public bool Done { get; set; }
-        public DateTime CreateAt { get; set; }
-        public DateTime EditAt { get; set; }
-        public Nullable<DateTime> FinishAt { get; set; }
-        public int IdProject { get; set; } 
-        public ProjectEntity Project { get; set; }
+        [StringLength(100000, ErrorMessage = "The {0} must be between {1} and {2} caracters.", MinimumLength = 30)]
+        public string Description { get; set; }
+ 
         public bool KeyFactor { get; set; }
+
         public int EstimatedTimeInMinutes { get; set; }
         public SelectList EstimatedMinList { get; set; }
 
-
-
         public DateTime? StartAt  { get; set; }
-
-        
-       
-
 
         public SelectList UrgentList { get; set; }
         public bool Urgent { get; set; }
 
 
         public SelectList ImportantList { get; set; }
-
         public bool Important { get; set; }
 
         public List<UserEntity> Users = new List<UserEntity>();
         public SelectList UsersList { get; set; }
         
+        //Data
         public string ExecutorId { set; get; }
+        public int IdProject { get; set; }
+        public ProjectEntity Project { get; set; }
+        public GroundInterval AvelaibleDates { get; set; }
+
         public AddTaskViewModel()
         {
             //No parameterless constructor/...
@@ -57,11 +51,10 @@ namespace PUp.ViewModels
         {
             IdProject = idProject;
             Users = users;
-            Done = false;
+        
             KeyFactor = false;
             StartAt = DateTime.Now.AddHours(1);
-            
-
+ 
             EstimatedMinList = new SelectList(
                new List<SelectListItem>
                {
@@ -78,7 +71,6 @@ namespace PUp.ViewModels
                     new SelectListItem { Selected = false, Text = "No" ,   Value = "false"},
                 }, "Value", "Text", 1);
 
-
             ImportantList = new SelectList(
                 new List<SelectListItem>
                 {
@@ -90,9 +82,6 @@ namespace PUp.ViewModels
             Users.ForEach(u => items.Add(new SelectListItem { Selected = true, Text = u.Email, Value = u.Id }));
 
             UsersList = new SelectList(items, "Value", "Text", 1);
-
-            CreateAt = DateTime.Now;
-            EditAt = DateTime.Now;
         }
     }
 }
