@@ -56,6 +56,22 @@ namespace PUp.Controllers
             return Json(res);
         }
 
+         
+        public ActionResult SetDate(int id)
+        {
+            var task=taskRepository.FindById(id);
+            var interval = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
+            foreach(var vK in interval.Interval)
+            {
+                string dateStartStr = vK.Key + ":00";
+                var dateForTest = DateTime.Parse(dateStartStr);
+                if (!vK.Value && interval.CheckForDateAndDuration(dateForTest, task.EstimatedTimeInMinutes / 60)){
+                    task.StartAt = dateForTest;
+                    dbContext.SaveChanges();
+                }
+            }
+            return RedirectToAction("Index", "Dashboard", new { id = task.Id });
+        }
 
         /// <summary>
         /// Get Method, this is useful just to go the the view that contains the form
@@ -68,9 +84,11 @@ namespace PUp.Controllers
             ProjectEntity project = projectRepository.FindById(id);
             AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, userRepository.GetAll());
             addTaskVM.Project = project;
-            addTaskVM.AvelaibleDates = taskRepository.AvelaibleHorsForUserAndDate(user, DateTime.Parse("00:01"));
+            addTaskVM.AvelaibleDates = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
             return View(addTaskVM);
         }
+
+
 
         [HttpPost]
         public ActionResult Add(AddTaskViewModel model)
@@ -92,7 +110,7 @@ namespace PUp.Controllers
                 Project = project,
                 AddAt = DateTime.Now,
                 EditAt = DateTime.Now,
-
+                EstimatedTimeInMinutes= model.EstimatedTimeInMinutes,
                 StartAt= model.StartAt,
                  
 

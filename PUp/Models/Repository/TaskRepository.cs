@@ -34,12 +34,12 @@ namespace PUp.Models.Repository
             DbContext.SaveChanges();
            
         }
-        public GroundInterval AvelaibleHorsForUserAndDate(UserEntity user,DateTime dateEndMin)
+        public GroundInterval AvelaibleHoursForUserAndDate(UserEntity user,DateTime dateEndMin)
         {
             Console.WriteLine(dateEndMin.ToLongDateString());
             var currentTasks = GetAll().Where(
                 t => t.Executor == user
-                  && !t.Done && t.StartAt!=null
+                     && !t.Done && t.StartAt!=null
                   ).ToList();
             GroundInterval intervalManager = new GroundInterval();
             foreach (var t in currentTasks)

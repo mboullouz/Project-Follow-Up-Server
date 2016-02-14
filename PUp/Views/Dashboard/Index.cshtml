@@ -57,7 +57,7 @@
 
 
         <div class="col-md-6" style="background: rgba(255, 235, 59, 0.36);">
-            @if (Model.IsWorkingDayOver())
+            @if (!Model.IsWorkingDayOver())
             {
                 <b>Working hours are over, please come tomorrow!</b>
             }
@@ -82,9 +82,9 @@
                                     <td> @(task.KeyFactor ? "Yes" : "No")</td>
                                     <td>@task.AddAt.ToString("HH:mm d-MMM ")</td>
                                     <td>
-                                        <button class="btn changeState" id="@task.Id">
+                                        <a  href="@Url.Action("SetDate", "Task", new { id = task.Id } )" class="btn changeState" id="@task.Id">
                                             <i class="fa fa-check-square"></i> Plan for today
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             }

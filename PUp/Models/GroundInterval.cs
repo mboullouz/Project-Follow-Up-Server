@@ -38,6 +38,27 @@ namespace PUp.Models
             return Interval; 
         }
 
+        public bool CheckForDateAndDuration(DateTime startDate,int duration)
+        {
+            if (IsFull())
+            {
+                return false;
+            }
+            int startH = startDate.Hour;
+            if (Interval[startH])
+            {
+                return false;
+            }
+            for(int i = startH; i < startH + duration; i++)
+            {
+                if (Interval[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public bool IsFull()
         {
             return Interval.Count(v => v.Value == true) == Interval.Count();
