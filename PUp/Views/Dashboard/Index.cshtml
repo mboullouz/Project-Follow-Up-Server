@@ -8,7 +8,7 @@
     <div class="col-md-12">
         <h2>My DashBorad</h2>
 
-        <div class="col-md-6" style="background: rgba(158, 158, 158, 0.19);">
+        <div class="col-md-6" style="background: rgba(158, 158, 158, 0.05);">
             <h4>Current-Day</h4>
             <div class="panel-body">
                 <table class="table">
@@ -37,9 +37,10 @@
                                 <td>
                                     @if (!task.Done)
                                     {
-                                        <button class="btn changeState" id="@task.Id">
+                                        <a  href="@Url.Action("MarkDone", "Task", new { id = task.Id } )" class="btn changeState" id="@task.Id">
                                             <i class="fa fa-check-square"></i> Mark done
-                                        </button>
+                                        </a>
+                                         
                                     }
                                     else
                                     {
@@ -57,7 +58,7 @@
 
 
         <div class="col-md-6" style="background: rgba(255, 235, 59, 0.36);">
-            @if (!Model.IsWorkingDayOver())
+            @if (Model.IsWorkingDayOver())
             {
                 <b>Working hours are over, please come tomorrow!</b>
             }

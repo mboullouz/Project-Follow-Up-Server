@@ -56,7 +56,16 @@ namespace PUp.Controllers
             return Json(res);
         }
 
-         
+        public ActionResult MarkDone(int id)
+        {
+            var task = taskRepository.FindById(id);
+            task.Done = true;
+            task.FinishAt = DateTime.Now;
+            dbContext.SaveChanges();
+            return RedirectToAction("Index", "Dashboard", new { id = task.Id });
+        }
+
+
         public ActionResult SetDate(int id)
         {
             var task=taskRepository.FindById(id);

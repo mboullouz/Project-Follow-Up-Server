@@ -11,7 +11,6 @@ namespace PUp.ViewModels
 {
     public class AddTaskViewModel
     {
-      
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be between {1} and {2} caracters.", MinimumLength = 30)]
         public string Title { get; set; }
