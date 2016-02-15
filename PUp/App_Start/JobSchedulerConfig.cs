@@ -24,7 +24,7 @@ namespace PUp.App_Start
                 .WithIdentity("trigger1", "group1")
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInSeconds(3599)
+                    .WithIntervalInHours(2)
                     .RepeatForever())
                 .Build();
 

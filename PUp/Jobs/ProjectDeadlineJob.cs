@@ -21,12 +21,11 @@ namespace PUp.Jobs
                 if ((p.EndAt - now).TotalDays >= 0 && (p.EndAt - now).TotalDays <1 )
                 {
                     foreach(var user in p.Contributors.ToList())
-                    {
-                      
+                    {                     
                         NotificationEntity notif = new NotificationEntity();
                         notif.User = user;
                         notif.Message = "The project: " + p.Name + "Ends today, "
-                            +p.Tasks.Where(t=>!t.Done).Count() + " Task(s) pending";
+                            +p.Tasks.Where(t=>!t.Done && t.Deleted==false).Count() + " Task(s) pending";
                         notif.Level = LevelFlag.Danger;
                         notificationRepo.Add(notif);
                     }

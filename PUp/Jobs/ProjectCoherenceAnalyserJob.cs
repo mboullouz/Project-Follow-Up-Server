@@ -31,7 +31,8 @@ namespace PUp.Jobs
                     p.AddAt <= DateTime.Now.AddMinutes(10)
                     && p.Tasks.Count > 0
                     && p.EndAt >= DateTime.Now.AddHours(1)
-                    &&  p.Deleted==false
+                    && p.Deleted==false
+                    && p.Contributors.Count>0
                    ).ToList();
             foreach (var p in projects)
             {
@@ -39,6 +40,7 @@ namespace PUp.Jobs
                            !t.Urgent
                            && !t.Critical
                            && t.Deleted==false
+                           && t.StartAt != null
                            ).ToList();
                 foreach (var t in tasks)
                 {
