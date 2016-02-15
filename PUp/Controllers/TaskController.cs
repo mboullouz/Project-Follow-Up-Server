@@ -104,20 +104,13 @@ namespace PUp.Controllers
 
         public ActionResult Edit(int id, int taskId)
         {
+            //TODO perfom some checks before allow edit!
             ProjectEntity project = projectRepository.FindById(id);
             TaskEntity task = taskRepository.FindById(taskId);
-            AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, userRepository.GetAll());
-            addTaskVM.Project = project;
-            addTaskVM.IdProject = project.Id;
-            addTaskVM.Description = task.Description;
-            addTaskVM.EstimatedTimeInMinutes = task.EstimatedTimeInMinutes;
-            addTaskVM.ExecutorId = task.Executor.Id;
-            addTaskVM.Important = task.Critical;
-            addTaskVM.KeyFactor = task.KeyFactor;
-            addTaskVM.StartAt = task.StartAt;
-            addTaskVM.Title = task.Title;
-            addTaskVM.Urgent = task.Urgent;
+            AddTaskViewModel addTaskVM = new AddTaskViewModel(task, userRepository.GetAll());
             addTaskVM.AvelaibleDates = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
+            addTaskVM.Project = project;
+
             return View("~/Views/Task/Add.cshtml",addTaskVM);
         }
 
@@ -143,7 +136,7 @@ namespace PUp.Controllers
             task.Critical = model.Important;
             task.Urgent = model.Urgent;
             task.Executor = executor != null ? executor : user;
-            notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
+            notificationRepository.Add(task.Executor, "Task <"+task.Title+"> Is updated","~/Task/"+project.Id,LevelFlag.Info  );
             dbContext.SaveChanges();
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
@@ -153,7 +146,6 @@ namespace PUp.Controllers
         public ActionResult Add(AddTaskViewModel model)
         {
             //This is needed for Unit test  so we can set the correct context!
-            
 
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)

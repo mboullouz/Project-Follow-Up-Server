@@ -50,10 +50,7 @@ namespace PUp.Models.Repository
         public GroundInterval AvelaibleHoursForUserAndDate(UserEntity user,DateTime dateEndMin)
         {
             Console.WriteLine(dateEndMin.ToLongDateString());
-            var currentTasks = GetAll().Where(
-                t => t.Executor == user
-                     && !t.Done && t.StartAt!=null
-                  ).ToList();
+            var currentTasks =  TodayTasksByUser(user);
             GroundInterval intervalManager = new GroundInterval();
             foreach (var t in currentTasks)
             {
