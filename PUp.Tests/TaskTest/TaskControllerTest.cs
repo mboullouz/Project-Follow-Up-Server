@@ -51,10 +51,10 @@ namespace PUp.Tests.TaskTest
            
             AddTaskViewModel model = new AddTaskViewModel
             {
-                CreateAt = DateTime.Now,
+                 
                 Description = "Some description",
-                Done = false,
-                FinishAt = DateTime.Now.AddDays(7),
+               
+            
                 Project = pRep.FindById(idProject),
                 Title = "some task",
                 IdProject = this.idProject

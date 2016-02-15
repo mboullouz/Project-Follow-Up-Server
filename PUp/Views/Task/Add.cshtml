@@ -64,8 +64,8 @@
                 @Html.ValidationMessageFor(m => m.StartAt)
                 <small>You may specify it later!</small>
             </div>
- 
 
+            @Html.HiddenFor(m => m.Id)
             @Html.HiddenFor(m => m.IdProject)
             <input type="submit" value="Save" class="btn btn-primary" />
         }

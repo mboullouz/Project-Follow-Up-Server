@@ -52,8 +52,7 @@ namespace PUp.Controllers
         {
             if (!ModelState.IsValid)
             {
-
-                return View(model);
+              return View(model);
             }
             ProjectEntity project = projectRepository.FindById(model.Id);
             project.Name = model.Name;

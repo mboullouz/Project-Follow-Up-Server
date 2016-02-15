@@ -5,7 +5,6 @@ body {
     padding-bottom: 20px;
     color: black;
     color: #444;
-    //font-family: sans-serif, Arial;
     font-family: 'Noto Sans', sans-serif;
 }
 
@@ -17,11 +16,23 @@ body {
     margin-bottom: 17px;
 }
 
+.line-separator {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #3288E6;
+    line-height: 0.1em;
+    margin: 30px 0 30px;
+}
+.line-text {
+    background: #3288E6; padding: 6px;
+    color: white;
+}
+
 .field-validation-error {
     color: #F44336;
 }
- 
-    
+
+
 .card-control > a {
     margin: 4px;
     background: #F7F7F7;
@@ -68,7 +79,7 @@ thead {
     padding-bottom: 0px;
     margin: 5px 5px 0px 4px;
     background: rgb(255, 255, 255);
-    color: black;  
+    color: black;
     font-size: 13px;
 }
 
@@ -77,14 +88,17 @@ thead {
         background-color: white;
         color: #3288E6;
     }
-.notificationElement_0{
-  border-left: 3px solid #3F92CF;
+
+.notificationElement_0 {
+    border-left: 3px solid #3F92CF;
 }
-.notificationElement_1{
-      border-left: 3px solid #FFEB3B;
+
+.notificationElement_1 {
+    border-left: 3px solid #FFEB3B;
 }
-.notificationElement_2{
-      border-left: 3px solid #FF5722;
+
+.notificationElement_2 {
+    border-left: 3px solid #FF5722;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */

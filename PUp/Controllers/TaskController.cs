@@ -66,6 +66,11 @@ namespace PUp.Controllers
         }
 
 
+        /// <summary>
+        /// Set an avelaible date for tasks in the current day!
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult SetDate(int id)
         {
             var task=taskRepository.FindById(id);
@@ -97,6 +102,51 @@ namespace PUp.Controllers
             return View(addTaskVM);
         }
 
+        public ActionResult Edit(int id, int taskId)
+        {
+            ProjectEntity project = projectRepository.FindById(id);
+            TaskEntity task = taskRepository.FindById(taskId);
+            AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, userRepository.GetAll());
+            addTaskVM.Project = project;
+            addTaskVM.IdProject = project.Id;
+            addTaskVM.Description = task.Description;
+            addTaskVM.EstimatedTimeInMinutes = task.EstimatedTimeInMinutes;
+            addTaskVM.ExecutorId = task.Executor.Id;
+            addTaskVM.Important = task.Critical;
+            addTaskVM.KeyFactor = task.KeyFactor;
+            addTaskVM.StartAt = task.StartAt;
+            addTaskVM.Title = task.Title;
+            addTaskVM.Urgent = task.Urgent;
+            addTaskVM.AvelaibleDates = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
+            return View("~/Views/Task/Add.cshtml",addTaskVM);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(AddTaskViewModel model)
+        {
+            ProjectEntity project = projectRepository.FindById(model.IdProject);
+            if (!ModelState.IsValid)
+            {
+                return Edit(project.Id,model.Id );
+            }
+            var executor = userRepository.FindById(model.ExecutorId);
+            TaskEntity task = taskRepository.FindById(model.Id);
+            task.Title = model.Title;
+            task.Description = model.Description;
+            task.Done = false;
+            task.Project = project;
+            task.AddAt = DateTime.Now;
+            task.EditAt = DateTime.Now;
+            task.EstimatedTimeInMinutes = model.EstimatedTimeInMinutes;
+            task.StartAt = model.StartAt;
+            task.KeyFactor = model.KeyFactor;
+            task.Critical = model.Important;
+            task.Urgent = model.Urgent;
+            task.Executor = executor != null ? executor : user;
+            notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
+            dbContext.SaveChanges();
+            return RedirectToAction("Index", "Task", new { id = project.Id });
+        }
 
 
         [HttpPost]
