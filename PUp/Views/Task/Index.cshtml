@@ -64,9 +64,9 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dd-ctrl-tasks">
                                         <li>
-                                            @Html.ActionLink("Edit", "Edit", "Task", new {id=task.Project.Id, taskId=task.Id },  new {  @class = "btn" } )
+                                            @Html.ActionLink("Edit", "Edit", "Task", new {id=task.Project.Id,taskId=task.Id },  new {  @class = "btn" } )
                                         </li>
-                                        <li>
+                                        <li> 
                                             @Html.ActionLink("Delete", "Delete", "Task", new { id = task.Id }, new { @class = "btn" })
                                         </li>
 

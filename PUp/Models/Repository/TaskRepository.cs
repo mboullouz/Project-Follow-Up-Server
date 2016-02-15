@@ -34,6 +34,19 @@ namespace PUp.Models.Repository
             DbContext.SaveChanges();
            
         }
+
+        public List<TaskEntity> TodayTasksByUser(UserEntity user)
+        {
+            DateTime startDateTime = DateTime.Today; //Today at 00:00:00
+            DateTime endDateTime = DateTime.Today.AddDays(1).AddTicks(-1); //Today at 23:59:59
+
+            return GetAll().Where(
+                 t => t.Executor == user && t.StartAt != null
+                      && t.StartAt.GetValueOrDefault() >= startDateTime
+                      && t.StartAt.GetValueOrDefault() <= endDateTime)
+                .OrderBy(v => v.StartAt).ToList();
+        }
+
         public GroundInterval AvelaibleHoursForUserAndDate(UserEntity user,DateTime dateEndMin)
         {
             Console.WriteLine(dateEndMin.ToLongDateString());

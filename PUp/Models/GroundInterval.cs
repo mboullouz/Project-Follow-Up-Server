@@ -23,6 +23,7 @@ namespace PUp.Models
             }
         }
 
+        //TODO: Prevent add when current datetime.hour>AppConst.DayEnd
         public IDictionary<int, bool> AddDate(DateTime startDate,int durationInHours)
         {   
             int startH = startDate.Hour;

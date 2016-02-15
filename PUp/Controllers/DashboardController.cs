@@ -30,17 +30,15 @@ namespace PUp.Controllers
             notifRepository = new NotificationRepository(dbContext);
             //userName = ControllerContext.HttpContext.User.Identity.Name;
             currentUser = userRepository.GetCurrentUser();
-
-
         }
+       
         // GET: Dashboard
         public ActionResult Index()
         {
             DashboardModelView dashboardMV = new DashboardModelView();
+            
             //TODO this just for tests! write a true linq query
-            var currentTasks = taskRepository.GetAll()
-                .Where( t => t.Executor == currentUser && t.StartAt!=null )
-                .OrderBy(v=>v.StartAt).ToList();
+            var currentTasks = taskRepository.TodayTasksByUser(currentUser);
             dashboardMV.CurrentTasks = currentTasks;
             var otherTasks = taskRepository.GetAll()
                                            .Where(t => t.Executor == currentUser && !t.Done && t.StartAt==null )

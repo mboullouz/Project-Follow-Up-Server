@@ -24,7 +24,7 @@
             @foreach (var project in Model.Projects)
             {
                 <div data-toggle="tooltip" data-placement="right" title="@(project.Deleted==true? "This project was deleted" : " " )"
-                     class="col-md-5 col-lg-offset-1 card @(@Model.IsFinish(project) ? "done" : " ") @(project.Deleted==true? "deleted" : " ") ">
+                     class="col-md-5 col-lg-offset-1 card @(@Model.IsFinish(project) ? "Done" : " ") @(project.Deleted==true? "deleted" : " ") ">
                     <div class="dropdown pull-right">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dd-ctrl-projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <i class="fa fa-cog"></i>
