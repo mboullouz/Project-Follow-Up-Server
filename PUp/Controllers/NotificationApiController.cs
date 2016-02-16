@@ -41,8 +41,8 @@ namespace PUp.Controllers
         // DELETE api/<controller>/5
         public NegotiatedContentResult<string> Delete(int id)
         {
-            notifRepo.RemoveById(id);
-            return Content(HttpStatusCode.OK, notifRepo.RemoveById(id)? "Deleted":"Nothing to delete!");
+            var res= notifRepo.RemoveById(id);
+            return Content(HttpStatusCode.OK, res? "Deleted":"Nothing to delete!");
         }
     }
 }
