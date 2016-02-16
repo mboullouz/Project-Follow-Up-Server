@@ -34,7 +34,7 @@ namespace PUp.Controllers
 
         // GET: Task
         public ActionResult Index(int id)
-        {   
+        {
             //TODO return a list of Tasks !
             ProjectEntity project = projectRepository.FindById(id);
             return View(project);
@@ -57,7 +57,7 @@ namespace PUp.Controllers
         }
 
         public ActionResult MarkDone(int id)
-        {  
+        {
             //TODO handle the change in the Repository
             var task = taskRepository.FindById(id);
             task.Done = true;
@@ -65,8 +65,7 @@ namespace PUp.Controllers
             dbContext.SaveChanges();
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
         }
-
-
+ 
         /// <summary>
         /// Set an avelaible date for tasks in the current day!
         /// </summary>
@@ -74,13 +73,14 @@ namespace PUp.Controllers
         /// <returns></returns>
         public ActionResult SetDate(int id)
         {
-            var task=taskRepository.FindById(id);
+            var task = taskRepository.FindById(id);
             var interval = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
-            foreach(var vK in interval.Interval)
+            foreach (var vK in interval.Interval)
             {
                 string dateStartStr = vK.Key + ":00";
                 var dateForTest = DateTime.Parse(dateStartStr);
-                if (!vK.Value && interval.CheckForDateAndDuration(dateForTest, task.EstimatedTimeInMinutes / 60)){
+                if (!vK.Value && interval.CheckForDateAndDuration(dateForTest, task.EstimatedTimeInMinutes / 60))
+                {
                     task.StartAt = dateForTest;
                     dbContext.SaveChanges();
                 }
@@ -112,17 +112,17 @@ namespace PUp.Controllers
             addTaskVM.AvelaibleDates = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
             addTaskVM.Project = project;
 
-            return View("~/Views/Task/Add.cshtml",addTaskVM);
+            return View("~/Views/Task/Add.cshtml", addTaskVM);
         }
 
         [HttpPost]
         public ActionResult Edit(AddTaskViewModel model)
-        {  
+        {
             //If startDate is set! must be handled by cheking the interval, else raise an error!
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {
-                return Edit(project.Id,model.Id );
+                return Edit(project.Id, model.Id);
             }
             var executor = userRepository.FindById(model.ExecutorId);
             TaskEntity task = taskRepository.FindById(model.Id);
@@ -139,7 +139,7 @@ namespace PUp.Controllers
             task.Critical = model.Important;
             task.Urgent = model.Urgent;
             task.Executor = executor != null ? executor : user;
-            notificationRepository.Add(task.Executor, "Task <"+task.Title+"> Is updated","~/Task/"+project.Id,LevelFlag.Info  );
+            notificationRepository.Add(task.Executor, "Task <" + task.Title + "> Is updated", "~/Task/" + project.Id, LevelFlag.Info);
             dbContext.SaveChanges();
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
@@ -148,7 +148,6 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddTaskViewModel model)
         {
-            //This is needed for Unit test  so we can set the correct context!
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {
@@ -163,23 +162,20 @@ namespace PUp.Controllers
                 Project = project,
                 AddAt = DateTime.Now,
                 EditAt = DateTime.Now,
-                EstimatedTimeInMinutes= model.EstimatedTimeInMinutes,
-                StartAt= model.StartAt,
-                 
-
+                EstimatedTimeInMinutes = model.EstimatedTimeInMinutes,
+                StartAt = model.StartAt,
                 KeyFactor = model.KeyFactor,
                 Deleted = false,
-                Critical= model.Important,
-                Urgent= model.Urgent,
-                Executor= executor!=null?executor:user,//if not found!
-                
+                Critical = model.Important,
+                Urgent = model.Urgent,
+                Executor = executor != null ? executor : user,//if not found!               
             };
             taskRepository.Add(task);
             project.Tasks.Add(task);
             project.Contributors.Add(user);
-            
-            
-           
+
+
+
             notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
