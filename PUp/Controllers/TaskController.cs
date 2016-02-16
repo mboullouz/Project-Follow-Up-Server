@@ -28,8 +28,7 @@ namespace PUp.Controllers
             projectRepository = new ProjectRepository(dbContext);
             notificationRepository = new NotificationRepository(dbContext);
             userRepository = new UserRepository(dbContext);
-           // userName = this.ControllerContext.HttpContext.User.Identity.Name;
-           user = userRepository.GetCurrentUser();
+            user = userRepository.GetCurrentUser();
 
         }
 
@@ -46,6 +45,7 @@ namespace PUp.Controllers
         {
             //TaskEntity taskEntity = taskRepository.FindById(taskBasic.Id); 
             taskRepository.ChangeTaskState(taskBasic.Id, taskBasic.Done);
+            //Generate a notification
             GenericJsonResponse res = new GenericJsonResponse
             {
                 Success = true,
@@ -57,7 +57,8 @@ namespace PUp.Controllers
         }
 
         public ActionResult MarkDone(int id)
-        {
+        {  
+            //TODO handle the change in the Repository
             var task = taskRepository.FindById(id);
             task.Done = true;
             task.FinishAt = DateTime.Now;
@@ -116,7 +117,8 @@ namespace PUp.Controllers
 
         [HttpPost]
         public ActionResult Edit(AddTaskViewModel model)
-        {
+        {  
+            //If startDate is set! must be handled by cheking the interval, else raise an error!
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {
@@ -124,6 +126,7 @@ namespace PUp.Controllers
             }
             var executor = userRepository.FindById(model.ExecutorId);
             TaskEntity task = taskRepository.FindById(model.Id);
+            //TODO Move this elsewhere!
             task.Title = model.Title;
             task.Description = model.Description;
             task.Done = false;
@@ -146,7 +149,6 @@ namespace PUp.Controllers
         public ActionResult Add(AddTaskViewModel model)
         {
             //This is needed for Unit test  so we can set the correct context!
-
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {
