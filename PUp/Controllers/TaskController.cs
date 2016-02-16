@@ -173,11 +173,16 @@ namespace PUp.Controllers
             taskRepository.Add(task);
             project.Tasks.Add(task);
             project.Contributors.Add(user);
-
-
-
             notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
             return RedirectToAction("Index", "Task", new { id = project.Id });
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var t = taskRepository.FindById(id);
+            var projectId = t.Project.Id; //needed to redirect!
+            taskRepository.MarkDeleted(t); 
+            return RedirectToAction("Index", "Task", new { id = projectId });
         }
     }
 }

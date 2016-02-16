@@ -49,7 +49,6 @@ namespace PUp.Models.Repository
 
         public GroundInterval AvelaibleHoursForUserAndDate(UserEntity user,DateTime dateEndMin)
         {
-            Console.WriteLine(dateEndMin.ToLongDateString());
             var currentTasks =  TodayTasksByUser(user);
             GroundInterval intervalManager = new GroundInterval();
             foreach (var t in currentTasks)
@@ -61,9 +60,18 @@ namespace PUp.Models.Repository
             }
             return intervalManager;
         }
-        public override void MarkDeleted(TaskEntity e)
+
+        /// <summary>
+        /// Mark a task deleted: Deleted=true!
+        /// </summary>
+        /// <param name="t"></param>
+        public override void MarkDeleted(TaskEntity t)
         {
-            throw new NotImplementedException();
+            t.DeleteAt = DateTime.Now;
+            t.Deleted = true;
+            DbContext.SaveChanges();
         }
+
+       
     }
 }
