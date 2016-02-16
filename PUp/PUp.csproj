@@ -274,6 +274,7 @@
     <Compile Include="ViewModels\Project\MatrixViewModel.cs" />
     <Compile Include="ViewModels\Project\ProjectTimelineViewModel.cs" />
     <Compile Include="ViewModels\Project\TableProjectModelView.cs" />
+    <Compile Include="ViewModels\Task\TaskViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -376,6 +377,7 @@
     <Content Include="Views\Issue\Add.cshtml" />
     <Content Include="Views\Project\Matrix.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Task\_TaskList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

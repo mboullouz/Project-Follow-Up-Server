@@ -1,0 +1,57 @@
+﻿@model List<PUp.Models.Entity.TaskEntity> 
+<table class="table">
+    <thead>
+        <tr>
+            <td>Title</td>
+            <td>Done</td>
+            <td>Key factor</td>
+            <td style="width:13%;">Added at</td>
+            <td>Assigned to</td>
+            <td>Description</td>
+
+            <td style="width:2%;"></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr class="v @(@task.Done ? "done" : " ")">
+                <td> @task.Title</td>
+                <td>
+                    @if (task.Done)
+                    {
+                        @task.FinishAt
+                    }
+                    else { <b>In progress</b>}
+                </td>
+                <td> @(task.KeyFactor ? "Yes" : "No")</td>
+                <td>@task.AddAt.ToString("HH:mm d-MMM yyyy ")</td>
+                <td>
+                    @task.Executor.Name
+                </td>
+                <td> @task.Description</td>
+                <td>
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dd-ctrl-tasks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-cog"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dd-ctrl-tasks">
+                            <li>
+                                <a class="btn changeState" id="@task.Id">
+                                    <i class="fa fa-check-square"></i> Mark done
+                                </a>
+                            </li>
+                            <li>
+                                @Html.ActionLink("Edit", "Edit", "Task", new { id = task.Project.Id, taskId = task.Id }, new { @class = "btn" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Delete", "Delete", "Task", new { id = task.Id }, new { @class = "btn" })
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

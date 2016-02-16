@@ -3,6 +3,7 @@ using PUp.Models.Entity;
 using PUp.Models.Repository;
 using PUp.Models.SimpleObject;
 using PUp.ViewModels;
+using PUp.ViewModels.Task;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -37,7 +38,8 @@ namespace PUp.Controllers
         {
             //TODO return a list of Tasks !
             ProjectEntity project = projectRepository.FindById(id);
-            return View(project);
+            TaskViewModel tVM = new TaskViewModel(project);
+            return View(tVM);
         }
 
         [HttpPost]
