@@ -7,13 +7,38 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <a href="@Url.Action("Add", "Task", new { id = Model.Project.Id } )" class="btn">
-            Add a Task
-        </a>
+        <div class="panel">
+            <a href="@Url.Action("Add", "Task", new { id = Model.Project.Id } )" class="btn">
+                Add a Task
+            </a>
+            <div style="text-align:center;padding:10px;">
+                <a href="@Url.Action("Details", "Project", new {id = Model.Project.Id })">
+                    @Model.Project.Name
+                </a>
+                <div class="card-block">
+                    <p class="card-text">
+                        From: <b>@Model.Project.StartAt.ToString("d/MMM yyyy")</b>
+                        To  : <b>@Model.Project.EndAt.ToString("d/MMM yyyy")</b>
+                        Progress:
+                        @if (Model.Project.Tasks.Count() > 0)
+                        {
+                            <span>@((Model.Project.Tasks.Where(t => t.Done == true).Count() / (float)Model.Project.Tasks.Count() * 100))%</span>
+                        }
+                        else
+                        {
+                            <b>0 %</b>
+                        }
+                        <small style="color:crimson;"> ( Time left: @((int)(Model.Project.EndAt - DateTime.Now).TotalDays) days )</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        
         <div class="panel">
             <div class="panel-heading">
                 <div class="panel-title">
-                    <b>Tasks list for project: @Model.Project.Name</b>
+                    <b>Active tasks</b>
                 </div>
             </div>
             <div class="panel-body">
@@ -24,7 +49,7 @@
         <div class="panel">
             <div class="panel-heading">
                 <div class="panel-title">
-                    <b>Deleted tasks in the project: @Model.Project.Name</b>
+                    <b>Deleted tasks</b>
                 </div>
             </div>
             <div class="panel-body">
