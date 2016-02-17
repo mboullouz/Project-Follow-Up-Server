@@ -60,11 +60,7 @@ namespace PUp.Controllers
 
         public ActionResult MarkDone(int id)
         {
-            //TODO handle the change in the Repository
-            var task = taskRepository.FindById(id);
-            task.Done = true;
-            task.FinishAt = DateTime.Now;
-            dbContext.SaveChanges();
+            var task = taskRepository.MarkDone(id);
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
         }
  

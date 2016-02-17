@@ -44,9 +44,7 @@ namespace PUp.Controllers
 
         [HttpPost]
         public ActionResult Add(AddIssueViewModel model)
-        {
-            var userName = this.ControllerContext.HttpContext.User.Identity.Name;
-            var user = userRepository.FindByEmail(userName);
+        { 
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {

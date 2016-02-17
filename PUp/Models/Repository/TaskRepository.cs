@@ -61,6 +61,15 @@ namespace PUp.Models.Repository
             return intervalManager;
         }
 
+        public TaskEntity MarkDone(int id)
+        {
+            var task = FindById(id);
+            task.Done = true;
+            task.FinishAt = DateTime.Now;
+            DbContext.SaveChanges();
+            return task;
+        }
+
         /// <summary>
         /// Mark a task deleted: Deleted=true!
         /// </summary>
