@@ -31,11 +31,12 @@ namespace PUp.Models.Repository
             throw new NotImplementedException();
         }
 
-        internal void MarkResolved(int id)
+        internal IssueEntity MarkResolved(int id)
         {
             var issue = FindById(id);
             issue.Status = IssueStatus.Resolved;
             DbContext.SaveChanges();
+            return issue;
         }
     }
 }

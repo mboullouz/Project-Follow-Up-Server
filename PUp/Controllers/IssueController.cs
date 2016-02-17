@@ -40,8 +40,6 @@ namespace PUp.Controllers
             return View(addIssueVM);
         }
 
-
-
         [HttpPost]
         public ActionResult Add(AddIssueViewModel model)
         { 
@@ -61,15 +59,18 @@ namespace PUp.Controllers
                 RelatedArea = model.RelatedArea,
                 Status      = model.Status,
             };
-
             issueRepository.Add(issue);
             project.Issues.Add(issue);
             string message = "New Issue is declared for the project <" + project.Name + ">";
             notificationRepo.NotifyAllUserInProject(project, message);         
-
             return RedirectToAction("Index", "Issue", new { id = project.Id });
         }
 
-         
+        public ActionResult MarkResolved(int projectId, int issueId)
+        {
+            var issue =issueRepository.MarkResolved(issueId);
+            return RedirectToAction("Index", "Issue", new { id = projectId });
+        }
+
     }
 }

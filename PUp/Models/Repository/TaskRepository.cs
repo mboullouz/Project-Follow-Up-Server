@@ -80,7 +80,6 @@ namespace PUp.Models.Repository
             t.Deleted = true;
             DbContext.SaveChanges();
         }
-
-       
+ 
     }
 }

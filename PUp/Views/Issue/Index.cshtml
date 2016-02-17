@@ -2,6 +2,7 @@
     @{
         ViewBag.Title = "Liste of issues for the project: "+Model.Name;
     }
+@using PUp.Models;
     <div id="conf" data-url="@Url.Action("ChangeState", "Task")">
     </div>
     <div class="row">
@@ -30,20 +31,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.Issues)
+                            @foreach (var issue in Model.Issues)
                             {
-                                <tr class="v @(@item.Status=="RESOLVED" ? "done" : " ")">
-                                    <td> @item.AddAt.ToString("d/MMM/yyyy HH:mm")</td>
-                                    <td> @(item.EditAt?.ToString("d/MMM/yyyy HH:mm") )</td>
-                                    <td>@if (item.Status=="RESOLVED")
+                                <tr class="v @(@issue.Status=="RESOLVED" ? "done" : " ")">
+                                    <td> @issue.AddAt.ToString("d/MMM/yyyy HH:mm")</td>
+                                    <td> @(issue.EditAt?.ToString("d/MMM/yyyy HH:mm") )</td>
+                                    <td>@if (issue.Status== "Resolved")
                                     {
                                         <b>Resolved</b>
                                     }
                                     else { <b>Open</b>}
                                     </td>
-                                    <td>@item.Description</td>
-                                    <td>@item.RelatedArea</td>
-                                    <td><button class="btn changeState" id="@item.Id">Mark resolved</button></td>
+                                    <td>@issue.Description</td>
+                                    <td>@issue.RelatedArea</td>
+                                    <td>   
+                                        @Html.ActionLink("Mark resolved", "MarkResolved", "Issue", new { projectId = Model.Id, issueId = issue.Id }, new { @class = "btn" }) 
+                                    </td>
                                 </tr>
                             }
                         </tbody>
