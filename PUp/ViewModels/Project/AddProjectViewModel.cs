@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace PUp.ViewModels
+namespace PUp.ViewModels.Project
 {
     public class AddProjectViewModel
     {

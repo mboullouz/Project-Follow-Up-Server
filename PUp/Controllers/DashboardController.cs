@@ -25,10 +25,8 @@ namespace PUp.Controllers
         {
             taskRepository = new TaskRepository(dbContext);
             projectRepository = new ProjectRepository(dbContext);
-            userRepository = new UserRepository(dbContext);
-           
+            userRepository = new UserRepository(dbContext);         
             notifRepository = new NotificationRepository(dbContext);
-            //userName = ControllerContext.HttpContext.User.Identity.Name;
             currentUser = userRepository.GetCurrentUser();
         }
        
@@ -36,8 +34,6 @@ namespace PUp.Controllers
         public ActionResult Index()
         {
             DashboardModelView dashboardMV = new DashboardModelView();
-            
-            //TODO this just for tests! write a true linq query
             var currentTasks = taskRepository.TodayTasksByUser(currentUser);
             dashboardMV.CurrentTasks = currentTasks;
             var otherTasks = taskRepository.GetAll()
@@ -46,33 +42,6 @@ namespace PUp.Controllers
             dashboardMV.OtherTasks = otherTasks;
             return View(dashboardMV);
         }
-
-        /*
-        //TODO clean it
-        */
-        public ActionResult Interval()
-        {
-            var currentTasks = taskRepository.GetAll()
-                .Where( t =>   t.Executor == currentUser
-                            && t.EndAt >= DateTime.Now
-                            && !t.Done
-                      ).ToList(); 
-            GroundInterval intervalManager = new GroundInterval();
-            foreach(var t in currentTasks)
-            {
-                if (t.StartAt != null)
-                {
-                    intervalManager.AddDate((DateTime)t.StartAt, t.EstimatedTimeInMinutes/60);
-                }
-            }
-            var list = JsonConvert.SerializeObject(intervalManager.Interval,
-               Formatting.None,
-               new JsonSerializerSettings()
-               {
-                   ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                   MaxDepth = 1,
-               });
-            return Json(list);
-        }
+ 
     }
 }
