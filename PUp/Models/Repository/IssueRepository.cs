@@ -33,7 +33,7 @@ namespace PUp.Models.Repository
 
         internal IssueEntity MarkResolved(int id)
         {
-            var issue = FindById(id);
+            var issue = FindById(id); 
             issue.Status = IssueStatus.Resolved;
             DbContext.SaveChanges();
             return issue;

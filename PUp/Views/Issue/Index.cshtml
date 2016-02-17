@@ -1,60 +1,58 @@
 ﻿@model PUp.Models.Entity.ProjectEntity
-    @{
-        ViewBag.Title = "Liste of issues for the project: "+Model.Name;
-    }
-@using PUp.Models;
-    <div id="conf" data-url="@Url.Action("ChangeState", "Task")">
-    </div>
-    <div class="row">
-        <div class="col-md-12">
- 
-            <a href="@Url.Action("Add", "Issue", new { id = Model.Id } )" class="btn">
-                Add another Issue
-            </a>
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        <b>Issues list for project: @Model.Name</b>
-                    </div>
+@{
+    ViewBag.Title = "Liste of issues for the project: " + Model.Name;
+}
+<div id="conf" data-url="@Url.Action("ChangeState", "Task")">
+</div>
+<div class="row">
+    <div class="col-md-12">
 
+        <a href="@Url.Action("Add", "Issue", new { id = Model.Id } )" class="btn">
+            Add another Issue
+        </a>
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <b>Issues list for project: @Model.Name</b>
                 </div>
-                <div class="panel-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>Created at</td>
-                                <td>Last edit</td>
-                                <td>Status</td>
-                                <td>Description</td>
-                                <td>Related area</td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var issue in Model.Issues)
-                            {
-                                <tr class="v @(@issue.Status=="RESOLVED" ? "done" : " ")">
-                                    <td> @issue.AddAt.ToString("d/MMM/yyyy HH:mm")</td>
-                                    <td> @(issue.EditAt?.ToString("d/MMM/yyyy HH:mm") )</td>
-                                    <td>@if (issue.Status== "Resolved")
-                                    {
-                                        <b>Resolved</b>
-                                    }
-                                    else { <b>Open</b>}
-                                    </td>
-                                    <td>@issue.Description</td>
-                                    <td>@issue.RelatedArea</td>
-                                    <td>   
-                                        @Html.ActionLink("Mark resolved", "MarkResolved", "Issue", new { projectId = Model.Id, issueId = issue.Id }, new { @class = "btn" }) 
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Created at</td>
+                            <td>Status</td>
+                            <td>Description</td>
+                            <td>Related area</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var issue in Model.Issues.OrderByDescending(i => i.AddAt))
+                        {
+                            <tr class="v @(@issue.Status=="RESOLVED" ? "done" : " ")">
+                                <td> @issue.AddAt.ToString("d/MMM/yyyy HH:mm")</td>
+                                <td>
+                                    @if (issue.Status == "Resolved")
+                                {
+                                    <b>Resolved</b>
+                                }
+                                else { <b>Open</b>}
+                            </td>
+                            <td>@issue.Description</td>
+                            <td>@issue.RelatedArea</td>
+                            <td>
+                                @Html.ActionLink("Mark resolved", "MarkResolved", "Issue", new { projectId = Model.Id, issueId = issue.Id }, new { @class = "btn" })
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
 <!-- TODO re organise js imports!-->
 <script src="~/Scripts/src/app/Shared/HttpCall.js"></script>
 <script src="~/Scripts/src/app/Shared/Models/Entity.js"></script>
