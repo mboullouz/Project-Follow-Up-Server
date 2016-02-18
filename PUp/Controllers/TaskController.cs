@@ -6,6 +6,7 @@ using PUp.ViewModels;
 using PUp.ViewModels.Task;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace PUp.Controllers
@@ -39,6 +40,10 @@ namespace PUp.Controllers
             //TODO return a list of Tasks !
             ProjectEntity project = projectRepository.FindById(id);
             TaskViewModel tVM = new TaskViewModel(project);
+             
+            tVM.ActiveTasks =  dbContext.TaskSet.Include("Executor").Where(t => t.Deleted == false && t.Project.Id==id).ToList();
+            tVM.DeletedTasks = dbContext.TaskSet.Include("Executor").Where(t => t.Deleted == true && t.Project.Id == id).ToList();
+
             return View(tVM);
         }
 
@@ -151,7 +156,7 @@ namespace PUp.Controllers
             {
                 return Add(project.Id);
             }
-            var executor = userRepository.FindById(model.ExecutorId);
+            var selectedUser = userRepository.FindById(model.ExecutorId);
             TaskEntity task = new TaskEntity
             {
                 Title = model.Title,
@@ -166,7 +171,7 @@ namespace PUp.Controllers
                 Deleted = false,
                 Critical = model.Important,
                 Urgent = model.Urgent,
-                Executor = executor != null ? executor : user,//if not found!               
+                Executor = selectedUser == null ? user : selectedUser//if not found!               
             };
             taskRepository.Add(task);
             project.Tasks.Add(task);

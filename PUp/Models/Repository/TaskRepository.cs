@@ -20,12 +20,12 @@ namespace PUp.Models.Repository
 
         public override  List<TaskEntity> GetAll()
         {
-            return DbContext.TaskSet.Include("Executor").ToList();
+            return DbContext.TaskSet.ToList();
         }
 
         public override TaskEntity FindById(int id)
         {
-            return DbContext.TaskSet.Include("Executor").SingleOrDefault(e => e.Id == id);
+            return DbContext.TaskSet.SingleOrDefault(e => e.Id == id);
         }
         public void ChangeTaskState(int id, bool value)
         {

@@ -110,7 +110,7 @@ namespace PUp.ViewModels
                 }, "Value", "Text", 1);
 
             var items = new List<SelectListItem>();
-            Users.ForEach(u => items.Add(new SelectListItem { Selected = true, Text = u.Email, Value = u.Id }));
+            Users.ForEach(u => items.Add(new SelectListItem { Selected = true, Text = u.Name, Value = u.Id }));
 
             UsersList = new SelectList(items, "Value", "Text", 1);
         }
