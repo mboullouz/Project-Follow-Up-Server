@@ -17,9 +17,9 @@ namespace PUp.Models
         }
 
 
-        public virtual DbSet<TaskEntity> TaskSet { get; set; }
-        public virtual DbSet<ProjectEntity> ProjectSet { get; set; }
-        public virtual DbSet<NotificationEntity> NotificationSet { get; set; }
+        public   DbSet<TaskEntity> TaskSet { get; set; }
+        public   DbSet<ProjectEntity> ProjectSet { get; set; }
+        public   DbSet<NotificationEntity> NotificationSet { get; set; }
        
         public virtual DbSet<IssueEntity> IssueSet { get; set; }
 

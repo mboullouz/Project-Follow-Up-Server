@@ -23,7 +23,7 @@ namespace PUp.Models.Repository
             DbContext.SaveChanges();
         } 
         
-        public List<E> GetAll()
+        public virtual List<E> GetAll()
         {
             return DbContext.Set<E>().ToList();
         }

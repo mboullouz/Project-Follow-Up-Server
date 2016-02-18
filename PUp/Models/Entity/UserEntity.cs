@@ -16,8 +16,8 @@ namespace PUp.Models.Entity
         public string Name { get; set; }
 
 
-        public virtual ICollection<ProjectEntity> Projects { get; set; }
-        public virtual ICollection<TaskEntity> Tasks { get; set; }
+        public   ICollection<ProjectEntity> Projects { get; set; }
+        public   ICollection<TaskEntity> Tasks { get; set; }
 
         public UserEntity()
         {

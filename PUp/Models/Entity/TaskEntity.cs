@@ -63,7 +63,8 @@
 
         public DateTime? DeleteAt { get; set; }
         public bool? Deleted { get; set; }
- 
+        
+        [Required]
         public UserEntity Executor { set; get; }
 
         public TaskEntity()
