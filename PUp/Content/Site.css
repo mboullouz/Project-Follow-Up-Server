@@ -15,7 +15,17 @@ body {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 4px -2px 1px rgba(0, 0, 0, 0.23);
     margin-bottom: 17px;
 }
-
+.rotate-txt{
+        float: right;
+    margin-top: 29px;
+    -webkit-transform: rotate(-58deg);
+}
+.table-no-border > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table-no-border > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+     border-top: 0px solid white !important;  
+}
 .line-separator {
     width: 100%;
     text-align: center;

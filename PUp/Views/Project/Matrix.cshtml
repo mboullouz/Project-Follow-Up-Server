@@ -13,15 +13,15 @@
                 </a>
                 <div class="card-block">
                     <p class="card-text">
-                        From: <b>@Model.Project.StartAt.ToString("d/MMM yyyy")</b>
-                        To  : <b>@Model.Project.EndAt.ToString("d/MMM yyyy")</b>
+                        From: <b>@Model.Project.StartAt.ToString("dd/MMM yyyy")</b>
+                        To  : <b>@Model.Project.EndAt.ToString("dd/MMM yyyy")</b>
                         Progress:
                         @if (Model.Project.Tasks.Count() > 0)
                         {
                             <span>@((Model.Project.Tasks.Where(t => t.Done == true).Count() / (float)Model.Project.Tasks.Count() * 100))%</span>
                         }
                         else
-                        {
+                        {   
                             <b>0 %</b>
                         }
                         <small style="color:crimson;"> ( Time left: @((int)(Model.Project.EndAt - DateTime.Now).TotalDays) days )</small>
@@ -34,14 +34,14 @@
                 <i class="fa fa-object-ungroup" style="color: #E91E63;"></i>
                 Tasks by importance/urgence
             </h3>
-            <table class="table">
+            <table class="table table-no-border">
                 <tr>
                     <th></th>
                     <th>Urgent</th>
                     <th>NOT Urgent</th>
                 </tr>
                 <tr>
-                    <td><b>Critical</b></td>
+                    <td><b class="rotate-txt">Critical</b></td>
                     <td style="background: rgba(233, 30, 99, 0.12);">
                         @foreach (var task in Model.ImportantAndUrgent)
                         {
@@ -58,7 +58,7 @@
                 </tr>
 
                 <tr>
-                    <td><b>Not critical</b></td>
+                    <td><b class="rotate-txt">Not critical</b></td>
                     <td style="background: rgba(63, 81, 181, 0.14);">
                         @foreach (var task in Model.NotImportantButUrgent)
                         {
