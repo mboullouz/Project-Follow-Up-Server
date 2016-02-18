@@ -24,8 +24,17 @@ body {
     padding: 8px;
     line-height: 1.42857143;
     vertical-align: top;
-     border-top: 0px solid white !important;  
+    border-top: 0px solid white !important;
 }
+
+.matrix {
+    width: 80%;
+}
+
+.matrix > tbody > tr > th{
+    width: 20%;
+}
+
 .line-separator {
     width: 100%;
     text-align: center;

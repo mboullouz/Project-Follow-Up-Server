@@ -8,23 +8,27 @@
     <div class="col-md-12">
         <div class="panel">
             <div style="text-align:center;padding:10px;">
-                <a href="@Url.Action("Details", "Project", new {id = Model.Project.Id })">
-                    @Model.Project.Name
-                </a>
+                <h3>
+                    <a href="@Url.Action("Details", "Project", new {id = Model.Project.Id })">
+                        @Model.Project.Name
+                    </a>
+                </h3>
                 <div class="card-block">
                     <p class="card-text">
                         From: <b>@Model.Project.StartAt.ToString("dd/MMM yyyy")</b>
                         To  : <b>@Model.Project.EndAt.ToString("dd/MMM yyyy")</b>
+                        &emsp;&emsp;
                         Progress:
                         @if (Model.Project.Tasks.Count() > 0)
                         {
                             <span>@((Model.Project.Tasks.Where(t => t.Done == true).Count() / (float)Model.Project.Tasks.Count() * 100))%</span>
                         }
-                        else
+                        else 
                         {   
                             <b>0 %</b>
                         }
-                        <small style="color:crimson;"> ( Time left: @((int)(Model.Project.EndAt - DateTime.Now).TotalDays) days )</small>
+                        &emsp;&emsp;
+                        <span style="color:crimson;"> @((int)(Model.Project.EndAt - DateTime.Now).TotalDays) days left</span>
                     </p>
                 </div>
             </div>
@@ -34,7 +38,7 @@
                 <i class="fa fa-object-ungroup" style="color: #E91E63;"></i>
                 Tasks by importance/urgence
             </h3>
-            <table class="table table-no-border">
+            <table class="table table-no-border matrix">
                 <tr>
                     <th></th>
                     <th>Urgent</th>
@@ -42,14 +46,14 @@
                 </tr>
                 <tr>
                     <td><b class="rotate-txt">Critical</b></td>
-                    <td style="background: rgba(233, 30, 99, 0.12);">
+                    <td style="background: #F44336; color: white;">
                         @foreach (var task in Model.ImportantAndUrgent)
                         {
                             <i class="fa fa-angle-right"></i>  @task.Title <br />
                         }
                     </td>
 
-                    <td style="background: rgba(158, 158, 158, 0.12);">
+                    <td style="background: #FFC107;color: white;">
                         @foreach (var task in Model.ImportantNotUrgent)
                         {
                             <i class="fa fa-angle-right"></i>  @task.Title <br />
@@ -59,13 +63,13 @@
 
                 <tr>
                     <td><b class="rotate-txt">Not critical</b></td>
-                    <td style="background: rgba(63, 81, 181, 0.14);">
+                    <td style="background: #00BCD4;color: white;">
                         @foreach (var task in Model.NotImportantButUrgent)
                         {
                             <i class="fa fa-angle-right"></i>  @task.Title <br />
                         }
                     </td>
-                    <td style="background: rgba(205, 220, 57, 0.31);">
+                    <td style="background: rgb(205, 220, 57);color: white;">
                         @foreach (var task in Model.NotImportantNotUrgent)
                         {
                             <i class="fa fa-angle-right"></i>  @task.Title <br />
@@ -73,14 +77,14 @@
                     </td>
                 </tr>
             </table>
-            <hr />
+
             <h3>
               <i class="fa fa-lightbulb-o" style="color: #FFC107;"></i>
                Suggestions for tasks based on importance/urgence
              </h3>
             <table class="table">
                 <tr>
-                    <td>Do now</td>
+                    <td style="color: #F44336;font-size: 26px;">Do now</td>
                     <td>
                         @foreach (var task in Model.ImportantAndUrgent)
                         {
@@ -89,7 +93,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Delegate</td>
+                    <td style="color: #FFC107;font-size: 23px;">Delegate</td>
                     <td>
                         @foreach (var task in Model.NotImportantButUrgent)
                         {
@@ -99,7 +103,7 @@
                 </tr>
 
                 <tr>
-                    <td>Do later</td>
+                    <td style="color: #00BCD4;font-size: 20px;line-height: 167%;">Do later</td>
                     <td>
                         @foreach (var task in Model.ImportantNotUrgent)
                         {
@@ -108,7 +112,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Delete or postpone</td>
+                    <td style="color: rgb(205, 220, 57);font-size: 15px;line-height: 197%;">Delete/Postpone</td>
                     <td>
                         @foreach (var task in Model.NotImportantNotUrgent)
                         {
