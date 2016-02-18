@@ -37,7 +37,7 @@ namespace PUp.Controllers
         // GET: Task
         public ActionResult Index(int id)
         {
-            //TODO return a list of Tasks !
+            //TODO remove this cause not necessary !
             ProjectEntity project = projectRepository.FindById(id);
             TaskViewModel tVM = new TaskViewModel(project);
              
@@ -50,7 +50,7 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult ChangeState(TaskBasic taskBasic)
         {
-            //TaskEntity taskEntity = taskRepository.FindById(taskBasic.Id); 
+         
             taskRepository.ChangeTaskState(taskBasic.Id, taskBasic.Done);
             //Generate a notification
             GenericJsonResponse res = new GenericJsonResponse
@@ -171,11 +171,12 @@ namespace PUp.Controllers
                 Deleted = false,
                 Critical = model.Important,
                 Urgent = model.Urgent,
-                Executor = selectedUser == null ? user : selectedUser//if not found!               
+                Executor = selectedUser         
             };
             taskRepository.Add(task);
             project.Tasks.Add(task);
             project.Contributors.Add(user);
+            selectedUser.Tasks.Add(task);
             notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
