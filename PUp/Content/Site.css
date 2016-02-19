@@ -11,9 +11,13 @@ body {
 .card {
     max-height: 240px;
     font-size: 14px;
-    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 4px -2px 1px rgba(0, 0, 0, 0.23);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 4px -2px 1px rgba(0, 0, 0, 0.23);
-    margin-bottom: 17px;
+    /* -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 4px -2px 1px rgba(0, 0, 0, 0.23); */
+    /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 4px -2px 1px rgba(0, 0, 0, 0.23); */
+    /* margin-bottom: 17px; */
+    margin: 1% 2% 4% 2%;
+    padding: 1%;
+    border: 1px solid rgba(158, 158, 158, 0.38);
+    border-radius: 1%;
 }
 .rotate-txt{
         float: right;
@@ -42,9 +46,20 @@ body {
     line-height: 0.1em;
     margin: 30px 0 30px;
 }
-.line-text {
-    background: #3288E6; padding: 6px;
-    color: white;
+
+.my-projects-line-text {
+    background: rgba(158, 158, 158, 0.1);
+    padding: 18px;
+    color: #F44336;
+    font-weight: 400;
+    padding-right: 80%;
+}
+.other-projects-line-text {
+    background: rgba(158, 158, 158, 0.1);
+    padding: 18px;
+    color: #009688;
+    font-weight: 400;
+    padding-right: 85.5%;
 }
 
 .field-validation-error {
@@ -61,6 +76,11 @@ body {
 .card-header {
     color: #337AB7;
     font-size: 18px;
+}
+
+.projects-title {
+    font-size: 18px;
+    padding-bottom: 16px;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -232,6 +252,20 @@ textarea {
 .btn-primary, .btn-base {
     background: #3288e6;
     color: #fff !important;
+}
+
+.btn-new-project {
+    color: rgba(96, 125, 139, 0.28) !important;
+    color: rgba(96, 125, 139, 0.85) !important;
+    padding: 7%;
+    margin: 1.2% 0;
+    font-size: 24px;
+}
+
+.btn-new-project:hover {
+    background: whitesmoke;
+    color: rgba(244, 67, 54, 0.85) !important;
+    border-color: rgba(244, 67, 54, 0.85);
 }
 
 a:HOVER {
