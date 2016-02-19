@@ -12,7 +12,7 @@
             </div>
         </div>
         <br />
-        <h6 class="projects-title">
+        <h6 class="projects-grand-title">
             <span class="my-projects-line-text">
                 <i class="fa fa-folder-open-o"> </i> Projects I'm involved in 
             </span>
@@ -22,13 +22,16 @@
             {
                 <div data-toggle="tooltip" data-placement="right" title="@(project.Deleted==true? "This project was deleted" : " " )"
                      class="col-md-5 col-lg-offset-1 card @(@Model.IsFinish(project) ? "Done" : " ") @(project.Deleted==true? "deleted" : " ") ">
+                    <a href="@Url.Action("Details", "Project", new {id = project.Id })" class="project-title">
+                        <h3>@project.Name </h3>
+                    </a>
                     <div class="dropdown pull-right">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dd-ctrl-projects" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <i class="fa fa-cog"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dd-ctrl-projects">
                             <li>
-                                @Html.ActionLink(  "Matrix",                                     // linkText
+                                @Html.ActionLink("Matrix",                                     // linkText
                                                 "Matrix",                                    // actionName
                                                "Project",                                  // controllerName
                                                         new
@@ -88,13 +91,12 @@
                             </li>
                         </ul>
                     </div>
-                    <a href="@Url.Action("Details", "Project", new {id = project.Id })">
-                        <h3>@project.Name </h3>
-                    </a>
+
                     <div class="card-block">
                         <p class="card-text">
                             From: <b>@project.StartAt.ToString("d/MMM yyyy")</b>
                             To  : <b>@project.EndAt.ToString("d/MMM yyyy")</b>
+                            <br/>
                             Progress:
                             @if (project.Tasks.Count() > 0)
                             {
@@ -104,14 +106,16 @@
                             {
                             <b>0 %</b>
                             }
-                            <small style="color:crimson;"> ( Time left: @((int)(project.EndAt - DateTime.Now).TotalDays) days )</small>
+                            <br />
+                            <p class="days-left"> @((int)(project.EndAt - DateTime.Now).TotalDays) days left</p>
                         </p>
-                        <p>
+                        <!-- <p>
                             <span style="color:#3288E6;">Objective</span>: @( new string(project.Objective.Take(20).ToArray()) )...
                         </p>
                         <p>
                             <span style="color:#3288E6;">Benifite</span> :  @( new string(project.Benifite.Take(20).ToArray()) )...
                         </p>
+                        -->
                         <div class="card-control">
                             <a href="@Url.Action("Index", "Task", new { id = project.Id } )">
                                 <i class="fa fa-arrow-circle-right"></i> Tasks (@project.Tasks.Count())
@@ -138,7 +142,7 @@
 
         @if (Model.OtherProjects.Count >= 1)
         {
-            <h6 class="projects-title">
+            <h6 class="projects-grand-title">
                 <span class="other-projects-line-text">
                     <i class="fa fa-object-group"> </i>Other projects 
                 </span>
@@ -146,8 +150,8 @@
             <div class="row">
                 @foreach (var otherProject in Model.OtherProjects)
                 {
-                    <div data-toggle="tooltip" data-placement="right" title=@(otherProject.Deleted == true ? "This project was deleted" : " " )
-                         class="col-md-5 col-lg-offset-1 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted==true? "deleted" : " ") ">
+                    <div data-toggle="tooltip" data-placement="right" title="@(otherProject.Deleted == true ? "This project was deleted" : " " )"
+                         class="col-md-5 col-lg-offset-1 card @(@Model.IsFinish(otherProject) ? "done" : " ") @(otherProject.Deleted==true? "deleted" : " ")">
                         <b class="card-header">@otherProject.Name</b>
                         <div class="card-block">
                             <p class="card-text">
@@ -155,12 +159,13 @@
                                 To  : <b>@otherProject.EndAt.ToString("d/MMM yyyy")</b>
                                 Done: @otherProject.Tasks.Where(t => t.Done == true).Count()
                             </p>
-                            <p>
+                           <!-- <p>
                                 <span style="color: #3288E6;">Objective</span>: @otherProject.Objective
                             </p>
                             <p>
                                 <span style="color:#3288E6;">Benifite</span> :   @otherProject.Benifite
                             </p>
+                            -->
                             <div class="card-control">
                                 @if (!Model.ImContributingTo(otherProject))
                                 {
