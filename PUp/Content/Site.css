@@ -24,12 +24,19 @@ body {
     margin: 0;
     padding: 0;
     float: left;
+    width: 100%;
 }
+
+.card-text-no-float {
+    float: none;
+}
+
 .rotate-txt {
     float: right;
     margin-top: 29px;
     -webkit-transform: rotate(-58deg);
 }
+
 .table-no-border > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table-no-border > tbody > tr > td, .table > tfoot > tr > td {
     padding: 8px;
     line-height: 1.42857143;
@@ -41,9 +48,9 @@ body {
     width: 80%;
 }
 
-.matrix > tbody > tr > th{
-    width: 20%;
-}
+    .matrix > tbody > tr > th {
+        width: 20%;
+    }
 
 .line-separator {
     width: 100%;
@@ -60,6 +67,7 @@ body {
     font-weight: 400;
     padding-right: 80%;
 }
+
 .other-projects-line-text {
     background: rgba(158, 158, 158, 0.1);
     padding: 18px;
@@ -78,11 +86,11 @@ body {
     float: left;
 }
 
-.card-control > a {
-    margin: 4px;
-    background: #F7F7F7;
-    padding: 3px;
-}
+    .card-control > a {
+        margin: 4px;
+        background: #F7F7F7;
+        padding: 3px;
+    }
 
 .days-left {
     color: whitesmoke;
@@ -95,6 +103,19 @@ body {
     padding: 2%;
     border-radius: 10px;
 }
+
+.done-label {
+    color: whitesmoke;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    /* text-decoration: underline; */
+    background: green;
+    /* margin-top: -2%; */
+    padding: 2%;
+    border-radius: 10px;
+}
+
 .card-header {
     color: #337AB7;
     font-size: 18px;
@@ -284,11 +305,11 @@ textarea {
     font-size: 24px;
 }
 
-.btn-new-project:hover {
-    background: whitesmoke;
-    color: rgba(244, 67, 54, 0.85) !important;
-    border-color: rgba(244, 67, 54, 0.85);
-}
+    .btn-new-project:hover {
+        background: whitesmoke;
+        color: rgba(244, 67, 54, 0.85) !important;
+        border-color: rgba(244, 67, 54, 0.85);
+    }
 
 .project-title {
     margin: 0;
@@ -297,13 +318,14 @@ textarea {
     width: 90%;
 }
 
-.project-title h3 {
-     margin: 0 1% 4% 0;
-    padding: 0px 5% 0 0;
-    float: left;
-    color: #337AB7;
-    font-size: 18px;
-}
+    .project-title h3 {
+        margin: 0 1% 4% 0;
+        padding: 0px 5% 0 0;
+        float: left;
+        color: #337AB7;
+        font-size: 18px;
+    }
+
 a:HOVER {
     text-decoration: none !important;
 }

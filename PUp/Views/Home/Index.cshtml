@@ -107,7 +107,15 @@
                             <b>0 %</b>
                             }
                             <br />
-                            <p class="days-left"> @((int)(project.EndAt - DateTime.Now).TotalDays) days left</p>
+                            @if ((project.EndAt - DateTime.Now).TotalDays < 0)
+                            {
+                                <span class="done-label"> Done </span>
+                            }
+
+                            else
+                            {
+                                <span class="days-left"> @((int)(project.EndAt - DateTime.Now).TotalDays) days left</span>
+                            }
                         </p>
                         <!-- <p>
                             <span style="color:#3288E6;">Objective</span>: @( new string(project.Objective.Take(20).ToArray()) )...
@@ -132,19 +140,20 @@
                         </div>
                     </div>
                 </div>
+            }
+            <div class="col-md-5">
                 <a href="~/Project/Add" title="Add project" class="btn btn-new-project">
                     <i class="fa fa-plus fa-2x"> </i> New Project
-                    
-                </a>
-            }
 
+                </a>
+            </div>
         </div>
 
         @if (Model.OtherProjects.Count >= 1)
         {
             <h6 class="projects-grand-title">
                 <span class="other-projects-line-text">
-                    <i class="fa fa-object-group"> </i>Other projects 
+                    <i class="fa fa-object-group"></i> Other projects 
                 </span>
             </h6>
             <div class="row">
@@ -157,7 +166,26 @@
                             <p class="card-text">
                                 From: <b>@otherProject.StartAt.ToString("d/MMM yyyy")</b>
                                 To  : <b>@otherProject.EndAt.ToString("d/MMM yyyy")</b>
-                                Done: @otherProject.Tasks.Where(t => t.Done == true).Count()
+                                <br />
+                                Progress:
+                                @if (otherProject.Tasks.Count() > 0)
+                                {
+                                    <span>@((otherProject.Tasks.Where(t => t.Done == true).Count() / (float)otherProject.Tasks.Count() * 100))%</span>
+                                }
+                                else
+                                {
+                                    <b>0 %</b>
+                                }
+                                <br />
+                            @if ((otherProject.EndAt - DateTime.Now).TotalDays < 0)
+                            {
+                                <span class="done-label"> Done </span>
+                            }
+
+                            else
+                            {
+                                <span class="days-left"> @((int)(otherProject.EndAt - DateTime.Now).TotalDays) days left</span>
+                            }
                             </p>
                            <!-- <p>
                                 <span style="color: #3288E6;">Objective</span>: @otherProject.Objective
