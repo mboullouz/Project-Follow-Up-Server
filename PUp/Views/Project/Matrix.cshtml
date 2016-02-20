@@ -18,6 +18,8 @@
                         From: <b>@Model.Project.StartAt.ToString("dd/MMM yyyy")</b>
                         To  : <b>@Model.Project.EndAt.ToString("dd/MMM yyyy")</b>
                         &emsp;
+                        Owner: <b>@Model.Project.Owner.Name</b>
+                        &emsp;
                         Progress:
                         @if (Model.Project.Tasks.Count() > 0)
                         {

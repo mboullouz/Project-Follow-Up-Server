@@ -134,8 +134,8 @@
                             <a href="@Url.Action("Index", "Issue", new { id = project.Id } )">
                                 <i class="fa fa-exclamation-circle"></i> Issues  (@project.Issues.Count)
                             </a>
-                            <a href="@Url.Action("Add", "Task", new { id = project.Id } )">
-                                <i class="fa fa-user-plus"></i> People (@Model.GetContributorsTo(project).Count)
+                            <a href="@Url.Action("Contributors", "Project", new { id = project.Id } )">
+                                <i class="fa fa-user-plus"></i> Contributors (@Model.GetContributorsTo(project).Count)
                             </a>
                         </div>
                     </div>

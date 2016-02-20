@@ -50,7 +50,9 @@ namespace PUp.Models.Repository
 
         public void NotifyAllUserInProject(ProjectEntity p, string message, int level = LevelFlag.Warning)
         {
-            foreach (var u in p.Contributors)
+            var contribs = p.Contributors;
+            contribs.Add(p.Owner);
+            foreach (var u in contribs)
             {
                 NotificationEntity notif = new NotificationEntity();
                 Add(u, message, "~/Home/Index", LevelFlag.Warning); 

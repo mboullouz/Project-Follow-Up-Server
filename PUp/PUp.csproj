@@ -378,6 +378,7 @@
     <Content Include="Views\Project\Matrix.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Task\_TaskList.cshtml" />
+    <Content Include="Views\Project\Contributors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
