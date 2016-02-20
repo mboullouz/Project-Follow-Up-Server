@@ -25,7 +25,7 @@ namespace PUp.Models.Repository
 
         public DatabaseContext GetDbContext()
         {
-            return this.DbContext;
+            return DbContext;
         }
 
         
@@ -96,8 +96,6 @@ namespace PUp.Models.Repository
         {
             return DbContext.Users.First(u => u.Email == email);
         }
-
-       
 
         public override void MarkDeleted(UserEntity e)
         {

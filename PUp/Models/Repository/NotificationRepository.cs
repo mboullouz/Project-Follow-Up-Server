@@ -8,16 +8,15 @@ namespace PUp.Models.Repository
 {
     public class NotificationRepository : AbstractRepository<NotificationEntity>
     {
-        
 
-        public NotificationRepository():base()
+        public NotificationRepository() : base()
         {
-             
+
         }
 
-        public NotificationRepository(DatabaseContext dbContext):base(dbContext)
+        public NotificationRepository(DatabaseContext dbContext) : base(dbContext)
         {
-          
+
         }
 
         public override List<NotificationEntity> GetAll()
@@ -27,17 +26,15 @@ namespace PUp.Models.Repository
 
         public override NotificationEntity FindById(int id)
         {
-            return DbContext.NotificationSet.SingleOrDefault(e => e.Id == id);
+            return GetAll().SingleOrDefault(e => e.Id == id);
         }
 
         public List<NotificationEntity> GetByUser(string id)
         {
-            return DbContext.NotificationSet.Where(v => v.User.Id == id).ToList();
+            return GetAll().Where(v => v.User.Id == id).ToList();
         }
-        
-   
 
-        public void Add(UserEntity user, string message = "", string url = "#",int level=LevelFlag.Info)
+        public void Add(UserEntity user, string message = "", string url = "#", int level = LevelFlag.Info)
         {
             var notif = new NotificationEntity
             {
@@ -46,21 +43,29 @@ namespace PUp.Models.Repository
                 Url = url,
                 AddAt = DateTime.Now,
                 Seen = false,
-                Deleted = false
+                Deleted = false,
+                Level = level
             };
             Add(notif);
             DbContext.SaveChanges();
         }
 
-        public void NotifyAllUserInProject(ProjectEntity p, string message, int level = LevelFlag.Warning)
+        /// <summary>
+        /// The instance of Project must be loaded fully (Eager)
+        /// so we can retrieve Contributors and Owner instance!
+        /// </summary>
+        /// <param name="project"></param>
+        /// <param name="message"></param>
+        /// <param name="level"></param>
+        public void NotifyAllUserInProject(ProjectEntity project, string message, int level = LevelFlag.Warning)
         {
-            var contribs = p.Contributors;
-            contribs.Add(p.Owner);
+            var contribs = project.Contributors;
+            contribs.Add(project.Owner);
             foreach (var u in contribs)
             {
                 NotificationEntity notif = new NotificationEntity();
-                Add(u, message, "~/Home/Index", LevelFlag.Warning); 
-            } 
+                Add(u, message, "~/Home/Index", level);
+            }
         }
 
         public List<NotificationEntity> GetNotSeen()
@@ -71,11 +76,10 @@ namespace PUp.Models.Repository
         public void RemoveAllForUser(UserEntity user)
         {
             var notifs = DbContext.NotificationSet.Where(n => n.User.Id == user.Id)
-                 .ToList();
+                                  .ToList();
             notifs.ForEach(n => DbContext.NotificationSet.Remove(n));
             DbContext.SaveChanges();
         }
-
 
         public List<NotificationEntity> GetByUser(UserEntity user)
         {
@@ -109,13 +113,13 @@ namespace PUp.Models.Repository
                     AddAt = DateTime.Now,
                     Message = "New project: ' " + project.Name + "' Added by " + u.Email,
                     Url = "~/Home/Index/" + project.Id,
-                    Deleted=false,
+                    Deleted = false,
                 };
                 Add(notification);
             }
         }
 
-        public void GenerateFor(TaskEntity taskEntity, HashSet<UserEntity>  users)
+        public void GenerateFor(TaskEntity taskEntity, HashSet<UserEntity> users)
         {
             foreach (var u in users)
             {
@@ -125,7 +129,7 @@ namespace PUp.Models.Repository
                     AddAt = DateTime.Now,
                     Message = "New task: ' " + taskEntity.Title + "' Added by: " + u.Email,
                     Url = "~/Task/Add/" + taskEntity.Id,
-                    Deleted=false,
+                    Deleted = false,
                 };
                 Add(notification);
             }

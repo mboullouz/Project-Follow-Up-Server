@@ -43,7 +43,7 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddIssueViewModel model)
         { 
-            ProjectEntity project = projectRepository.GetAll().Where(p=>p.Id==model.IdProject).FirstOrDefault();
+            ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {
                 model.IdProject = project.Id;
@@ -62,7 +62,7 @@ namespace PUp.Controllers
             issueRepository.Add(issue);
             project.Issues.Add(issue);
             string message = "New Issue is declared for the project <" + project.Name + ">";
-            notificationRepo.NotifyAllUserInProject(project, message);         
+            notificationRepo.NotifyAllUserInProject(project, message,LevelFlag.Danger);         
             return RedirectToAction("Index", "Issue", new { id = project.Id });
         }
 

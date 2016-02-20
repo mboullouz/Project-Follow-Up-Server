@@ -31,33 +31,34 @@ namespace PUp.Models.Repository
         }
         public void SetDbContext(DatabaseContext dbContext)
         {
-            this.DbContext = dbContext;
+            DbContext = dbContext;
         }
          
         
         public override ProjectEntity FindById(int id)
         {
-            return DbContext.ProjectSet.SingleOrDefault(e => e.Id == id);
+            return GetAll().SingleOrDefault(e => e.Id == id); 
         }
 
 
         public override void Remove(ProjectEntity e)
         {
  
-            foreach (var task in e.Tasks.ToList())
+            foreach (var task in e.Tasks)
             {
                 DbContext.TaskSet.Remove(task);
+            }
+            foreach(var issue in e.Issues)
+            {
+                DbContext.IssueSet.Remove(issue);
             }
             DbContext.ProjectSet.Remove(e);
             DbContext.SaveChanges();
         }
 
-      
- 
-
         public void Remove(int id)
         {
-            DbContext.ProjectSet.Remove(FindById(id));
+            Remove(FindById(id));
         }
 
         public override void MarkDeleted(ProjectEntity p)
@@ -69,7 +70,7 @@ namespace PUp.Models.Repository
 
         public List<ProjectEntity> GetActive()
         {
-            return DbContext.ProjectSet.Where(p => p.EndAt >= DateTime.Now && p.Deleted==false).ToList();
+            return GetAll().Where(p => p.EndAt >= DateTime.Now && p.Deleted==false).ToList();
         }
     }
 }
