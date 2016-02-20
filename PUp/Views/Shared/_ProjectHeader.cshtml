@@ -1,0 +1,30 @@
+﻿@model PUp.Models.Entity.ProjectEntity
+
+<div class="project-title-container">
+    <h3 style="border-bottom: 1px solid #E0E0E0;padding-bottom: 4px;">
+        <a href="@Url.Action("Details", "Project", new {id = Model.Id })">
+            @Model.Name
+        </a>
+    </h3>
+    <div class="card-block">
+        <p class="card-text card-text-no-float" style="font-size: 12px; margin-top: -6px;">
+            From: <b>@Model.StartAt.ToString("dd MMM yyyy")</b>
+            To  : <b>@Model.EndAt.ToString("dd MMM yyyy")</b>
+            &emsp;
+            Owner: <b>@Model.Owner.Name</b>
+            &emsp;
+            Progress:
+            @if (Model.Tasks.Count() > 0)
+            {
+                <span>@((Model.Tasks.Where(t => t.Done == true).Count() / (float)Model.Tasks.Count() * 100))%</span>
+            }
+            else
+            {
+                <b>0 %</b>
+            }
+            &emsp;
+            <span style="color:crimson;"> @((int)(Model.EndAt - DateTime.Now).TotalDays) days left</span>
+        </p>
+    </div>
+</div>
+

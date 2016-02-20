@@ -2,37 +2,19 @@
 @{
     ViewBag.Title = "Tasks list";
 }
-<div id="conf" data-url="@Url.Action("ChangeState", "Task")">
-</div>
-<div class="row">
+ 
     <div class="col-md-12">
-        <div class="panel">
-            <a href="@Url.Action("Add", "Task", new { id = Model.Project.Id } )" class="btn">
-                Add a Task
+         
+        <div class="row">
+            <a href="@Url.Action("Index", "Task", new { id = Model.Project.Id } )" title="Add task" class="btn btn-primary">
+                <i class="fa fa-plus"> </i> New Task
             </a>
-            <div style="text-align:center;padding:10px;">
-                <a href="@Url.Action("Details", "Project", new {id = Model.Project.Id })">
-                    @Model.Project.Name
-                </a>
-                <div class="card-block">
-                    <p class="card-text">
-                        From: <b>@Model.Project.StartAt.ToString("d/MMM yyyy")</b>
-                        To  : <b>@Model.Project.EndAt.ToString("d/MMM yyyy")</b>
-                        Progress:
-                        @if (Model.Project.Tasks.Count() > 0)
-                        {
-                            <span>@((Model.Project.Tasks.Where(t => t.Done == true).Count() / (float)Model.Project.Tasks.Count() * 100))%</span>
-                        }
-                        else
-                        {
-                            <b>0 %</b>
-                        }
-                        <small style="color:crimson;"> ( Time left: @((int)(Model.Project.EndAt - DateTime.Now).TotalDays) days )</small>
-                    </p>
-                </div>
-            </div>
+            @Html.Partial("_ProjectHeader",Model.Project)
         </div>
 
+        <br />
+
+        <div class="row">
         
         <div class="panel">
             <div class="panel-heading">
@@ -55,7 +37,6 @@
                 @Html.Partial("_TaskList", Model.DeletedTasks)
             </div>
         </div>
-
+     </div>
     </div>
-</div>
  

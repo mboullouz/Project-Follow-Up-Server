@@ -1,12 +1,15 @@
 ﻿@model PUp.Models.Entity.ProjectEntity
 @{
-    ViewBag.Title = "Liste of issues for the project: " + Model.Name;
+    ViewBag.Title = "Issues list";
 }
-<div id="conf" data-url="@Url.Action("ChangeState", "Task")">
-</div>
-<div class="row">
-    <div class="col-md-12">
 
+<div class="col-md-12">
+    <div class="row">
+        @Html.Partial("_ProjectHeader", Model)
+    </div>
+
+    <br />
+    <div class="row">
         <a href="@Url.Action("Add", "Issue", new { id = Model.Id } )" class="btn">
             Add another Issue
         </a>
@@ -32,8 +35,8 @@
                     <tbody>
                         @foreach (var issue in Model.Issues.OrderByDescending(i => i.AddAt))
                         {
-                            <tr class="v @(@issue.Status=="RESOLVED" ? "done" : " ")">
-                                <td> @issue.AddAt.ToString("d/MMM/yyyy HH:mm")</td>
+                            <tr class="v  issue-@issue.Status ">
+                                <td> @issue.AddAt.ToString("d MMM yyyy HH'h'mm")</td>
                                 <td>
                                     @if (issue.Status == "Resolved")
                                     {
@@ -45,7 +48,11 @@
                                 <td>@issue.Description</td>
                                 <td>@issue.RelatedArea</td>
                                 <td>
+                                 @if (issue.Status == "Open")
+                                 {
                                     @Html.ActionLink("Mark resolved", "MarkResolved", "Issue", new { projectId = Model.Id, issueId = issue.Id }, new { @class = "btn" })
+                                 }
+                                   
                                 </td>
                             </tr>
                         }
@@ -55,5 +62,4 @@
         </div>
     </div>
 </div>
- 
 

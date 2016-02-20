@@ -36,14 +36,24 @@ body {
     margin-top: 29px;
     -webkit-transform: rotate(-58deg);
 }
-
+.project-title-container {
+    padding-left: 5px;
+    border-left: 3px solid #2196F3;
+}
 .table-no-border > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table-no-border > tbody > tr > td, .table > tfoot > tr > td {
     padding: 8px;
     line-height: 1.42857143;
     vertical-align: top;
     border-top: 0px solid white !important;
 }
-
+.issue-Resolved {
+    color: #4CAF50;
+    font-weight: 600;
+}
+.issue-Open {
+    color: #F44336;
+}
+ 
 .matrix {
     width: 80%;
 }
@@ -137,8 +147,9 @@ body {
 }
 
 thead {
-    background: #3F92CF;
-    color: #FFFFFF;
+    background: #CFD8DC;
+    color: #000000;
+    font-weight: 600;
 }
 
     thead > tr > td {

@@ -7,33 +7,7 @@
 <div class="container">
     <div class="col-md-12">
         <div class="row">
-            <div class="project-title-container">
-                <h3 style="border-bottom: 1px solid #E0E0E0;padding-bottom: 4px;">
-                    <a href="@Url.Action("Details", "Project", new {id = Model.Project.Id })">
-                        @Model.Project.Name
-                    </a>
-                </h3>
-                <div class="card-block">
-                    <p class="card-text card-text-no-float" style="font-size: 12px; margin-top: -6px;">
-                        From: <b>@Model.Project.StartAt.ToString("dd/MMM yyyy")</b>
-                        To  : <b>@Model.Project.EndAt.ToString("dd/MMM yyyy")</b>
-                        &emsp;
-                        Owner: <b>@Model.Project.Owner.Name</b>
-                        &emsp;
-                        Progress:
-                        @if (Model.Project.Tasks.Count() > 0)
-                        {
-                            <span>@((Model.Project.Tasks.Where(t => t.Done == true).Count() / (float)Model.Project.Tasks.Count() * 100))%</span>
-                        }
-                        else
-                        {
-                            <b>0 %</b>
-                        }
-                        &emsp;
-                        <span style="color:crimson;"> @((int)(Model.Project.EndAt - DateTime.Now).TotalDays) days left</span>
-                    </p>
-                </div>
-            </div>
+             @Html.Partial("_ProjectHeader",Model.Project)
         </div>
 
         <div class="row" id="matrix-container">

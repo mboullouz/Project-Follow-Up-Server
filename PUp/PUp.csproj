@@ -291,6 +291,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Project.ico" />
+    <Content Include="Scripts\src\MainApp.js" />
     <Content Include="Scripts\zsLib\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\zsLib\ai.0.15.0-build58334.min.js" />
     <Content Include="fonts\FontAwesome.otf" />
@@ -379,6 +380,7 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Task\_TaskList.cshtml" />
     <Content Include="Views\Project\Contributors.cshtml" />
+    <Content Include="Views\Shared\_ProjectHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

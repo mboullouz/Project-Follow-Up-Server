@@ -12,9 +12,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)  
-    <script src="~/Scripts/src/app/Shared/HttpCall.js"></script>
-    <script src="~/Scripts/src/app/Shared/Models/Entity.js"></script>
-    <script src="~/Scripts/src/app/Tasks/TaskApp.js"></script>
+    
+
 
 </head>
 <body>
@@ -31,19 +30,23 @@
 		     @Html.ActionLink("Nom d'application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" }) 
 	       -->
             </div>
+ 
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                     <li>
-                        <a href="@Url.Action("Index", "Dashboard")">
-                            <i class="fa fa-list"></i> Dashboard
-                        </a>
-                     </li>
-                     <li> 
-                        <a href="@Url.Action("Index", "Home")">
-                            <i class="fa fa-list"></i> Projects
-                        </a>
-                     </li>
-                </ul>
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                         <li>
+                            <a href="@Url.Action("Index", "Dashboard")">
+                                <i class="fa fa-list"></i> Dashboard
+                            </a>
+                         </li>
+                         <li> 
+                            <a href="@Url.Action("Index", "Home")">
+                                <i class="fa fa-list"></i> Projects
+                            </a>
+                         </li>
+                    </ul>
+                }
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -55,6 +58,9 @@
             <p>&copy; @DateTime.Now.Year - Project follow up</p>
         </footer>
     </div>
- 
+    <script src="~/Scripts/src/app/Shared/HttpCall.js"></script>
+    <script src="~/Scripts/src/app/Shared/Models/Entity.js"></script>
+    <script src="~/Scripts/src/app/Tasks/TaskApp.js"></script>
+    <script src="~/Scripts/src/MainApp.js"></script>
 </body>
 </html>

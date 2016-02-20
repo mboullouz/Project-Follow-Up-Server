@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
+﻿
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -41,12 +41,8 @@
                                                 }
                                                 
                                             </i>
-
-
-
                                         </div>
                                     }
-
                                 </div>
                                 <div id="notificationFooter"><a href="#">See All</a></div>
                             </div>
