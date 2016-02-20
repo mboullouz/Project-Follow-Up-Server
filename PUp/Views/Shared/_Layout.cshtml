@@ -12,7 +12,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)  
-    
+    <script src="~/Scripts/src/app/Shared/HttpCall.js"></script>
+    <script src="~/Scripts/src/app/Shared/Models/Entity.js"></script>
+    <script src="~/Scripts/src/app/Tasks/TaskApp.js"></script>
 
 </head>
 <body>
@@ -53,12 +55,6 @@
             <p>&copy; @DateTime.Now.Year - Project follow up</p>
         </footer>
     </div>
-    <!--======== //TODO:  Move this to a bundle! ===========-->
-    <script src="~/Scripts/src/app/Shared/Models/Entity.js"></script>
-    <script src="~/Scripts/src/app/Shared/HttpCall.js"></script>
-    <script src="~/Scripts/src/MainApp.js"></script>
-    <script src="~/Scripts/src/app/Project.js"></script>
-    
-    
+ 
 </body>
 </html>

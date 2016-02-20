@@ -17,7 +17,7 @@ namespace PUp.Models.Repository
 
         public override List<IssueEntity> GetAll()
         {
-            return DbContext.IssueSet.Include("Project").ToList();
+            return DbContext.IssueSet.Include("Project").Include("Submitter").ToList();
         }
 
         public override IssueEntity FindById(int id)
