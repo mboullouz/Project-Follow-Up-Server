@@ -381,6 +381,7 @@
     <Content Include="Views\Task\_TaskList.cshtml" />
     <Content Include="Views\Project\Contributors.cshtml" />
     <Content Include="Views\Shared\_ProjectHeader.cshtml" />
+    <Content Include="Views\Project\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

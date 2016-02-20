@@ -46,8 +46,23 @@
                             </li>
                             <li>
                                 @Html.ActionLink(
-                                                        "Details",                                     // linkText
+                                                        "Timeline",                                     // linkText
                                                         "Details",                                    // actionName
+                                                        "Project",                                  // controllerName
+                                                        new
+                                                        {                                           // routeValues
+                                                            id = project.Id
+                                                        },
+                                                       new                                        // htmlAttributes
+                                                       {
+                                                           @class = "btn"
+                                                       }
+                                                   )
+                            </li>
+                            <li>
+                                @Html.ActionLink(
+                                                        "Info",                                     // linkText
+                                                        "Info",                                    // actionName
                                                         "Project",                                  // controllerName
                                                         new
                                                         {                                           // routeValues
@@ -135,7 +150,7 @@
                                 <i class="fa fa-exclamation-circle"></i> Issues  (@project.Issues.Count)
                             </a>
                             <a href="@Url.Action("Contributors", "Project", new { id = project.Id } )">
-                                <i class="fa fa-user-plus"></i> Contributors (@(Model.GetContributorsTo(project).Count+1))
+                                <i class="fa fa-user-plus"></i> Contributors (@(Model.GetContributorsTo(project).Count))
                             </a>
                         </div>
                     </div>

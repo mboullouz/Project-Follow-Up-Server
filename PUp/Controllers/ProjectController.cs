@@ -139,6 +139,13 @@ namespace PUp.Controllers
             return View("~/Views/Project/Details.cshtml", projectTimeline);
         }
 
+        public ActionResult Info(int id)
+        {
+            ProjectEntity project = projectRepository.FindById(id);
+
+            return View(project);
+        }
+
         public ActionResult Matrix(int id)
         {
             ProjectEntity project = projectRepository.FindById(id);

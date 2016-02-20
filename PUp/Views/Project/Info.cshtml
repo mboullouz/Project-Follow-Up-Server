@@ -1,0 +1,31 @@
+﻿@model PUp.Models.Entity.ProjectEntity
+@{
+    ViewBag.Title = "Info";
+}
+
+<div class="col-md-12">
+
+    <div class="row">
+        @Html.Partial("_ProjectHeader", Model)
+    </div>
+    <br />
+    <div class="row">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <b> More information about the project </b>
+                </div>
+            </div>
+            <div class="panel-body">
+                <b>Benefite</b>
+                @Model.Benifite
+                <br>
+                <b>Objective</b>
+                @Model.Objective
+                <br />
+                <b>Number of issues :</b> @Model.Issues.Count &emsp;&emsp;
+                <a href="@Url.Action("Index", "Issue", new {id = Model.Id })"> More details </a>
+            </div>
+        </div>
+    </div>
+</div>
