@@ -15,10 +15,20 @@ namespace PUp.Models
 
     public class AppConst
     {
-        public const int HoursPerDay = 10;
         public const int DayStart = 8;
         public const int DayEnd = 17;
+        public const int HoursPerDay = 10;
         public const int DaysPerWeek = 5;
+
+        public static List<int> ToArray()
+        {
+            var list = new List<int>();
+            list.Add(DayStart);
+            list.Add(DayEnd);
+            list.Add(HoursPerDay);
+            list.Add(DaysPerWeek);
+            return list;
+        }
     }
 
     public class IssueStatus

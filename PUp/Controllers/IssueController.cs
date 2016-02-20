@@ -19,7 +19,7 @@ namespace PUp.Controllers
         private NotificationRepository notificationRepo;
         private IssueRepository issueRepository;
         private DatabaseContext dbContext = new DatabaseContext();
-
+        private UserEntity currentUser = null;
         public IssueController()
         {
             userRepository = new UserRepository(dbContext);
@@ -27,6 +27,7 @@ namespace PUp.Controllers
             projectRepository = new ProjectRepository(dbContext);
             notificationRepo = new NotificationRepository(dbContext);
             issueRepository = new IssueRepository(dbContext);
+            currentUser = userRepository.GetCurrentUser();
         }
         // GET: liste of  Issues by project id
         public ActionResult Index(int id)
@@ -58,9 +59,11 @@ namespace PUp.Controllers
                 Description = model.Description,
                 RelatedArea = model.RelatedArea,
                 Status      = model.Status,
+                Submitter= currentUser,
             };
             issueRepository.Add(issue);
             project.Issues.Add(issue);
+            project.Contributors.Add(currentUser);//add on submitting an issues
             string message = "New Issue is declared for the project <" + project.Name + ">";
             notificationRepo.NotifyAllUserInProject(project, message,LevelFlag.Danger);         
             return RedirectToAction("Index", "Issue", new { id = project.Id });

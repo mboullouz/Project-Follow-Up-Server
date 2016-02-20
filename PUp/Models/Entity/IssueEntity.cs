@@ -34,5 +34,7 @@ namespace PUp.Models.Entity
         public DateTime AddAt { get; set; }
 
         public DateTime? DeleteAt { get; set; }
+
+        public UserEntity Submitter { get; set; }
     }
 }
