@@ -50,7 +50,7 @@ namespace PUp.Controllers
         [HttpGet]
         public ActionResult Contributors(int id)
         {
-            var project = dbContext.ProjectSet.Include("Contributors").Include("Owner").Where(p=>p.Id== id).FirstOrDefault();
+            var project = projectRepository.GetAll().Where(p=>p.Id== id).FirstOrDefault();
             return View(project);
         }
 

@@ -20,7 +20,11 @@ namespace PUp.Models.Repository
           
         }
 
-        
+        public override List<NotificationEntity> GetAll()
+        {
+            return DbContext.NotificationSet.Include("User").ToList();
+        }
+
         public override NotificationEntity FindById(int id)
         {
             return DbContext.NotificationSet.SingleOrDefault(e => e.Id == id);

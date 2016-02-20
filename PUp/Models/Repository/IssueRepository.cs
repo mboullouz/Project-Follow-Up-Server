@@ -15,7 +15,11 @@ namespace PUp.Models.Repository
         public IssueRepository(DatabaseContext dbContext):base(dbContext)
         {}
 
-        
+        public override List<IssueEntity> GetAll()
+        {
+            return DbContext.IssueSet.Include("Project").ToList();
+        }
+
         public override IssueEntity FindById(int id)
         {
             return DbContext.IssueSet.Where(i => i.Id == id).FirstOrDefault();

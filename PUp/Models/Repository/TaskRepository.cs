@@ -18,9 +18,11 @@ namespace PUp.Models.Repository
         {
         }
 
+       
+
         public override  List<TaskEntity> GetAll()
         {
-            return DbContext.TaskSet.ToList();
+            return DbContext.TaskSet.Include("Executor").Include("Project").ToList();
         }
 
         public override TaskEntity FindById(int id)

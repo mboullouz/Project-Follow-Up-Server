@@ -16,6 +16,19 @@ namespace PUp.Models.Repository
         {
         }
 
+        /// <summary>
+        /// Load fully!
+        /// </summary>
+        /// <returns></returns>
+        public override List<ProjectEntity> GetAll()
+        {
+            return DbContext.ProjectSet
+                            .Include("Contributors")
+                            .Include("Owner")
+                            .Include("Tasks")
+                            .Include("Issues")
+                            .ToList();
+        }
         public void SetDbContext(DatabaseContext dbContext)
         {
             this.DbContext = dbContext;

@@ -43,7 +43,7 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddIssueViewModel model)
         { 
-            ProjectEntity project = projectRepository.FindById(model.IdProject);
+            ProjectEntity project = projectRepository.GetAll().Where(p=>p.Id==model.IdProject).FirstOrDefault();
             if (!ModelState.IsValid)
             {
                 model.IdProject = project.Id;

@@ -40,7 +40,7 @@ namespace PUp.Models.Entity
         /// Contributors in the project includs Owner
         /// </summary>
         public ICollection<UserEntity> Contributors { get; set; }
-
+        
         /// <summary>
         /// This the max date to finish the project, if not the task is considered undone 
         /// note: it is not related to the estimatedTimeInMinutes
