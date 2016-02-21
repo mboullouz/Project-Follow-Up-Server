@@ -15,8 +15,8 @@ namespace PUp.Models
 
     public class AppConst
     {
-        public const int DayStart = 8;
-        public const int DayEnd = 17;
+        public const int DayStart = 0;
+        public const int DayEnd = 23;
         public const int HoursPerDay = 10;
         public const int DaysPerWeek = 5;
 

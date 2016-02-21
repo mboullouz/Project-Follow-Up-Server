@@ -13,8 +13,6 @@
                     <thead>
                         <tr>
                             <td>Title</td>
-
-                            <td>Done</td>
                             <td>time </td>
                             <td>Start</td>
                             <td></td>
@@ -25,10 +23,6 @@
                         {
                             <tr class="v @(@task.Done ? "done" : " ")">
                                 <td> @task.Title</td>
-                                <td>
-                                    <b>@Model.TaskStatus((DateTime)task.StartAt, task.Done, task.EstimatedTimeInMinutes / 60)</b>
-                                </td>
-
                                 <td> @(task.EstimatedTimeInMinutes / 60) Hour(s)</td>
                                 <td>
                                     @(task.StartAt?.ToString("HH:mm")) | 

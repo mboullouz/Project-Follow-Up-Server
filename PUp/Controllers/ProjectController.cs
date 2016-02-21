@@ -70,7 +70,7 @@ namespace PUp.Controllers
             projectRepository.DbContext.SaveChanges();
             var notif = new NotificationEntity ();
             notif.Message = "Project: " + project.Name + " updated";
-            notif.Url = "~/Project/Details" + project.Id;
+            notif.Url = "~/Project/Timeline" + project.Id;
             notif.Level = LevelFlag.Info;
             foreach(var u in project.Contributors)
             {
@@ -130,19 +130,16 @@ namespace PUp.Controllers
         }
 
 
-        public ActionResult Details(int id)
+        public ActionResult Timeline(int id)
         {
-
             ProjectEntity project = projectRepository.FindById(id);
             ProjectTimelineViewModel projectTimeline = new ProjectTimelineViewModel(project);
-
-            return View("~/Views/Project/Details.cshtml", projectTimeline);
+            return View(projectTimeline);
         }
 
         public ActionResult Info(int id)
         {
             ProjectEntity project = projectRepository.FindById(id);
-
             return View(project);
         }
 

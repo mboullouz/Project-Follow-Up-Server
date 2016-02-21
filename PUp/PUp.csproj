@@ -372,7 +372,7 @@
     <Content Include="Views\Project\Add.cshtml" />
     <Content Include="Views\Task\Index.cshtml" />
     <Content Include="Views\Task\Add.cshtml" />
-    <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Project\Timeline.cshtml" />
     <Content Include="zDoc\ImprovedDbModel_v2.pdf" />
     <Content Include="Views\Issue\Index.cshtml" />
     <Content Include="Views\Issue\Add.cshtml" />
