@@ -142,6 +142,7 @@ namespace PUp.Controllers
             task.Critical = model.Important;
             task.Urgent = model.Urgent;
             task.Executor = executor != null ? executor : user;
+            project.Contributors.Add(task.Executor);
             notificationRepository.Add(task.Executor, "Task <" + task.Title + "> Is updated", "~/Task/" + project.Id, LevelFlag.Info);
             dbContext.SaveChanges();
             return RedirectToAction("Index", "Task", new { id = project.Id });
@@ -175,8 +176,10 @@ namespace PUp.Controllers
             };
             taskRepository.Add(task);
             project.Tasks.Add(task);
+            project.Contributors.Add(selectedUser);
             project.Contributors.Add(user);
             selectedUser.Tasks.Add(task);
+             
             notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }

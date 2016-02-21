@@ -1,21 +1,24 @@
-﻿@model PUp.ViewModels.Task.TaskViewModel 
+﻿@model PUp.ViewModels.Task.TaskViewModel
 @{
     ViewBag.Title = "Tasks list";
 }
- 
-    <div class="col-md-12">
-         
-        <div class="row">
+
+<div class="col-md-12">
+
+    <div class="row">
+        @if (Model.ActiveTasks.Count >= 1)
+        {
             <a href="@Url.Action("Index", "Task", new { id = Model.Project.Id } )" title="Add task" class="btn btn-primary">
                 <i class="fa fa-plus"> </i> New Task
             </a>
-            @Html.Partial("_ProjectHeader",Model.Project)
-        </div>
+        }
+        @Html.Partial("_ProjectHeader", Model.Project)
+    </div>
 
-        <br />
+    <br />
 
-        <div class="row">
-        
+    <div class="row">
+
         <div class="panel">
             <div class="panel-heading">
                 <div class="panel-title">
@@ -23,20 +26,36 @@
                 </div>
             </div>
             <div class="panel-body">
-                @Html.Partial("_TaskList", Model.ActiveTasks)
+                @if (Model.ActiveTasks.Count >=1  )
+                {
+                    @Html.Partial("_TaskList", Model.ActiveTasks)
+                }
+                else
+                {   <div style="text-align:center;">
+                    <h5>There is no active tasks <br /> <i class="fa fa-bed fa-3x"></i> </h5>
+                    <a href="@Url.Action("Index", "Task", new { id = Model.Project.Id } )"
+                       title="Add task" class="btn btn-primary" style="font-size:18px">
+                        <i class="fa fa-plus"> </i> New Task
+                    </a>
+                   </div>
+                }
+
             </div>
         </div>
-
-        <div class="panel">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <b>Deleted tasks</b>
+        @if (Model.DeletedTasks.Count >= 1)
+        {
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <b>Deleted tasks</b>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    @Html.Partial("_TaskList", Model.DeletedTasks)
                 </div>
             </div>
-            <div class="panel-body">
-                @Html.Partial("_TaskList", Model.DeletedTasks)
-            </div>
-        </div>
-     </div>
+        }
+        
     </div>
- 
+</div>
+

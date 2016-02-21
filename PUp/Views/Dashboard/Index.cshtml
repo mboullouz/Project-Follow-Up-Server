@@ -58,7 +58,7 @@
 
 
         <div class="col-md-6" style="background: rgba(255, 235, 59, 0.36);">
-            @if (!Model.IsWorkingDayOver())
+            @if (Model.IsWorkingDayOver())
             {
                 <b>Working hours are over, please come tomorrow!</b>
             }
