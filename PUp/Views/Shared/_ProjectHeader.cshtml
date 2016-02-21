@@ -2,7 +2,7 @@
 
 <div class="project-title-container">
     <h3 style="border-bottom: 1px solid #E0E0E0;padding-bottom: 4px;">
-        <a href="@Url.Action("Details", "Project", new {id = Model.Id })">
+        <a href="@Url.Action("Timeline", "Project", new {id = Model.Id })">
             @Model.Name
         </a>
     </h3>
@@ -24,6 +24,18 @@
             }
             &emsp;
             <span style="color:crimson;"> @((int)(Model.EndAt - DateTime.Now).TotalDays) days left</span>
+            &emsp;
+            <a href="@Url.Action("Index", "Task", new { id = Model.Id } )">
+                <i class="fa fa-arrow-circle-right"></i> Tasks (@Model.Tasks.Count())
+            </a>
+            &emsp;
+            <a href="@Url.Action("Matrix", "Project", new { id = Model.Id } )">
+                <i class="fa fa-arrow-circle-right"></i> Matrix
+            </a>
+            &emsp;
+            <a href="@Url.Action("Timeline", "Project", new { id = Model.Id } )">
+                <i class="fa fa-arrow-circle-right"></i> Timeline
+            </a>
         </p>
     </div>
 </div>

@@ -8,7 +8,7 @@
     <div class="row">
         @if (Model.ActiveTasks.Count >= 1)
         {
-            <a href="@Url.Action("Index", "Task", new { id = Model.Project.Id } )" title="Add task" class="btn btn-primary">
+            <a href="@Url.Action("Add", "Task", new { id = Model.Project.Id } )" title="Add task" class="btn btn-primary">
                 <i class="fa fa-plus"> </i> New Task
             </a>
         }

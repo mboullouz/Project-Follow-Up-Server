@@ -147,7 +147,7 @@ namespace PUp.Controllers
         {
             ProjectEntity project = projectRepository.FindById(id);
             MatrixViewModel mVM = new MatrixViewModel(project, userRepository.GetCurrentUser());
-            return View("~/Views/Project/Matrix.cshtml", mVM);
+            return View(mVM);
         }
 
 

@@ -9,12 +9,12 @@
         <div class="row">
              @Html.Partial("_ProjectHeader",Model.Project)
         </div>
-
+        <br /><br />
         <div class="row" id="matrix-container">
-            <h3>
+            <span>
                 <i class="fa fa-object-ungroup" style="color: #E91E63;"></i>
                 Tasks by importance/urgence
-            </h3>
+            </span>
             <table class="table table-no-border matrix">
                 <tr>
                     <th></th>
@@ -54,11 +54,11 @@
                     </td>
                 </tr>
             </table>
-
-            <h3>
+            <br /><br />
+            <span>
               <i class="fa fa-lightbulb-o" style="color: #FFC107;"></i>
                Suggestions for tasks based on importance/urgence
-             </h3>
+             </span>
             <table class="table">
                 <tr>
                     <td style="color: #F44336;font-size: 26px;">Do now</td>

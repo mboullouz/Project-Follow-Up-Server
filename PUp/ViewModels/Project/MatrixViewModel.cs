@@ -19,6 +19,7 @@ namespace PUp.ViewModels.Project
         public MatrixViewModel(ProjectEntity project, UserEntity user)
         {
             Project = project;
+            User = user;
             Init(project);
         }
         public void Init(ProjectEntity project)
