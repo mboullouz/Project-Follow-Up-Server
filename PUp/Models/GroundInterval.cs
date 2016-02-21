@@ -46,7 +46,7 @@ namespace PUp.Models
                 return false;
             }
             int startH = startDate.Hour;
-            if (Interval[startH] || startH+duration>AppConst.DayEnd)
+            if (Interval[startH] || startH+duration>AppConst.DayEnd | startH<DateTime.Now.Hour)
             {
                 return false;
             }

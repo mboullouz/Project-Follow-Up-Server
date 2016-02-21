@@ -2,8 +2,6 @@
 @{
     ViewBag.Title = "My DashBorad";
 }
-
-
 <div class="row">
     <div class="col-md-12">
         <h2>My DashBorad</h2>
@@ -15,6 +13,7 @@
                     <thead>
                         <tr>
                             <td>Title</td>
+
                             <td>Done</td>
                             <td>time </td>
                             <td>Start</td>
@@ -27,24 +26,39 @@
                             <tr class="v @(@task.Done ? "done" : " ")">
                                 <td> @task.Title</td>
                                 <td>
-                                   <b>@Model.TaskStatus((DateTime)task.StartAt, task.Done, task.EstimatedTimeInMinutes / 60)</b>
+                                    <b>@Model.TaskStatus((DateTime)task.StartAt, task.Done, task.EstimatedTimeInMinutes / 60)</b>
                                 </td>
 
-                                <td> @(task.EstimatedTimeInMinutes/60) Hour(s)</td>
-                                <td> 
-                                    @(task.StartAt?.ToString("HH:mm")) 
-                                </td>
+                                <td> @(task.EstimatedTimeInMinutes / 60) Hour(s)</td>
                                 <td>
-                                    @if (!task.Done)
+                                    @(task.StartAt?.ToString("HH:mm")) | 
+                                    @if (task.StartAt < DateTime.Now && (task.StartAt.GetValueOrDefault() - DateTime.Now).TotalMinutes + task.EstimatedTimeInMinutes > 0)
                                     {
-                                        <a  href="@Url.Action("MarkDone", "Task", new { id = task.Id } )" class="btn changeState" id="@task.Id">
-                                            <i class="fa fa-check-square"></i> Mark done
-                                        </a>
-                                         
+                                        <span style="color:red;">
+                                            Time left: @(
+                                           (int)(task.StartAt.GetValueOrDefault() - DateTime.Now).TotalMinutes + task.EstimatedTimeInMinutes) min
+                                        </span>
+                                    }
+                                    else if (task.StartAt > DateTime.Now)
+                                    {
+                                        <span>Start in: @((int)(task.StartAt.GetValueOrDefault() - DateTime.Now).TotalMinutes) min</span>
                                     }
                                     else
                                     {
-                                        <b style="text-decoration:none !important"><i class="fa fa-music" ></i> Nice job</b>
+                                        <span style="color:red;">Time is over!</span>
+                                    }
+                                    </td>
+                                <td>
+                                    @if (!task.Done)
+                                    {
+                                        <a href="@Url.Action("MarkDone", "Task", new { id = task.Id } )" class="btn changeState" id="@task.Id">
+                                            <i class="fa fa-check-square"></i> Mark done
+                                        </a>
+
+                                    }
+                                    else
+                                    {
+                                        <b style="text-decoration:none !important"><i class="fa fa-music"></i> Nice job</b>
                                     }
 
                                 </td>
@@ -83,7 +97,7 @@
                                     <td> @(task.KeyFactor ? "Yes" : "No")</td>
                                     <td>@task.AddAt.ToString("HH:mm d-MMM ")</td>
                                     <td>
-                                        <a  href="@Url.Action("SetDate", "Task", new { id = task.Id } )" class="btn changeState" id="@task.Id">
+                                        <a href="@Url.Action("SetDate", "Task", new { id = task.Id } )" class="btn changeState" id="@task.Id">
                                             <i class="fa fa-check-square"></i> Plan for today
                                         </a>
                                     </td>
@@ -93,7 +107,7 @@
                     </table>
                 </div>
             }
-            
+
         </div>
 
 
