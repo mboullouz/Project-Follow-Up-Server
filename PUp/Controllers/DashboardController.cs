@@ -40,7 +40,7 @@ namespace PUp.Controllers
             var otherTasks = taskRepository.GetAll()
                                            .Where(t => t.Executor == currentUser && !t.Done && t.StartAt==null )
                                            .ToList();
-            dashboardMV.matrixVM = new MatrixViewModel(currentTasks, currentUser);
+            dashboardMV.MatrixVM = new MatrixViewModel(currentTasks, currentUser);
             dashboardMV.OtherTasks = otherTasks;
             return View(dashboardMV);
         }
