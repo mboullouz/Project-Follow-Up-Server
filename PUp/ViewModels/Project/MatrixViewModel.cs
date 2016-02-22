@@ -7,7 +7,7 @@ using System.Web;
 namespace PUp.ViewModels.Project
 {
     public class MatrixViewModel
-    {   
+    {
         public ProjectEntity Project { get; set; }
         public UserEntity User { get; set; }
         public List<TaskEntity> ImportantAndUrgent { get; set; }
@@ -20,17 +20,23 @@ namespace PUp.ViewModels.Project
         {
             Project = project;
             User = user;
-            Init(project);
+            Init(project.Tasks);
         }
-        public void Init(ProjectEntity project)
+        public MatrixViewModel(ICollection<TaskEntity> tasks, UserEntity user)
         {
-            var tasks = project.Tasks;
+            User = user;
+            Init(tasks);
+        }
+
+        public void Init(ICollection<TaskEntity> tasks)
+        {
+
             ImportantAndUrgent = new List<TaskEntity>();
             ImportantNotUrgent = new List<TaskEntity>();
             NotImportantButUrgent = new List<TaskEntity>();
             NotImportantNotUrgent = new List<TaskEntity>();
 
-            ImportantAndUrgent.AddRange(tasks.Where(t => t.Critical && t.Urgent && t.Executor==User));
+            ImportantAndUrgent.AddRange(tasks.Where(t => t.Critical && t.Urgent && t.Executor == User));
             ImportantNotUrgent.AddRange(tasks.Where(t => t.Critical && !t.Urgent && t.Executor == User));
             NotImportantButUrgent.AddRange(tasks.Where(t => !t.Critical && t.Urgent && t.Executor == User));
             NotImportantNotUrgent.AddRange(tasks.Where(t => !t.Critical && !t.Urgent && t.Executor == User));

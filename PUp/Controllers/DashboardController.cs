@@ -3,6 +3,7 @@ using PUp.Models;
 using PUp.Models.Entity;
 using PUp.Models.Repository;
 using PUp.ViewModels;
+using PUp.ViewModels.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,7 @@ namespace PUp.Controllers
             var otherTasks = taskRepository.GetAll()
                                            .Where(t => t.Executor == currentUser && !t.Done && t.StartAt==null )
                                            .ToList();
+            dashboardMV.matrixVM = new MatrixViewModel(currentTasks, currentUser);
             dashboardMV.OtherTasks = otherTasks;
             return View(dashboardMV);
         }

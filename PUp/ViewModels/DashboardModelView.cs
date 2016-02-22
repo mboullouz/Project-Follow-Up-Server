@@ -1,5 +1,6 @@
 ﻿using PUp.Models;
 using PUp.Models.Entity;
+using PUp.ViewModels.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace PUp.ViewModels
     {
         public List<TaskEntity> CurrentTasks = new List<TaskEntity>();
         public List<TaskEntity> OtherTasks = new List<TaskEntity>();
+        public MatrixViewModel matrixVM {get;set;}
         public bool IsWorkingDayOver()
         {
             if (DateTime.Now.Hour < AppConst.DayStart || DateTime.Now.Hour > AppConst.DayEnd)
