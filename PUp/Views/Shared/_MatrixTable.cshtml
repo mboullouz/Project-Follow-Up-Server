@@ -1,0 +1,47 @@
+﻿@model  PUp.ViewModels.Project.MatrixViewModel
+
+<span>
+    <i class="fa fa-object-ungroup" style="color: #E91E63;"></i>
+    Tasks by importance/urgence
+</span>
+
+<table class="table table-no-border matrix">
+    <tr>
+        <th></th>
+        <th>Urgent</th>
+        <th>NOT Urgent</th>
+    </tr>
+    <tr>
+        <td><b class="rotate-txt">Critical</b></td>
+        <td style="background: #F44336; color: white;">
+            @foreach (var task in Model.ImportantAndUrgent)
+            {
+                <i class="fa fa-angle-right"></i>  @task.Title <br />
+            }
+        </td>
+
+        <td style="background: #FFC107;color: white;">
+            @foreach (var task in Model.ImportantNotUrgent)
+            {
+                <i class="fa fa-angle-right"></i>  @task.Title <br />
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <td><b class="rotate-txt">Not critical</b></td>
+        <td style="background: #00BCD4;color: white;">
+            @foreach (var task in Model.NotImportantButUrgent)
+            {
+                <i class="fa fa-angle-right"></i>  @task.Title <br />
+            }
+        </td>
+        <td style="background: rgb(205, 220, 57);color: white;">
+            @foreach (var task in Model.NotImportantNotUrgent)
+            {
+                <i class="fa fa-angle-right"></i>  @task.Title <br />
+            }
+        </td>
+    </tr>
+</table>
+
