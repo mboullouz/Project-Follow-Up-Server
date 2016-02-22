@@ -191,5 +191,12 @@ namespace PUp.Controllers
             taskRepository.MarkDeleted(t); 
             return RedirectToAction("Index", "Task", new { id = projectId });
         }
+        public ActionResult Postpone(int id)
+        {
+            var task = taskRepository.FindById(id);
+            task.StartAt = null;
+            dbContext.SaveChanges();
+            return RedirectToAction("Index", "Dashboard", new { id = task.Id });
+        }
     }
 }

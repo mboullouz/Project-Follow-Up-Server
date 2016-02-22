@@ -50,13 +50,17 @@
                                         <a href="@Url.Action("MarkDone", "Task", new { id = task.Id } )" class="btn changeState" id="@task.Id">
                                             <i class="fa fa-check-square"></i> Mark done
                                         </a>
-
                                     }
                                     else
                                     {
                                         <b style="text-decoration:none !important"><i class="fa fa-music"></i> Nice job</b>
                                     }
-
+                                    @if (!task.Done && !task.Urgent && !task.Critical)
+                                    {
+                                        <a href="@Url.Action("Postpone", "Task", new { id = task.Id } )" class="btn" id="@task.Id">
+                                            <i class="fa fa-adjust"></i> Postpone
+                                        </a>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -65,8 +69,7 @@
             </div>
         </div>
 
-
-
+ 
         <div class="col-md-12" style="background: rgba(255, 235, 59, 0.36);">
             @if (Model.IsWorkingDayOver())
             {
@@ -103,10 +106,6 @@
                     </table>
                 </div>
             }
-
         </div>
-
-
-
     </div>
 </div>
