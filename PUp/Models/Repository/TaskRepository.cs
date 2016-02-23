@@ -85,6 +85,12 @@ namespace PUp.Models.Repository
             t.Deleted = true;
             DbContext.SaveChanges();
         }
- 
+
+        internal void MarkUndone(TaskEntity t)
+        {
+            t.EditAt = DateTime.Now;
+            t.Done   = false;
+            DbContext.SaveChanges();
+        }
     }
 }

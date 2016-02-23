@@ -191,6 +191,15 @@ namespace PUp.Controllers
             taskRepository.MarkDeleted(t); 
             return RedirectToAction("Index", "Task", new { id = projectId });
         }
+
+        public ActionResult MarkUndone(int id)
+        {
+            var t = taskRepository.FindById(id);
+            var projectId = t.Project.Id; //needed to redirect!
+            taskRepository.MarkUndone(t);
+            return RedirectToAction("Index", "Task", new { id = projectId });
+        }
+
         public ActionResult Postpone(int id)
         {
             var task = taskRepository.FindById(id);

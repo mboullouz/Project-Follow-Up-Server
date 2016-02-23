@@ -32,7 +32,7 @@
                             <tr>
                                 <td>Name</td>
                                 <td>Email</td>
-                                <td style="width:2%;"></td>
+                                <td style="width:10%;"></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,6 +42,7 @@
                                 <tr>
                                     <td>@contributor.Name </td>
                                     <td>@contributor.Email</td>
+                                    <td>@Model.Tasks.Where(t=>t.Executor==contributor).ToList().Count Task(s)</td>
                                 </tr>
                                 index++;
                             }

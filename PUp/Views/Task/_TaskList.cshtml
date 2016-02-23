@@ -36,14 +36,25 @@
                             <i class="fa fa-cog"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dd-ctrl-tasks">
-                            <li>
-                                <a class="btn changeState" id="@task.Id">
-                                    <i class="fa fa-check-square"></i> Mark done
-                                </a>
-                            </li>
-                            <li>
-                                @Html.ActionLink("Edit", "Edit", "Task", new { id = task.Project.Id, taskId = task.Id }, new { @class = "btn" })
-                            </li>
+                          
+                            @if (!task.Done)
+                            {
+                                <li>
+                                    <a class="btn" id="@task.Id">
+                                        <i class="fa fa-check-square"></i> Mark done
+                                    </a>
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Edit", "Edit", "Task", new { id = task.Project.Id, taskId = task.Id }, new { @class = "btn" })
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    @Html.ActionLink("Mark undone", "MarkUndone", "Task", new { id = task.Project.Id, taskId = task.Id }, new { @class = "btn" })
+                                </li>
+                            }
+
                             <li>
                                 @Html.ActionLink("Delete", "Delete", "Task", new { id = task.Id }, new { @class = "btn" })
                             </li>
