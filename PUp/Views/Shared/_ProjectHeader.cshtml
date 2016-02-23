@@ -16,7 +16,7 @@
             Progress:
             @if (Model.Tasks.Count() > 0)
             {
-                <span>@((Model.Tasks.Where(t => t.Done == true).Count() / (float)Model.Tasks.Count() * 100))%</span>
+                <span>@((int)(Model.Tasks.Where(t => t.Done == true).Count() / (float)Model.Tasks.Count() * 100))%</span>
             }
             else
             {

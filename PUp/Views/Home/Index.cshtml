@@ -109,13 +109,13 @@
 
                     <div class="card-block">
                         <p class="card-text">
-                            From: <b>@project.StartAt.ToString("d/MMM yyyy")</b>
-                            To  : <b>@project.EndAt.ToString("d/MMM yyyy")</b>
+                            From: <b>@project.StartAt.ToString("dd MMM yyyy")</b>
+                            To  : <b>@project.EndAt.ToString("dd MMM yyyy")</b>
                             <br/>
                             Progress:
                             @if (project.Tasks.Count() > 0)
                             {
-                            <span>@((project.Tasks.Where(t => t.Done == true).Count() / (float)project.Tasks.Count() * 100))%</span>
+                            <span>@((int)(project.Tasks.Where(t => t.Done == true).Count() / (float)project.Tasks.Count() * 100))%</span>
                             }
                             else
                             {
