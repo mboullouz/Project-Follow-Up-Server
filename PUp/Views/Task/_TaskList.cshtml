@@ -40,9 +40,7 @@
                             @if (!task.Done)
                             {
                                 <li>
-                                    <a class="btn" id="@task.Id">
-                                        <i class="fa fa-check-square"></i> Mark done
-                                    </a>
+                                    @Html.ActionLink("Mark done", "SetDone", "Task", new { id = task.Id }, new { @class = "btn" })
                                 </li>
                                 <li>
                                     @Html.ActionLink("Edit", "Edit", "Task", new { id = task.Project.Id, taskId = task.Id }, new { @class = "btn" })
@@ -51,7 +49,7 @@
                             else
                             {
                                 <li>
-                                    @Html.ActionLink("Mark undone", "MarkUndone", "Task", new { id = task.Project.Id, taskId = task.Id }, new { @class = "btn" })
+                                    @Html.ActionLink("Mark undone", "MarkUndone", "Task", new { id = task.Id }, new { @class = "btn" })
                                 </li>
                             }
 

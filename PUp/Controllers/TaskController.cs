@@ -69,7 +69,14 @@ namespace PUp.Controllers
 
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
         }
- 
+        //TODO REMOVE or MERGE this
+        public ActionResult SetDone(int id)
+        {
+            var task = taskRepository.MarkDone(id);
+
+            return RedirectToAction("Index", "Task", new { id = task.Project.Id });
+        }
+
         /// <summary>
         /// Set an avelaible date for tasks in the current day!
         /// </summary>
