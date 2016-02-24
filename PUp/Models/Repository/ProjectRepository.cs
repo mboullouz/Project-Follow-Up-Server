@@ -70,7 +70,23 @@ namespace PUp.Models.Repository
 
         public List<ProjectEntity> GetActive()
         {
-            return GetAll().Where(p => p.EndAt >= DateTime.Now && p.Deleted==false).ToList();
+            return GetAll().Where(p => p.EndAt > DateTime.Now && p.Deleted==false).ToList();
+        }
+
+         
+        /// <summary>
+        /// Check if a project is still active, usseful before editing related tasks!
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public bool IsActive(ProjectEntity p)
+        {
+            return GetActive().Contains(p);
+               
+        }
+        public bool IsActive(int id)
+        {
+            return IsActive(FindById(id));
         }
     }
 }

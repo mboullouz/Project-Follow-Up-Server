@@ -66,6 +66,7 @@ namespace PUp.Controllers
         public ActionResult MarkDone(int id)
         {
             var task = taskRepository.MarkDone(id);
+
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
         }
  
@@ -196,15 +197,31 @@ namespace PUp.Controllers
         {
             var t = taskRepository.FindById(id);
             var projectId = t.Project.Id; //needed to redirect!
-            taskRepository.MarkUndone(t);
+            if (projectRepository.IsActive(projectId))
+            {
+                taskRepository.MarkUndone(t);
+            }
+            else
+            {
+                //tell user that the project is no longer active
+            }
+            
             return RedirectToAction("Index", "Task", new { id = projectId });
         }
 
         public ActionResult Postpone(int id)
         {
             var task = taskRepository.FindById(id);
-            task.StartAt = null;
-            dbContext.SaveChanges();
+            if (projectRepository.IsActive(task.Project))
+            {
+                task.StartAt = null;
+                dbContext.SaveChanges();
+            }
+            else
+            {
+                //tell user that the project is no longer active
+            }
+            
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
         }
     }
