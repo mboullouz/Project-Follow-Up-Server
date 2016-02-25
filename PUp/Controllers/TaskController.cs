@@ -118,6 +118,7 @@ namespace PUp.Controllers
         {
             //TODO perfom some checks before allow edit!
             ProjectEntity project = projectRepository.FindById(id);
+           
             TaskEntity task = taskRepository.FindById(taskId);
             AddTaskViewModel addTaskVM = new AddTaskViewModel(task, userRepository.GetAll());
             addTaskVM.AvelaibleDates = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
@@ -131,8 +132,9 @@ namespace PUp.Controllers
         {
             //If startDate is set! must be handled by cheking the interval, else raise an error!
             ProjectEntity project = projectRepository.FindById(model.IdProject);
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid && !projectRepository.IsActive(project))
+            {   
+                //TODO tell the user what's wrong!
                 return Edit(project.Id, model.Id);
             }
             var executor = userRepository.FindById(model.ExecutorId);
@@ -161,7 +163,7 @@ namespace PUp.Controllers
         public ActionResult Add(AddTaskViewModel model)
         {
             ProjectEntity project = projectRepository.FindById(model.IdProject);
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid && !projectRepository.IsActive(project))
             {
                 return Add(project.Id);
             }
