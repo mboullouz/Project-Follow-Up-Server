@@ -36,6 +36,7 @@ namespace PUp.Controllers
             var user = userRepository.GetCurrentUser();
             if(user==null)
             {
+                this.Flash("Please register / or login if you already have an account", FlashLevel.Warning);
                 return RedirectToAction("Register", "Account");
             }
             var projectsByUser = projectRepository.GetAll().Where(p=>p.Owner==user|| p.Contributors.Contains(user)).ToList();

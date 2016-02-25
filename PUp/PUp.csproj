@@ -238,6 +238,7 @@
     <Compile Include="Models\Entity\IssueEntity.cs" />
     <Compile Include="Models\Entity\NotificationEntity.cs" />
     <Compile Include="Models\EntityHelper.cs" />
+    <Compile Include="Controllers\FlashMessageHelper.cs" />
     <Compile Include="Models\FormattedDbEntityValidationException.cs" />
     <Compile Include="Models\Repository\AbstractRepository.cs" />
     <Compile Include="Models\Repository\IssueRepository.cs" />
@@ -383,6 +384,7 @@
     <Content Include="Views\Shared\_ProjectHeader.cshtml" />
     <Content Include="Views\Project\Info.cshtml" />
     <Content Include="Views\Shared\_MatrixTable.cshtml" />
+    <Content Include="Views\Shared\_FlashMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

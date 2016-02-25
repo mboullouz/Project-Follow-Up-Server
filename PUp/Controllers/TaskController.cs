@@ -198,7 +198,8 @@ namespace PUp.Controllers
         {
             var t = taskRepository.FindById(id);
             var projectId = t.Project.Id; //needed to redirect!
-            taskRepository.MarkDeleted(t); 
+            taskRepository.MarkDeleted(t);
+            this.Flash("Task is deleted! ", FlashLevel.Warning);
             return RedirectToAction("Index", "Task", new { id = projectId });
         }
 
