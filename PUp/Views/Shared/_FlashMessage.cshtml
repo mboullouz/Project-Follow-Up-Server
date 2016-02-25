@@ -1,0 +1,24 @@
+﻿@using PUp.Controllers
+@helper FlashMessage(System.Web.Mvc.TempDataDictionary tempData)
+{
+    <div class="flash-messages">
+        @foreach (FlashLevel level in (FlashLevel[])Enum.GetValues(typeof(FlashLevel)))
+        {
+            string type = level.ToString().ToLower();
+            string key = "flash-" + type;
+
+            if (tempData.ContainsKey(key))
+            {
+                IList<string> messages = (IList<string>)tempData[key];
+
+                foreach (string message in messages)
+                {
+                    <p class="bg-@type">@message</p>
+                }
+            }
+        }
+    </div>
+}
+
+@FlashMessage(TempData)
+ 
