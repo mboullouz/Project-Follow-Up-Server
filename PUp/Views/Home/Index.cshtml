@@ -126,19 +126,17 @@
                             {
                                 <span class="done-label"> Done </span>
                             }
+                            else if((project.EndAt - DateTime.Now).TotalDays<1)
+                            {
+                                <span class="days-left"> Ends today! </span>
+                            }
 
                             else
                             {
                                 <span class="days-left"> @((int)(project.EndAt - DateTime.Now).TotalDays) days left</span>
                             }
                         </p>
-                        <!-- <p>
-                            <span style="color:#3288E6;">Objective</span>: @( new string(project.Objective.Take(20).ToArray()) )...
-                        </p>
-                        <p>
-                            <span style="color:#3288E6;">Benifite</span> :  @( new string(project.Benifite.Take(20).ToArray()) )...
-                        </p>
-                        -->
+                        
                         <div class="card-control">
                             <a href="@Url.Action("Index", "Task", new { id = project.Id } )">
                                 <i class="fa fa-arrow-circle-right"></i> Tasks (@project.Tasks.Count())
