@@ -17,7 +17,7 @@
 
 </head>
 <body>
-    @Html.Partial("_FlashMessage")
+    
     <div id="conf-notif" data-urlmarkseen=" "></div>
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -31,7 +31,7 @@
 		     @Html.ActionLink("Nom d'application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" }) 
 	       -->
             </div>
- 
+           
             <div class="navbar-collapse collapse">
                 @if (Request.IsAuthenticated)
                 {
@@ -53,6 +53,7 @@
         </div>
     </div>
     <div class="container body-content">
+        @Html.Partial("_FlashMessage")
         @RenderBody()
         <hr />
         <footer>

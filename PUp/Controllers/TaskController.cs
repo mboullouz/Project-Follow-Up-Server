@@ -88,6 +88,7 @@ namespace PUp.Controllers
         {
             var task = taskRepository.FindById(id);
             var interval = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
+            bool added = false;
             foreach (var vK in interval.Interval)
             {
                 string dateStartStr = vK.Key + ":00";
@@ -96,7 +97,15 @@ namespace PUp.Controllers
                 {
                     task.StartAt = dateForTest;
                     dbContext.SaveChanges();
+                   
                 }
+               
+            }
+             if(added)
+                this.Flash("Task added to the current day pile! time to work on it hard, Good luck", FlashLevel.Success);
+             else
+                {
+                this.Flash("The task can't fit in the remaining time", FlashLevel.Warning);
             }
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
         }

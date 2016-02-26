@@ -2,9 +2,7 @@
 @{
     ViewBag.Title = "Tasks list";
 }
-
 <div class="col-md-12">
-
     <div class="row">
         @if (Model.ActiveTasks.Count >= 1)
         {
@@ -14,11 +12,8 @@
         }
         @Html.Partial("_ProjectHeader", Model.Project)
     </div>
-
     <br />
-
     <div class="row">
-
         <div class="panel">
             <div class="panel-heading">
                 <div class="panel-title">
@@ -39,7 +34,6 @@
                     </a>
                    </div>
                 }
-
             </div>
         </div>
         @if (Model.DeletedTasks.Count >= 1)
@@ -54,8 +48,7 @@
                     @Html.Partial("_TaskList", Model.DeletedTasks)
                 </div>
             </div>
-        }
-        
+        }      
     </div>
 </div>
 

@@ -7,12 +7,26 @@ body {
     font-family: 'Noto Sans', sans-serif;
 }
 
+.bg-warning {
+    background-color: #FF9800;
+    padding: 10px;
+    color: white;
+    font-size: 15px;
+}
+.bg-success {
+    background-color: #4CAF50;
+    padding: 10px;
+    color: white;
+    font-size: 15px;
+}
+.flash-messages{
+    width: 40%;
+    float: right;
+}
+
 .card {
     max-height: 240px;
     font-size: 14px;
-    /* -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 4px -2px 1px rgba(0, 0, 0, 0.23); */
-    /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 4px -2px 1px rgba(0, 0, 0, 0.23); */
-    /* margin-bottom: 17px; */
     margin: 1% 2% 4% 2%;
     padding: 1%;
     border: 1px solid rgba(158, 158, 158, 0.38);
