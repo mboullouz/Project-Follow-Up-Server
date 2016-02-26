@@ -19,6 +19,7 @@ namespace PUp.Controllers
         private ProjectRepository projectRepository;
         private UserRepository userRepository;
         private NotificationRepository notificationRepository;
+        private IssueRepository issueRepository;
         private DatabaseContext dbContext = new DatabaseContext();
         // string userName = null;
         UserEntity user = null;
@@ -30,6 +31,7 @@ namespace PUp.Controllers
             projectRepository = new ProjectRepository(dbContext);
             notificationRepository = new NotificationRepository(dbContext);
             userRepository = new UserRepository(dbContext);
+            issueRepository = new IssueRepository(dbContext);
             user = userRepository.GetCurrentUser();
 
         }
@@ -233,6 +235,37 @@ namespace PUp.Controllers
             }
             
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
+        }
+        public ActionResult GenerateFromIssue(int projectId,int id)
+        {
+            var issue = issueRepository.FindById(id);
+            issue.Deleted = true;
+            issue.DeleteAt = DateTime.Now;
+            var project = projectRepository.FindById(projectId);
+            TaskEntity task = new TaskEntity
+            {
+                Title = "Task from unresolved issue",
+                Description = issue.Description,
+                Done = false,
+                Project = project,
+                AddAt = DateTime.Now,
+                EditAt = DateTime.Now,
+                EstimatedTimeInMinutes = 120,
+                StartAt = null,
+                KeyFactor = false,
+                Deleted = false,
+                Critical = true,
+                Urgent = true,
+                Executor = user
+            };
+            taskRepository.Add(task);
+            project.Tasks.Add(task);
+            project.Contributors.Add(user);
+            project.Contributors.Add(user);
+            user.Tasks.Add(task);
+            notificationRepository.Add(task.Executor, "An issue is transformed to a new task <" + task.Title + ">", "~/Task/" + task.Id, LevelFlag.Info);
+
+            return Edit(project.Id,task.Id);
         }
     }
 }
