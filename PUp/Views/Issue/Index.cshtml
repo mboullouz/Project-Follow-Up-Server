@@ -51,6 +51,9 @@
                                  @if (issue.Status == "Open")
                                  {
                                     @Html.ActionLink("Mark resolved", "MarkResolved", "Issue", new { projectId = Model.Id, issueId = issue.Id }, new { @class = "btn" })
+                                    <a href="@Url.Action("Index", "Task", new { id = issue.Id } )" class="btn">
+                                        <i class="fa fa-code-fork"></i> Transform to a task
+                                    </a>
                                  }
                                    
                                 </td>
