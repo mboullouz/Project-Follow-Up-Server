@@ -126,13 +126,12 @@ namespace PUp.Controllers
             return View(addTaskVM);
         }
 
-        public ActionResult Edit(int id, int taskId)
-        {
-            //TODO perfom some checks before allow edit!
-            ProjectEntity project = projectRepository.FindById(id);
-           
-            TaskEntity task = taskRepository.FindById(taskId);
+        public ActionResult Edit(int id)
+        { 
+            TaskEntity task = taskRepository.FindById(id);
+            ProjectEntity project = projectRepository.FindById(task.Project.Id);
             AddTaskViewModel addTaskVM = new AddTaskViewModel(task, userRepository.GetAll());
+       
             addTaskVM.AvelaibleDates = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
             addTaskVM.Project = project;
 
@@ -144,18 +143,19 @@ namespace PUp.Controllers
         {
             //If startDate is set! must be handled by cheking the interval, else raise an error!
             ProjectEntity project = projectRepository.FindById(model.IdProject);
-            if (!ModelState.IsValid && !projectRepository.IsActive(project))
-            {   
-                //TODO tell the user what's wrong!
-                return Edit(project.Id, model.Id);
-            }
             var executor = userRepository.FindById(model.ExecutorId);
+            if (!ModelState.IsValid && !projectRepository.IsActive(project) && executor==null)
+            {
+                this.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
+                return Edit(model.Id);
+            }
+           
             TaskEntity task = taskRepository.FindById(model.Id);
             //TODO Move this elsewhere!
             task.Title = model.Title;
             task.Description = model.Description;
             task.Done = false;
-            task.Project = project;
+            //task.Project = project;
             task.AddAt = DateTime.Now;
             task.EditAt = DateTime.Now;
             task.EstimatedTimeInMinutes = model.EstimatedTimeInMinutes;
@@ -163,10 +163,14 @@ namespace PUp.Controllers
             task.KeyFactor = model.KeyFactor;
             task.Critical = model.Important;
             task.Urgent = model.Urgent;
-            task.Executor = executor != null ? executor : user;
-            project.Contributors.Add(task.Executor);
+            task.Executor = executor;
+            if (!project.Contributors.Contains(task.Executor)) {
+                project.Contributors.Add(task.Executor);
+            }
+            executor.Tasks.Add(task);
             notificationRepository.Add(task.Executor, "Task <" + task.Title + "> Is updated", "~/Task/" + project.Id, LevelFlag.Info);
             dbContext.SaveChanges();
+            this.Flash("Saved successfully and assigned to: "+executor.Name, FlashLevel.Success);
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
 
@@ -177,6 +181,7 @@ namespace PUp.Controllers
             ProjectEntity project = projectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid && !projectRepository.IsActive(project))
             {
+                this.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
                 return Add(project.Id);
             }
             var selectedUser = userRepository.FindById(model.ExecutorId);
@@ -275,7 +280,7 @@ namespace PUp.Controllers
             user.Tasks.Add(task);
             notificationRepository.Add(task.Executor, "An issue is transformed to a new task <" + task.Title + ">", "~/Task/" + task.Id, LevelFlag.Info);
 
-            return Edit(project.Id,task.Id);
+            return Edit(task.Id);
         }
     }
 }

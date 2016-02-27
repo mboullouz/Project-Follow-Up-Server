@@ -43,7 +43,7 @@
                                     @Html.ActionLink("Mark done", "SetDone", "Task", new { id = task.Id }, new { @class = "btn" })
                                 </li>
                                 <li>
-                                    @Html.ActionLink("Edit", "Edit", "Task", new { id = task.Project.Id, taskId = task.Id }, new { @class = "btn" })
+                                    @Html.ActionLink("Edit", "Edit", "Task", new { id = task.Id}, new { @class = "btn" })
                                 </li>
                             }
                             else

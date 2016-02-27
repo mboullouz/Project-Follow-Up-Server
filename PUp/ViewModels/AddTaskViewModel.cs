@@ -75,6 +75,7 @@ namespace PUp.ViewModels
             StartAt = task.StartAt;
             Title = task.Title;
             Urgent = task.Urgent;
+            Id = task.Id;
         }
 
 
