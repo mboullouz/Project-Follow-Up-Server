@@ -13,28 +13,17 @@ namespace PUp.Controllers
 {
     public class ProjectController : Controller
     {
-        private TaskRepository taskRepository;
-        private ProjectRepository projectRepository;
-        private UserRepository userRepository;
-     
-        private NotificationRepository notifRepository;
-        private DatabaseContext dbContext = new DatabaseContext();
+        private RepositoryManager repo = new RepositoryManager();
+        private UserEntity currentUser = null;
 
         public ProjectController()
         {
-            taskRepository = new TaskRepository(dbContext);
-            projectRepository = new ProjectRepository(dbContext);
-            userRepository = new UserRepository(dbContext);
-           
-            notifRepository = new NotificationRepository(dbContext);
-
-
+            currentUser = repo.UserRepository.GetCurrentUser();
         }
 
         [HttpGet]
         public ActionResult Add()
         {
-
             AddProjectViewModel projectModel = new AddProjectViewModel
             {
                 EndAt = DateTime.Now.AddDays(7),
@@ -44,13 +33,12 @@ namespace PUp.Controllers
                 Objective = "what is the project trying to achieve? What functionalities or departments are involved?... "
             };
             return View(projectModel);
-
         }
 
         [HttpGet]
         public ActionResult Contributors(int id)
         {
-            var project = projectRepository.GetAll().Where(p=>p.Id== id).FirstOrDefault();
+            var project = repo.ProjectRepository.GetAll().Where(p=>p.Id== id).FirstOrDefault();
             return View(project);
         }
 
@@ -61,13 +49,13 @@ namespace PUp.Controllers
             {
               return View(model);
             }
-            ProjectEntity project = projectRepository.FindById(model.Id);
+            ProjectEntity project = repo.ProjectRepository.FindById(model.Id);
             project.Name = model.Name;
             project.StartAt = model.StartAt;
             project.EndAt = model.EndAt;
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
-            projectRepository.DbContext.SaveChanges();
+            repo.ProjectRepository.DbContext.SaveChanges();
             var notif = new NotificationEntity ();
             notif.Message = "Project: " + project.Name + " updated";
             notif.Url = "~/Project/Timeline" + project.Id;
@@ -75,11 +63,10 @@ namespace PUp.Controllers
             foreach(var u in project.Contributors)
             {
                 notif.User = u;
-                notifRepository.Add(notif);
+                repo.NotificationRepository.Add(notif);
             }
             return RedirectToAction("Index", "Home");
         }
-
 
         [HttpPost]
         public ActionResult Add(AddProjectViewModel model)
@@ -99,57 +86,53 @@ namespace PUp.Controllers
             project.EndAt = model.EndAt;
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
-            project.Owner = userRepository.GetCurrentUser();
+            project.Owner = repo.UserRepository.GetCurrentUser();
             project.Contributors.Add(project.Owner);
-            projectRepository.Add(project);
-            
-            notifRepository.GenerateFor(project, new HashSet<UserEntity>(userRepository.GetAll()));
+            repo.ProjectRepository.Add(project);
+            repo.NotificationRepository.GenerateFor(project, new HashSet<UserEntity>(repo.UserRepository.GetAll()));
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Remove(int id)
         {
-            projectRepository.MarkDeleted(projectRepository.FindById(id));
+            repo.ProjectRepository.MarkDeleted(repo.ProjectRepository.FindById(id));
             return RedirectToAction("Index", "Home");
         }
 
         //Remove permenently a record 
         public ActionResult HardRemove(int id)
         {
-            projectRepository.Remove(projectRepository.FindById(id));
+            repo.ProjectRepository.Remove(repo.ProjectRepository.FindById(id));
             return RedirectToAction("Index", "Home");
         }
 
-
         public ActionResult Edit(int id)
         {
-            ProjectEntity project = projectRepository.FindById(id);
+            ProjectEntity project = repo.ProjectRepository.FindById(id);
             AddProjectViewModel projectModel = new AddProjectViewModel(project);
             projectModel.Id = id;
             return View("~/Views/Project/Add.cshtml", projectModel);
         }
 
-
         public ActionResult Timeline(int id)
         {
-            ProjectEntity project = projectRepository.FindById(id);
+            ProjectEntity project = repo.ProjectRepository.FindById(id);
             ProjectTimelineViewModel projectTimeline = new ProjectTimelineViewModel(project);
             return View(projectTimeline);
         }
 
         public ActionResult Info(int id)
         {
-            ProjectEntity project = projectRepository.FindById(id);
+            ProjectEntity project = repo.ProjectRepository.FindById(id);
             return View(project);
         }
 
         public ActionResult Matrix(int id)
         {
-            ProjectEntity project = projectRepository.FindById(id);
-            MatrixViewModel mVM = new MatrixViewModel(project, userRepository.GetCurrentUser());
+            ProjectEntity project = repo.ProjectRepository.FindById(id);
+            MatrixViewModel mVM = new MatrixViewModel(project, repo.UserRepository.GetCurrentUser());
             return View(mVM);
         }
-
 
     }
 }

@@ -14,47 +14,35 @@ namespace PUp.Controllers
 {
     [Authorize]
     public class HomeController : Controller
-    {   
+    {
 
-        //TODO user a simple factory 
-        private TaskRepository taskRepository;
-        private ProjectRepository projectRepository;
-        private UserRepository userRepository;
-        
-        private DatabaseContext dbContext = new DatabaseContext();
+        private RepositoryManager repo = new RepositoryManager();
+        private UserEntity currentUser = null;
 
         public HomeController()
         {
-            userRepository = new UserRepository(dbContext);
-            taskRepository = new TaskRepository(dbContext);
-            projectRepository = new ProjectRepository(dbContext);
-           
-
+            currentUser = repo.UserRepository.GetCurrentUser();
         }
         public ActionResult Index()
         {
-            var user = userRepository.GetCurrentUser();
-            if(user==null)
+            if(currentUser==null)
             {
                 this.Flash("Please register / or login if you already have an account", FlashLevel.Warning);
                 return RedirectToAction("Register", "Account");
             }
-            var projectsByUser = projectRepository.GetAll().Where(p=>p.Owner==user|| p.Contributors.Contains(user)).ToList();
+            var projectsByUser = repo.ProjectRepository.GetAll().Where(p=>p.Owner==currentUser|| p.Contributors.Contains(currentUser)).ToList();
             TableProjectModelView tableProject = new TableProjectModelView
             {
-                CurrentUser = user,
+                CurrentUser = currentUser,
                 Projects = projectsByUser,
-                OtherProjects = projectRepository.GetActive().Where(p => !projectsByUser.Contains(p)).ToList(),
-                
+                OtherProjects = repo.ProjectRepository.GetActive().Where(p => !projectsByUser.Contains(p)).ToList(),
             };
-
             return View(tableProject);
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Application description page.";
-
             return View();
         }
 

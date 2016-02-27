@@ -15,12 +15,12 @@ namespace PUp.Controllers
     public class TaskController : Controller
     {
         private RepositoryManager repo = new RepositoryManager(); 
-        private UserEntity user = null;
+        private UserEntity currentUser = null;
 
         
         public TaskController()
         {
-            user = repo.UserRepository.GetCurrentUser();
+            currentUser = repo.UserRepository.GetCurrentUser();
         }
 
         // GET: Task
@@ -74,7 +74,7 @@ namespace PUp.Controllers
         public ActionResult SetDate(int id)
         {
             var task = repo.TaskRepository.FindById(id);
-            var interval = repo.TaskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
+            var interval = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
             bool added = false;
             foreach (var vK in interval.Interval)
             {
@@ -85,9 +85,7 @@ namespace PUp.Controllers
                     task.StartAt = dateForTest;
                     repo.DbContext.SaveChanges();
                     added = true;
-                   
                 }
-               
             }
              if(added)
                 this.Flash("Task added to the current day pile! time to work on it hard, Good luck", FlashLevel.Success);
@@ -109,7 +107,7 @@ namespace PUp.Controllers
             ProjectEntity project = repo.ProjectRepository.FindById(id);
             AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
             addTaskVM.Project = project;
-            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
+            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
             return View(addTaskVM);
         }
 
@@ -119,7 +117,7 @@ namespace PUp.Controllers
             ProjectEntity project = repo.ProjectRepository.FindById(task.Project.Id);
             AddTaskViewModel addTaskVM = new AddTaskViewModel(task, repo.UserRepository.GetAll());
        
-            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
+            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
             addTaskVM.Project = project;
 
             return View("~/Views/Task/Add.cshtml", addTaskVM);
@@ -191,10 +189,10 @@ namespace PUp.Controllers
             repo.TaskRepository.Add(task);
             project.Tasks.Add(task);
             project.Contributors.Add(selectedUser);
-            project.Contributors.Add(user);
+            project.Contributors.Add(currentUser);
             selectedUser.Tasks.Add(task);
 
-            repo.NotificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
+            repo.NotificationRepository.GenerateFor(task, new HashSet<UserEntity> { currentUser, task.Executor });
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
 
@@ -235,7 +233,6 @@ namespace PUp.Controllers
             {
                 this.Flash("The project is no more active!", FlashLevel.Warning);
             }
-            
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
         }
         public ActionResult GenerateFromIssue(int projectId,int id)
@@ -258,13 +255,13 @@ namespace PUp.Controllers
                 Deleted = false,
                 Critical = true,
                 Urgent = true,
-                Executor = user
+                Executor = currentUser
             };
             repo.TaskRepository.Add(task);
             project.Tasks.Add(task);
-            project.Contributors.Add(user);
-            project.Contributors.Add(user);
-            user.Tasks.Add(task);
+            project.Contributors.Add(currentUser);
+            project.Contributors.Add(currentUser);
+            currentUser.Tasks.Add(task);
             repo.NotificationRepository.Add(task.Executor, "An issue is transformed to a new task <" + task.Title + ">", "~/Task/" + task.Id, LevelFlag.Info);
 
             return Edit(task.Id);

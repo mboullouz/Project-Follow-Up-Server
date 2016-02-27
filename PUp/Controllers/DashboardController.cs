@@ -15,29 +15,21 @@ namespace PUp.Controllers
 {
     public class DashboardController : Controller
     {
-        private TaskRepository taskRepository;
-        private ProjectRepository projectRepository;
-        private UserRepository userRepository;
-       
-        private NotificationRepository notifRepository;
-        private DatabaseContext dbContext = new DatabaseContext();
-        UserEntity currentUser;
+        private RepositoryManager repo = new RepositoryManager();
+        private UserEntity currentUser = null;
+
         public DashboardController()
         {
-            taskRepository = new TaskRepository(dbContext);
-            projectRepository = new ProjectRepository(dbContext);
-            userRepository = new UserRepository(dbContext);         
-            notifRepository = new NotificationRepository(dbContext);
-            currentUser = userRepository.GetCurrentUser();
+            currentUser = repo.UserRepository.GetCurrentUser();
         }
        
         // GET: Dashboard
         public ActionResult Index()
         {
             DashboardModelView dashboardMV = new DashboardModelView();
-            var currentTasks = taskRepository.TodayTasksByUser(currentUser);
+            var currentTasks = repo.TaskRepository.TodayTasksByUser(currentUser);
             dashboardMV.CurrentTasks = currentTasks;
-            var otherTasks = taskRepository.GetAll()
+            var otherTasks = repo.TaskRepository.GetAll()
                                            .Where(t => t.Executor == currentUser && !t.Done && t.StartAt==null )
                                            .ToList();
             dashboardMV.MatrixVM = new MatrixViewModel(currentTasks, currentUser);

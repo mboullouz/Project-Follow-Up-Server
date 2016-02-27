@@ -13,26 +13,16 @@ namespace PUp.Controllers
     public class IssueController : Controller
     {
         //TODO user a simple factory 
-        private TaskRepository taskRepository;
-        private ProjectRepository projectRepository;
-        private UserRepository userRepository;
-        private NotificationRepository notificationRepo;
-        private IssueRepository issueRepository;
-        private DatabaseContext dbContext = new DatabaseContext();
+        private RepositoryManager repo = new RepositoryManager();
         private UserEntity currentUser = null;
         public IssueController()
         {
-            userRepository = new UserRepository(dbContext);
-            taskRepository = new TaskRepository(dbContext);
-            projectRepository = new ProjectRepository(dbContext);
-            notificationRepo = new NotificationRepository(dbContext);
-            issueRepository = new IssueRepository(dbContext);
-            currentUser = userRepository.GetCurrentUser();
+            currentUser = repo.UserRepository.GetCurrentUser();
         }
         // GET: liste of  Issues by project id
         public ActionResult Index(int id)
         {
-            return View(projectRepository.FindById(id));
+            return View(repo.ProjectRepository.FindById(id));
         }
 
         public ActionResult Add(int id)
@@ -44,7 +34,7 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddIssueViewModel model)
         { 
-            ProjectEntity project = projectRepository.FindById(model.IdProject);
+            ProjectEntity project = repo.ProjectRepository.FindById(model.IdProject);
             if (!ModelState.IsValid)
             {
                 model.IdProject = project.Id;
@@ -61,17 +51,17 @@ namespace PUp.Controllers
                 Status      = model.Status,
                 Submitter= currentUser,
             };
-            issueRepository.Add(issue);
+            repo.IssueRepository.Add(issue);
             project.Issues.Add(issue);
             project.Contributors.Add(currentUser);//add on submitting an issues
             string message = "New Issue is declared for the project <" + project.Name + ">";
-            notificationRepo.NotifyAllUserInProject(project, message,LevelFlag.Danger);         
+            repo.NotificationRepository.NotifyAllUserInProject(project, message,LevelFlag.Danger);         
             return RedirectToAction("Index", "Issue", new { id = project.Id });
         }
 
         public ActionResult MarkResolved(int projectId, int issueId)
         {
-            var issue =issueRepository.MarkResolved(issueId);
+            var issue = repo.IssueRepository.MarkResolved(issueId);
             return RedirectToAction("Index", "Issue", new { id = projectId });
         }
 
