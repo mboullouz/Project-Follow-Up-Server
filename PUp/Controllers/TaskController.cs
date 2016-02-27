@@ -39,7 +39,6 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult ChangeState(TaskBasic taskBasic)
         {
-         
             repo.TaskRepository.ChangeTaskState(taskBasic.Id, taskBasic.Done);
             //Generate a notification
             GenericJsonResponse res = new GenericJsonResponse
@@ -54,14 +53,31 @@ namespace PUp.Controllers
 
         public ActionResult MarkDone(int id)
         {
-            var task = repo.TaskRepository.MarkDone(id);
+            var task = repo.TaskRepository.FindById(id);
+            if (repo.ProjectRepository.IsActive(task.Project.Id))
+            {
+                 repo.TaskRepository.MarkDone(task.Id);
+            }
+            else
+            {
+                this.Flash("The project is no more active!", FlashLevel.Warning);
+            }
 
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
         }
+
         //TODO REMOVE or MERGE this
         public ActionResult SetDone(int id)
         {
-            var task = repo.TaskRepository.MarkDone(id);
+            var task = repo.TaskRepository.FindById(id);
+            if (repo.ProjectRepository.IsActive(task.Project.Id))
+            {
+                repo.TaskRepository.MarkDone(task.Id);
+            }
+            else
+            {
+                this.Flash("The project is no more active!", FlashLevel.Warning);
+            }
 
             return RedirectToAction("Index", "Task", new { id = task.Project.Id });
         }
@@ -263,7 +279,6 @@ namespace PUp.Controllers
             project.Contributors.Add(currentUser);
             currentUser.Tasks.Add(task);
             repo.NotificationRepository.Add(task.Executor, "An issue is transformed to a new task <" + task.Title + ">", "~/Task/" + task.Id, LevelFlag.Info);
-
             return Edit(task.Id);
         }
     }

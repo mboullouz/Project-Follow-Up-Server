@@ -261,7 +261,6 @@
     <Compile Include="Models\GroundInterval.cs" />
     <Compile Include="Models\SimpleObject\TaskParam.cs" />
     <Compile Include="Models\SimpleObject\TaskSimpleObjects.cs" />
-    <Compile Include="Models\Repository\IRepository.cs" />
     <Compile Include="Models\Repository\ProjectRepository.cs" />
     <Compile Include="Models\Repository\TaskRepository.cs" />
     <Compile Include="Models\Repository\UserRepository.cs" />
