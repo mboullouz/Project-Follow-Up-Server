@@ -14,37 +14,24 @@ namespace PUp.Controllers
     [Authorize]
     public class TaskController : Controller
     {
+        private RepositoryManager repo = new RepositoryManager(); 
+        private UserEntity user = null;
 
-        private TaskRepository taskRepository;
-        private ProjectRepository projectRepository;
-        private UserRepository userRepository;
-        private NotificationRepository notificationRepository;
-        private IssueRepository issueRepository;
-        private DatabaseContext dbContext = new DatabaseContext();
-        // string userName = null;
-        UserEntity user = null;
-
-        //TODO Use a container to inject dependencies 
+        
         public TaskController()
         {
-            taskRepository = new TaskRepository(dbContext);
-            projectRepository = new ProjectRepository(dbContext);
-            notificationRepository = new NotificationRepository(dbContext);
-            userRepository = new UserRepository(dbContext);
-            issueRepository = new IssueRepository(dbContext);
-            user = userRepository.GetCurrentUser();
-
+            user = repo.UserRepository.GetCurrentUser();
         }
 
         // GET: Task
         public ActionResult Index(int id)
         {
             //TODO remove this cause not necessary !
-            ProjectEntity project = projectRepository.FindById(id);
+            ProjectEntity project = repo.ProjectRepository.FindById(id);
             TaskViewModel tVM = new TaskViewModel(project);
              
-            tVM.ActiveTasks =  dbContext.TaskSet.Include("Executor").Where(t => t.Deleted == false && t.Project.Id==id).ToList();
-            tVM.DeletedTasks = dbContext.TaskSet.Include("Executor").Where(t => t.Deleted == true && t.Project.Id == id).ToList();
+            tVM.ActiveTasks =  repo.DbContext.TaskSet.Include("Executor").Where(t => t.Deleted == false && t.Project.Id==id).ToList();
+            tVM.DeletedTasks = repo.DbContext.TaskSet.Include("Executor").Where(t => t.Deleted == true && t.Project.Id == id).ToList();
 
             return View(tVM);
         }
@@ -53,7 +40,7 @@ namespace PUp.Controllers
         public ActionResult ChangeState(TaskBasic taskBasic)
         {
          
-            taskRepository.ChangeTaskState(taskBasic.Id, taskBasic.Done);
+            repo.TaskRepository.ChangeTaskState(taskBasic.Id, taskBasic.Done);
             //Generate a notification
             GenericJsonResponse res = new GenericJsonResponse
             {
@@ -67,14 +54,14 @@ namespace PUp.Controllers
 
         public ActionResult MarkDone(int id)
         {
-            var task = taskRepository.MarkDone(id);
+            var task = repo.TaskRepository.MarkDone(id);
 
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
         }
         //TODO REMOVE or MERGE this
         public ActionResult SetDone(int id)
         {
-            var task = taskRepository.MarkDone(id);
+            var task = repo.TaskRepository.MarkDone(id);
 
             return RedirectToAction("Index", "Task", new { id = task.Project.Id });
         }
@@ -86,8 +73,8 @@ namespace PUp.Controllers
         /// <returns></returns>
         public ActionResult SetDate(int id)
         {
-            var task = taskRepository.FindById(id);
-            var interval = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
+            var task = repo.TaskRepository.FindById(id);
+            var interval = repo.TaskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
             bool added = false;
             foreach (var vK in interval.Interval)
             {
@@ -96,7 +83,7 @@ namespace PUp.Controllers
                 if (!vK.Value && interval.CheckForDateAndDuration(dateForTest, task.EstimatedTimeInMinutes / 60))
                 {
                     task.StartAt = dateForTest;
-                    dbContext.SaveChanges();
+                    repo.DbContext.SaveChanges();
                     added = true;
                    
                 }
@@ -119,20 +106,20 @@ namespace PUp.Controllers
         /// <returns></returns>
         public ActionResult Add(int id)
         {
-            ProjectEntity project = projectRepository.FindById(id);
-            AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, userRepository.GetAll());
+            ProjectEntity project = repo.ProjectRepository.FindById(id);
+            AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
             addTaskVM.Project = project;
-            addTaskVM.AvelaibleDates = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
+            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
             return View(addTaskVM);
         }
 
         public ActionResult Edit(int id)
         { 
-            TaskEntity task = taskRepository.FindById(id);
-            ProjectEntity project = projectRepository.FindById(task.Project.Id);
-            AddTaskViewModel addTaskVM = new AddTaskViewModel(task, userRepository.GetAll());
+            TaskEntity task = repo.TaskRepository.FindById(id);
+            ProjectEntity project = repo.ProjectRepository.FindById(task.Project.Id);
+            AddTaskViewModel addTaskVM = new AddTaskViewModel(task, repo.UserRepository.GetAll());
        
-            addTaskVM.AvelaibleDates = taskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
+            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(user, DateTime.Parse("00:01"));
             addTaskVM.Project = project;
 
             return View("~/Views/Task/Add.cshtml", addTaskVM);
@@ -142,15 +129,15 @@ namespace PUp.Controllers
         public ActionResult Edit(AddTaskViewModel model)
         {
             //If startDate is set! must be handled by cheking the interval, else raise an error!
-            ProjectEntity project = projectRepository.FindById(model.IdProject);
-            var executor = userRepository.FindById(model.ExecutorId);
-            if (!ModelState.IsValid && !projectRepository.IsActive(project) && executor==null)
+            ProjectEntity project = repo.ProjectRepository.FindById(model.IdProject);
+            var executor = repo.UserRepository.FindById(model.ExecutorId);
+            if (!ModelState.IsValid && !repo.ProjectRepository.IsActive(project) && executor==null)
             {
                 this.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
                 return Edit(model.Id);
             }
            
-            TaskEntity task = taskRepository.FindById(model.Id);
+            TaskEntity task = repo.TaskRepository.FindById(model.Id);
             //TODO Move this elsewhere!
             task.Title = model.Title;
             task.Description = model.Description;
@@ -168,8 +155,8 @@ namespace PUp.Controllers
                 project.Contributors.Add(task.Executor);
             }
             executor.Tasks.Add(task);
-            notificationRepository.Add(task.Executor, "Task <" + task.Title + "> Is updated", "~/Task/" + project.Id, LevelFlag.Info);
-            dbContext.SaveChanges();
+            repo.NotificationRepository.Add(task.Executor, "Task <" + task.Title + "> Is updated", "~/Task/" + project.Id, LevelFlag.Info);
+            repo.DbContext.SaveChanges();
             this.Flash("Saved successfully and assigned to: "+executor.Name, FlashLevel.Success);
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
@@ -178,13 +165,13 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddTaskViewModel model)
         {
-            ProjectEntity project = projectRepository.FindById(model.IdProject);
-            if (!ModelState.IsValid && !projectRepository.IsActive(project))
+            ProjectEntity project = repo.ProjectRepository.FindById(model.IdProject);
+            if (!ModelState.IsValid && !repo.ProjectRepository.IsActive(project))
             {
                 this.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
                 return Add(project.Id);
             }
-            var selectedUser = userRepository.FindById(model.ExecutorId);
+            var selectedUser = repo.UserRepository.FindById(model.ExecutorId);
             TaskEntity task = new TaskEntity
             {
                 Title = model.Title,
@@ -201,36 +188,36 @@ namespace PUp.Controllers
                 Urgent = model.Urgent,
                 Executor = selectedUser         
             };
-            taskRepository.Add(task);
+            repo.TaskRepository.Add(task);
             project.Tasks.Add(task);
             project.Contributors.Add(selectedUser);
             project.Contributors.Add(user);
             selectedUser.Tasks.Add(task);
-             
-            notificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
+
+            repo.NotificationRepository.GenerateFor(task, new HashSet<UserEntity> { user, task.Executor });
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
 
         public ActionResult Delete(int id)
         {
-            var t = taskRepository.FindById(id);
+            var t = repo.TaskRepository.FindById(id);
             var projectId = t.Project.Id; //needed to redirect!
-            taskRepository.MarkDeleted(t);
+            repo.TaskRepository.MarkDeleted(t);
             this.Flash("Task is deleted! ", FlashLevel.Warning);
             return RedirectToAction("Index", "Task", new { id = projectId });
         }
 
         public ActionResult MarkUndone(int id)
         {
-            var t = taskRepository.FindById(id);
+            var t = repo.TaskRepository.FindById(id);
             var projectId = t.Project.Id; //needed to redirect!
-            if (projectRepository.IsActive(projectId))
+            if (repo.ProjectRepository.IsActive(projectId))
             {
-                taskRepository.MarkUndone(t);
+                repo.TaskRepository.MarkUndone(t);
             }
             else
             {
-                //tell user that the project is no longer active
+                this.Flash("The project is no more active!", FlashLevel.Warning);
             }
             
             return RedirectToAction("Index", "Task", new { id = projectId });
@@ -238,25 +225,25 @@ namespace PUp.Controllers
 
         public ActionResult Postpone(int id)
         {
-            var task = taskRepository.FindById(id);
-            if (projectRepository.IsActive(task.Project))
+            var task = repo.TaskRepository.FindById(id);
+            if (repo.ProjectRepository.IsActive(task.Project))
             {
                 task.StartAt = null;
-                dbContext.SaveChanges();
+                repo.DbContext.SaveChanges();
             }
             else
             {
-                //tell user that the project is no longer active
+                this.Flash("The project is no more active!", FlashLevel.Warning);
             }
             
             return RedirectToAction("Index", "Dashboard", new { id = task.Id });
         }
         public ActionResult GenerateFromIssue(int projectId,int id)
         {
-            var issue = issueRepository.FindById(id);
+            var issue = repo.IssueRepository.FindById(id);
             issue.Deleted = true;
             issue.DeleteAt = DateTime.Now;
-            var project = projectRepository.FindById(projectId);
+            var project = repo.ProjectRepository.FindById(projectId);
             TaskEntity task = new TaskEntity
             {
                 Title = "Task from unresolved issue",
@@ -273,12 +260,12 @@ namespace PUp.Controllers
                 Urgent = true,
                 Executor = user
             };
-            taskRepository.Add(task);
+            repo.TaskRepository.Add(task);
             project.Tasks.Add(task);
             project.Contributors.Add(user);
             project.Contributors.Add(user);
             user.Tasks.Add(task);
-            notificationRepository.Add(task.Executor, "An issue is transformed to a new task <" + task.Title + ">", "~/Task/" + task.Id, LevelFlag.Info);
+            repo.NotificationRepository.Add(task.Executor, "An issue is transformed to a new task <" + task.Title + ">", "~/Task/" + task.Id, LevelFlag.Info);
 
             return Edit(task.Id);
         }

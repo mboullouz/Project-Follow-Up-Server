@@ -240,6 +240,7 @@
     <Compile Include="Models\EntityHelper.cs" />
     <Compile Include="Controllers\FlashMessageHelper.cs" />
     <Compile Include="Models\FormattedDbEntityValidationException.cs" />
+    <Compile Include="Models\RepositoryManager.cs" />
     <Compile Include="Models\Repository\AbstractRepository.cs" />
     <Compile Include="Models\Repository\IssueRepository.cs" />
     <Compile Include="Controllers\ManageController.cs" />
