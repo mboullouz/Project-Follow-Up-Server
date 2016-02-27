@@ -97,6 +97,7 @@ namespace PUp.Controllers
                 {
                     task.StartAt = dateForTest;
                     dbContext.SaveChanges();
+                    added = true;
                    
                 }
                

@@ -16,14 +16,14 @@
         <td style="background: #F44336; color: white;">
             @foreach (var task in Model.ImportantAndUrgent)
             {
-                <i class="fa fa-angle-right"></i>  @task.Title <br />
+                <div class="_z @(@task.Done ? "done" : " ")"><i class="fa fa-angle-right"></i>  @task.Title <br /></div>
             }
         </td>
 
         <td style="background: #FFC107;color: white;">
             @foreach (var task in Model.ImportantNotUrgent)
             {
-                <i class="fa fa-angle-right"></i>  @task.Title <br />
+                <div class="_z @(@task.Done ? "done" : " ")"><i class="fa fa-angle-right"></i>  @task.Title <br /></div>
             }
         </td>
     </tr>
@@ -33,15 +33,18 @@
         <td style="background: #00BCD4;color: white;">
             @foreach (var task in Model.NotImportantButUrgent)
             {
-                <i class="fa fa-angle-right"></i>  @task.Title <br />
+                <div class="_z @(@task.Done ? "done" : " ")">
+                    <i class="fa fa-angle-right"></i>  @task.Title <br />
+                </div>
             }
         </td>
         <td style="background: rgb(205, 220, 57);color: white;">
             @foreach (var task in Model.NotImportantNotUrgent)
             {
-                <i class="fa fa-angle-right"></i>  @task.Title <br />
+                <div class="_z @(@task.Done ? "done" : " ")"><i class="fa fa-angle-right"></i>  @task.Title <br /></div>
             }
         </td>
     </tr>
+
 </table>
 
