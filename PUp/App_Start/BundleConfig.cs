@@ -26,11 +26,12 @@ namespace PUp
                       "~/Scripts/zsLib/bootstrap.js",
                       "~/Scripts/zsLib/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/notif.css",
-                      "~/Content/timeline.css"
+            bundles.Add(new StyleBundle("~/Scripts/style/Content/css").Include(
+                      "~/Scripts/style/Content/bootstrap.css",
+                      "~/Scripts/style/Content/font-awesome.css",
+                      "~/Scripts/style/Content/site.css",
+                      "~/Scripts/style/Content/notif.css",
+                      "~/Scripts/style/Content/timeline.css"
                       ));
 
            

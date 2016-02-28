@@ -278,7 +278,7 @@ namespace PUp.Controllers
             project.Contributors.Add(currentUser);
             project.Contributors.Add(currentUser);
             currentUser.Tasks.Add(task);
-            repo.NotificationRepository.Add(task.Executor, "An issue is transformed to a new task <" + task.Title + ">", "~/Task/" + task.Id, LevelFlag.Info);
+            repo.NotificationRepository.Add(task.Executor, "An issue is transformed to a new task", "~/Task/" + task.Id, LevelFlag.Info);
             return Edit(task.Id);
         }
     }
