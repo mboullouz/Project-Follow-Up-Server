@@ -18,7 +18,7 @@ namespace PUp.Services
         }
 
         #region Flash message
-        public void Flash(string message, FlashLevel level = FlashLevel.Success)
+        public void Flash(string message, FlashLevel level = FlashLevel.Info)
         {
             IList<string> messages = null;
             string key = String.Format("flash-{0}", level.ToString().ToLower());
@@ -48,6 +48,8 @@ namespace PUp.Services
     public enum FlashLevel
     {
         Success = 1,
-        Danger = 2,
+        Info    = 2,
+        Warning= 3,
+        Danger = 4,
     }
 }

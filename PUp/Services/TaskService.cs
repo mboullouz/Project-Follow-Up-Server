@@ -20,8 +20,25 @@ namespace PUp.Services
 
             tVM.ActiveTasks = repo.DbContext.TaskSet.Include("Executor").Where(t => t.Deleted == false && t.Project.Id == id).ToList();
             tVM.DeletedTasks = repo.DbContext.TaskSet.Include("Executor").Where(t => t.Deleted == true && t.Project.Id == id).ToList();
-            modelStateWrapper.Flash("Welcome in tasks section");
+            if (!repo.ProjectRepository.IsActive(project))
+            {
+                modelStateWrapper.Flash("You are browsering a project that is no more active!");
+            }
+             
             return tVM;
+        }
+        public TaskEntity MarkDoneById(int id)
+        {
+            var task = repo.TaskRepository.FindById(id);
+            if (repo.ProjectRepository.IsActive(task.Project.Id))
+            {
+                repo.TaskRepository.MarkDone(task.Id);
+            }
+            else
+            {
+                modelStateWrapper.Flash("The project is no more active!", FlashLevel.Warning);
+            }
+            return task;
         }
     }
 }

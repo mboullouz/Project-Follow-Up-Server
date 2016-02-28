@@ -48,32 +48,13 @@ namespace PUp.Controllers
 
         public ActionResult MarkDone(int id)
         {
-            var task = repo.TaskRepository.FindById(id);
-            if (repo.ProjectRepository.IsActive(task.Project.Id))
-            {
-                 repo.TaskRepository.MarkDone(task.Id);
-            }
-            else
-            {
-                this.Flash("The project is no more active!", FlashLevel.Warning);
-            }
-
-            return RedirectToAction("Index", "Dashboard", new { id = task.Id });
+            taskService.MarkDoneById(id);
+            return RedirectToAction("Index", "Dashboard", new { id = id });
         }
-
-        //TODO REMOVE or MERGE this
+        //This is the same as MarkDone just the view rendered is different!
         public ActionResult SetDone(int id)
         {
-            var task = repo.TaskRepository.FindById(id);
-            if (repo.ProjectRepository.IsActive(task.Project.Id))
-            {
-                repo.TaskRepository.MarkDone(task.Id);
-            }
-            else
-            {
-                this.Flash("The project is no more active!", FlashLevel.Warning);
-            }
-
+            var task = taskService.MarkDoneById(id);
             return RedirectToAction("Index", "Task", new { id = task.Project.Id });
         }
 
@@ -83,19 +64,21 @@ namespace PUp.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         public ActionResult SetDate(int id)
-        {
+        {    
+            //TODO Don't plan tasks for not active project!
             var task = repo.TaskRepository.FindById(id);
             var interval = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
             bool added = false;
             foreach (var vK in interval.Interval)
             {
-                string dateStartStr = vK.Key + ":00";
-                var dateForTest = DateTime.Parse(dateStartStr);
-                if (!vK.Value && interval.CheckForDateAndDuration(dateForTest, task.EstimatedTimeInMinutes / 60))
+                string dateStartStr = vK.Key + ":00"; //Checks start from this str date till the end
+                var dateStartForTest = DateTime.Parse(dateStartStr);
+                if (!vK.Value && interval.CheckForDateAndDuration(dateStartForTest, task.EstimatedTimeInMinutes / 60))
                 {
-                    task.StartAt = dateForTest;
+                    task.StartAt = dateStartForTest;
                     repo.DbContext.SaveChanges();
                     added = true;
+                    break;//no nead for more checks
                 }
             }
              if(added)
