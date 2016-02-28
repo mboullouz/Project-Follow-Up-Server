@@ -1,13 +1,10 @@
 ﻿using PUp.Models;
 using PUp.Models.Entity;
-using PUp.Models.Repository;
 using PUp.Models.SimpleObject;
 using PUp.Services;
 using PUp.ViewModels;
-using PUp.ViewModels.Task;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace PUp.Controllers
@@ -28,7 +25,7 @@ namespace PUp.Controllers
         // GET: Task
         public ActionResult Index(int id)
         {
-            return View(taskService.GetByProjectId(id));
+            return View(taskService.GetTaskViewModelByProject(id));
         }
 
         [HttpPost]
@@ -48,13 +45,13 @@ namespace PUp.Controllers
 
         public ActionResult MarkDone(int id)
         {
-            taskService.MarkDoneById(id);
+            taskService.MarkDone(id);
             return RedirectToAction("Index", "Dashboard", new { id = id });
         }
         //This is the same as MarkDone just the view rendered is different!
         public ActionResult SetDone(int id)
         {
-            var task = taskService.MarkDoneById(id);
+            var task = taskService.MarkDone(id);
             return RedirectToAction("Index", "Task", new { id = task.Project.Id });
         }
 
@@ -64,30 +61,9 @@ namespace PUp.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         public ActionResult SetDate(int id)
-        {    
-            //TODO Don't plan tasks for not active project!
-            var task = repo.TaskRepository.FindById(id);
-            var interval = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
-            bool added = false;
-            foreach (var vK in interval.Interval)
-            {
-                string dateStartStr = vK.Key + ":00"; //Checks start from this str date till the end
-                var dateStartForTest = DateTime.Parse(dateStartStr);
-                if (!vK.Value && interval.CheckForDateAndDuration(dateStartForTest, task.EstimatedTimeInMinutes / 60))
-                {
-                    task.StartAt = dateStartForTest;
-                    repo.DbContext.SaveChanges();
-                    added = true;
-                    break;//no nead for more checks
-                }
-            }
-             if(added)
-                this.Flash("Task added to the current day pile! time to work on it hard, Good luck", FlashLevel.Success);
-             else
-                {
-                this.Flash("The task can't fit in the remaining time", FlashLevel.Warning);
-            }
-            return RedirectToAction("Index", "Dashboard", new { id = task.Id });
+        {
+            taskService.SetDateForTask(id);
+            return RedirectToAction("Index", "Dashboard", new { id = id });
         }
 
         /// <summary>
@@ -98,11 +74,7 @@ namespace PUp.Controllers
         /// <returns></returns>
         public ActionResult Add(int id)
         {
-            ProjectEntity project = repo.ProjectRepository.FindById(id);
-            AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
-            addTaskVM.Project = project;
-            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
-            return View(addTaskVM);
+            return View(taskService.GetAddTaskViewModelByProject(id));
         }
 
         public ActionResult Edit(int id)
@@ -110,13 +82,17 @@ namespace PUp.Controllers
             TaskEntity task = repo.TaskRepository.FindById(id);
             ProjectEntity project = repo.ProjectRepository.FindById(task.Project.Id);
             AddTaskViewModel addTaskVM = new AddTaskViewModel(task, repo.UserRepository.GetAll());
-       
             addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
             addTaskVM.Project = project;
-
             return View("~/Views/Task/Add.cshtml", addTaskVM);
         }
 
+
+        /// <summary>
+        /// Save data comming from the form
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(AddTaskViewModel model)
         {
