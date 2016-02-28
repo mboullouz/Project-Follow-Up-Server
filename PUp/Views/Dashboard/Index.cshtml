@@ -15,7 +15,7 @@
                     <thead>
                         <tr>
                             <td>Title</td>
-                            <td>time </td>
+                            <td>Duration</td>
                             <td>Start</td>
                             <td></td>
                         </tr>
@@ -85,6 +85,7 @@
                                 <td>Title</td>
                                 <td>Key factor</td>
                                 <td>Added at</td>
+                                <td>Duration</td>
                                 <td></td>
                             </tr>
                         </thead>
@@ -95,6 +96,7 @@
                                     <td> @task.Title</td>
                                     <td> @(task.KeyFactor ? "Yes" : "No")</td>
                                     <td>@task.AddAt.ToString("HH:mm d-MMM ")</td>
+                                    <td>@(task.EstimatedTimeInMinutes/60) Hour(s)</td>
                                     <td>
                                         <a href="@Url.Action("SetDate", "Task", new { id = task.Id } )" class="btn changeState" id="@task.Id">
                                             <i class="fa fa-check-square"></i> Plan for today
