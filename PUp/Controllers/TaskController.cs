@@ -2,6 +2,7 @@
 using PUp.Models.Entity;
 using PUp.Models.Repository;
 using PUp.Models.SimpleObject;
+using PUp.Services;
 using PUp.ViewModels;
 using PUp.ViewModels.Task;
 using System;
@@ -16,24 +17,18 @@ namespace PUp.Controllers
     {
         private RepositoryManager repo = new RepositoryManager(); 
         private UserEntity currentUser = null;
-
+        private TaskService taskService;
         
         public TaskController()
         {
             currentUser = repo.UserRepository.GetCurrentUser();
+            taskService = new TaskService(new ModelStateWrapper(TempData, ModelState));
         }
 
         // GET: Task
         public ActionResult Index(int id)
         {
-            //TODO remove this cause not necessary !
-            ProjectEntity project = repo.ProjectRepository.FindById(id);
-            TaskViewModel tVM = new TaskViewModel(project);
-             
-            tVM.ActiveTasks =  repo.DbContext.TaskSet.Include("Executor").Where(t => t.Deleted == false && t.Project.Id==id).ToList();
-            tVM.DeletedTasks = repo.DbContext.TaskSet.Include("Executor").Where(t => t.Deleted == true && t.Project.Id == id).ToList();
-
-            return View(tVM);
+            return View(taskService.GetByProjectId(id));
         }
 
         [HttpPost]

@@ -267,6 +267,9 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\ModelStateWrapper.cs" />
+    <Compile Include="Services\TaskService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddIssueViewModel.cs" />
     <Compile Include="ViewModels\Project\AddProjectViewModel.cs" />
@@ -388,7 +391,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
