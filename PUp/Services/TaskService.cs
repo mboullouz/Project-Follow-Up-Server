@@ -66,13 +66,32 @@ namespace PUp.Services
            modelStateWrapper.Flash(message, level);    
         }
 
+        //TODO refactore AddTaskViewModel or create a special one for Edit with a base class!
+        //Then Or merge the two actions 
         public AddTaskViewModel GetAddTaskViewModelByProject(int id) 
-        {
+        {   
             ProjectEntity project = repo.ProjectRepository.FindById(id);
+            if (!repo.ProjectRepository.IsActive(project.Id))
+            {
+                modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
+            }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
-            addTaskVM.Project = project;
-            var currentHour = DateTime.Now.Hour + 1;
+            addTaskVM.Project = project;        
             addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Now);
+            return addTaskVM;
+        }
+
+        public AddTaskViewModel GetAddTaskViewModelByTask(int id)
+        {
+            TaskEntity task = repo.TaskRepository.FindById(id);
+            ProjectEntity project = repo.ProjectRepository.FindById(task.Project.Id);
+            if (!repo.ProjectRepository.IsActive(project.Id))
+            {
+                modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
+            }
+            AddTaskViewModel addTaskVM = new AddTaskViewModel(task, repo.UserRepository.GetAll());
+            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
+            addTaskVM.Project = project;
             return addTaskVM;
         }
     }

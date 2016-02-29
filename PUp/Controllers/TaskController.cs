@@ -78,13 +78,8 @@ namespace PUp.Controllers
         }
 
         public ActionResult Edit(int id)
-        { 
-            TaskEntity task = repo.TaskRepository.FindById(id);
-            ProjectEntity project = repo.ProjectRepository.FindById(task.Project.Id);
-            AddTaskViewModel addTaskVM = new AddTaskViewModel(task, repo.UserRepository.GetAll());
-            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
-            addTaskVM.Project = project;
-            return View("~/Views/Task/Add.cshtml", addTaskVM);
+        {   
+            return View("~/Views/Task/Add.cshtml", taskService.GetAddTaskViewModelByTask(id));
         }
 
 
