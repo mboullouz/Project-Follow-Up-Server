@@ -30,7 +30,7 @@ namespace PUp.Controllers
             var currentTasks = repo.TaskRepository.TodayTasksByUser(currentUser);
             dashboardMV.CurrentTasks = currentTasks;
             var otherTasks = repo.TaskRepository.GetAll()
-                                           .Where(t => t.Executor == currentUser && !t.Done && t.StartAt==null )
+                                           .Where(t => t.Executor == currentUser && !t.Done && t.StartAt==null && t.Project.EndAt > DateTime.Now && t.Project.Deleted == false)
                                            .ToList();
             dashboardMV.MatrixVM = new MatrixViewModel(currentTasks, currentUser);
             dashboardMV.OtherTasks = otherTasks;

@@ -39,7 +39,7 @@ namespace PUp.Models.Repository
             DbContext.SaveChanges();
            
         }
-
+        //TODO Skip inactive project!
         public List<TaskEntity> TodayTasksByUser(UserEntity user)
         {
             DateTime startDateTime = DateTime.Today; //Today at 00:00:00
@@ -48,7 +48,8 @@ namespace PUp.Models.Repository
             return GetAll().Where(
                  t => t.Executor == user && t.StartAt != null
                       && t.StartAt.GetValueOrDefault() >= startDateTime
-                      && t.StartAt.GetValueOrDefault() <= endDateTime)
+                      && t.StartAt.GetValueOrDefault() <= endDateTime
+                      && t.Project.EndAt > DateTime.Now && t.Project.Deleted == false)
                 .OrderBy(v => v.StartAt).ToList();
         }
 
