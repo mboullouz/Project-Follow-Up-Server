@@ -163,27 +163,12 @@ namespace PUp.Controllers
 
         public ActionResult Delete(int id)
         {
-            var t = repo.TaskRepository.FindById(id);
-            var projectId = t.Project.Id; //needed to redirect!
-            repo.TaskRepository.MarkDeleted(t);
-            this.Flash("Task is deleted! ", FlashLevel.Warning);
-            return RedirectToAction("Index", "Task", new { id = projectId });
+            return RedirectToAction("Index", "Task", new { id = taskService.Delete(id).Project.Id });
         }
 
         public ActionResult MarkUndone(int id)
         {
-            var t = repo.TaskRepository.FindById(id);
-            var projectId = t.Project.Id; //needed to redirect!
-            if (repo.ProjectRepository.IsActive(projectId))
-            {
-                repo.TaskRepository.MarkUndone(t);
-            }
-            else
-            {
-                this.Flash("The project is no more active!", FlashLevel.Warning);
-            }
-            
-            return RedirectToAction("Index", "Task", new { id = projectId });
+            return RedirectToAction("Index", "Task", new { id = taskService.MarkUndone(id).Project.Id });
         }
 
         public ActionResult Postpone(int id)

@@ -10,8 +10,8 @@ namespace PUp.Services
 {
     public class TaskService : BaseService
     {
-        public TaskService(ModelStateWrapper modelStateWrapper):base(modelStateWrapper)
-        {}
+        public TaskService(ModelStateWrapper modelStateWrapper) : base(modelStateWrapper)
+        { }
 
         public TaskViewModel GetTaskViewModelByProject(int id)
         {
@@ -48,7 +48,7 @@ namespace PUp.Services
                 return;
             }
             var intervalManager = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:00"));
-            var level= FlashLevel.Warning;
+            var level = FlashLevel.Warning;
             string message = "The task can't fit in the remaining time";
             foreach (var vK in intervalManager.Interval.ToList())// To list is needed because the interval is modified during iteration!
             {
@@ -62,21 +62,21 @@ namespace PUp.Services
                     message = "Task added to the current day pile, Good luck!";
                     break;//no nead for more checks
                 }
-            }      
-           modelStateWrapper.Flash(message, level);    
+            }
+            modelStateWrapper.Flash(message, level);
         }
 
         //TODO refactore AddTaskViewModel or create a special one for Edit with a base class!
         //Then Or merge the two actions 
-        public AddTaskViewModel GetAddTaskViewModelByProject(int id) 
-        {   
+        public AddTaskViewModel GetAddTaskViewModelByProject(int id)
+        {
             ProjectEntity project = repo.ProjectRepository.FindById(id);
             if (!repo.ProjectRepository.IsActive(project.Id))
             {
                 modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
             }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
-            addTaskVM.Project = project;        
+            addTaskVM.Project = project;
             addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Now);
             return addTaskVM;
         }
@@ -94,5 +94,39 @@ namespace PUp.Services
             addTaskVM.Project = project;
             return addTaskVM;
         }
-    }
+
+        public TaskEntity MarkUndone(int id)
+        {
+
+            var t = repo.TaskRepository.FindById(id);
+           
+            if (repo.ProjectRepository.IsActive(t.Project))
+            {
+                repo.TaskRepository.MarkUndone(t);
+                modelStateWrapper.Flash("the task: "+t.Title+ " is now marked undone!", FlashLevel.Info);
+            }
+            else
+            {
+                modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
+            }
+            return t;
+        }
+
+        public TaskEntity Delete(int id)
+        {
+            var t = repo.TaskRepository.FindById(id);
+            if (repo.ProjectRepository.IsActive(t.Project))
+            {
+                repo.TaskRepository.MarkDeleted(t);
+                modelStateWrapper.Flash("Task: "+t.Title+" is marked  deleted! ", FlashLevel.Info);
+            }
+            else
+            {
+                modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
+            }
+               
+            return t;
+        }
+    
+}
 }
