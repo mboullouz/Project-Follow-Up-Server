@@ -99,11 +99,11 @@ namespace PUp.Services
         {
 
             var t = repo.TaskRepository.FindById(id);
-           
+
             if (repo.ProjectRepository.IsActive(t.Project))
             {
                 repo.TaskRepository.MarkUndone(t);
-                modelStateWrapper.Flash("the task: "+t.Title+ " is now marked undone!", FlashLevel.Info);
+                modelStateWrapper.Flash("the task: " + t.Title + " is now marked undone!", FlashLevel.Info);
             }
             else
             {
@@ -118,15 +118,50 @@ namespace PUp.Services
             if (repo.ProjectRepository.IsActive(t.Project))
             {
                 repo.TaskRepository.MarkDeleted(t);
-                modelStateWrapper.Flash("Task: "+t.Title+" is marked  deleted! ", FlashLevel.Info);
+                modelStateWrapper.Flash("Task: " + t.Title + " is marked  deleted! ", FlashLevel.Info);
             }
             else
             {
                 modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
             }
-               
+
             return t;
         }
-    
-}
+
+        public bool Add(AddTaskViewModel model)
+        {
+            ProjectEntity project = repo.ProjectRepository.FindById(model.IdProject);
+            if (!modelStateWrapper.IsValid && !repo.ProjectRepository.IsActive(project))
+            {
+                modelStateWrapper.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
+                return  false ;
+            }
+            var selectedUser = repo.UserRepository.FindById(model.ExecutorId);
+            TaskEntity task = new TaskEntity
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Done = false,
+                Project = project,
+                AddAt = DateTime.Now,
+                EditAt = DateTime.Now,
+                EstimatedTimeInMinutes = model.EstimatedTimeInMinutes,
+                StartAt = model.StartAt,
+                KeyFactor = model.KeyFactor,
+                Deleted = false,
+                Critical = model.Important,
+                Urgent = model.Urgent,
+                Executor = selectedUser
+            };
+            repo.TaskRepository.Add(task);
+            project.Tasks.Add(task);
+            project.Contributors.Add(selectedUser);
+            project.Contributors.Add(currentUser);
+            selectedUser.Tasks.Add(task);
+
+            repo.NotificationRepository.GenerateFor(task, new HashSet<UserEntity> { currentUser, task.Executor });
+            return true;
+        }
+
+    }
 }

@@ -128,37 +128,11 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddTaskViewModel model)
         {
-            ProjectEntity project = repo.ProjectRepository.FindById(model.IdProject);
-            if (!ModelState.IsValid && !repo.ProjectRepository.IsActive(project))
+            if (!taskService.Add(model))
             {
-                this.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
-                return Add(project.Id);
+                return Add(model.IdProject);
             }
-            var selectedUser = repo.UserRepository.FindById(model.ExecutorId);
-            TaskEntity task = new TaskEntity
-            {
-                Title = model.Title,
-                Description = model.Description,
-                Done = false,
-                Project = project,
-                AddAt = DateTime.Now,
-                EditAt = DateTime.Now,
-                EstimatedTimeInMinutes = model.EstimatedTimeInMinutes,
-                StartAt = model.StartAt,
-                KeyFactor = model.KeyFactor,
-                Deleted = false,
-                Critical = model.Important,
-                Urgent = model.Urgent,
-                Executor = selectedUser         
-            };
-            repo.TaskRepository.Add(task);
-            project.Tasks.Add(task);
-            project.Contributors.Add(selectedUser);
-            project.Contributors.Add(currentUser);
-            selectedUser.Tasks.Add(task);
-
-            repo.NotificationRepository.GenerateFor(task, new HashSet<UserEntity> { currentUser, task.Executor });
-            return RedirectToAction("Index", "Task", new { id = project.Id });
+            return RedirectToAction("Index", "Task", new { id = model.IdProject });
         }
 
         public ActionResult Delete(int id)
