@@ -161,10 +161,10 @@ namespace PUp.Controllers
         }
         public ActionResult GenerateFromIssue(int projectId,int id)
         {
-            var issue = repo.IssueRepository.FindById(id);
+            var issue = taskService.GetRepositoryManager().IssueRepository.FindById(id);//temp to not reference entity by different DBContext!
             issue.Deleted = true;
             issue.DeleteAt = DateTime.Now;
-            var project = repo.ProjectRepository.FindById(projectId);
+            var project = taskService.GetRepositoryManager().ProjectRepository.FindById(projectId);
             TaskEntity task = new TaskEntity
             {
                 Title = "Task from unresolved issue",
@@ -179,14 +179,9 @@ namespace PUp.Controllers
                 Deleted = false,
                 Critical = true,
                 Urgent = true,
-                Executor = currentUser
+                Executor = taskService.GetRepositoryManager().UserRepository.GetCurrentUser()
             };
-            repo.TaskRepository.Add(task);
-            project.Tasks.Add(task);
-            project.Contributors.Add(currentUser);
-            project.Contributors.Add(currentUser);
-            currentUser.Tasks.Add(task);
-            repo.NotificationRepository.Add(task.Executor, "An issue is transformed to a new task", "~/Task/" + task.Id, LevelFlag.Info);
+            taskService.SaveNewTask(task);
             return Edit(task.Id);
         }
     }

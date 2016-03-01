@@ -18,5 +18,7 @@ namespace PUp.Services
             currentUser = repo.UserRepository.GetCurrentUser();
             this.modelStateWrapper = modelStateWrapper;
         }
+
+        public RepositoryManager GetRepositoryManager() { return repo; }
     }
 }

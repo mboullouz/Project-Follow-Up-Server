@@ -97,9 +97,7 @@ namespace PUp.Services
 
         public TaskEntity MarkUndone(int id)
         {
-
             var t = repo.TaskRepository.FindById(id);
-
             if (repo.ProjectRepository.IsActive(t.Project))
             {
                 repo.TaskRepository.MarkUndone(t);
@@ -124,36 +122,26 @@ namespace PUp.Services
             {
                 modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
             }
-
             return t;
         }
 
         public bool Add(AddTaskViewModel model)
         {
-            ProjectEntity project = repo.ProjectRepository.FindById(model.IdProject);
-            if (!modelStateWrapper.IsValid && !repo.ProjectRepository.IsActive(project))
+            if (!modelStateWrapper.IsValid && !repo.ProjectRepository.IsActive(model.IdProject))
             {
                 modelStateWrapper.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
-                return  false ;
+                return false;
             }
-            var selectedUser = repo.UserRepository.FindById(model.ExecutorId);
             TaskEntity task = GetInitializedTaskFromModel(model);
-            repo.TaskRepository.Add(task);
-            project.Tasks.Add(task);
-            project.Contributors.Add(selectedUser);
-            project.Contributors.Add(currentUser);
-            selectedUser.Tasks.Add(task);
-
-            repo.NotificationRepository.GenerateFor(task, new HashSet<UserEntity> { currentUser, task.Executor });
+            SaveNewTask(task);
             return true;
         }
 
         public TaskEntity GetInitializedTaskFromModel(AddTaskViewModel model)
-        {  
-            var selectedUser = repo.UserRepository.FindById(model.ExecutorId);
+        {
             TaskEntity task = new TaskEntity
             {
-                Title = model.Title, 
+                Title = model.Title,
                 Description = model.Description,
                 Done = false,
                 Project = repo.ProjectRepository.FindById(model.IdProject),
@@ -165,10 +153,24 @@ namespace PUp.Services
                 Deleted = false,
                 Critical = model.Important,
                 Urgent = model.Urgent,
-                Executor = selectedUser
+                Executor = repo.UserRepository.FindById(model.ExecutorId)
             };
-
             return task;
+        }
+
+
+        /// <summary>
+        /// Perform actions and save a task on add first time
+        /// </summary>
+        /// <param name="task"></param>
+        public void SaveNewTask(TaskEntity task)
+        {
+            repo.TaskRepository.Add(task);
+            task.Project.Tasks.Add(task);
+            task.Project.Contributors.Add(task.Executor);
+            task.Project.Contributors.Add(currentUser);
+            task.Project.Tasks.Add(task);
+            repo.NotificationRepository.GenerateFor(task, new HashSet<UserEntity> { currentUser, task.Executor });
         }
 
     }
