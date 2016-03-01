@@ -30,12 +30,16 @@ namespace PUp.Controllers
                 this.Flash("Please register / or login if you already have an account", FlashLevel.Warning);
                 return RedirectToAction("Register", "Account");
             }
-            var projectsByUser = repo.ProjectRepository.GetAll().Where(p=>p.Owner==currentUser|| p.Contributors.Contains(currentUser)).ToList();
+            var projectsByUser = repo.ProjectRepository.GetAll()
+                                     .Where(p=>p.Owner==currentUser|| p.Contributors.Contains(currentUser))
+                                     .OrderByDescending(p=>p.StartAt).ToList();
             TableProjectModelView tableProject = new TableProjectModelView
             {
                 CurrentUser = currentUser,
                 Projects = projectsByUser,
-                OtherProjects = repo.ProjectRepository.GetActive().Where(p => !projectsByUser.Contains(p)).ToList(),
+                OtherProjects = repo.ProjectRepository.GetActive()
+                                    .Where(p => !projectsByUser.Contains(p))
+                                    .OrderByDescending(p => p.StartAt).ToList(),
             };
             return View(tableProject);
         }

@@ -137,12 +137,26 @@ namespace PUp.Services
                 return  false ;
             }
             var selectedUser = repo.UserRepository.FindById(model.ExecutorId);
+            TaskEntity task = GetInitializedTaskFromModel(model);
+            repo.TaskRepository.Add(task);
+            project.Tasks.Add(task);
+            project.Contributors.Add(selectedUser);
+            project.Contributors.Add(currentUser);
+            selectedUser.Tasks.Add(task);
+
+            repo.NotificationRepository.GenerateFor(task, new HashSet<UserEntity> { currentUser, task.Executor });
+            return true;
+        }
+
+        public TaskEntity GetInitializedTaskFromModel(AddTaskViewModel model)
+        {  
+            var selectedUser = repo.UserRepository.FindById(model.ExecutorId);
             TaskEntity task = new TaskEntity
             {
-                Title = model.Title,
+                Title = model.Title, 
                 Description = model.Description,
                 Done = false,
-                Project = project,
+                Project = repo.ProjectRepository.FindById(model.IdProject),
                 AddAt = DateTime.Now,
                 EditAt = DateTime.Now,
                 EstimatedTimeInMinutes = model.EstimatedTimeInMinutes,
@@ -153,14 +167,8 @@ namespace PUp.Services
                 Urgent = model.Urgent,
                 Executor = selectedUser
             };
-            repo.TaskRepository.Add(task);
-            project.Tasks.Add(task);
-            project.Contributors.Add(selectedUser);
-            project.Contributors.Add(currentUser);
-            selectedUser.Tasks.Add(task);
 
-            repo.NotificationRepository.GenerateFor(task, new HashSet<UserEntity> { currentUser, task.Executor });
-            return true;
+            return task;
         }
 
     }
