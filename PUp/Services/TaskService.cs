@@ -125,6 +125,22 @@ namespace PUp.Services
             return t;
         }
 
+        //TODO Refac-
+        public TaskEntity Postpone(int id)
+        {
+            var task = repo.TaskRepository.FindById(id);
+            if (repo.ProjectRepository.IsActive(task.Project))
+            {
+                task.StartAt = null;
+                repo.DbContext.SaveChanges();
+            }
+            else
+            {
+                modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
+            }
+           return task;
+        }
+
         public bool Add(AddTaskViewModel model)
         {
             if (!modelStateWrapper.IsValid && !repo.ProjectRepository.IsActive(model.IdProject))

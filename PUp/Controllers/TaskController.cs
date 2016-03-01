@@ -147,17 +147,8 @@ namespace PUp.Controllers
 
         public ActionResult Postpone(int id)
         {
-            var task = repo.TaskRepository.FindById(id);
-            if (repo.ProjectRepository.IsActive(task.Project))
-            {
-                task.StartAt = null;
-                repo.DbContext.SaveChanges();
-            }
-            else
-            {
-                this.Flash("The project is no more active!", FlashLevel.Warning);
-            }
-            return RedirectToAction("Index", "Dashboard", new { id = task.Id });
+            taskService.Postpone(id);
+            return RedirectToAction("Index", "Dashboard", new { id = id });
         }
         public ActionResult GenerateFromIssue(int projectId,int id)
         {
