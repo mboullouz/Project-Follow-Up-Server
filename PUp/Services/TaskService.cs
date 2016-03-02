@@ -141,11 +141,20 @@ namespace PUp.Services
            return task;
         }
 
-        public bool Add(AddTaskViewModel model)
+        public bool IsModelValid(AddTaskViewModel model)
         {
             if (!modelStateWrapper.IsValid && !repo.ProjectRepository.IsActive(model.IdProject))
             {
                 modelStateWrapper.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        public bool Add(AddTaskViewModel model)
+        {
+            if (!IsModelValid(model))
+            {
                 return false;
             }
             TaskEntity task = GetInitializedTaskFromModel(model);
