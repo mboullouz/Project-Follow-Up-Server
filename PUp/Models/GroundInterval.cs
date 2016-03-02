@@ -38,10 +38,13 @@ namespace PUp.Models
         {
             int startH = startDate.Hour;
             MakeNotAvelaibleHoursBeforeNow();
-            if (startH < AppConst.DayStart || startH > AppConst.DayEnd)
+            if (DateTime.Now.Hour>=startH || startH < AppConst.DayStart || startH > AppConst.DayEnd || !CheckForDateAndDuration(startDate,durationInHours))
             {
                 return Interval;
             }
+            /**
+            dont loop over past hours to now
+            */
             for (var h = startH; h < startH + durationInHours; h++)
             {
                 if(!Interval[h])
