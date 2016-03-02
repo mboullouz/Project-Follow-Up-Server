@@ -92,9 +92,9 @@ namespace PUp.Controllers
         public ActionResult Edit(AddTaskViewModel model)
         {
             //If startDate is set! must be handled by cheking the interval, else raise an error!
-            ProjectEntity project = repo.ProjectRepository.FindById(model.IdProject);
-            var executor = repo.UserRepository.FindById(model.ExecutorId);
-            if (!ModelState.IsValid && !repo.ProjectRepository.IsActive(project) && executor==null)
+            ProjectEntity project = taskService.GetRepositoryManager().ProjectRepository.FindById(model.IdProject);
+            var executor = taskService.GetRepositoryManager().UserRepository.FindById(model.ExecutorId);
+            if (!ModelState.IsValid && !taskService.GetRepositoryManager().ProjectRepository.IsActive(project) && executor==null)
             {
                 this.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
                 return Edit(model.Id);
@@ -104,9 +104,9 @@ namespace PUp.Controllers
             if (!project.Contributors.Contains(task.Executor)) {
                 project.Contributors.Add(task.Executor);
             }
-            executor.Tasks.Add(task);
-            repo.NotificationRepository.Add(task.Executor, "Task <" + task.Title + "> Is updated", "~/Task/" + project.Id, LevelFlag.Info);
-            repo.DbContext.SaveChanges();
+            task.Executor.Tasks.Add(task);
+            taskService.GetRepositoryManager().NotificationRepository.Add(task.Executor, "Task <" + task.Title + "> Is updated", "~/Task/" + project.Id, LevelFlag.Info);
+            taskService.GetRepositoryManager().DbContext.SaveChanges();
             this.Flash("Saved successfully and assigned to: "+executor.Name, FlashLevel.Success);
             return RedirectToAction("Index", "Task", new { id = project.Id });
         }
