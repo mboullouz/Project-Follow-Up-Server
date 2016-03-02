@@ -23,7 +23,10 @@ namespace PUp.ViewModels
 
         public bool KeyFactor { get; set; }
 
+        [Required]
         public int EstimatedTimeInMinutes { get; set; }
+
+        [Required]
         public SelectList EstimatedMinList { get; set; }
 
         public DateTime? StartAt { get; set; }
@@ -50,6 +53,7 @@ namespace PUp.ViewModels
         }
         public AddTaskViewModel(int idProject, List<UserEntity> users)
         {
+            Id = 0;
             InitElements(idProject, users);
         }
 

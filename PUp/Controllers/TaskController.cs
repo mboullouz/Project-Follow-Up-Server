@@ -99,21 +99,8 @@ namespace PUp.Controllers
                 this.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
                 return Edit(model.Id);
             }
-           
-            TaskEntity task = repo.TaskRepository.FindById(model.Id);
-            //TODO Move this elsewhere!
-            task.Title = model.Title;
-            task.Description = model.Description;
-            task.Done = false;
-            //task.Project = project;
-            task.AddAt = DateTime.Now;
-            task.EditAt = DateTime.Now;
-            task.EstimatedTimeInMinutes = model.EstimatedTimeInMinutes;
-            task.StartAt = model.StartAt;
-            task.KeyFactor = model.KeyFactor;
-            task.Critical = model.Important;
-            task.Urgent = model.Urgent;
-            task.Executor = executor;
+
+            var task = taskService.GetInitializedTaskFromModel(model);
             if (!project.Contributors.Contains(task.Executor)) {
                 project.Contributors.Add(task.Executor);
             }

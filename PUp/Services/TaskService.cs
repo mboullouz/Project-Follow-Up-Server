@@ -155,22 +155,30 @@ namespace PUp.Services
 
         public TaskEntity GetInitializedTaskFromModel(AddTaskViewModel model)
         {
-            TaskEntity task = new TaskEntity
+            TaskEntity task;
+            if (model.Id == 0)
             {
-                Title = model.Title,
-                Description = model.Description,
-                Done = false,
-                Project = repo.ProjectRepository.FindById(model.IdProject),
-                AddAt = DateTime.Now,
-                EditAt = DateTime.Now,
-                EstimatedTimeInMinutes = model.EstimatedTimeInMinutes,
-                StartAt = model.StartAt,
-                KeyFactor = model.KeyFactor,
-                Deleted = false,
-                Critical = model.Important,
-                Urgent = model.Urgent,
-                Executor = repo.UserRepository.FindById(model.ExecutorId)
-            };
+                task = new TaskEntity();
+            }
+            else
+            {
+                task = repo.TaskRepository.FindById(model.Id);
+            }
+
+            task.Title = model.Title;
+            task.Description = model.Description;
+            task.Done = false;
+            task.Project = repo.ProjectRepository.FindById(model.IdProject);
+            task.AddAt = DateTime.Now;
+            task.EditAt = DateTime.Now;
+            task.EstimatedTimeInMinutes = model.EstimatedTimeInMinutes;
+            task.StartAt = model.StartAt;
+            task.KeyFactor = model.KeyFactor;
+            task.Deleted = false;
+            task.Critical = model.Important;
+            task.Urgent = model.Urgent;
+            task.Executor = repo.UserRepository.FindById(model.ExecutorId);
+            
             return task;
         }
 
