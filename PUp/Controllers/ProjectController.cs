@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PUp.ViewModels;
-using PUp.Models.Repository;
 using PUp.Models.Entity;
 using PUp.Models;
 using PUp.ViewModels.Project;
@@ -27,15 +25,7 @@ namespace PUp.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            AddProjectViewModel projectModel = new AddProjectViewModel
-            {
-                EndAt = DateTime.Now.AddDays(7),
-                StartAt = DateTime.Now.AddHours(1),
-                Name = "Week 2: Exciting project!",
-                Benifite = "Define the benefits and related assumptions,associated with the project...",
-                Objective = "what is the project trying to achieve? What functionalities or departments are involved?... "
-            };
-            return View(projectModel);
+            return View(projectService.InitProjectModel());
         }
 
         [HttpGet]
@@ -47,7 +37,8 @@ namespace PUp.Controllers
 
         [HttpPost]
         public ActionResult Edit(AddProjectViewModel model)
-        {
+        {   
+            //Add more validation!
             if (!ModelState.IsValid)
             {
               return View(model);
@@ -59,14 +50,10 @@ namespace PUp.Controllers
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
             repo.ProjectRepository.DbContext.SaveChanges();
-            var notif = new NotificationEntity ();
-            notif.Message = "Project: " + project.Name + " updated";
-            notif.Url = "~/Project/Timeline" + project.Id;
-            notif.Level = LevelFlag.Info;
+            
             foreach(var u in project.Contributors)
             {
-                notif.User = u;
-                repo.NotificationRepository.Add(notif);
+                repo.NotificationRepository.Add(u, "Project: " + project.Name + " updated", "~/Project/Timeline" + project.Id, LevelFlag.Info);
             }
             return RedirectToAction("Index", "Home");
         }

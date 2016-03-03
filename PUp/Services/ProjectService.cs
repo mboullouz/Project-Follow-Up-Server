@@ -40,5 +40,18 @@ namespace PUp.Services
             
             return project;
         }
+
+        public AddProjectViewModel InitProjectModel()
+        {
+            AddProjectViewModel projectModel = new AddProjectViewModel
+            {
+                EndAt = DateTime.Now.AddDays(7),
+                StartAt = DateTime.Now.AddHours(1),
+                Name = "Week 2: Exciting project!",
+                Benifite = "Define the benefits and related assumptions,associated with the project...",
+                Objective = "what is the project trying to achieve? What functionalities or departments are involved?... "
+            };
+            return projectModel;
+        }
     }
 }
