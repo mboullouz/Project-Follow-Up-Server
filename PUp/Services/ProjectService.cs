@@ -53,5 +53,16 @@ namespace PUp.Services
             };
             return projectModel;
         }
+
+        public bool IsModelValid(AddProjectViewModel model)
+        {
+            if (!modelStateWrapper.IsValid || model.EndAt <= model.StartAt || model.StartAt <= DateTime.Now.AddMinutes(30))
+            {
+                modelStateWrapper.AddError("", "The form is not valid please check it again.");
+                modelStateWrapper.Flash("Impossible to save the form in it's current state! ",FlashLevel.Danger);
+                return false;
+            }
+            return true;
+        }
     }
 }

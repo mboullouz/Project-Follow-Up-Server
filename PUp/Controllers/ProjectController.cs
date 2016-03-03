@@ -37,9 +37,9 @@ namespace PUp.Controllers
 
         [HttpPost]
         public ActionResult Edit(AddProjectViewModel model)
-        {   
-            //Add more validation!
-            if (!ModelState.IsValid)
+        {    
+
+            if (!projectService.IsModelValid(model))
             {
               return View(model);
             }
@@ -61,15 +61,11 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddProjectViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (!projectService.IsModelValid(model))
             {
                 return View(model);
             }
-            if (model.EndAt <= model.StartAt || model.StartAt <= DateTime.Now.AddMinutes(30))
-            {
-                ModelState.AddModelError("", "Dates are not valid! .");
-                return View(model);
-            }
+             
             var project = projectService.GetInitializedProjectFromModel(model); 
             repo.ProjectRepository.Add(project);
             repo.NotificationRepository.GenerateFor(project, new HashSet<UserEntity>(repo.UserRepository.GetAll()));
