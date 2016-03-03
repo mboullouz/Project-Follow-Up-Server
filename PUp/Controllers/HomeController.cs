@@ -16,8 +16,7 @@ namespace PUp.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private ProjectService projectService;
-        private RepositoryManager repo = new RepositoryManager();
+        private ProjectService projectService;    
         private UserEntity currentUser = null;
 
         public HomeController()
@@ -26,7 +25,7 @@ namespace PUp.Controllers
         }
         public ActionResult Index()
         {
-            currentUser = repo.UserRepository.GetCurrentUser();
+            currentUser = projectService.GetRepositoryManager().UserRepository.GetCurrentUser();
             if (currentUser==null)
             {
                 this.Flash("Please register / or login if you already have an account", FlashLevel.Warning);

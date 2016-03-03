@@ -8,17 +8,20 @@ using PUp.Models.Repository;
 using PUp.Models.Entity;
 using PUp.Models;
 using PUp.ViewModels.Project;
+using PUp.Services;
 
 namespace PUp.Controllers
 {
     public class ProjectController : Controller
     {
+        private ProjectService projectService;
         private RepositoryManager repo = new RepositoryManager();
         private UserEntity currentUser = null;
 
         public ProjectController()
         {
             currentUser = repo.UserRepository.GetCurrentUser();
+            projectService = new ProjectService(new ModelStateWrapper(TempData, ModelState));
         }
 
         [HttpGet]
@@ -80,14 +83,7 @@ namespace PUp.Controllers
                 ModelState.AddModelError("", "Dates are not valid! .");
                 return View(model);
             }
-            ProjectEntity project = new ProjectEntity();
-            project.Name = model.Name;
-            project.StartAt = model.StartAt;
-            project.EndAt = model.EndAt;
-            project.Objective = model.Objective;
-            project.Benifite = model.Benifite;
-            project.Owner = repo.UserRepository.GetCurrentUser();
-            project.Contributors.Add(project.Owner);
+            var project = projectService.GetInitializedProjectFromModel(model); 
             repo.ProjectRepository.Add(project);
             repo.NotificationRepository.GenerateFor(project, new HashSet<UserEntity>(repo.UserRepository.GetAll()));
             return RedirectToAction("Index", "Home");

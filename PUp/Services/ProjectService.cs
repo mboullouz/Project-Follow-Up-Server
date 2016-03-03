@@ -1,4 +1,5 @@
-﻿using PUp.ViewModels.Project;
+﻿using PUp.Models.Entity;
+using PUp.ViewModels.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,20 @@ namespace PUp.Services
                                     .OrderByDescending(p => p.StartAt).ToList(),
             };
             return  tableProject ;
+        }
+
+        public ProjectEntity GetInitializedProjectFromModel(AddProjectViewModel model)
+        {
+            ProjectEntity project = new ProjectEntity();
+            project.Name = model.Name;
+            project.StartAt = model.StartAt;
+            project.EndAt = model.EndAt;
+            project.Objective = model.Objective;
+            project.Benifite = model.Benifite;
+            project.Owner = repo.UserRepository.GetCurrentUser();
+            project.Contributors.Add(project.Owner);
+            
+            return project;
         }
     }
 }
