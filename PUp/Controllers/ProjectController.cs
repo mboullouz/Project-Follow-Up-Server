@@ -13,13 +13,14 @@ namespace PUp.Controllers
     public class ProjectController : Controller
     {
         private ProjectService projectService;
-        private RepositoryManager repo = new RepositoryManager();
+        
         private UserEntity currentUser = null;
 
         public ProjectController()
         {
-            currentUser = repo.UserRepository.GetCurrentUser();
+           
             projectService = new ProjectService(new ModelStateWrapper(TempData, ModelState));
+            currentUser = projectService.GetRepositoryManager().UserRepository.GetCurrentUser();
         }
 
         [HttpGet]
@@ -31,7 +32,7 @@ namespace PUp.Controllers
         [HttpGet]
         public ActionResult Contributors(int id)
         {
-            var project = repo.ProjectRepository.GetAll().Where(p=>p.Id== id).FirstOrDefault();
+            var project = projectService.GetRepositoryManager().ProjectRepository.GetAll().Where(p=>p.Id== id).FirstOrDefault();
             return View(project);
         }
 
@@ -43,17 +44,17 @@ namespace PUp.Controllers
             {
               return View(model);
             }
-            ProjectEntity project = repo.ProjectRepository.FindById(model.Id);
+            ProjectEntity project = projectService.GetRepositoryManager().ProjectRepository.FindById(model.Id);
             project.Name = model.Name;
             project.StartAt = model.StartAt;
             project.EndAt = model.EndAt;
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
-            repo.ProjectRepository.DbContext.SaveChanges();
+             projectService.GetRepositoryManager().ProjectRepository.DbContext.SaveChanges();
             
             foreach(var u in project.Contributors)
             {
-                repo.NotificationRepository.Add(u, "Project: " + project.Name + " updated", "~/Project/Timeline" + project.Id, LevelFlag.Info);
+                 projectService.GetRepositoryManager().NotificationRepository.Add(u, "Project: " + project.Name + " updated", "~/Project/Timeline" + project.Id, LevelFlag.Info);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -67,27 +68,27 @@ namespace PUp.Controllers
             }
              
             var project = projectService.GetInitializedProjectFromModel(model); 
-            repo.ProjectRepository.Add(project);
-            repo.NotificationRepository.GenerateFor(project, new HashSet<UserEntity>(repo.UserRepository.GetAll()));
+             projectService.GetRepositoryManager().ProjectRepository.Add(project);
+             projectService.GetRepositoryManager().NotificationRepository.GenerateFor(project, new HashSet<UserEntity>( projectService.GetRepositoryManager().UserRepository.GetAll()));
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Remove(int id)
         {
-            repo.ProjectRepository.MarkDeleted(repo.ProjectRepository.FindById(id));
+             projectService.GetRepositoryManager().ProjectRepository.MarkDeleted( projectService.GetRepositoryManager().ProjectRepository.FindById(id));
             return RedirectToAction("Index", "Home");
         }
 
         //Remove permenently a record 
         public ActionResult HardRemove(int id)
         {
-            repo.ProjectRepository.Remove(repo.ProjectRepository.FindById(id));
+             projectService.GetRepositoryManager().ProjectRepository.Remove( projectService.GetRepositoryManager().ProjectRepository.FindById(id));
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Edit(int id)
         {
-            ProjectEntity project = repo.ProjectRepository.FindById(id);
+            ProjectEntity project =  projectService.GetRepositoryManager().ProjectRepository.FindById(id);
             AddProjectViewModel projectModel = new AddProjectViewModel(project);
             projectModel.Id = id;
             return View("~/Views/Project/Add.cshtml", projectModel);
@@ -95,21 +96,21 @@ namespace PUp.Controllers
 
         public ActionResult Timeline(int id)
         {
-            ProjectEntity project = repo.ProjectRepository.FindById(id);
+            ProjectEntity project =  projectService.GetRepositoryManager().ProjectRepository.FindById(id);
             ProjectTimelineViewModel projectTimeline = new ProjectTimelineViewModel(project);
             return View(projectTimeline);
         }
 
         public ActionResult Info(int id)
         {
-            ProjectEntity project = repo.ProjectRepository.FindById(id);
+            ProjectEntity project =  projectService.GetRepositoryManager().ProjectRepository.FindById(id);
             return View(project);
         }
 
         public ActionResult Matrix(int id)
         {
-            ProjectEntity project = repo.ProjectRepository.FindById(id);
-            MatrixViewModel mVM = new MatrixViewModel(project, repo.UserRepository.GetCurrentUser());
+            ProjectEntity project =  projectService.GetRepositoryManager().ProjectRepository.FindById(id);
+            MatrixViewModel mVM = new MatrixViewModel(project,  projectService.GetRepositoryManager().UserRepository.GetCurrentUser());
             return View(mVM);
         }
 
