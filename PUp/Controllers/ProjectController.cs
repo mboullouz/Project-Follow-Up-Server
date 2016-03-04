@@ -18,7 +18,6 @@ namespace PUp.Controllers
 
         public ProjectController()
         {
-           
             projectService = new ProjectService(new ModelStateWrapper(TempData, ModelState));
             currentUser = projectService.GetRepositoryManager().UserRepository.GetCurrentUser();
         }
@@ -39,7 +38,6 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Edit(AddProjectViewModel model)
         {    
-
             if (!projectService.IsModelValid(model))
             {
               return View(model);
@@ -50,7 +48,7 @@ namespace PUp.Controllers
             project.EndAt = model.EndAt;
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
-             projectService.GetRepositoryManager().ProjectRepository.DbContext.SaveChanges();
+            projectService.GetRepositoryManager().ProjectRepository.DbContext.SaveChanges();
             
             foreach(var u in project.Contributors)
             {
@@ -66,10 +64,9 @@ namespace PUp.Controllers
             {
                 return View(model);
             }
-             
             var project = projectService.GetInitializedProjectFromModel(model); 
-             projectService.GetRepositoryManager().ProjectRepository.Add(project);
-             projectService.GetRepositoryManager().NotificationRepository.GenerateFor(project, new HashSet<UserEntity>( projectService.GetRepositoryManager().UserRepository.GetAll()));
+            projectService.GetRepositoryManager().ProjectRepository.Add(project);
+            projectService.GetRepositoryManager().NotificationRepository.GenerateFor(project, new HashSet<UserEntity>( projectService.GetRepositoryManager().UserRepository.GetAll()));
             return RedirectToAction("Index", "Home");
         }
 
@@ -82,7 +79,7 @@ namespace PUp.Controllers
         //Remove permenently a record 
         public ActionResult HardRemove(int id)
         {
-             projectService.GetRepositoryManager().ProjectRepository.Remove( projectService.GetRepositoryManager().ProjectRepository.FindById(id));
+            projectService.GetRepositoryManager().ProjectRepository.Remove( projectService.GetRepositoryManager().ProjectRepository.FindById(id));
             return RedirectToAction("Index", "Home");
         }
 

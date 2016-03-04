@@ -28,7 +28,6 @@ namespace PUp.Controllers
             currentUser = projectService.GetRepositoryManager().UserRepository.GetCurrentUser();
             if (currentUser==null)
             {
-                this.Flash("Please register / or login if you already have an account", FlashLevel.Warning);
                 return RedirectToAction("Register", "Account");
             }
             return View(projectService.GetTableProjectForCurrentUser());

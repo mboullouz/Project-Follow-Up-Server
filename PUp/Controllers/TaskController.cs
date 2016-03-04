@@ -98,7 +98,6 @@ namespace PUp.Controllers
             {
                 return Edit(model.Id);
             }
-
             var task = taskService.GetInitializedTaskFromModel(model);
             if (!project.Contributors.Contains(task.Executor)) {
                 project.Contributors.Add(task.Executor);
@@ -106,7 +105,7 @@ namespace PUp.Controllers
             task.Executor.Tasks.Add(task);
             taskService.GetRepositoryManager().NotificationRepository.Add(task.Executor, "Task <" + task.Title + "> Is updated", "~/Task/" + project.Id, LevelFlag.Info);
             taskService.GetRepositoryManager().DbContext.SaveChanges();
-            this.Flash("Saved successfully and assigned to: "+executor.Name, FlashLevel.Success);
+            //this.Flash("Saved successfully and assigned to: "+executor.Name, FlashLevel.Success);
             return RedirectToAction("Index", "Task", new { id = task.Project.Id });
         }
 
