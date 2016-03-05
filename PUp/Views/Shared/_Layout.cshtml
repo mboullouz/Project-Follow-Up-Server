@@ -10,6 +10,7 @@
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/sidebare")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)  
     
@@ -17,9 +18,16 @@
 
 </head>
 <body>
-    
-    <div id="conf-notif" data-urlmarkseen=" "></div>
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div id="wrapper">
+        <div class="main-navbar main-navbar-fixed-top" id="main-navbar">
+            <div class="main-navbar-content">
+                <div class="icon left" id="toggle-sidebar">
+                   <i class="fa fa-navicon fa-2x"></i>
+                </div>
+            </div>
+        </div>
+
+    <div class=" ">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -60,9 +68,44 @@
             <p>&copy; @DateTime.Now.Year - Project follow up</p>
         </footer>
     </div>
+    </div>
+
+     
+
+    <div id="sidebar" class="main-sidebar">
+        <!--
+        Simple-Sidebar will handle #sidebar's position.
+        Links below are just an example. Give each clickable element, for example links, a class to trigger the closing animation.
+        -->
+        <a class="close-sidebar" href="#">Link</a>
+        <a class="close-sidebar" href="#">Link</a>
+        <a class="close-sidebar" href="#">Link</a>
+        <a class="close-sidebar" href="#">Link</a>
+    </div>
+
+
     <script src="~/Scripts/src/app/Shared/HttpCall.js"></script>
     <script src="~/Scripts/src/app/Shared/Models/Entity.js"></script>
     <script src="~/Scripts/src/app/Tasks/TaskApp.js"></script>
     <script src="~/Scripts/src/MainApp.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#sidebar').simpleSidebar({
+                opener: '#toggle-sidebar',
+                wrapper: '#wrapper',
+                sidebar: {
+                    align: 'left', //or 'right' - This option can be ignored, the sidebar will automatically align to right.
+                    width: 300, //You can ignore this option, the sidebar will automatically size itself to 300px.
+                    closingLinks: '.close-sidebar', /* If you ignore this option, the plugin will look for all 
+                    links and this can be buggy. Choose a class for every object inside the 
+                    sidebar that once clicked will close the sidebar*/
+                    css: {
+                        //Here you can add more css rules but you should use your own stylesheet.
+                         zIndex: 3000 //Choose the amount of zIndex you want. It must be the higher zIndex number.
+                    }
+        }
+        });
+        });
+    </script>
 </body>
 </html>

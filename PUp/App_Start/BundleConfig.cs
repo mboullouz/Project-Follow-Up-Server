@@ -16,6 +16,8 @@ namespace PUp
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/zsLib/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/sidebare").Include(
+                        "~/Scripts/zsLib/jquery.simple-*"));
 
             // Utilisez la version de développement de Modernizr pour le développement et l'apprentissage. Puis, une fois
             // prêt pour la production, utilisez l'outil de génération (bluid) sur http://modernizr.com pour choisir uniquement les tests dont vous avez besoin.
@@ -31,7 +33,8 @@ namespace PUp
                       "~/Scripts/style/Content/font-awesome.css",
                       "~/Scripts/style/Content/site.css",
                       "~/Scripts/style/Content/notif.css",
-                      "~/Scripts/style/Content/timeline.css"
+                      "~/Scripts/style/Content/timeline.css",
+                      "~/Scripts/style/Content/sidebare.css"
                       ));
 
            
