@@ -27,13 +27,15 @@ namespace PUp.Controllers
         public ActionResult Index()
         {
             DashboardModelView dashboardMV = new DashboardModelView();
-            var currentTasks = repo.TaskRepository.TodayTasksByUser(currentUser);
+            var currentTasks = repo.TaskRepository.TodayTasksByUser(currentUser).Where(t =>t.Done == false).ToList();
+            var doneToday    = repo.TaskRepository.TodayTasksByUser(currentUser).Where(t => t.Done == true).ToList();
             dashboardMV.CurrentTasks = currentTasks;
-            var otherTasks = repo.TaskRepository.GetAll()
+            var otherTasks   = repo.TaskRepository.GetAll()
                                            .Where(t => t.Executor == currentUser && !t.Done && t.StartAt==null && t.Project.EndAt > DateTime.Now && t.Project.Deleted == false)
                                            .ToList();
             dashboardMV.MatrixVM = new MatrixViewModel(currentTasks, currentUser);
             dashboardMV.OtherTasks = otherTasks;
+            dashboardMV.TodayDoneTasks = doneToday;
             return View(dashboardMV);
         }
  

@@ -12,6 +12,8 @@ namespace PUp.ViewModels
     {
         public List<TaskEntity> CurrentTasks = new List<TaskEntity>();
         public List<TaskEntity> OtherTasks = new List<TaskEntity>();
+        public List<TaskEntity> TodayDoneTasks = new List<TaskEntity>();
+     
         public MatrixViewModel MatrixVM {get;set;}
         public bool IsWorkingDayOver()
         {

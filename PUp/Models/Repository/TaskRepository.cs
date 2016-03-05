@@ -72,6 +72,7 @@ namespace PUp.Models.Repository
             var task = FindById(id);
             task.Done = true;
             task.FinishAt = DateTime.Now;
+            task.EditAt = DateTime.Now;
             DbContext.SaveChanges();
             return task;
         }
@@ -83,6 +84,7 @@ namespace PUp.Models.Repository
         public override void MarkDeleted(TaskEntity t)
         {
             t.DeleteAt = DateTime.Now;
+            t.EditAt = DateTime.Now;
             t.Deleted = true;
             DbContext.SaveChanges();
         }

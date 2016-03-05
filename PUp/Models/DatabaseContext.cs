@@ -10,10 +10,8 @@ namespace PUp.Models
     using System.Data.Entity.Validation;
     public partial class DatabaseContext : IdentityDbContext<UserEntity>
     {
-        public DatabaseContext()
-            : base("name=PFModel")
+        public DatabaseContext() : base("name=PFModel")
         {
-
         }
 
 
