@@ -391,6 +391,8 @@
     <Content Include="Views\Project\Info.cshtml" />
     <Content Include="Views\Shared\_MatrixTable.cshtml" />
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
+    <Content Include="Views\Shared\old_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\old_layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

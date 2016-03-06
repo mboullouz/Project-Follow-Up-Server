@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="~/Project.ico" />
@@ -12,8 +12,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/sidebare")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)  
-    
+    @RenderSection("scripts", required: false)
+
 
 
 </head>
@@ -22,55 +22,80 @@
         <div class="main-navbar main-navbar-fixed-top" id="main-navbar">
             <div class="main-navbar-content">
                 <div class="icon left" id="toggle-sidebar">
-                   <i class="fa fa-navicon fa-2x"></i>
+                    <i class="fa fa-navicon fa-2x"></i>
                 </div>
-            </div>
-        </div>
-
-    <div class=" ">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-           <!--    
-		     @Html.ActionLink("Nom d'application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" }) 
-	       -->
-            </div>
-           
-            <div class="navbar-collapse collapse">
                 @if (Request.IsAuthenticated)
                 {
-                    <ul class="nav navbar-nav">
-                         <li>
-                            <a href="@Url.Action("Index", "Dashboard")">
-                                <i class="fa fa-list"></i> Dashboard
-                            </a>
-                         </li>
-                         <li> 
-                            <a href="@Url.Action("Index", "Home")">
-                                <i class="fa fa-list"></i> Projects
-                            </a>
-                         </li>
-                    </ul>
-                }
-                @Html.Partial("_LoginPartial")
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="notification_li">
+                                @using PUp.Models.Repository
+                                @if (@UserRepository.CurrentUserNotifications().Count > 0)
+                                {
+                                    <span id="notification_count">@UserRepository.CurrentUserNotifications().Count</span>
+                                    <a href="#" id="notificationLink">Notifications</a>
+                                    <div id="notificationContainer">
+                                        <div id="notificationTitle">Notifications</div>
+                                        <div id="notificationsBody" class="notifications">
+                                            @foreach (var notif in UserRepository.CurrentUserNotifications().OrderByDescending(c => c.AddAt))
+                                            {
+                                                <div class="notificationElement notificationElement_@(notif.Level)"
+                                                     data-idnotif="@notif.Id" id="@notif.Id">
+                                                    <i style="font-size:19px;" class="fa fa-remove pull-right"> </i>
+                                                    @notif.Message     <br />
+                                                    @{ var diff = DateTime.Now - notif.AddAt;  }
+                                                    <i>
+                                                        @if (diff.TotalMinutes < 1)
+                                                        {
+                                                            <span>@((int)diff.TotalSeconds) s ago</span>
+                                                        }
+                                                        else if (diff.TotalHours < 1)
+                                                        {
+                                                            <span>@((int)diff.TotalMinutes) min ago</span>
+                                                        }
+                                                        else if (diff.TotalDays < 1)
+                                                        {
+                                                            <span>since: @notif.AddAt.ToString("HH\\Hmm")</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>since: @notif.AddAt.ToString("d-MM-yyyy HH\\Hmm")</span>
+                                                        }
+
+                                                    </i>
+                                                </div>
+                                                        }
+                                        </div>
+                                        <div id="notificationFooter"><a href="#">See All</a></div>
+                                    </div>
+                                                        }
+                            </li>
+
+                            <li>
+                                @if (UserRepository.CurrentUser() != null)
+                                {
+                                    @Html.ActionLink("Hi " + UserRepository.CurrentUser().Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                }
+
+                            </li>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+                        </ul>
+                                                            }
+                                                        }
             </div>
         </div>
+        <div class="container-fluid">
+            @Html.Partial("_FlashMessage")
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Project follow up</p>
+            </footer>
+        </div>
     </div>
-    <div class="container body-content">
-        @Html.Partial("_FlashMessage")
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Project follow up</p>
-        </footer>
-    </div>
-    </div>
-
-     
 
     <div id="sidebar" class="main-sidebar">
         <!--
@@ -89,22 +114,22 @@
     <script src="~/Scripts/src/app/Tasks/TaskApp.js"></script>
     <script src="~/Scripts/src/MainApp.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#sidebar').simpleSidebar({
                 opener: '#toggle-sidebar',
                 wrapper: '#wrapper',
                 sidebar: {
                     align: 'left', //or 'right' - This option can be ignored, the sidebar will automatically align to right.
                     width: 300, //You can ignore this option, the sidebar will automatically size itself to 300px.
-                    closingLinks: '.close-sidebar', /* If you ignore this option, the plugin will look for all 
-                    links and this can be buggy. Choose a class for every object inside the 
+                    closingLinks: '.close-sidebar', /* If you ignore this option, the plugin will look for all
+                    links and this can be buggy. Choose a class for every object inside the
                     sidebar that once clicked will close the sidebar*/
                     css: {
                         //Here you can add more css rules but you should use your own stylesheet.
-                         zIndex: 3000 //Choose the amount of zIndex you want. It must be the higher zIndex number.
+                        zIndex: 3000 //Choose the amount of zIndex you want. It must be the higher zIndex number.
                     }
-        }
-        });
+                }
+            });
         });
     </script>
 </body>
