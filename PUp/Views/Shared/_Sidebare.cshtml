@@ -25,7 +25,7 @@ Links below are just an example. Give each clickable element, for example links,
             {
                 <li>
                     <a href="@Url.Action("Info", "Project", new {id = project.Id })">
-                      <i class="fa fa-minus"></i>  @project.Name  
+                      <i class="fa fa-minus"></i>  @project.Name (@project.Tasks.Count tasks) 
                     </a>
                 </li>
             }

@@ -1,10 +1,27 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Noto+Sans);
 
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
     color: black;
     font-family: 'Noto Sans', sans-serif;
+    background: #FAFAFA;
+}
+
+.main-content {
+    position: relative;
+    margin-top: 42px;
+    padding: 1em;
+    background: white;
+    min-height: 600px;
 }
 
 .bg-warning {
@@ -13,13 +30,15 @@ body {
     color: white;
     font-size: 15px;
 }
+
 .bg-success {
     background-color: #4CAF50;
     padding: 10px;
     color: white;
     font-size: 15px;
 }
-.flash-messages{
+
+.flash-messages {
     width: 40%;
     float: right;
 }
@@ -49,24 +68,28 @@ body {
     margin-top: 29px;
     -webkit-transform: rotate(-58deg);
 }
+
 .project-title-container {
     padding-left: 5px;
     border-left: 3px solid #2196F3;
 }
+
 .table-no-border > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table-no-border > tbody > tr > td, .table > tfoot > tr > td {
     padding: 8px;
     line-height: 1.42857143;
     vertical-align: top;
     border-top: 0px solid white !important;
 }
+
 .issue-Resolved {
     color: #4CAF50;
     font-weight: 600;
 }
+
 .issue-Open {
     color: #F44336;
 }
- 
+
 .matrix {
     width: 80%;
 }
@@ -220,7 +243,7 @@ textarea {
     border-color: white;
 }
 
-    /*.navbar-default .navbar-nav > li > a {
+/*.navbar-default .navbar-nav > li > a {
         color: #397AB7;
         font-weight: 200;
     }
