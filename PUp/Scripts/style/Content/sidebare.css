@@ -41,14 +41,13 @@
     position: relative;
     width: 32px;
     height: 32px;
+    padding: 3px;
 }
-
-    .icon img {
-        position: absolute;
-        top: 4px;
-        left: 4px;
-    }
-
+ 
+.icon:hover{
+    cursor:pointer;
+    background: #F1E7E7;
+}
 .main-sidebar {
     position: fixed;
     top: 0;

@@ -7,7 +7,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="~/Project.ico" />
     <title>@ViewBag.Title - Project follow up</title>
     @Styles.Render("~/Scripts/style/Content/css")
-    <link href="~/Content/font-awesome.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/sidebare")
@@ -18,14 +17,15 @@
 
 </head>
 <body>
-    <div id="wrapper">
+    <div id="wrapper" style="margin: 0 4%;">
         <div class="main-navbar main-navbar-fixed-top" id="main-navbar">
             <div class="main-navbar-content">
-                <div class="icon left" id="toggle-sidebar">
-                    <i class="fa fa-navicon fa-2x"></i>
-                </div>
                 @if (Request.IsAuthenticated)
                 {
+                    <div class="icon left" id="toggle-sidebar">
+                        <i class="fa fa-navicon fa-2x"></i>
+                    </div>
+
                     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                     {
                         @Html.AntiForgeryToken()
@@ -83,11 +83,11 @@
                             </li>
                             <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
                         </ul>
-                                                            }
-                                                        }
+                     }
+                 }
             </div>
         </div>
-        <div class="container-fluid">
+        <div class=" ">
             @Html.Partial("_FlashMessage")
             @RenderBody()
             <hr />

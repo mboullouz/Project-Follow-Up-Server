@@ -220,7 +220,7 @@ textarea {
     border-color: white;
 }
 
-    .navbar-default .navbar-nav > li > a {
+    /*.navbar-default .navbar-nav > li > a {
         color: #397AB7;
         font-weight: 200;
     }
@@ -234,7 +234,7 @@ textarea {
 
     .navbar-default .navbar-collapse, .navbar-default .navbar-form {
         border-bottom: 1px solid #397AB7;
-    }
+    }*/
 
 .navbar-right {
     float: right !important;
