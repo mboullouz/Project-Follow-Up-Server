@@ -273,6 +273,7 @@
     <Compile Include="Services\TaskService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddIssueViewModel.cs" />
+    <Compile Include="ViewModels\MenuModelView.cs" />
     <Compile Include="ViewModels\Project\AddProjectViewModel.cs" />
     <Compile Include="ViewModels\AddTaskViewModel.cs" />
     <Compile Include="ViewModels\DashboardModelView.cs" />
@@ -393,6 +394,7 @@
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
     <Content Include="Views\Shared\old_LoginPartial.cshtml" />
     <Content Include="Views\Shared\old_layout.cshtml" />
+    <Content Include="Views\Shared\_Sidebare.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

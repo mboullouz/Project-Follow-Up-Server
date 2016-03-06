@@ -1,0 +1,37 @@
+﻿<!--
+Simple-Sidebar will handle #sidebar's position.
+Links below are just an example. Give each clickable element, for example links, a class to trigger the closing animation.
+-->
+<ul class="nav">
+    <li>
+        <a class="close-sidebar" href="@Url.Action("Index", "Dashboard")">
+            <i class="fa fa-home"></i> Welcome
+        </a>
+    </li>
+    <li class="nav-divider"></li>
+    <li>
+        <a class="close-sidebar" href="@Url.Action("Index", "Dashboard")">
+            <i class="fa fa-dashcube"></i> Dashboard
+        </a>
+    </li>
+
+    <li>
+        <a class="close-sidebar" href="@Url.Action("Index", "Home")">
+            <i class="fa fa-puzzle-piece"></i> Projects
+        </a>
+        <ul style="list-style:none">
+            @using PUp.ViewModels
+            @foreach(var project in MenuModelView.ActiveProject())
+            {
+                <li>
+                    <a href="@Url.Action("Info", "Project", new {id = project.Id })">
+                      <i class="fa fa-minus"></i>  @project.Name  
+                    </a>
+                </li>
+            }
+        </ul>
+    </li>
+</ul>
+
+
+

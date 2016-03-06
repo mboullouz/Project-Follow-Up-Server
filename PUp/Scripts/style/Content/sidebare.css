@@ -56,28 +56,7 @@
     /*color: white;*/
     width: 300px;
 }
-
-    .main-sidebar a:link {
-        color: #ffeb3b;
-    }
-
-    .main-sidebar a:visited {
-        color: #ff9800;
-    }
-
-    .main-sidebar a:hover {
-        color: #fbc02d;
-    }
-
-    .main-sidebar a:active {
-        color: #ffc107;
-    }
-
-    .main-sidebar .section {
-        margin: 1em 0;
-        margin-bottom: 2em !important;
-    }
-
+ 
 .main-sidebar-right {
     right: 0;
     text-align: right;
