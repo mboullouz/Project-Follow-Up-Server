@@ -9,55 +9,8 @@
              @Html.Partial("_ProjectHeader",Model.Project)
         </div>
         <br /><br />
-        <div class="row" id="matrix-container">
-             
-            @Html.Partial("_MatrixTable",Model)
-             
-            <br /><br />
-            <span>
-              <i class="fa fa-lightbulb-o" style="color: #FFC107;"></i>
-               Suggestions for tasks based on importance/urgence
-             </span>
-            <table class="table">
-                <tr>
-                    <td style="color: #F44336;font-size: 26px;">Do now</td>
-                    <td>
-                        @foreach (var task in Model.ImportantAndUrgent)
-                        {
-                            <i class="fa fa-angle-right"></i>  @task.Title <br />
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <td style="color: #FFC107;font-size: 23px;">Delegate</td>
-                    <td>
-                        @foreach (var task in Model.NotImportantButUrgent)
-                        {
-                            <i class="fa fa-angle-right"></i>  @task.Title <br />
-                        }
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="color: #00BCD4;font-size: 20px;line-height: 167%;">Do later</td>
-                    <td>
-                        @foreach (var task in Model.ImportantNotUrgent)
-                        {
-                            <i class="fa fa-angle-right"></i>  @task.Title <br />
-                        }
-                    </td>
-                </tr>
-                <tr>
-                    <td style="color: rgb(205, 220, 57);font-size: 15px;line-height: 197%;">Delete/Postpone</td>
-                    <td>
-                        @foreach (var task in Model.NotImportantNotUrgent)
-                        {
-                            <i class="fa fa-angle-right"></i>  @task.Title <br />
-                        }
-                    </td>
-                </tr>
-            </table>
-
+        <div style="max-height:600px;overflow:auto;font-size:11px;">
+            @Html.Partial("_Timeline", Model)
         </div>
     </div>
 </div>
