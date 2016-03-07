@@ -277,6 +277,7 @@
     <Compile Include="ViewModels\Project\AddProjectViewModel.cs" />
     <Compile Include="ViewModels\AddTaskViewModel.cs" />
     <Compile Include="ViewModels\DashboardModelView.cs" />
+    <Compile Include="ViewModels\Project\DetailsViewModel.cs" />
     <Compile Include="ViewModels\Project\MatrixViewModel.cs" />
     <Compile Include="ViewModels\Project\ProjectTimelineViewModel.cs" />
     <Compile Include="ViewModels\Project\TableProjectModelView.cs" />
@@ -395,6 +396,7 @@
     <Content Include="Views\Shared\old_LoginPartial.cshtml" />
     <Content Include="Views\Shared\old_layout.cshtml" />
     <Content Include="Views\Shared\_Sidebare.cshtml" />
+    <Content Include="Views\Shared\_Timeline.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

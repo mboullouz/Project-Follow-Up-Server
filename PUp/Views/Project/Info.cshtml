@@ -1,4 +1,4 @@
-﻿@model PUp.Models.Entity.ProjectEntity
+﻿@model PUp.ViewModels.Project.DetailsViewModel
 @{
     ViewBag.Title = "Info";
 }
@@ -6,25 +6,43 @@
 <div class="col-md-12">
 
     <div class="row">
-        @Html.Partial("_ProjectHeader", Model)
+        @Html.Partial("_ProjectHeader", Model.Project)
     </div>
     <br />
+    @*@Html.Partial("_MatrixTable", Model.MatrixVM)*@
     <div class="row">
-        <div class="panel">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <b> More information about the project </b>
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <b> More information about the project </b>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <b>Benefite</b>
+                    @Model.Project.Benifite
+                    <br>
+                    <b>Objective</b>
+                    @Model.Project.Objective
+                    <br />
+                    <b>Number of issues :</b> @Model.Project.Issues.Count &emsp;&emsp;
+                    <a href="@Url.Action("Index", "Issue", new {id = Model.Project.Id })"> More details </a>
+  
                 </div>
             </div>
-            <div class="panel-body">
-                <b>Benefite</b>
-                @Model.Benifite
-                <br>
-                <b>Objective</b>
-                @Model.Objective
-                <br />
-                <b>Number of issues :</b> @Model.Issues.Count &emsp;&emsp;
-                <a href="@Url.Action("Index", "Issue", new {id = Model.Id })"> More details </a>
+        </div>
+        <div class="col-md-6" style="background-color:gainsboro;">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <b> Project's Timeline </b>
+                    </div>
+                </div>
+                
+                    <div style="max-height:600px;overflow:auto;font-size:11px;">
+                        @Html.Partial("_Timeline", Model.Timeline)
+                    </div>
+                
             </div>
         </div>
     </div>

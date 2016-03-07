@@ -101,7 +101,12 @@ namespace PUp.Controllers
         public ActionResult Info(int id)
         {
             ProjectEntity project =  projectService.GetRepositoryManager().ProjectRepository.FindById(id);
-            return View(project);
+            DetailsViewModel detailsVM = new DetailsViewModel();
+            var currentTasks   = projectService.GetRepositoryManager().TaskRepository.TodayTasksByUser(currentUser).Where(t => t.Done == false).ToList();
+            detailsVM.MatrixVM = new MatrixViewModel(currentTasks, currentUser);
+            detailsVM.Timeline = new ProjectTimelineViewModel(project);
+            detailsVM.Project  = project;
+            return View(detailsVM);
         }
 
         public ActionResult Matrix(int id)
