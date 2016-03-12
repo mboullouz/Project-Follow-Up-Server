@@ -284,37 +284,12 @@
     <Compile Include="ViewModels\Task\TaskViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\style\Content\bootstrap-theme.css" />
-    <Content Include="Scripts\style\Content\bootstrap-theme.min.css" />
-    <Content Include="Scripts\style\Content\bootstrap.css" />
-    <Content Include="Scripts\style\Content\bootstrap.min.css" />
-    <Content Include="Scripts\style\Content\font-awesome.css" />
-    <Content Include="Scripts\style\Content\font-awesome.min.css" />
-    <Content Include="Scripts\style\Content\notif.css" />
-    <Content Include="Scripts\style\Content\sidebare.css" />
-    <Content Include="Scripts\style\Content\timeline.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Scripts\style\fonts\fontawesome-webfont.svg" />
-    <Content Include="Scripts\style\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\style\Content\Site.css" />
     <Content Include="Project.ico" />
     <Content Include="Scripts\src\MainApp.js" />
     <Content Include="Scripts\zsLib\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\zsLib\ai.0.15.0-build58334.min.js" />
-    <Content Include="Scripts\style\fonts\FontAwesome.otf" />
-    <Content Include="Scripts\style\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Scripts\style\fonts\fontawesome-webfont.woff" />
-    <Content Include="Scripts\style\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Scripts\style\fonts\fontawesome-webfont.eot" />
-    <Content Include="Scripts\style\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Scripts\style\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Scripts\style\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Scripts\style\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\style\Content\bootstrap.min.css.map" />
-    <Content Include="Scripts\style\Content\bootstrap.css.map" />
-    <Content Include="Scripts\style\Content\bootstrap-theme.min.css.map" />
-    <Content Include="Scripts\style\Content\bootstrap-theme.css.map" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Scripts\zsLib\jquery.simple-sidebar.js" />
     <Content Include="zDoc\handleTasksPerImportance.png" />
@@ -398,6 +373,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\style\Content\" />
+    <Folder Include="Scripts\style\fonts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
