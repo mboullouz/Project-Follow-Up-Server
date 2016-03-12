@@ -40,7 +40,7 @@ namespace PUp.Controllers
         {    
             if (!projectService.IsModelValid(model))
             {
-              return View("~/Views/Project/Add.cshtml", model);
+              return View("~/Views/Project/Add.cshtml", model); 
             }
             ProjectEntity project = projectService.GetRepositoryManager().ProjectRepository.FindById(model.Id);
             project.Name = model.Name;
