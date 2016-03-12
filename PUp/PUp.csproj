@@ -393,8 +393,6 @@
     <Content Include="Views\Project\Info.cshtml" />
     <Content Include="Views\Shared\_MatrixTable.cshtml" />
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
-    <Content Include="Views\Shared\old_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\old_layout.cshtml" />
     <Content Include="Views\Shared\_Sidebare.cshtml" />
     <Content Include="Views\Shared\_Timeline.cshtml" />
   </ItemGroup>

@@ -194,7 +194,9 @@ thead {
 
 .done {
     background-color: rgba(158, 158, 158, 0.14);
-    text-decoration: line-through;
+    /*text-decoration: line-through;*/
+    font-size:smaller;
+    font-style:italic;
 }
 
 .deleted {
