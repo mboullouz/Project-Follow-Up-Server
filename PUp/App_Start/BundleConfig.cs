@@ -4,36 +4,34 @@ using System.Web;
 using System.Web.Optimization;
 
 namespace PUp
-{  
-    
+{
+
     public class BundleConfig
     {
-        // Pour plus d'informations sur le regroupement, visitez http://go.microsoft.com/fwlink/?LinkId=301862
+
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/zsLib/jquery-{version}.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/zsLib/jquery.validate*"));
-            bundles.Add(new ScriptBundle("~/bundles/sidebare").Include(
-                        "~/Scripts/zsLib/jquery.simple-*"));
 
-            // Utilisez la version de développement de Modernizr pour le développement et l'apprentissage. Puis, une fois
-            // prêt pour la production, utilisez l'outil de génération (bluid) sur http://modernizr.com pour choisir uniquement les tests dont vous avez besoin.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/zsLib/modernizr-*"));
+            bundles.Add(new ScriptBundle("~/bundles/libs").Include(
+                        "~/Scripts/zsLib/**/*.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/zsLib/bootstrap.js",
-                      "~/Scripts/zsLib/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/theme/pages").Include(
+                        "~/Scripts/src/theme/pages/*.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/theme/js").Include(
+                        "~/Scripts/src/js/*.js"));
+
+
+
+
+
+            //Styles
             bundles.Add(new StyleBundle("~/Scripts/style/Content/css").Include(
                       "~/Scripts/style/Content/*.css"
-                      
                       ));
 
-           
+
         }
     }
 }
