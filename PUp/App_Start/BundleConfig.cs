@@ -29,12 +29,8 @@ namespace PUp
                       "~/Scripts/zsLib/respond.js"));
 
             bundles.Add(new StyleBundle("~/Scripts/style/Content/css").Include(
-                      "~/Scripts/style/Content/bootstrap.css",
-                      "~/Scripts/style/Content/font-awesome.css",
-                      "~/Scripts/style/Content/site.css",
-                      "~/Scripts/style/Content/notif.css",
-                      "~/Scripts/style/Content/timeline.css",
-                      "~/Scripts/style/Content/sidebare.css"
+                      "~/Scripts/style/Content/*.css"
+                      
                       ));
 
            
