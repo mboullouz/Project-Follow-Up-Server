@@ -7,10 +7,35 @@
     <link rel="shortcut icon" type="image/x-icon" href="~/Project.ico" />
     <title>@ViewBag.Title - Project follow up</title>
     @Styles.Render("~/Scripts/style/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/sidebare")
-    @Scripts.Render("~/bundles/bootstrap")
+
+    @*@Scripts.Render("~/bundles/libs")*@
+    @*@Scripts.Render("~/bundles/theme/js")*@
+
+    <script src="~/Scripts/js/modernizr.min.js"></script>
+
+
+    <!-- jQuery  -->
+    <script src="~/Scripts/js/jquery.min.js"></script>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/js/detect.js"></script>
+    <script src="~/Scripts/js/fastclick.js"></script>
+    <script src="~/Scripts/js/jquery.slimscroll.js"></script>
+    <script src="~/Scripts/js/jquery.blockUI.js"></script>
+    <script src="~/Scripts/js/waves.js"></script>
+    <script src="~/Scripts/js/jquery.nicescroll.js"></script>
+    <script src="~/Scripts/js/jquery.scrollTo.min.js"></script>
+
+    <script>
+            var resizefunc = [];
+    </script>
+
+
+    <!-- App js -->
+    <script src="~/Scripts/js/jquery.core.js"></script>
+    <script src="~/Scripts/js/jquery.app.js"></script>
+
+    
+
     @RenderSection("scripts", required: false)
 
 
@@ -101,29 +126,10 @@
         @Html.Partial("_Sidebare")
     </div>
 
+ 
 
-    <script src="~/Scripts/src/app/Shared/HttpCall.js"></script>
-    <script src="~/Scripts/src/app/Shared/Models/Entity.js"></script>
-    <script src="~/Scripts/src/app/Tasks/TaskApp.js"></script>
-    <script src="~/Scripts/src/MainApp.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#sidebar').simpleSidebar({
-                opener: '#toggle-sidebar',
-                wrapper: '#wrapper',
-                sidebar: {
-                    align: 'left', //or 'right' - This option can be ignored, the sidebar will automatically align to right.
-                    width: 300, //You can ignore this option, the sidebar will automatically size itself to 300px.
-                    closingLinks: '.close-sidebar', /* If you ignore this option, the plugin will look for all
-                    links and this can be buggy. Choose a class for every object inside the
-                    sidebar that once clicked will close the sidebar*/
-                    css: {
-                        //Here you can add more css rules but you should use your own stylesheet.
-                        zIndex: 3000 //Choose the amount of zIndex you want. It must be the higher zIndex number.
-                    }
-                }
-            });
-        });
-    </script>
+
+
+ 
 </body>
 </html>

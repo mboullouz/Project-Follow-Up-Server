@@ -13,22 +13,22 @@ namespace PUp
         {
 
 
-            bundles.Add(new ScriptBundle("~/bundles/libs").Include(
-                        "~/Scripts/zsLib/**/*.js"));
+            /*bundles.Add(new ScriptBundle("~/bundles/libs").IncludeDirectory(
+                        "~/Scripts/zsLib","*.js",true));
 
-            bundles.Add(new ScriptBundle("~/bundles/theme/pages").Include(
+            bundles.Add(new ScriptBundle("~/bundles/pages").Include(
                         "~/Scripts/src/theme/pages/*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/theme/js").Include(
-                        "~/Scripts/src/js/*.js"));
+                        "~/Scripts/js/*.js"));
 
-
+            */
 
 
 
             //Styles
             bundles.Add(new StyleBundle("~/Scripts/style/Content/css").Include(
-                      "~/Scripts/style/Content/*.css"
+                      "~/Scripts/css/*.css"
                       ));
 
 
