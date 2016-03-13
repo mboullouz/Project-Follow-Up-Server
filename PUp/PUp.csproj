@@ -297,7 +297,6 @@
     <Content Include="Scripts\css\elements.css" />
     <Content Include="Scripts\css\icons.css" />
     <Content Include="Scripts\css\menu.css" />
-    <Content Include="Scripts\css\menu_dark.css" />
     <Content Include="Scripts\css\pages.css" />
     <Content Include="Scripts\css\responsive.css" />
     <Content Include="Scripts\css\typicons.css" />
@@ -1772,6 +1771,11 @@
     <Content Include="Scripts\plugins\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Scripts\plugins\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Scripts\plugins\toastr\toastr.js.map" />
+    <Content Include="Views\Shared\OLD_Layout.cshtml" />
+    <Content Include="Views\Shared\_TopBar.cshtml" />
+    <Content Include="Views\Shared\_LeftSideBar.cshtml" />
+    <Content Include="Views\Shared\_RightSideBar.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
