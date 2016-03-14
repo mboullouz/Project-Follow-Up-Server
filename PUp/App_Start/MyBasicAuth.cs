@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using PUp.Models;
+using PUp.Models.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -31,8 +35,17 @@ namespace PUp.App_Start
                     {
                         string userName = credentials.Substring(0, separatorIndex);
                         string password = credentials.Substring(separatorIndex + 1);
-                        if (Membership.ValidateUser(userName, password))
-                            Thread.CurrentPrincipal = actionContext.ControllerContext.RequestContext.Principal = new GenericPrincipal(new GenericIdentity(userName, "Basic"), System.Web.Security.Roles.Provider.GetRolesForUser(userName));
+                        var UserManager = new UserManager<UserEntity>(new UserStore<UserEntity>(new DatabaseContext()));
+                        var user = UserManager.Find(userName, password);
+                        var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new DatabaseContext()));
+                        string[] roles = new string[user.Roles.ToList().Count];
+                        var k = 0;
+                        foreach(var r in user.Roles.ToList())
+                        {
+                            roles[k] = r.RoleId;k++;
+                        }
+                        Thread.CurrentPrincipal = actionContext.ControllerContext.RequestContext.Principal = new GenericPrincipal(new GenericIdentity(userName, "Basic"),roles);
+                         
                     }
                 }
             }
