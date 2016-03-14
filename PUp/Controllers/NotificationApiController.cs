@@ -13,19 +13,31 @@ namespace PUp.Controllers
     [App_Start.MyBasicAuth]
     public class NotificationApiController : ApiController
     {
-        //private DatabaseContext dbContext = new DatabaseContext();
-        NotificationRepository notifRepo = new NotificationRepository();
+        private DatabaseContext dbContext = new DatabaseContext();
+        private NotificationRepository notifRepo;
+        private UserRepository userRepo;
+        private Models.Entity.UserEntity currentUser=null;
+
+
+        public NotificationApiController()
+        {
+             notifRepo = new NotificationRepository(dbContext);
+             userRepo = new UserRepository(dbContext);
+        }
 
         // GET api/<controller>
-        public IEnumerable<string> Get()
+        [Authorize]
+        public  string  Get()
         {
-            return new string[] { "value1", "value2" };
+            var email = RequestContext.Principal.Identity.Name;
+            currentUser = userRepo.FindByEmail(email);
+            return   "Your Email: "+ currentUser.Email+ " Name: "+currentUser.Name;
         }
 
         // GET api/<controller>/5
         public string Get(int id)
         {
-            return "value";
+            return "value \n you called GET api/NotificationApi/Get(int id)";
         }
 
         // POST api/<controller>

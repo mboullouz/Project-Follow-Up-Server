@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace PUp.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         private RepositoryManager repo = new RepositoryManager();
