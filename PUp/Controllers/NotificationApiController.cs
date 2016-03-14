@@ -10,6 +10,7 @@ using System.Web.Http.Results;
 
 namespace PUp.Controllers
 {
+    [App_Start.MyBasicAuth]
     public class NotificationApiController : ApiController
     {
         //private DatabaseContext dbContext = new DatabaseContext();
