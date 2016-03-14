@@ -1,4 +1,5 @@
-﻿using PUp.Models;
+﻿using Newtonsoft.Json;
+using PUp.Models;
 using PUp.Models.Repository;
 using System;
 using System.Collections.Generic;
@@ -27,12 +28,21 @@ namespace PUp.Controllers
 
         // GET api/<controller>
         [Authorize]
-        public  string  Get()
+        public NegotiatedContentResult<string> Get()
         {
             var email = RequestContext.Principal.Identity.Name;
             currentUser = userRepo.FindByEmail(email);
-            return   "Your Email: "+ currentUser.Email+ " Name: "+currentUser.Name;
+            var list = JsonConvert.SerializeObject(notifRepo.GetByUser(currentUser),
+              Formatting.None,
+              new JsonSerializerSettings()
+              {
+                  ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                  MaxDepth = 1,
+              });
+            return Content(HttpStatusCode.OK, list);
         }
+
+        
 
         // GET api/<controller>/5
         public string Get(int id)
