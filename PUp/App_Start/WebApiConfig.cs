@@ -10,8 +10,8 @@ namespace PUp
         public static void Register(HttpConfiguration config)
         {
             // Configuration et services API Web
-            var cors = new System.Web.Http.Cors.EnableCorsAttribute("*", "*", "*");
-            config.EnableCors(cors);
+           // var cors = new System.Web.Http.Cors.EnableCorsAttribute("*", "*", "*");
+           // config.EnableCors(cors);
             // Itinéraires de l'API Web
             config.MapHttpAttributeRoutes();
             // config.EnableCors //enable CORS for ALL!

@@ -7,11 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Results;
 
 namespace PUp.Controllers
 {
     [App_Start.MyBasicAuth]
+    [EnableCors(origins: "http://localhost:3000,*", headers: "*", methods: "*")]
     public class NotificationApiController : ApiController
     {
         private DatabaseContext dbContext = new DatabaseContext();

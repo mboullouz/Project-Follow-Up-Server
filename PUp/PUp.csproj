@@ -229,6 +229,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\JobSchedulerConfig.cs" />
     <Compile Include="App_Start\MyBasicAuth.cs" />
+    <Compile Include="Controllers\AccountApiController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Jobs\AbstractBaseJob.cs" />
     <Compile Include="Jobs\IssuesAnalyzerJob.cs" />
