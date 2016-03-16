@@ -1,4 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
+using PUp.Models;
+using PUp.Models.Entity;
+using PUp.Models.SimpleObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +18,14 @@ namespace PUp.Controllers
     [EnableCors(origins: "http://localhost:3000,*", headers: "*", methods: "*")]
     public class AccountApiController : ApiController
     {
-        [HttpGet]
-        public NegotiatedContentResult<string> Check()
+        [HttpPost]
+        public NegotiatedContentResult<string> Check(AuthObject model)
         {
-            var jsonContent = JsonConvert.SerializeObject( new {state=1 },
+
+            var UserManager = new UserManager<UserEntity>(new UserStore<UserEntity>(new DatabaseContext()));
+            var user = UserManager.Find(model.Username, model.Password);
+
+            var jsonContent = JsonConvert.SerializeObject( model,
              Formatting.None,
              new JsonSerializerSettings()
              {
