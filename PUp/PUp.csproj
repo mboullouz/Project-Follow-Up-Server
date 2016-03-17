@@ -231,6 +231,7 @@
     <Compile Include="App_Start\MyBasicAuth.cs" />
     <Compile Include="Controllers\AccountApiController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\ProjectApiController.cs" />
     <Compile Include="Jobs\AbstractBaseJob.cs" />
     <Compile Include="Jobs\IssuesAnalyzerJob.cs" />
     <Compile Include="Jobs\MorningSummaryJob.cs" />

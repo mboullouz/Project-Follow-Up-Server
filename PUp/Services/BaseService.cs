@@ -10,15 +10,14 @@ namespace PUp.Services
     public class BaseService
     {
         protected RepositoryManager repo = new RepositoryManager();
-        protected UserEntity        currentUser = null;
-        protected ModelStateWrapper modelStateWrapper;
+        protected UserEntity currentUser=null;
 
-        public BaseService(ModelStateWrapper modelStateWrapper)
-        {
-            currentUser = repo.UserRepository.GetCurrentUser();
-            this.modelStateWrapper = modelStateWrapper;
+        public BaseService(string email)
+        {   
+            this.currentUser = repo.UserRepository.FindByEmail(email);
         }
 
         public RepositoryManager GetRepositoryManager() { return repo; }
+        public UserEntity CurrentUser() { return this.currentUser; }
     }
 }

@@ -9,7 +9,7 @@ namespace PUp.Services
 {   
     public class ProjectService: BaseService
     {
-        public ProjectService(ModelStateWrapper modelStateWrapper) : base(modelStateWrapper) { }
+        public ProjectService(string email) : base(email) { }
 
         public TableProjectModelView GetTableProjectForCurrentUser()
         {
@@ -56,10 +56,11 @@ namespace PUp.Services
 
         public bool IsModelValid(AddProjectViewModel model)
         {
-            if (!modelStateWrapper.IsValid || model.EndAt <= model.StartAt || model.StartAt <= DateTime.Now.AddMinutes(30))
-            {
+            if ( model.EndAt <= model.StartAt || model.StartAt <= DateTime.Now.AddMinutes(30))
+            {   /*
                 modelStateWrapper.AddError("", "The form is not valid please check it again.");
                 modelStateWrapper.Flash("Impossible to save the form in it's current state! ",FlashLevel.Danger);
+                */
                 return false;
             }
             return true;

@@ -24,15 +24,15 @@ namespace PUp.Controllers
 
             var UserManager = new UserManager<UserEntity>(new UserStore<UserEntity>(new DatabaseContext()));
             var user = UserManager.Find(model.Username, model.Password);
-
+            /*
             var jsonContent = JsonConvert.SerializeObject( model,
              Formatting.None,
              new JsonSerializerSettings()
              {
                  ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                  MaxDepth = 1,
-             });
-            return Content(HttpStatusCode.OK, jsonContent);
+             });*/
+            return Content(HttpStatusCode.OK, user==null?"0":"1");
         }
 
         // GET api/<controller>
