@@ -37,15 +37,17 @@ namespace PUp.App_Start
                         string password = credentials.Substring(separatorIndex + 1);
                         var UserManager = new UserManager<UserEntity>(new UserStore<UserEntity>(new DatabaseContext()));
                         var user = UserManager.Find(userName, password);
-                        var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new DatabaseContext()));
-                        string[] roles = new string[user.Roles.ToList().Count];
-                        var k = 0;
-                        foreach(var r in user.Roles.ToList())
+                        if (user != null)
                         {
-                            roles[k] = r.RoleId;k++;
+                            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new DatabaseContext()));
+                            string[] roles = new string[user.Roles.ToList().Count];
+                            var k = 0;
+                            foreach (var r in user.Roles.ToList())
+                            {
+                                roles[k] = r.RoleId; k++;
+                            }
+                            Thread.CurrentPrincipal = actionContext.ControllerContext.RequestContext.Principal = new GenericPrincipal(new GenericIdentity(userName, "Basic"), roles);
                         }
-                        Thread.CurrentPrincipal = actionContext.ControllerContext.RequestContext.Principal = new GenericPrincipal(new GenericIdentity(userName, "Basic"),roles);
-                         
                     }
                 }
             }

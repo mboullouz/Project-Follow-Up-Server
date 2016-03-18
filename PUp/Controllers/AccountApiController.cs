@@ -15,51 +15,48 @@ using System.Web.Http.Results;
 
 namespace PUp.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountApiController : ApiController
     {
+
+        /// <summary>
+        /// Check a login model that contais username Or email, password and rememberMe
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
-        public NegotiatedContentResult<string> Check(AuthObject model)
+        public NegotiatedContentResult<string> CheckCredentials(AuthObject model)
         {
 
             var UserManager = new UserManager<UserEntity>(new UserStore<UserEntity>(new DatabaseContext()));
-            var user = UserManager.Find(model.Username, model.Password);
-            /*
-            var jsonContent = JsonConvert.SerializeObject( model,
-             Formatting.None,
-             new JsonSerializerSettings()
-             {
-                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                 MaxDepth = 1,
-             });*/
+            UserEntity user=null;
+            try {//model may = or contain null
+               user= UserManager.Find(model.Username, model.Password);
+            }
+            catch(Exception e)
+            {
+                return Content(HttpStatusCode.Forbidden, "0");
+            }
+             
             return Content(HttpStatusCode.OK, user==null?"0":"1");
         }
 
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+
+        /// <summary>
+        /// Verify that a user have a valid auth hash, the server will respond with 1
+        /// else send an HTML page asking the user to login
+        /// </summary>
+        /// <returns></returns>
+        [App_Start.MyBasicAuth]
+        [Authorize]
+        [HttpPost]
+        public NegotiatedContentResult<string> Verify()
         {
-            return new string[] { "value1", "value2" };
+            return Content(HttpStatusCode.OK, "1");
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
     }
 }
