@@ -19,7 +19,7 @@ namespace PUp.Controllers
         public TaskController()
         {
             currentUser = repo.UserRepository.GetCurrentUser();
-            taskService = new TaskService(new ModelStateWrapper(TempData, ModelState));
+            //taskService = new TaskService(new ModelStateWrapper(TempData, ModelState));
         }
 
         // GET: Task

@@ -18,7 +18,7 @@ namespace PUp.Controllers
 
         public ProjectController()
         {
-            projectService = new ProjectService(new ModelStateWrapper(TempData, ModelState));
+           // projectService = new ProjectService(new ModelStateWrapper(TempData, ModelState));
             currentUser = projectService.GetRepositoryManager().UserRepository.GetCurrentUser();
         }
 

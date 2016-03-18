@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using Newtonsoft.Json;
+using PUp.Models.Entity;
 using PUp.Services;
 using System;
 using System.Collections.Generic;
@@ -6,25 +7,37 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace PUp.Controllers
 {
+    [App_Start.MyBasicAuth]
+    [Authorize]
     public class ProjectApiController : ApiController
     {
         private ProjectService projectService;
-        private UserEntity currentUser = null;
+        
 
         public void Init()
         {
             var email = RequestContext.Principal.Identity.Name;
-             
             projectService = new ProjectService(email);
+             
         }
 
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        [HttpGet]
+        public JsonResult<string> List()
         {
-            return new string[] { "value1", "value2" };
+            Init();
+            var jsonContent = JsonConvert.SerializeObject(projectService.GetTableProjectForCurrentUser(),
+            Formatting.None,
+            new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                MaxDepth = 1,
+            });
+
+            return Json(jsonContent);
         }
 
         // GET api/<controller>/5

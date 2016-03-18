@@ -7,6 +7,6 @@ namespace PUp.Services
 {
     public class IssueService:BaseService
     { 
-        public IssueService(ModelStateWrapper modelStateWrapper) : base(modelStateWrapper) { }
+        public IssueService(string s) : base(s) { }
     }
 }

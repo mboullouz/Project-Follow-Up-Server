@@ -10,7 +10,7 @@ namespace PUp.Services
 {
     public class TaskService : BaseService
     {
-        public TaskService(ModelStateWrapper modelStateWrapper) : base(modelStateWrapper)
+        public TaskService(string email) : base(email)
         { }
 
         public TaskViewModel GetTaskViewModelByProject(int id)
@@ -21,7 +21,7 @@ namespace PUp.Services
             tasksViewModel.DeletedTasks = repo.DbContext.TaskSet.Include("Executor").Where(t => t.Deleted == true && t.Project.Id == id).ToList();
             if (!repo.ProjectRepository.IsActive(project))
             {
-                modelStateWrapper.Flash("You are browsering a project that is no more active!");
+               // modelStateWrapper.Flash("You are browsering a project that is no more active!");
             }
             return tasksViewModel;
         }
@@ -34,7 +34,7 @@ namespace PUp.Services
             }
             else
             {
-                modelStateWrapper.Flash("The project is no more active!", FlashLevel.Warning);
+               // modelStateWrapper.Flash("The project is no more active!", FlashLevel.Warning);
             }
             return task;
         }
@@ -44,7 +44,7 @@ namespace PUp.Services
             var task = repo.TaskRepository.FindById(id);
             if (!repo.ProjectRepository.IsActive(task.Project.Id))
             {
-                modelStateWrapper.Flash("The project is no more active!", FlashLevel.Warning);
+               // modelStateWrapper.Flash("The project is no more active!", FlashLevel.Warning);
                 return;
             }
             var intervalManager = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:00"));
@@ -63,7 +63,7 @@ namespace PUp.Services
                     break;//no nead for more checks
                 }
             }
-            modelStateWrapper.Flash(message, level);
+          //  modelStateWrapper.Flash(message, level);
         }
 
         //TODO refactore AddTaskViewModel or create a special one for Edit with a base class!
@@ -73,7 +73,7 @@ namespace PUp.Services
             ProjectEntity project = repo.ProjectRepository.FindById(id);
             if (!repo.ProjectRepository.IsActive(project.Id))
             {
-                modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
+              //  modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
             }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
             addTaskVM.Project = project;
@@ -87,7 +87,7 @@ namespace PUp.Services
             ProjectEntity project = repo.ProjectRepository.FindById(task.Project.Id);
             if (!repo.ProjectRepository.IsActive(project.Id))
             {
-                modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
+              //  modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
             }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(task, repo.UserRepository.GetAll());
             addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
@@ -101,11 +101,11 @@ namespace PUp.Services
             if (repo.ProjectRepository.IsActive(t.Project))
             {
                 repo.TaskRepository.MarkUndone(t);
-                modelStateWrapper.Flash("the task: " + t.Title + " is now marked undone!", FlashLevel.Info);
+               // modelStateWrapper.Flash("the task: " + t.Title + " is now marked undone!", FlashLevel.Info);
             }
             else
             {
-                modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
+               // modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
             }
             return t;
         }
@@ -116,11 +116,11 @@ namespace PUp.Services
             if (repo.ProjectRepository.IsActive(t.Project))
             {
                 repo.TaskRepository.MarkDeleted(t);
-                modelStateWrapper.Flash("Task: " + t.Title + " is marked  deleted! ", FlashLevel.Info);
+             //   modelStateWrapper.Flash("Task: " + t.Title + " is marked  deleted! ", FlashLevel.Info);
             }
             else
             {
-                modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
+              //  modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
             }
             return t;
         }
@@ -136,16 +136,16 @@ namespace PUp.Services
             }
             else
             {
-                modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
+               // modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
             }
            return task;
         }
 
         public bool IsModelValid(AddTaskViewModel model)
         {
-            if (!modelStateWrapper.IsValid && !repo.ProjectRepository.IsActive(model.IdProject))
+            if (!repo.ProjectRepository.IsActive(model.IdProject))
             {
-                modelStateWrapper.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
+              //  modelStateWrapper.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
                 return false;
             }
             return true;

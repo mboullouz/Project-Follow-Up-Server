@@ -21,7 +21,7 @@ namespace PUp.Controllers
 
         public HomeController()
         {
-            projectService = new ProjectService(new ModelStateWrapper(TempData, ModelState));
+           // projectService = new ProjectService(new ModelStateWrapper(TempData, ModelState));
         }
         public ActionResult Index()
         {
