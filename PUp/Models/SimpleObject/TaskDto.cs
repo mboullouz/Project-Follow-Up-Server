@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PUp.Models.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,5 +24,33 @@ namespace PUp.Models.SimpleObject
         public DateTime? DeleteAt { get; set; }
         public bool? Deleted { get; set; }
         public UserDto Executor { set; get; }
+
+        public TaskDto(TaskEntity t)
+        {
+            Init(t);
+        }
+
+        public void Init(TaskEntity t)
+        {
+            if (t != null)
+            {
+                Id = t.Id;
+                Title = t.Title;
+                Description = t.Description;
+                Done = t.Done;
+                EstimatedTimeInMinutes = t.EstimatedTimeInMinutes;
+                Urgent = t.Urgent;
+                Critical = t.Critical;
+                Postponed = t.Postponed;
+                AddAt = t.AddAt;
+                FinishAt = t.FinishAt;
+                KeyFactor = t.KeyFactor;
+                StartAt = t.StartAt;
+                EndAt = t.EndAt;
+                DeleteAt = t.DeleteAt;
+                Deleted = t.Deleted;
+                Executor = new UserDto(t.Executor);
+            }
+        }
     }
 }

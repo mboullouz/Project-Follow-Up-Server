@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PUp.Models.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,5 +18,27 @@ namespace PUp.Models.SimpleObject
         public DateTime AddAt { get; set; }
         public DateTime? DeleteAt { get; set; }
         public UserDto Submitter { get; set; }
+
+        public IssueDto(IssueEntity issue)
+        {
+            Init(issue);
+        }
+
+        public void Init(IssueEntity issue)
+        {
+            if (issue != null)
+            {
+                Id = issue.Id;
+                Description = issue.Description;
+                Status = issue.Status;
+                Deleted = issue.Deleted;
+                EditAt = issue.EditAt;
+                RelatedArea = issue.RelatedArea;
+                Project = new ProjectDto(issue.Project);
+                AddAt = issue.AddAt;
+                DeleteAt = issue.DeleteAt;
+                Submitter = new UserDto(issue.Submitter);
+            }
+        }
     }
 }
