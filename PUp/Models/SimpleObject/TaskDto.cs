@@ -25,14 +25,14 @@ namespace PUp.Models.SimpleObject
         public bool? Deleted { get; set; }
         public UserDto Executor { set; get; }
 
-        public TaskDto(TaskEntity t)
+        public TaskDto(TaskEntity t, int depth = 5)
         {
-            Init(t);
+            Init(t,--depth);
         }
 
-        public void Init(TaskEntity t)
+        public void Init(TaskEntity t,int depth)
         {
-            if (t != null)
+            if (t != null && depth > 0)
             {
                 Id = t.Id;
                 Title = t.Title;
@@ -49,7 +49,7 @@ namespace PUp.Models.SimpleObject
                 EndAt = t.EndAt;
                 DeleteAt = t.DeleteAt;
                 Deleted = t.Deleted;
-                Executor = new UserDto(t.Executor);
+                Executor = new UserDto(t.Executor,depth);
             }
         }
     }

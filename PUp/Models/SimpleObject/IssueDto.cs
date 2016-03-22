@@ -19,14 +19,14 @@ namespace PUp.Models.SimpleObject
         public DateTime? DeleteAt { get; set; }
         public UserDto Submitter { get; set; }
 
-        public IssueDto(IssueEntity issue)
+        public IssueDto(IssueEntity issue,int depth=5)
         {
-            Init(issue);
+            Init(issue,--depth);
         }
 
-        public void Init(IssueEntity issue)
+        public void Init(IssueEntity issue, int depth)
         {
-            if (issue != null)
+            if (issue != null && depth>0)
             {
                 Id = issue.Id;
                 Description = issue.Description;
@@ -34,10 +34,10 @@ namespace PUp.Models.SimpleObject
                 Deleted = issue.Deleted;
                 EditAt = issue.EditAt;
                 RelatedArea = issue.RelatedArea;
-                Project = new ProjectDto(issue.Project);
+                Project = new ProjectDto(issue.Project,depth);
                 AddAt = issue.AddAt;
                 DeleteAt = issue.DeleteAt;
-                Submitter = new UserDto(issue.Submitter);
+                Submitter = new UserDto(issue.Submitter,depth);
             }
         }
     }

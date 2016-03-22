@@ -10,14 +10,14 @@ namespace PUp.Models.SimpleObject
     {
        
 
-        public UserDto(UserEntity u)
+        public UserDto(UserEntity u, int depth = 5)
         {
-            Init(u);
+            Init(u,--depth);
         }
 
-        public void Init(UserEntity u)
+        public void Init(UserEntity u,int depth)
         {
-            if (u != null)
+            if (u != null && depth>0)
             {
                 Name = u.Name;
                 Email = u.Email;
