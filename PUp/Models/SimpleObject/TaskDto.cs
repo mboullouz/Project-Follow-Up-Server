@@ -25,7 +25,7 @@ namespace PUp.Models.SimpleObject
         public bool? Deleted { get; set; }
         public UserDto Executor { set; get; }
 
-        public TaskDto(TaskEntity t, int depth = 5)
+        public TaskDto(TaskEntity t, int depth = AppConst.MaxDepth)
         {
             Init(t,--depth);
         }

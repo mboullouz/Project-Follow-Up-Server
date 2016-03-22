@@ -25,33 +25,56 @@ namespace PUp.Models.SimpleObject
         public DateTime? DeleteAt { get; set; }
         public DateTime AddAt { get; set; }
 
-        public ProjectDto(ProjectEntity project, int depth=2)
-        {
-            Contributors = new HashSet<UserDto>();
-            Tasks = new HashSet<TaskDto>();
-            Issues = new HashSet<IssueDto>();
 
-            Id = project.Id;
-            Name = project.Name;
-            Finish = project.Finish;
-            Owner = new UserDto(project.Owner,depth);
-            Benifite = project.Benifite;
-            Objective = project.Objective;
-            EndAt = project.EndAt;
-            EditAt = project.EditAt;
-            FinishedAt = project.FinishedAt;
-            AddAt = project.AddAt;
-            DeleteAt = project.DeleteAt;
-           
-            project.Contributors.ToList().ForEach(u => Contributors.Add(new UserDto(u,depth)));
-            project.Tasks.ToList().ForEach(t => Tasks.Add(new TaskDto(t,depth)));
-            /*int nTasks = project.Tasks.Count;
-            for (int i=0;i<nTasks;i++)
-            {
-                Tasks.Add(new TaskDto(project.Tasks.ElementAtOrDefault(i)) );
-            }*/
-             
-            project.Issues.ToList().ForEach(i => Issues.Add(new IssueDto(i,depth)));
+        public ProjectDto(ProjectEntity project, int depth = AppConst.MaxDepth)
+        {
+            Init(project, --depth);
         }
+
+
+
+        public void Init(ProjectEntity project, int depth= AppConst.MaxDepth)
+        {   
+            if(project!=null && depth > 0)
+            {
+                Contributors = new HashSet<UserDto>();
+                Tasks = new HashSet<TaskDto>();
+                Issues = new HashSet<IssueDto>();
+
+                Id = project.Id;
+                Name = project.Name;
+                Finish = project.Finish;
+                Owner = new UserDto(project.Owner, depth);
+                Benifite = project.Benifite;
+                Objective = project.Objective;
+                EndAt = project.EndAt;
+                EditAt = project.EditAt;
+                FinishedAt = project.FinishedAt;
+                AddAt = project.AddAt;
+                DeleteAt = project.DeleteAt;
+
+                project.Contributors.ToList().ForEach(u => Contributors.Add(new UserDto(u, depth)));
+                project.Tasks.ToList().ForEach(t => Tasks.Add(new TaskDto(t, depth)));
+                project.Issues.ToList().ForEach(i => Issues.Add(new IssueDto(i, depth)));
+
+                InitAdditional(project);
+            }
+            
+        }
+
+        public int Progress { get; set; }
+        public int TasksDone { get; set; }
+        public int TotalTasks { get; set; }
+        public bool Over { get; set; }
+        public int TotalIssues { get; set; }
+
+        public void InitAdditional(ProjectEntity p)
+        {
+            TotalTasks = p.Tasks.Count();
+            TasksDone = p.Tasks.Where(t => t.Done == true).Count();
+            Progress = (int)(TasksDone / (TotalTasks + 0.1) * 100);
+            Over = p.EndAt < DateTime.Now;
+        }
+
     }
 }

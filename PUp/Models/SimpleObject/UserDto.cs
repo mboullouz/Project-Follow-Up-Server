@@ -10,7 +10,7 @@ namespace PUp.Models.SimpleObject
     {
        
 
-        public UserDto(UserEntity u, int depth = 5)
+        public UserDto(UserEntity u, int depth = AppConst.MaxDepth)
         {
             Init(u,--depth);
         }

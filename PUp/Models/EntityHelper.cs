@@ -14,7 +14,12 @@ namespace PUp.Models
     }
 
     public class AppConst
-    {
+    {   
+        /**
+        Useful when serializing/deserializing object
+        */
+        public const int MaxDepth = 3;
+
         public const int DayStart = 0;
         public const int DayEnd = 23;
         public const int HoursPerDay = 10;

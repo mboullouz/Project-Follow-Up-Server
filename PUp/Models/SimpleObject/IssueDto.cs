@@ -19,7 +19,7 @@ namespace PUp.Models.SimpleObject
         public DateTime? DeleteAt { get; set; }
         public UserDto Submitter { get; set; }
 
-        public IssueDto(IssueEntity issue,int depth=5)
+        public IssueDto(IssueEntity issue,int depth=AppConst.MaxDepth)
         {
             Init(issue,--depth);
         }
