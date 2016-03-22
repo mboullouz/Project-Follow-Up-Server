@@ -13,7 +13,7 @@ namespace PUp.Models.SimpleObject
         public int TasksDone { get; set; }
         public int TotalTasks { get; set; }
         public bool Over { get; set; }
-
+        public int TotalIssues { get; set; }
         public ProjectView(ProjectEntity p)
         {
             Project = p;
@@ -25,6 +25,7 @@ namespace PUp.Models.SimpleObject
             TasksDone = Project.Tasks.Where(t => t.Done == true).Count();
             Progress = (int)(TasksDone / (TotalTasks + 0.1) * 100);
             Over = Project.EndAt < DateTime.Now;
+           
         }
     }
 }
