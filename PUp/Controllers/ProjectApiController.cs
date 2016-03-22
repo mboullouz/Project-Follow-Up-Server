@@ -34,6 +34,7 @@ namespace PUp.Controllers
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 MaxDepth = 1,
+                
             });
 
             return Json(jsonContent);
