@@ -62,6 +62,10 @@ namespace PUp.Models.SimpleObject
             
         }
 
+        
+        /// <summary>
+        /// Additional 'computation' to use instead of re-compute by the JS
+        /// </summary>
         public int Progress { get; set; }
         public int TasksDone { get; set; }
         public int TotalTasks { get; set; }

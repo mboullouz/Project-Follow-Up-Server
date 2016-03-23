@@ -27,7 +27,7 @@ namespace PUp.App_Start
             if (Thread.CurrentPrincipal.Identity.Name.Length == 0)
             { // If an identity has not already been established by other means:
                 AuthenticationHeaderValue auth = actionContext.Request.Headers.Authorization;
-                if (string.Compare(auth.Scheme, "Basic", StringComparison.OrdinalIgnoreCase) == 0)
+                if (auth !=null &&  string.Compare(auth.Scheme, "Basic", StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     string credentials = UTF8Encoding.UTF8.GetString(Convert.FromBase64String(auth.Parameter));
                     int separatorIndex = credentials.IndexOf(':');
