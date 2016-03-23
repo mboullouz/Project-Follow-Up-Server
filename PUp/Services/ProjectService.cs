@@ -12,13 +12,13 @@ namespace PUp.Services
     {
         public ProjectService(string email) : base(email) { }
 
-        public List<ProjectView> GetTableProjectForCurrentUser()
+        public List<ProjectDto> GetTableProjectForCurrentUser()
         {
             var projectsByUser = repo.ProjectRepository.GetAll()
                                      .Where(p => p.Owner == currentUser || p.Contributors.Contains(currentUser))
                                      .OrderByDescending(p => p.StartAt).ToList();
-            var projectsView = new List<ProjectView>();
-            projectsByUser.ForEach(p => projectsView.Add(new ProjectView(p)));
+            var projectsView = new List<ProjectDto>();
+            projectsByUser.ForEach(p => projectsView.Add(new ProjectDto(p)));
             return projectsView;
         }
 
