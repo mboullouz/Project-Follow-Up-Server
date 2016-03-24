@@ -271,6 +271,7 @@
     <Compile Include="Models\SimpleObject\GenericJsonResponse.cs" />
     <Compile Include="Models\GroundInterval.cs" />
     <Compile Include="Models\SimpleObject\IssueDto.cs" />
+    <Compile Include="Models\SimpleObject\NotificationDto.cs" />
     <Compile Include="Models\SimpleObject\ProjectDto.cs" />
     <Compile Include="Models\SimpleObject\ProjectView.cs" />
     <Compile Include="Models\SimpleObject\TaskDto.cs" />

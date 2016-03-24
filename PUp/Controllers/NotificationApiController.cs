@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PUp.Models;
 using PUp.Models.Repository;
+using PUp.Models.SimpleObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,28 +14,33 @@ using System.Web.Http.Results;
 namespace PUp.Controllers
 {
     [App_Start.MyBasicAuth]
-    [EnableCors(origins: "http://localhost:3000,*", headers: "*", methods: "*")]
+    [Authorize]
     public class NotificationApiController : ApiController
     {
         private DatabaseContext dbContext = new DatabaseContext();
         private NotificationRepository notifRepo;
         private UserRepository userRepo;
-        private Models.Entity.UserEntity currentUser=null;
+        private Models.Entity.UserEntity currentUser = null;
 
 
         public NotificationApiController()
         {
-             notifRepo = new NotificationRepository(dbContext);
-             userRepo = new UserRepository(dbContext);
+            notifRepo = new NotificationRepository(dbContext);
+            userRepo = new UserRepository(dbContext);
         }
 
-        // GET api/<controller>
-        [Authorize]
-        public NegotiatedContentResult<string> Get()
+
+        [HttpGet]
+        public NegotiatedContentResult<string> All()
         {
             var email = RequestContext.Principal.Identity.Name;
             currentUser = userRepo.FindByEmail(email);
-            var list = JsonConvert.SerializeObject(notifRepo.GetByUser(currentUser),
+            List<NotificationDto> notifs = new List<NotificationDto>();
+            notifRepo.GetByUser(currentUser)
+                .OrderByDescending(n => n.AddAt)
+                .Take(10).ToList()
+                .ForEach(n => notifs.Add(new NotificationDto(n)));
+            var list = JsonConvert.SerializeObject(notifs,
               Formatting.None,
               new JsonSerializerSettings()
               {
@@ -44,7 +50,7 @@ namespace PUp.Controllers
             return Content(HttpStatusCode.OK, list);
         }
 
-        
+
 
         // GET api/<controller>/5
         public string Get(int id)
@@ -66,8 +72,8 @@ namespace PUp.Controllers
         // DELETE api/<controller>/5
         public NegotiatedContentResult<string> Delete(int id)
         {
-            var res= notifRepo.RemoveById(id);
-            return Content(HttpStatusCode.OK, res? "Deleted":"Nothing to delete!");
+            var res = notifRepo.RemoveById(id);
+            return Content(HttpStatusCode.OK, res ? "Deleted" : "Nothing to delete!");
         }
     }
 }
