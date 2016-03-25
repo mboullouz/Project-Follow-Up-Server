@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using PUp.Models.Entity;
 using PUp.Services;
+using PUp.ViewModels.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +40,24 @@ namespace PUp.Controllers
             });
 
             return Json(jsonContent);
+        }
+
+        [HttpPost]
+        public JsonResult<string> Add(AddProjectViewModel model)
+        {
+            Init();
+             if (!projectService.IsModelValid(model))
+            {
+                var jsonContent = JsonConvert.SerializeObject(model, new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                });
+                return Json("{'state':0,message:'model not valid'}"+jsonContent);
+            } 
+            var project = projectService.GetInitializedProjectFromModel(model);
+            projectService.GetRepositoryManager().ProjectRepository.Add(project);
+            projectService.GetRepositoryManager().NotificationRepository.GenerateFor(project, new HashSet<UserEntity>(projectService.GetRepositoryManager().UserRepository.GetAll()));
+            return Json("{'state':1,message:'Success'}");
         }
 
         // GET api/<controller>/5

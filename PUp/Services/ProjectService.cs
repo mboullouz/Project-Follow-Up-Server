@@ -30,8 +30,8 @@ namespace PUp.Services
             project.EndAt = model.EndAt;
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
-            project.Owner = repo.UserRepository.GetCurrentUser();
-            project.Contributors.Add(project.Owner);
+            project.Owner = currentUser;
+            project.Contributors.Add(currentUser);
 
             return project;
         }
