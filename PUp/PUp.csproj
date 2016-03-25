@@ -283,6 +283,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SimpleObject\UserDto.cs" />
+    <Compile Include="Models\ValidationMessageHolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\IssueService.cs" />

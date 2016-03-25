@@ -11,10 +11,11 @@ namespace PUp.Services
     {
         protected RepositoryManager repo = new RepositoryManager();
         protected UserEntity currentUser=null;
+        protected ValidationMessageHolder validationMessageHolder= new ValidationMessageHolder();
 
         public BaseService(string email)
         {   
-            this.currentUser = repo.UserRepository.FindByEmail(email);
+            currentUser = repo.UserRepository.FindByEmail(email);
         }
 
         public RepositoryManager GetRepositoryManager() { return repo; }

@@ -38,7 +38,7 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Edit(AddProjectViewModel model)
         {    
-            if (!projectService.IsModelValid(model))
+            if (!projectService.CheckModel(model).IsValid())
             {
               return View("~/Views/Project/Add.cshtml", model);
             }
@@ -60,7 +60,7 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddProjectViewModel model)
         {
-            if (!projectService.IsModelValid(model))
+            if (!projectService.CheckModel(model).IsValid())
             {
                 return View(model);
             }

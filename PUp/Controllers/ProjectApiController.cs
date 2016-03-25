@@ -17,13 +17,13 @@ namespace PUp.Controllers
     public class ProjectApiController : ApiController
     {
         private ProjectService projectService;
-        
+
 
         public void Init()
         {
             var email = RequestContext.Principal.Identity.Name;
             projectService = new ProjectService(email);
-             
+
         }
 
         [HttpGet]
@@ -36,7 +36,7 @@ namespace PUp.Controllers
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 MaxDepth = 1,
-                
+
             });
 
             return Json(jsonContent);
@@ -46,18 +46,16 @@ namespace PUp.Controllers
         public JsonResult<string> Add(AddProjectViewModel model)
         {
             Init();
-             if (!projectService.IsModelValid(model))
+            var checkModel = projectService.CheckModel(model);
+             
+            if (!checkModel.IsValid())  
             {
-                var jsonContent = JsonConvert.SerializeObject(model, new JsonSerializerSettings()
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                });
-                return Json("{'state':0,message:'model not valid'}"+jsonContent);
-            } 
+                return Json(checkModel.ToJson());
+            }
             var project = projectService.GetInitializedProjectFromModel(model);
             projectService.GetRepositoryManager().ProjectRepository.Add(project);
             projectService.GetRepositoryManager().NotificationRepository.GenerateFor(project, new HashSet<UserEntity>(projectService.GetRepositoryManager().UserRepository.GetAll()));
-            return Json("{'state':1,message:'Success'}");
+            return Json(checkModel.ToJson());
         }
 
         // GET api/<controller>/5

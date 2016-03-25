@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using PUp.Models;
+using PUp.Models.Entity;
 using PUp.Models.SimpleObject;
 using PUp.ViewModels.Project;
 using System;
@@ -49,16 +50,16 @@ namespace PUp.Services
             return projectModel;
         }
 
-        public bool IsModelValid(AddProjectViewModel model)
+        public ValidationMessageHolder CheckModel(AddProjectViewModel model)
         {
-            if (model.EndAt <= model.StartAt || model.StartAt <= DateTime.Now.AddMinutes(30))
-            {   /*
-                modelStateWrapper.AddError("", "The form is not valid please check it again.");
-                modelStateWrapper.Flash("Impossible to save the form in it's current state! ",FlashLevel.Danger);
-                */
-                return false;
+            if (model.EndAt <= model.StartAt) {
+                validationMessageHolder.Add("EndAt", "Date end must be superior to date start");
             }
-            return true;
+            if ( model.StartAt <= DateTime.Now.AddMinutes(30))
+            {
+                validationMessageHolder.Add("StartAt", "Date start must be superior to actual date by at least 30 min");
+            }
+            return validationMessageHolder;
         }
     }
 }
