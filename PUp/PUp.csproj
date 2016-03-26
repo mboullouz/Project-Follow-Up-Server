@@ -249,6 +249,7 @@
     <Compile Include="Models\Entity\IssueEntity.cs" />
     <Compile Include="Models\Entity\NotificationEntity.cs" />
     <Compile Include="Models\EntityHelper.cs" />
+    <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\FormattedDbEntityValidationException.cs" />
     <Compile Include="Models\RepositoryManager.cs" />
     <Compile Include="Models\Repository\AbstractRepository.cs" />
@@ -256,7 +257,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
-    <Compile Include="Controllers\TasksApiController.cs" />
+    <Compile Include="Controllers\TaskApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -300,6 +301,7 @@
     <Compile Include="ViewModels\Project\MatrixViewModel.cs" />
     <Compile Include="ViewModels\Project\ProjectTimelineViewModel.cs" />
     <Compile Include="ViewModels\Project\TableProjectModelView.cs" />
+    <Compile Include="ViewModels\Task\TaskboardViewModel.cs" />
     <Compile Include="ViewModels\Task\TaskViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

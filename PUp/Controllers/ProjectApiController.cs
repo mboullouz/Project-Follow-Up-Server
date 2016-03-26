@@ -91,6 +91,19 @@ namespace PUp.Controllers
         }
 
 
+        /// <summary>
+        /// Get the ProjectView for Edit
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult<string> Edit(int id)
+        {
+            Init();
+            return Json(projectService.GetInitializedViewByProjectId(id).ToJson());
+        }
+
+
         // GET api/<controller>/5
         public string Get(int id)
         {

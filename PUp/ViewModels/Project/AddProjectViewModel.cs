@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using Newtonsoft.Json;
+using PUp.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -43,6 +44,20 @@ namespace PUp.ViewModels.Project
             EndAt = p.EndAt;
             Benifite = p.Benifite;
             Objective = p.Objective;
+            Id = p.Id;
+        }
+
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this,
+            Formatting.None,
+            new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                MaxDepth = 1,
+
+            });
+
         }
     }
 }

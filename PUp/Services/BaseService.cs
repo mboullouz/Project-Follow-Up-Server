@@ -16,9 +16,10 @@ namespace PUp.Services
         public BaseService(string email)
         {   
             currentUser = repo.UserRepository.FindByEmail(email);
+
         }
 
         public RepositoryManager GetRepositoryManager() { return repo; }
-        public UserEntity CurrentUser() { return this.currentUser; }
+        public UserEntity CurrentUser() { return  currentUser; }
     }
 }

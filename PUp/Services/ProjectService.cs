@@ -42,6 +42,19 @@ namespace PUp.Services
             return project;
         }
 
+
+        /// <summary>
+        /// This useful when Editing a project 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public AddProjectViewModel GetInitializedViewByProjectId(int id)
+        {
+            var projectEntity = repo.ProjectRepository.FindById(id);
+            var projectView = new AddProjectViewModel(projectEntity);
+            return projectView;
+        }
+
         /// <summary>
         /// This is no more needed since the Client can generate it itself
         /// //TODO: remove

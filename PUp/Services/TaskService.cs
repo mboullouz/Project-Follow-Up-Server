@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using PUp.Models;
+using PUp.Models.Entity;
 using PUp.ViewModels;
 using PUp.ViewModels.Task;
 using System;
@@ -25,6 +26,25 @@ namespace PUp.Services
             }
             return tasksViewModel;
         }
+
+        public  TaskboardViewModel Taskboard(int id)
+        {
+            var project = repo.ProjectRepository.FindById(id);
+            var complete = repo.TaskRepository.TodayTasksByProject(project);
+            var upcoming = repo.TaskRepository.Upcoming(project);
+            var inProgress = repo.TaskRepository.TodayTasksByProject(project).ToList().ToDto();
+            return new TaskboardViewModel
+            {
+                InProgress = repo.TaskRepository.TodayTasksByProject(project).ToList().ToDto(),
+                Upcoming = repo.TaskRepository.Upcoming(project).ToList().ToDto(),
+                Complete = repo.TaskRepository.TodayTasksByProject(project).ToList().ToDto(),
+                Project = new Models.SimpleObject.ProjectDto(project),
+            };
+        
+             
+             
+        }
+
         public TaskEntity MarkDone(int id)
         {
             var task = repo.TaskRepository.FindById(id);

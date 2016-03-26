@@ -49,9 +49,46 @@ namespace PUp.Models.Repository
                  t => t.Executor == user && t.StartAt != null
                       && t.StartAt.GetValueOrDefault() >= startDateTime
                       && t.StartAt.GetValueOrDefault() <= endDateTime
-                      && t.Project.EndAt > DateTime.Now && t.Project.Deleted == false)
+                      && t.Project.EndAt > DateTime.Now 
+                      && t.Project.Deleted == false)
                 .OrderBy(v => v.StartAt).ToList();
         }
+
+        public HashSet<TaskEntity> Upcoming(ProjectEntity project)
+        {
+            var source = project.Tasks.Where(t => (t.StartAt == null || t.EndAt == null) 
+                                                  && t.Deleted==false).OrderByDescending(v => v.StartAt);
+            return new HashSet<TaskEntity>(source);
+        }
+
+        public HashSet<TaskEntity> TodayTasksByProject(ProjectEntity project) 
+        {
+            var source = project.Tasks.Where(t =>  t.StartAt != null && t.EndAt <= DateTime.Now 
+                                                && t.Deleted == false ).OrderByDescending(v => v.StartAt);
+            return new HashSet<TaskEntity>(source);
+        }
+
+
+
+
+        public HashSet<TaskEntity> TodayTasksByUserAndProject(ProjectEntity project)
+        {
+
+            DateTime startDateTime = DateTime.Today; //Today at 00:00:00
+            DateTime endDateTime = DateTime.Today.AddDays(1).AddTicks(-1); //Today at 23:59:59
+
+            var source= GetAll().Where(
+                 t => t.Project==project && t.StartAt != null
+                      && t.StartAt.GetValueOrDefault() >= startDateTime
+                      && t.StartAt.GetValueOrDefault() <= endDateTime
+                      && t.Project.EndAt > DateTime.Now
+                      && t.Project.Deleted == false)
+                .OrderBy(v => v.StartAt).ToList();
+
+
+            return new HashSet<TaskEntity>( source);
+        }
+
 
         public GroundInterval AvelaibleHoursForUserAndDate(UserEntity user,DateTime dateEndMin)
         {
