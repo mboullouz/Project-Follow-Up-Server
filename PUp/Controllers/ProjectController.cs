@@ -37,7 +37,7 @@ namespace PUp.Controllers
 
         [HttpPost]
         public ActionResult Edit(AddProjectViewModel model)
-        {    
+        {                
             if (!projectService.CheckModel(model).IsValid())
             {
               return View("~/Views/Project/Add.cshtml", model);

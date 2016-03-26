@@ -48,7 +48,8 @@ namespace PUp.Models
             });
         }
 
-        //Additional
+        //Additional field intended to be used by the result Json in the client
+        //So need to be in sync with the state of validation 
         public int State { get; set; }
     }
 

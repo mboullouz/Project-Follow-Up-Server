@@ -13,6 +13,11 @@ namespace PUp.Services
     {
         public ProjectService(string email) : base(email) { }
 
+
+        /// <summary>
+        /// Prepare the DTOs for the client
+        /// </summary>
+        /// <returns></returns>
         public List<ProjectDto> GetTableProjectForCurrentUser()
         {
             var projectsByUser = repo.ProjectRepository.GetAll()
@@ -37,6 +42,11 @@ namespace PUp.Services
             return project;
         }
 
+        /// <summary>
+        /// This is no more needed since the Client can generate it itself
+        /// //TODO: remove
+        /// </summary>
+        /// <returns></returns>
         public AddProjectViewModel InitProjectModel()
         {
             AddProjectViewModel projectModel = new AddProjectViewModel
@@ -50,7 +60,7 @@ namespace PUp.Services
             return projectModel;
         }
 
-        public ValidationMessageHolder CheckModel(AddProjectViewModel model)
+        public ValidationMessageHolder CheckModel(AddProjectViewModel model,bool onEdit=false)
         {
             if (model.EndAt <= model.StartAt) {
                 validationMessageHolder.Add("EndAt", "Date end must be superior to date start");
@@ -58,6 +68,17 @@ namespace PUp.Services
             if ( model.StartAt <= DateTime.Now.AddMinutes(30))
             {
                 validationMessageHolder.Add("StartAt", "Date start must be superior to actual date by at least 30 min");
+            }
+            if (onEdit)
+            {
+                if (model.Id <= 0)
+                {
+                    validationMessageHolder.Add("Id", "The Entity Id:" + model.Id + " is not valid");
+                }
+                if (model.Id > 0 && repo.ProjectRepository.FindById(model.Id) == null)
+                {
+                    validationMessageHolder.Add("Id", "Can't find Entity with the Id:" + model.Id);
+                }
             }
             return validationMessageHolder;
         }

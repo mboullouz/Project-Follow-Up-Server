@@ -58,6 +58,39 @@ namespace PUp.Controllers
             return Json(checkModel.ToJson());
         }
 
+
+        /// <summary>
+        /// PUT is not used because the need to create a different param => different Json req
+        /// I find it more simple to just test if id >0 and find the appropriate Entity to update!
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult<string> Edit(AddProjectViewModel model)
+        {
+            Init();           
+            var checkModel = projectService.CheckModel(model,true);
+
+            if (!checkModel.IsValid())
+            {
+                return Json(checkModel.ToJson());
+            }
+            ProjectEntity project = projectService.GetRepositoryManager().ProjectRepository.FindById(model.Id);
+            project.Name = model.Name;
+            project.StartAt = model.StartAt;
+            project.EndAt = model.EndAt;
+            project.Objective = model.Objective;
+            project.Benifite = model.Benifite;
+            projectService.GetRepositoryManager().ProjectRepository.DbContext.SaveChanges();
+
+            foreach (var u in project.Contributors)
+            {
+                projectService.GetRepositoryManager().NotificationRepository.Add(u, "Project: " + project.Name + " updated", "~/Project/Timeline" + project.Id, Models.LevelFlag.Info);
+            }
+            return Json(checkModel.ToJson());
+        }
+
+
         // GET api/<controller>/5
         public string Get(int id)
         {
