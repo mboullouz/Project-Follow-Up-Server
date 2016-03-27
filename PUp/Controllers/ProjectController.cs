@@ -94,7 +94,7 @@ namespace PUp.Controllers
         public ActionResult Timeline(int id)
         {
             ProjectEntity project =  projectService.GetRepositoryManager().ProjectRepository.FindById(id);
-            ProjectTimelineViewModel projectTimeline = new ProjectTimelineViewModel(project);
+            TimelineViewModel projectTimeline = new TimelineViewModel(project);
             return View(projectTimeline);
         }
 
@@ -104,7 +104,7 @@ namespace PUp.Controllers
             DetailsViewModel detailsVM = new DetailsViewModel();
             var currentTasks   = projectService.GetRepositoryManager().TaskRepository.TodayTasksByUser(currentUser).Where(t => t.Done == false).ToList();
             detailsVM.MatrixVM = new MatrixViewModel(currentTasks, currentUser);
-            detailsVM.Timeline = new ProjectTimelineViewModel(project);
+            detailsVM.Timeline = new TimelineViewModel(project);
             detailsVM.Project  = project;
             return View(detailsVM);
         }

@@ -10,6 +10,6 @@ namespace PUp.ViewModels.Project
     {
         public MatrixViewModel MatrixVM { get; set; }
         public ProjectEntity Project { get; set; }
-        public ProjectTimelineViewModel Timeline { get; set; }
+        public TimelineViewModel Timeline { get; set; }
     }
 }

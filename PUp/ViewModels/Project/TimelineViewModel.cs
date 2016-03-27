@@ -7,7 +7,7 @@ using System.Web;
 
 namespace PUp.ViewModels.Project
 {
-    public class ProjectTimelineViewModel
+    public class TimelineViewModel:BaseModelView
     {
         public ProjectEntity Project { get; set; }
         public List<TaskEntity> Tasks;
@@ -16,7 +16,7 @@ namespace PUp.ViewModels.Project
         public List<NotificationEntity> Notifs { get; set; }
         public List<IssueEntity> Issues { get; set; }
         private List<object> AllElements = new List<object>();
-        public ProjectTimelineViewModel(ProjectEntity p)
+        public TimelineViewModel(ProjectEntity p)
         {
             Elements = new List<object>();
             Project = p;

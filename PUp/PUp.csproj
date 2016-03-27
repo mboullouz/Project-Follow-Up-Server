@@ -232,6 +232,7 @@
     <Compile Include="Controllers\AccountApiController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ProjectApiController.cs" />
+    <Compile Include="Controllers\TimelineApiController.cs" />
     <Compile Include="Jobs\AbstractBaseJob.cs" />
     <Compile Include="Jobs\IssuesAnalyzerJob.cs" />
     <Compile Include="Jobs\MorningSummaryJob.cs" />
@@ -291,15 +292,17 @@
     <Compile Include="Services\ModelStateWrapper.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\TaskService.cs" />
+    <Compile Include="Services\TimelineService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddIssueViewModel.cs" />
+    <Compile Include="ViewModels\BaseModelView.cs" />
     <Compile Include="ViewModels\MenuModelView.cs" />
     <Compile Include="ViewModels\Project\AddProjectViewModel.cs" />
     <Compile Include="ViewModels\AddTaskViewModel.cs" />
     <Compile Include="ViewModels\DashboardModelView.cs" />
     <Compile Include="ViewModels\Project\DetailsViewModel.cs" />
     <Compile Include="ViewModels\Project\MatrixViewModel.cs" />
-    <Compile Include="ViewModels\Project\ProjectTimelineViewModel.cs" />
+    <Compile Include="ViewModels\Project\TimelineViewModel.cs" />
     <Compile Include="ViewModels\Project\TableProjectModelView.cs" />
     <Compile Include="ViewModels\Task\TaskboardViewModel.cs" />
     <Compile Include="ViewModels\Task\TaskViewModel.cs" />
