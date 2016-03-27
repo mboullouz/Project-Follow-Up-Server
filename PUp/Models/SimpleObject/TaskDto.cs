@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PUp.Models.SimpleObject
 {
-    public class TaskDto
+    public class TaskDto : IBasicEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -24,6 +24,9 @@ namespace PUp.Models.SimpleObject
         public DateTime? DeleteAt { get; set; }
         public bool? Deleted { get; set; }
         public UserDto Executor { set; get; }
+
+        public DateTime? EditAt { get; set; }
+        
 
         public TaskDto(TaskEntity t, int depth = AppConst.MaxDepth)
         {

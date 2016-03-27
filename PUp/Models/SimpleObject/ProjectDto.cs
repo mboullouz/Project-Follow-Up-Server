@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PUp.Models.SimpleObject
 {
-    public class ProjectDto
+    public class ProjectDto : IBasicEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

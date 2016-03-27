@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PUp.Models.SimpleObject
 {
-    public class NotificationDto
+    public class NotificationDto : IBasicEntity
     {
 
         public int Id { get; set; }
