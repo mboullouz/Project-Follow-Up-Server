@@ -14,5 +14,19 @@ namespace PUp.Models
             source.ForEach(s => target.Add(new TaskDto(s,depth)));
             return target;
         }
+
+        public static List<IssueDto> ToDto(this List<Entity.IssueEntity> source, int depth = AppConst.MaxDepth)
+        {
+            var target = new List<IssueDto>();
+            source.ForEach(s => target.Add(new IssueDto(s, depth)));
+            return target;
+        }
+
+        public static List<NotificationDto> ToDto(this List<Entity.NotificationEntity> source, int depth = AppConst.MaxDepth)
+        {
+            var target = new List<NotificationDto>();
+            source.ForEach(s => target.Add(new NotificationDto(s, depth)));
+            return target;
+        }
     }
 }

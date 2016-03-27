@@ -1,5 +1,7 @@
-﻿using PUp.Models.Entity;
+﻿using PUp.Models;
+using PUp.Models.Entity;
 using PUp.Models.Repository;
+using PUp.Models.SimpleObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +11,22 @@ namespace PUp.ViewModels.Project
 {
     public class TimelineViewModel:BaseModelView
     {
-        public ProjectEntity Project { get; set; }
-        public List<TaskEntity> Tasks;
+        public ProjectDto Project { get; set; }
+        public List<TaskDto> Tasks;
          
         public List<object> Elements { get; set; }
-        public List<NotificationEntity> Notifs { get; set; }
-        public List<IssueEntity> Issues { get; set; }
+        public List<NotificationDto> Notifs { get; set; }
+        public List<IssueDto> Issues { get; set; }
         private List<object> AllElements = new List<object>();
         public TimelineViewModel(ProjectEntity p)
         {
             Elements = new List<object>();
-            Project = p;
-            Notifs = new List<NotificationEntity>();
-            Issues = p.Issues.ToList();
+            Project = new ProjectDto(p,1);
+            Notifs = new List<NotificationDto>();
+            Issues = p.Issues.ToList().ToDto();
             NotificationRepository notifRepository = new NotificationRepository();
-            Notifs = notifRepository.GetAll();//Todo Remove this
-            Tasks = p.Tasks.ToList();
+            Notifs = notifRepository.GetAll().ToDto();//Todo Remove this
+            Tasks = p.Tasks.ToList().ToDto();
             Init();
         }
         public void Init()
