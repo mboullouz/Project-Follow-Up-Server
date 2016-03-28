@@ -40,5 +40,8 @@ namespace PUp.Models.SimpleObject
                 Submitter = new UserDto(issue.Submitter,depth);
             }
         }
+
+        //Additional 
+        public string Type = "Issue";
     }
 }

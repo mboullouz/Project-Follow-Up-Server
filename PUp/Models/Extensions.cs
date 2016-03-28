@@ -28,5 +28,6 @@ namespace PUp.Models
             source.ForEach(s => target.Add(new NotificationDto(s, depth)));
             return target;
         }
+
     }
 }

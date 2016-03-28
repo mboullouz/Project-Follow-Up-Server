@@ -55,5 +55,8 @@ namespace PUp.Models.SimpleObject
                 Executor = new UserDto(t.Executor,depth);
             }
         }
+
+        //Additional 
+        public string Type = "Task";
     }
 }

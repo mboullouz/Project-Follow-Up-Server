@@ -71,6 +71,7 @@ namespace PUp.Models.SimpleObject
         public int TotalTasks { get; set; }
         public bool Over { get; set; }
         public int TotalIssues { get; set; }
+        public string Type = "Project";
 
         public void InitAdditional(ProjectEntity p)
         {

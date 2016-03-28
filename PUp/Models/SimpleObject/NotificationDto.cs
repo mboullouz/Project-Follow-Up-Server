@@ -43,6 +43,8 @@ namespace PUp.Models.SimpleObject
         }
 
         //Additional 
+ 
+        public string Type = "Notification";
         public string TimeAgo { get; set; }
 
         public string ComputeTimeAgo(DateTime dateFrom)

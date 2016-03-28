@@ -34,5 +34,8 @@ namespace PUp.Models.SimpleObject
 
         public ICollection<ProjectDto> Projects { get; set; }
         public ICollection<TaskDto> Tasks { get; set; }
+
+        //Additional 
+        public string Type = "User";
     }
 }
