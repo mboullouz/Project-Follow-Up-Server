@@ -92,7 +92,7 @@ namespace PUp.Controllers
         public ActionResult Edit(AddTaskViewModel model)
         {
             //If startDate is set! must be handled by cheking the interval, else raise an error!
-            ProjectEntity project = taskService.GetRepositoryManager().ProjectRepository.FindById(model.IdProject);
+            ProjectEntity project = taskService.GetRepositoryManager().ProjectRepository.FindById(model.ProjectId);
             var executor = taskService.GetRepositoryManager().UserRepository.FindById(model.ExecutorId);
             if (!taskService.IsModelValid(model))
             {
@@ -115,9 +115,9 @@ namespace PUp.Controllers
         {
             if (!taskService.Add(model))
             {
-                return Add(model.IdProject);
+                return Add(model.ProjectId);
             }
-            return RedirectToAction("Index", "Task", new { id = model.IdProject });
+            return RedirectToAction("Index", "Task", new { id = model.ProjectId });
         }
 
         public ActionResult Delete(int id)

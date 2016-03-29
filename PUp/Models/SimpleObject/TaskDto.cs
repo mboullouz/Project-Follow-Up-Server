@@ -24,6 +24,7 @@ namespace PUp.Models.SimpleObject
         public DateTime? DeleteAt { get; set; }
         public bool? Deleted { get; set; }
         public UserDto Executor { set; get; }
+        public ProjectDto Project { set; get; }
 
         public DateTime? EditAt { get; set; }
         
@@ -52,6 +53,7 @@ namespace PUp.Models.SimpleObject
                 EndAt = t.EndAt;
                 DeleteAt = t.DeleteAt;
                 Deleted = t.Deleted;
+                Project = new ProjectDto(t.Project, 1);
                 Executor = new UserDto(t.Executor,depth);
                 TimeAgo = this.ComputeTimeAgo();
             }

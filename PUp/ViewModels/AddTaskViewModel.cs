@@ -27,25 +27,25 @@ namespace PUp.ViewModels
         public int EstimatedTimeInMinutes { get; set; }
 
         [Required]
-        public SelectList EstimatedMinList { get; set; }
+        public IDictionary<int,string> EstimatedMinList { get; set; }
 
         public DateTime? StartAt { get; set; }
 
-        public SelectList UrgentList { get; set; }
+        public IDictionary<int, string> UrgentList { get; set; }
         public bool Urgent { get; set; }
 
 
-        public SelectList ImportantList { get; set; }
+        public IDictionary<int, string> ImportantList { get; set; }
         public bool Important { get; set; }
 
         public List<UserEntity> Users = new List<UserEntity>();
-        public SelectList UsersList { get; set; }
+        public IDictionary<string, string> UsersList = new Dictionary<string, string>();
 
         //Data
         public string ExecutorId { set; get; }
-        public int IdProject { get; set; }
+        public int ProjectId { get; set; }
         public ProjectEntity Project { get; set; }
-        public GroundInterval AvelaibleDates { get; set; }
+        public GroundInterval AvailableDates { get; set; }
 
         public AddTaskViewModel()
         {
@@ -85,39 +85,32 @@ namespace PUp.ViewModels
 
         public void InitElements(int idProject, List<UserEntity> users)
         {
-            IdProject = idProject;
+            ProjectId = idProject;
             Users = users;
 
             KeyFactor = false;
             StartAt = DateTime.Now.AddHours(1);
 
-            EstimatedMinList = new SelectList(
-               new List<SelectListItem>
-               {
-                    new SelectListItem { Selected = true, Text  = "1H" ,   Value = "60"},
-                    new SelectListItem { Selected = false, Text = "2H",   Value = "120"},
-                    new SelectListItem { Selected = false, Text = "3H",   Value = "180"},
-                    new SelectListItem { Selected = false, Text = "4H",   Value = "240"},
-               }, "Value", "Text", 1);
+            EstimatedMinList = new Dictionary<int, string>();
+            EstimatedMinList[60] = "1H";
+            EstimatedMinList[120] = "2H";
+            EstimatedMinList[180] = "3H";
 
-            UrgentList = new SelectList(
-                new List<SelectListItem>
-                {
-                    new SelectListItem { Selected = true,  Text = "Yes",   Value = "true"},
-                    new SelectListItem { Selected = false, Text = "No" ,   Value = "false"},
-                }, "Value", "Text", 1);
 
-            ImportantList = new SelectList(
-                new List<SelectListItem>
-                {
-                    new SelectListItem { Selected = true,  Text = "Yes", Value = "true"},
-                    new SelectListItem { Selected = false, Text = "No" ,   Value = "false"},
-                }, "Value", "Text", 1);
 
-            var items = new List<SelectListItem>();
-            Users.ForEach(u => items.Add(new SelectListItem { Selected = true, Text = u.Name, Value = u.Id }));
+            UrgentList = new Dictionary<int, string>();
+            UrgentList[0] = "false";
+            UrgentList[1] = "true";
 
-            UsersList = new SelectList(items, "Value", "Text", 1);
+            ImportantList = new Dictionary<int, string>();
+            ImportantList[0] = "false";
+            ImportantList[1] = "true";
+ 
+
+          
+            Users.ForEach(u => UsersList[u.Id]=u.Email);
+
+            
         }
     }
 }

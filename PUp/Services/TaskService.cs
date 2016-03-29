@@ -104,7 +104,7 @@ namespace PUp.Services
             }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
             addTaskVM.Project = project;
-            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Now);
+            addTaskVM.AvailableDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Now);
             return addTaskVM;
         }
 
@@ -117,7 +117,7 @@ namespace PUp.Services
               //  modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
             }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(task, repo.UserRepository.GetAll());
-            addTaskVM.AvelaibleDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
+            addTaskVM.AvailableDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
             addTaskVM.Project = project;
             return addTaskVM;
         }
@@ -170,7 +170,7 @@ namespace PUp.Services
 
         public bool IsModelValid(AddTaskViewModel model)
         {
-            if (!repo.ProjectRepository.IsActive(model.IdProject))
+            if (!repo.ProjectRepository.IsActive(model.ProjectId))
             {
               //  modelStateWrapper.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
                 return false;
@@ -204,7 +204,7 @@ namespace PUp.Services
             task.Title = model.Title;
             task.Description = model.Description;
             task.Done = false;
-            task.Project = repo.ProjectRepository.FindById(model.IdProject);
+            task.Project = repo.ProjectRepository.FindById(model.ProjectId);
             task.AddAt = DateTime.Now;
             task.EditAt = DateTime.Now;
             task.EstimatedTimeInMinutes = model.EstimatedTimeInMinutes;

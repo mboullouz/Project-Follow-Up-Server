@@ -57,7 +57,7 @@ namespace PUp.Tests.TaskTest
             
                 Project = pRep.FindById(idProject),
                 Title = "some task",
-                IdProject = this.idProject
+                ProjectId = this.idProject
             };
             RedirectToRouteResult result = (RedirectToRouteResult)controller.Add(model);
             Assert.AreEqual("Index", result.RouteValues["action"]);
