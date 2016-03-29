@@ -72,6 +72,7 @@ namespace PUp.Models.SimpleObject
         public bool Over { get; set; }
         public int TotalIssues { get; set; }
         public string Type = "Project";
+        public string TimeAgo { get; set; }
 
         public void InitAdditional(ProjectEntity p)
         {
@@ -79,6 +80,7 @@ namespace PUp.Models.SimpleObject
             TasksDone = p.Tasks.Where(t => t.Done == true).Count();
             Progress = (int)(TasksDone / (TotalTasks + 0.1) * 100);
             Over = p.EndAt < DateTime.Now;
+            TimeAgo = this.ComputeTimeAgo();
         }
 
     }

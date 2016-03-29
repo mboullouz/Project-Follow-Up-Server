@@ -39,7 +39,7 @@ namespace PUp.Models.SimpleObject
             DeleteAt = notif.DeleteAt;
             Deleted = notif.Deleted;
 
-            TimeAgo = ComputeTimeAgo(notif.AddAt);
+            TimeAgo = this.ComputeTimeAgo();
         }
 
         //Additional 
@@ -47,27 +47,7 @@ namespace PUp.Models.SimpleObject
         public string Type = "Notification";
         public string TimeAgo { get; set; }
 
-        public string ComputeTimeAgo(DateTime dateFrom)
-        {
-            var diff = DateTime.Now - dateFrom;
-            if (diff.TotalMinutes < 1)
-            {
-                return ((int)diff.TotalSeconds) + " s ago";
-            }
-            else if (diff.TotalHours < 1)
-            {
-                return ((int)diff.TotalMinutes) + "min ago";
-            }
-            else if (diff.TotalDays < 1)
-            {
-                return dateFrom.ToString("HH\\Hmm");
-            }
-            else
-            {
-                return AddAt.ToString("d-MM-yyyy HH\\Hmm");
-            }
-
-        }
+       
     }
 
 

@@ -1,5 +1,6 @@
 ﻿using PUp.Models;
 using PUp.Models.Entity;
+using PUp.Models.SimpleObject;
 using PUp.ViewModels;
 using PUp.ViewModels.Task;
 using System;
@@ -25,6 +26,12 @@ namespace PUp.Services
                // modelStateWrapper.Flash("You are browsering a project that is no more active!");
             }
             return tasksViewModel;
+        }
+
+        public  TaskDto GetTask(int id)
+        {
+            var task = repo.TaskRepository.FindById(id);
+            return new TaskDto(task);
         }
 
         public  TaskboardViewModel Taskboard(int id)

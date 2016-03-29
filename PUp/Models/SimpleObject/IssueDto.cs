@@ -38,10 +38,12 @@ namespace PUp.Models.SimpleObject
                 AddAt = issue.AddAt;
                 DeleteAt = issue.DeleteAt;
                 Submitter = new UserDto(issue.Submitter,depth);
+                TimeAgo = this.ComputeTimeAgo();
             }
         }
 
         //Additional 
         public string Type = "Issue";
+        public string TimeAgo { get; set; }
     }
 }

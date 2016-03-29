@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PUp.Models.SimpleObject
 {
-    public class TaskDto : IBasicEntity
+    public class TaskDto : BaseDto,IBasicEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -53,10 +53,12 @@ namespace PUp.Models.SimpleObject
                 DeleteAt = t.DeleteAt;
                 Deleted = t.Deleted;
                 Executor = new UserDto(t.Executor,depth);
+                TimeAgo = this.ComputeTimeAgo();
             }
         }
 
         //Additional 
         public string Type = "Task";
+        public string TimeAgo { get; set; }
     }
 }
