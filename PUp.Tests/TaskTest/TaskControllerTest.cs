@@ -8,6 +8,7 @@ using PUp.ViewModels;
 using PUp.Models.Repository;
 using PUp.Tests.Helpers;
 using PUp.Models;
+using PUp.ViewModels.Task;
 
 namespace PUp.Tests.TaskTest
 {
@@ -53,9 +54,6 @@ namespace PUp.Tests.TaskTest
             {
                  
                 Description = "Some description",
-               
-            
-                Project = pRep.FindById(idProject),
                 Title = "some task",
                 ProjectId = this.idProject
             };

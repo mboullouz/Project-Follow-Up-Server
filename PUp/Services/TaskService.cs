@@ -103,7 +103,6 @@ namespace PUp.Services
               //  modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
             }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
-            addTaskVM.Project = project;
             addTaskVM.AvailableDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Now);
             return addTaskVM;
         }
@@ -118,7 +117,7 @@ namespace PUp.Services
             }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(task, repo.UserRepository.GetAll());
             addTaskVM.AvailableDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
-            addTaskVM.Project = project;
+            
             return addTaskVM;
         }
 
@@ -178,15 +177,37 @@ namespace PUp.Services
             return true;
         }
 
-        public bool Add(AddTaskViewModel model)
+        public ValidationMessageHolder CheckModel(AddTaskViewModel model, bool onEdit = false)
         {
-            if (!IsModelValid(model))
+            if (DateTime.Now.AddMinutes(10) >= model.StartAt)
             {
-                return false;
+                validationMessageHolder.Add("StartAt", "Date start must be superior to Now +10 min");
             }
+
+            if (model.ProjectId <= 0 || repo.ProjectRepository.FindById(model.ProjectId)==null)
+            {
+                validationMessageHolder.Add("ProjectId", "The Entity ProjectId:" + model.Id + " is not valid");
+            }
+
+            if (onEdit)
+            {
+                if (model.Id <= 0)
+                {
+                    validationMessageHolder.Add("Id", "The Entity Task with Id:" + model.Id + " is not valid");
+                }
+                if (model.Id > 0 && repo.TaskRepository.FindById(model.Id) == null)
+                {
+                    validationMessageHolder.Add("Id", "Can't find Entity Task with the Id:" + model.Id);
+                }
+            }
+            return validationMessageHolder;
+        }
+
+        public TaskDto Add(AddTaskViewModel model)
+        {
             TaskEntity task = GetInitializedTaskFromModel(model);
             SaveNewTask(task);
-            return true;
+            return new TaskDto(task,1);
         }
 
         public TaskEntity GetInitializedTaskFromModel(AddTaskViewModel model)

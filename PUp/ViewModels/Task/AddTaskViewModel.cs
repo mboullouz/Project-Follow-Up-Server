@@ -7,9 +7,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PUp.ViewModels
+namespace PUp.ViewModels.Task
 {
-    public class AddTaskViewModel
+    public class AddTaskViewModel : BaseModelView
     {
         public int Id { get; set; }
 
@@ -26,10 +26,11 @@ namespace PUp.ViewModels
         [Required]
         public int EstimatedTimeInMinutes { get; set; }
 
-        [Required]
+         
         public IDictionary<int,string> EstimatedMinList { get; set; }
 
         public DateTime? StartAt { get; set; }
+        public DateTime? EndAt { get; set; }
 
         public IDictionary<int, string> UrgentList { get; set; }
         public bool Urgent { get; set; }
@@ -38,23 +39,23 @@ namespace PUp.ViewModels
         public IDictionary<int, string> ImportantList { get; set; }
         public bool Important { get; set; }
 
-        public List<UserEntity> Users = new List<UserEntity>();
+         
         public IDictionary<string, string> UsersList = new Dictionary<string, string>();
 
-        //Data
+        [Required]
         public string ExecutorId { set; get; }
-        public int ProjectId { get; set; }
-        public ProjectEntity Project { get; set; }
+        [Required]
+        public int ProjectId { get; set; }         
         public GroundInterval AvailableDates { get; set; }
 
         public AddTaskViewModel()
         {
             //No parameterless constructor/...
         }
-        public AddTaskViewModel(int idProject, List<UserEntity> users)
+        public AddTaskViewModel(int projectId, List<UserEntity> users)
         {
             Id = 0;
-            InitElements(idProject, users);
+            InitElements(projectId, users);
         }
 
         /// <summary>
@@ -77,6 +78,7 @@ namespace PUp.ViewModels
             Important = task.Critical;
             KeyFactor = task.KeyFactor;
             StartAt = task.StartAt;
+            EndAt = task.EndAt;
             Title = task.Title;
             Urgent = task.Urgent;
             Id = task.Id;
@@ -86,8 +88,6 @@ namespace PUp.ViewModels
         public void InitElements(int idProject, List<UserEntity> users)
         {
             ProjectId = idProject;
-            Users = users;
-
             KeyFactor = false;
             StartAt = DateTime.Now.AddHours(1);
 
@@ -96,8 +96,6 @@ namespace PUp.ViewModels
             EstimatedMinList[120] = "2H";
             EstimatedMinList[180] = "3H";
 
-
-
             UrgentList = new Dictionary<int, string>();
             UrgentList[0] = "false";
             UrgentList[1] = "true";
@@ -105,12 +103,8 @@ namespace PUp.ViewModels
             ImportantList = new Dictionary<int, string>();
             ImportantList[0] = "false";
             ImportantList[1] = "true";
- 
 
-          
-            Users.ForEach(u => UsersList[u.Id]=u.Email);
-
-            
+            users.ForEach(u => UsersList[u.Id]=u.Email);
         }
     }
 }

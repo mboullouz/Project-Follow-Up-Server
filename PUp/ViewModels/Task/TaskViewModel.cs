@@ -5,7 +5,10 @@ using System.Linq;
 using System.Web;
 
 namespace PUp.ViewModels.Task
-{
+{   
+    /// <summary>
+    /// TODO change the name or remove!
+    /// </summary>
     public class TaskViewModel
     {
         public List<TaskEntity> ActiveTasks { get; set; }
@@ -20,7 +23,6 @@ namespace PUp.ViewModels.Task
 
         public TaskViewModel()
         {
-
         }
 
     }

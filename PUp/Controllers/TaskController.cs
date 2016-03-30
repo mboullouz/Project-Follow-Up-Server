@@ -2,7 +2,8 @@
 using PUp.Models.Entity;
 using PUp.Models.SimpleObject;
 using PUp.Services;
-using PUp.ViewModels;
+ 
+using PUp.ViewModels.Task;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
