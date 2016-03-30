@@ -114,7 +114,7 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddTaskViewModel model)
         {
-            if (!taskService.Add(model))
+            if (taskService.Add(model)==null)
             {
                 return Add(model.ProjectId);
             }

@@ -6,12 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Web.Http.ModelBinding;
 namespace PUp.Services
 {
     public class ProjectService : BaseService
     {
-        public ProjectService(string email) : base(email) { }
+        public ProjectService(string email,  System.Web.Http.ModelBinding.ModelStateDictionary modelState) : base(email,modelState) { }
 
 
         /// <summary>

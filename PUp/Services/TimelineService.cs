@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.ModelBinding;
 
 namespace PUp.Services
 {
@@ -12,6 +13,10 @@ namespace PUp.Services
         public TimelineService(string email) : base(email)
         {
 
+        }
+
+        public TimelineService(string email, ModelStateDictionary modelState) : base(email, modelState)
+        {
         }
 
         public TimelineViewModel GetByProject(int id)
