@@ -76,7 +76,7 @@ namespace PUp.Services
                 return;
             }
             var intervalManager = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:00"));
-            var level = FlashLevel.Warning;
+         
             string message = "The task can't fit in the remaining time";
             foreach (var vK in intervalManager.Interval.ToList())// To list is needed because the interval is modified during iteration!
             {
@@ -86,7 +86,7 @@ namespace PUp.Services
                 {
                     task.StartAt = dateStartForTest;
                     repo.DbContext.SaveChanges();
-                    level = FlashLevel.Success;
+                    
                     message = "Task added to the current day pile, Good luck!";
                     break;//no nead for more checks
                 }
@@ -180,8 +180,13 @@ namespace PUp.Services
 
         public ValidationMessageHolder CheckModel(AddTaskViewModel model, bool onEdit = false)
         {
+            if (modelState.IsValid)
+            {
+                //Do something
+            }
             if (DateTime.Now.AddMinutes(10) >= model.StartAt)
             {
+                 
                 validationMessageHolder.Add("StartAt", "Date start must be superior to Now +10 min");
             }
 

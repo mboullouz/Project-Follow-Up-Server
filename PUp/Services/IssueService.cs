@@ -7,6 +7,6 @@ namespace PUp.Services
 {
     public class IssueService:BaseService
     { 
-        public IssueService(string s) : base(s) { }
+        public IssueService(string s, System.Web.Http.ModelBinding.ModelStateDictionary modelState) : base(s,modelState) { }
     }
 }

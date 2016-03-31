@@ -10,11 +10,7 @@ namespace PUp.Services
 {
     public class TimelineService: BaseService
     {
-        public TimelineService(string email) : base(email)
-        {
-
-        }
-
+        
         public TimelineService(string email, ModelStateDictionary modelState) : base(email, modelState)
         {
         }

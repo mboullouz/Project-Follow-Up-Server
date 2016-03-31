@@ -290,7 +290,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\IssueService.cs" />
-    <Compile Include="Services\ModelStateWrapper.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\TaskService.cs" />
     <Compile Include="Services\TimelineService.cs" />
