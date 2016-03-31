@@ -40,7 +40,7 @@ namespace PUp.ViewModels.Task
         public bool Important { get; set; }
 
          
-        public IDictionary<string, string> UsersList = new Dictionary<string, string>();
+        public List<SimpleKeyValue<string, string>> UsersList = new List<SimpleKeyValue<string, string>>();
 
         [Required]
         public string ExecutorId { set; get; }
@@ -104,7 +104,14 @@ namespace PUp.ViewModels.Task
             ImportantList[0] = "false";
             ImportantList[1] = "true";
 
-            users.ForEach(u => UsersList[u.Id]=u.Email);
+            users.ForEach(u => UsersList.Add(new SimpleKeyValue<string, string> {Key=u.Id, Value=u.Email }));
         }
+    }
+
+    public class SimpleKeyValue<K,V>
+    {
+        public K Key { get; set; }
+        public V Value { get; set; }
+ 
     }
 }

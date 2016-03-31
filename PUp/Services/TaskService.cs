@@ -46,7 +46,7 @@ namespace PUp.Services
                 InProgress = repo.TaskRepository.TodayTasksByProject(project).ToList().ToDto(),
                 Upcoming = repo.TaskRepository.Upcoming(project).ToList().ToDto(),
                 Complete = repo.TaskRepository.TodayTasksByProject(project).ToList().ToDto(),
-                Project = new Models.SimpleObject.ProjectDto(project),
+                Project = new  ProjectDto(project),
             };
         
              

@@ -22,7 +22,7 @@ namespace PUp.Models
         public ValidationMessageHolder Add(string key,string msg)
         {
             Messages.Add(key, msg);
-            if (Message.Count() > 0) State = 0;
+            if (Messages.Count() > 0) State = 0;
             Message = "Model is not valid";
             return this;
         }
@@ -36,7 +36,7 @@ namespace PUp.Models
 
         public bool IsValid()
         {
-            if (Message.Count() > 0) State = 0;
+            if (Messages.Count() > 0) State = 0;
             return Message.Count() > 0;
         }
 
