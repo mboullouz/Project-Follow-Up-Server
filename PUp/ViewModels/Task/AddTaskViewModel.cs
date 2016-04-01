@@ -26,17 +26,17 @@ namespace PUp.ViewModels.Task
         [Required]
         public int EstimatedTimeInMinutes { get; set; }
 
-         
-        public IDictionary<int,string> EstimatedMinList { get; set; }
+
+        public List<SimpleKeyValue<int, string>> EstimatedMinList = new List<SimpleKeyValue<int, string>>();
 
         public DateTime? StartAt { get; set; }
         public DateTime? EndAt { get; set; }
 
-        public IDictionary<int, string> UrgentList { get; set; }
+        public List<SimpleKeyValue<bool, string>> TrueFalseList = new List<SimpleKeyValue<bool, string>>();
         public bool Urgent { get; set; }
 
 
-        public IDictionary<int, string> ImportantList { get; set; }
+       
         public bool Important { get; set; }
 
          
@@ -91,23 +91,20 @@ namespace PUp.ViewModels.Task
             KeyFactor = false;
             StartAt = DateTime.Now.AddHours(1);
 
-            EstimatedMinList = new Dictionary<int, string>();
-            EstimatedMinList[60] = "1H";
-            EstimatedMinList[120] = "2H";
-            EstimatedMinList[180] = "3H";
+           
+            EstimatedMinList.Add(new SimpleKeyValue<int,string> { Key =60, Value= "1H" });
+            EstimatedMinList.Add(new SimpleKeyValue<int,string> { Key =120, Value= "2H" });
+            EstimatedMinList.Add(new SimpleKeyValue<int,string> { Key =180, Value= "3H" });
+        
 
-            UrgentList = new Dictionary<int, string>();
-            UrgentList[0] = "false";
-            UrgentList[1] = "true";
-
-            ImportantList = new Dictionary<int, string>();
-            ImportantList[0] = "false";
-            ImportantList[1] = "true";
-
+            TrueFalseList.Add(new SimpleKeyValue<bool, string> { Key = true, Value = "True" });
+            TrueFalseList.Add(new SimpleKeyValue<bool, string> { Key = false, Value = "False" });
+ 
             users.ForEach(u => UsersList.Add(new SimpleKeyValue<string, string> {Key=u.Id, Value=u.Email }));
         }
     }
 
+    /** Simple Key Value Class */
     public class SimpleKeyValue<K,V>
     {
         public K Key { get; set; }
