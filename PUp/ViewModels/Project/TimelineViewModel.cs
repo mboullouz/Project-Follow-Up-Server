@@ -21,7 +21,7 @@ namespace PUp.ViewModels.Project
         //Elements to expose
         public List<object> TodayElements { get; set; }
         public List<object> YesterdayElements { get; set; }
-        public List<object> OneWeekElements { get; set; }
+        public List<object> OneMonthAgoElements { get; set; }
 
         public TimelineViewModel(ProjectEntity p)
         {
@@ -35,7 +35,7 @@ namespace PUp.ViewModels.Project
             Init();
             InitTodayElements();
             InitYesterdayElements();
-            InitOneWeekElements();
+            InitOneMonthElements();
         }
         public void Init()
         {
@@ -63,16 +63,16 @@ namespace PUp.ViewModels.Project
             YesterdayElements = Elements.Where(ob => ((IBasicEntity)ob).AddAt >= startDateTime && ((IBasicEntity)ob).AddAt < endDateTime).ToList();
         }
 
-        public void InitOneWeekElements()
+        public void InitOneMonthElements()
         {
             DateTime yesterday = DateTime.Today; //Today at 00:00:00
             yesterday = yesterday.AddDays(-1); //Yesterday at 00:00:00
             DateTime endDateTime = yesterday.AddTicks(-1); //Yesterday-1 day at 23:59:59
             DateTime startDateTime = DateTime.Today; //Today at 00:00:00
-            startDateTime = startDateTime.AddDays(-8); //Yesterday at 00:00:00
+            startDateTime = startDateTime.AddDays(-30); //
 
-            OneWeekElements = new List<object>();
-            OneWeekElements = Elements.Where(ob => ((IBasicEntity)ob).AddAt >= startDateTime && ((IBasicEntity)ob).AddAt < endDateTime).ToList();
+            OneMonthAgoElements = new List<object>();
+            OneMonthAgoElements = Elements.Where(ob => ((IBasicEntity)ob).AddAt >= startDateTime && ((IBasicEntity)ob).AddAt < endDateTime).ToList();
         }
     }
 

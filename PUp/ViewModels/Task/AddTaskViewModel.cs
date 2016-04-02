@@ -9,6 +9,9 @@ using System.Web.Mvc;
 
 namespace PUp.ViewModels.Task
 {
+    /// <summary>
+    /// TODO: Add more custom validations 
+    /// </summary>
     public class AddTaskViewModel : BaseModelView
     {
         public int Id { get; set; }
@@ -32,12 +35,12 @@ namespace PUp.ViewModels.Task
         public DateTime? StartAt { get; set; }
         public DateTime? EndAt { get; set; }
 
-        public List<SimpleKeyValue<bool, string>> TrueFalseList = new List<SimpleKeyValue<bool, string>>();
+         
         public bool Urgent { get; set; }
 
 
        
-        public bool Important { get; set; }
+        public bool Critical { get; set; }
 
          
         public List<SimpleKeyValue<string, string>> UsersList = new List<SimpleKeyValue<string, string>>();
@@ -75,7 +78,7 @@ namespace PUp.ViewModels.Task
             Description = task.Description;
             EstimatedTimeInMinutes = task.EstimatedTimeInMinutes;
             ExecutorId = task.Executor.Id;
-            Important = task.Critical;
+            Critical = task.Critical;
             KeyFactor = task.KeyFactor;
             StartAt = task.StartAt;
             EndAt = task.EndAt;
@@ -95,10 +98,6 @@ namespace PUp.ViewModels.Task
             EstimatedMinList.Add(new SimpleKeyValue<int,string> { Key =60, Value= "1H" });
             EstimatedMinList.Add(new SimpleKeyValue<int,string> { Key =120, Value= "2H" });
             EstimatedMinList.Add(new SimpleKeyValue<int,string> { Key =180, Value= "3H" });
-        
-
-            TrueFalseList.Add(new SimpleKeyValue<bool, string> { Key = true, Value = "True" });
-            TrueFalseList.Add(new SimpleKeyValue<bool, string> { Key = false, Value = "False" });
  
             users.ForEach(u => UsersList.Add(new SimpleKeyValue<string, string> {Key=u.Id, Value=u.Email }));
         }

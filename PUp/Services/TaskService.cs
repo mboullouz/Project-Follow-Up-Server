@@ -180,13 +180,22 @@ namespace PUp.Services
 
         public ValidationMessageHolder CheckModel(AddTaskViewModel model, bool onEdit = false)
         {
-            if (modelState.IsValid)
+            var counter = 0;//Message Key must be unique so add counter to  differentiate
+            if (!modelState.IsValid)
             {
-                //Do something
-            }
-            if (DateTime.Now.AddMinutes(10) >= model.StartAt)
-            {
+
+                 foreach(var v in modelState.Values)
+                {
+                    foreach (var e in v.Errors)
+                    {
+                       validationMessageHolder.Add("ModelState:"+counter++, e.ErrorMessage);
+                    }
+                       
+                }
                  
+            }
+            if (model.StartAt!=null && DateTime.Now.AddMinutes(10) >= model.StartAt)
+            {
                 validationMessageHolder.Add("StartAt", "Date start must be superior to Now +10 min");
             }
 
@@ -238,7 +247,7 @@ namespace PUp.Services
             task.StartAt = model.StartAt;
             task.KeyFactor = model.KeyFactor;
             task.Deleted = false;
-            task.Critical = model.Important;
+            task.Critical = model.Critical;
             task.Urgent = model.Urgent;
             task.Executor = repo.UserRepository.FindById(model.ExecutorId);
             
@@ -252,8 +261,16 @@ namespace PUp.Services
         /// <param name="task"></param>
         public void SaveNewTask(TaskEntity task)
         {
-            repo.TaskRepository.Add(task);
-            task.Project.Tasks.Add(task);
+            try
+            {
+                repo.TaskRepository.Add(task);
+                task.Project.Tasks.Add(task);
+            }
+            catch(Exception e)
+            {
+                validationMessageHolder.Add("Save", e.Message);
+            }
+           
             task.Project.Contributors.Add(task.Executor);
             task.Project.Contributors.Add(currentUser);
             task.Project.Tasks.Add(task);
