@@ -46,14 +46,14 @@ namespace PUp.Controllers
 
         public ActionResult MarkDone(int id)
         {
-            taskService.MarkDone(id);
+            taskService.ChangeTaskState(id);
             return RedirectToAction("Index", "Dashboard", new { id = id });
         }
         //This is the same as MarkDone just the view rendered is different!
         public ActionResult SetDone(int id)
         {
-            var task = taskService.MarkDone(id);
-            return RedirectToAction("Index", "Task", new { id = task.Project.Id });
+            var task = taskService.ChangeTaskState(id);
+            return RedirectToAction("Index", "Task", new { id = 1 });
         }
 
         /// <summary>

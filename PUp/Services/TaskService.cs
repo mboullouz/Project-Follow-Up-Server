@@ -13,7 +13,7 @@ namespace PUp.Services
 {
     public class TaskService : BaseService
     {
-        public TaskService(string email,ModelStateDictionary modelState) : base(email,modelState)
+        public TaskService(string email, ModelStateDictionary modelState) : base(email, modelState)
         { }
 
         public TaskViewModel GetTaskViewModelByProject(int id)
@@ -24,47 +24,47 @@ namespace PUp.Services
             tasksViewModel.DeletedTasks = repo.DbContext.TaskSet.Include("Executor").Where(t => t.Deleted == true && t.Project.Id == id).ToList();
             if (!repo.ProjectRepository.IsActive(project))
             {
-               // modelStateWrapper.Flash("You are browsering a project that is no more active!");
+                // modelStateWrapper.Flash("You are browsering a project that is no more active!");
             }
             return tasksViewModel;
         }
 
-        public  TaskDto GetTask(int id)
+        public TaskDto GetTask(int id)
         {
             var task = repo.TaskRepository.FindById(id);
             return new TaskDto(task);
         }
 
-        public  TaskboardViewModel Taskboard(int id)
+        public TaskboardViewModel Taskboard(int id)
         {
             var project = repo.ProjectRepository.FindById(id);
-            var complete = repo.TaskRepository.TodayTasksByProject(project);
-            var upcoming = repo.TaskRepository.Upcoming(project);
-            var inProgress = repo.TaskRepository.TodayTasksByProject(project).ToList().ToDto();
             return new TaskboardViewModel
             {
-                InProgress = repo.TaskRepository.TodayTasksByProject(project).ToList().ToDto(),
+                InProgress = repo.TaskRepository.TodayTasksByProject(project).Where(t => t.Done == false).ToList().ToDto(), //TODO filter before 
                 Upcoming = repo.TaskRepository.Upcoming(project).ToList().ToDto(),
-                Complete = repo.TaskRepository.TodayTasksByProject(project).ToList().ToDto(),
-                Project = new  ProjectDto(project),
+                Complete = repo.TaskRepository.TodayTasksByProject(project).Where(t => t.Done == true).ToList().ToDto(),
+                Project = new ProjectDto(project),
             };
-        
-             
-             
+
+
+
         }
 
-        public TaskEntity MarkDone(int id)
+        public ValidationMessageHolder ChangeTaskState(int id)
         {
             var task = repo.TaskRepository.FindById(id);
             if (repo.ProjectRepository.IsActive(task.Project.Id))
             {
-                repo.TaskRepository.MarkDone(task.Id);
+                if (task.Done)
+                    repo.TaskRepository.MarkUndone(task);
+                else
+                    repo.TaskRepository.MarkDone(task.Id);
             }
             else
             {
-               // modelStateWrapper.Flash("The project is no more active!", FlashLevel.Warning);
+                validationMessageHolder.Add("MarkDone", "Project no more active");
             }
-            return task;
+            return validationMessageHolder;
         }
 
         public void SetDateForTask(int id)
@@ -72,11 +72,11 @@ namespace PUp.Services
             var task = repo.TaskRepository.FindById(id);
             if (!repo.ProjectRepository.IsActive(task.Project.Id))
             {
-               // modelStateWrapper.Flash("The project is no more active!", FlashLevel.Warning);
+                // modelStateWrapper.Flash("The project is no more active!", FlashLevel.Warning);
                 return;
             }
             var intervalManager = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:00"));
-         
+
             string message = "The task can't fit in the remaining time";
             foreach (var vK in intervalManager.Interval.ToList())// To list is needed because the interval is modified during iteration!
             {
@@ -86,12 +86,12 @@ namespace PUp.Services
                 {
                     task.StartAt = dateStartForTest;
                     repo.DbContext.SaveChanges();
-                    
+
                     message = "Task added to the current day pile, Good luck!";
                     break;//no nead for more checks
                 }
             }
-          //  modelStateWrapper.Flash(message, level);
+            //  modelStateWrapper.Flash(message, level);
         }
 
         //TODO refactore AddTaskViewModel or create a special one for Edit with a base class!
@@ -101,7 +101,7 @@ namespace PUp.Services
             ProjectEntity project = repo.ProjectRepository.FindById(id);
             if (!repo.ProjectRepository.IsActive(project.Id))
             {
-              //  modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
+                //  modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
             }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
             addTaskVM.AvailableDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Now);
@@ -114,11 +114,11 @@ namespace PUp.Services
             ProjectEntity project = repo.ProjectRepository.FindById(task.Project.Id);
             if (!repo.ProjectRepository.IsActive(project.Id))
             {
-              //  modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
+                //  modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
             }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(task, repo.UserRepository.GetAll());
             addTaskVM.AvailableDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:01"));
-            
+
             return addTaskVM;
         }
 
@@ -128,11 +128,11 @@ namespace PUp.Services
             if (repo.ProjectRepository.IsActive(t.Project))
             {
                 repo.TaskRepository.MarkUndone(t);
-               // modelStateWrapper.Flash("the task: " + t.Title + " is now marked undone!", FlashLevel.Info);
+                // modelStateWrapper.Flash("the task: " + t.Title + " is now marked undone!", FlashLevel.Info);
             }
             else
             {
-               // modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
+                // modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
             }
             return t;
         }
@@ -143,11 +143,11 @@ namespace PUp.Services
             if (repo.ProjectRepository.IsActive(t.Project))
             {
                 repo.TaskRepository.MarkDeleted(t);
-             //   modelStateWrapper.Flash("Task: " + t.Title + " is marked  deleted! ", FlashLevel.Info);
+                //   modelStateWrapper.Flash("Task: " + t.Title + " is marked  deleted! ", FlashLevel.Info);
             }
             else
             {
-              //  modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
+                //  modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
             }
             return t;
         }
@@ -163,16 +163,16 @@ namespace PUp.Services
             }
             else
             {
-               // modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
+                // modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
             }
-           return task;
+            return task;
         }
 
         public bool IsModelValid(AddTaskViewModel model)
         {
             if (!repo.ProjectRepository.IsActive(model.ProjectId))
             {
-              //  modelStateWrapper.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
+                //  modelStateWrapper.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
                 return false;
             }
             return true;
@@ -184,22 +184,22 @@ namespace PUp.Services
             if (!modelState.IsValid)
             {
 
-                 foreach(var v in modelState.Values)
+                foreach (var v in modelState.Values)
                 {
                     foreach (var e in v.Errors)
                     {
-                       validationMessageHolder.Add("ModelState:"+counter++, e.ErrorMessage);
+                        validationMessageHolder.Add("ModelState:" + counter++, e.ErrorMessage);
                     }
-                       
+
                 }
-                 
+
             }
-            if (model.StartAt!=null && DateTime.Now.AddMinutes(10) >= model.StartAt)
+            if (model.StartAt != null && DateTime.Now.AddMinutes(10) >= model.StartAt)
             {
                 validationMessageHolder.Add("StartAt", "Date start must be superior to Now +10 min");
             }
 
-            if (model.ProjectId <= 0 || repo.ProjectRepository.FindById(model.ProjectId)==null)
+            if (model.ProjectId <= 0 || repo.ProjectRepository.FindById(model.ProjectId) == null)
             {
                 validationMessageHolder.Add("ProjectId", "The Entity ProjectId:" + model.Id + " is not valid");
             }
@@ -222,7 +222,7 @@ namespace PUp.Services
         {
             TaskEntity task = GetInitializedTaskFromModel(model);
             SaveNewTask(task);
-            return new TaskDto(task,1);
+            return new TaskDto(task, 1);
         }
 
         public TaskEntity GetInitializedTaskFromModel(AddTaskViewModel model)
@@ -250,7 +250,7 @@ namespace PUp.Services
             task.Critical = model.Critical;
             task.Urgent = model.Urgent;
             task.Executor = repo.UserRepository.FindById(model.ExecutorId);
-            
+
             return task;
         }
 
@@ -266,11 +266,11 @@ namespace PUp.Services
                 repo.TaskRepository.Add(task);
                 task.Project.Tasks.Add(task);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 validationMessageHolder.Add("Save", e.Message);
             }
-           
+
             task.Project.Contributors.Add(task.Executor);
             task.Project.Contributors.Add(currentUser);
             task.Project.Tasks.Add(task);
