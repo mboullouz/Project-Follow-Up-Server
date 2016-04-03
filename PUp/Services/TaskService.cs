@@ -13,7 +13,7 @@ namespace PUp.Services
 {
     public class TaskService : BaseService
     {
-        public TaskService(string email, ModelStateDictionary modelState) : base(email, modelState)
+        public TaskService(string email, Models.ModelStateWrapper modelStateWrapper) : base(email, modelStateWrapper)
         { }
 
         public TaskViewModel GetTaskViewModelByProject(int id)
@@ -50,7 +50,7 @@ namespace PUp.Services
 
         }
 
-        public ValidationMessageHolder ChangeTaskState(int id)
+        public ModelStateWrapper ChangeTaskState(int id)
         {
             var task = repo.TaskRepository.FindById(id);
             if (repo.ProjectRepository.IsActive(task.Project.Id))
@@ -62,9 +62,9 @@ namespace PUp.Services
             }
             else
             {
-                validationMessageHolder.Add("MarkDone", "Project no more active");
+                modelStateWrapper.AddError("MarkDone", "Project no more active");
             }
-            return validationMessageHolder;
+            return modelStateWrapper;
         }
 
         public void SetDateForTask(int id)
@@ -169,44 +169,31 @@ namespace PUp.Services
         }
 
         
-        public ValidationMessageHolder CheckModel(AddTaskViewModel model, bool onEdit = false)
+        public ModelStateWrapper CheckModel(AddTaskViewModel model, bool onEdit = false)
         {
-            var counter = 0;//Message Key must be unique so add counter to  differentiate
-            if (!modelState.IsValid)
-            {
-
-                foreach (var v in modelState.Values)
-                {
-                    foreach (var e in v.Errors)
-                    {
-                        validationMessageHolder.Add("ModelState:" + counter++, e.ErrorMessage);
-                    }
-
-                }
-
-            }
+             
             if (model.StartAt != null && DateTime.Now.AddMinutes(10) >= model.StartAt)
             {
-                validationMessageHolder.Add("StartAt", "Date start must be superior to Now +10 min");
+                modelStateWrapper.AddError("StartAt", "Date start must be superior to Now +10 min");
             }
 
             if (model.ProjectId <= 0 || repo.ProjectRepository.FindById(model.ProjectId) == null)
             {
-                validationMessageHolder.Add("ProjectId", "The Entity ProjectId:" + model.Id + " is not valid");
+                modelStateWrapper.AddError("ProjectId", "The Entity ProjectId:" + model.Id + " is not valid");
             }
 
             if (onEdit)
             {
                 if (model.Id <= 0)
                 {
-                    validationMessageHolder.Add("Id", "The Entity Task with Id:" + model.Id + " is not valid");
+                    modelStateWrapper.AddError("Id", "The Entity Task with Id:" + model.Id + " is not valid");
                 }
                 if (model.Id > 0 && repo.TaskRepository.FindById(model.Id) == null)
                 {
-                    validationMessageHolder.Add("Id", "Can't find Entity Task with the Id:" + model.Id);
+                    modelStateWrapper.AddError("Id", "Can't find Entity Task with the Id:" + model.Id);
                 }
             }
-            return validationMessageHolder;
+            return modelStateWrapper;
         }
 
         public TaskDto Add(AddTaskViewModel model)
@@ -259,7 +246,7 @@ namespace PUp.Services
             }
             catch (Exception e)
             {
-                validationMessageHolder.Add("Save", e.Message);
+                modelStateWrapper.AddError("Save", e.Message);
             }
 
             task.Project.Contributors.Add(task.Executor);

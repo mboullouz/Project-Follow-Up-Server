@@ -22,7 +22,7 @@ namespace PUp.Controllers
         public void Init()
         {
             var email = RequestContext.Principal.Identity.Name;
-            projectService = new ProjectService(email,ModelState);
+            projectService = new ProjectService(email, new Models.ModelStateWrapper(new Models.ValidationMessageHolder(), ModelState));
 
         }
 

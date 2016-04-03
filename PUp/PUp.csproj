@@ -252,6 +252,7 @@
     <Compile Include="Models\EntityHelper.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\FormattedDbEntityValidationException.cs" />
+    <Compile Include="Models\ModelStateWrapper.cs" />
     <Compile Include="Models\RepositoryManager.cs" />
     <Compile Include="Models\Repository\AbstractRepository.cs" />
     <Compile Include="Models\Repository\IssueRepository.cs" />

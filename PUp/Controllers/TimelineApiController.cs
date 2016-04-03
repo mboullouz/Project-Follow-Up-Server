@@ -17,7 +17,7 @@ namespace PUp.Controllers
         public void Init()
         {
             var email = RequestContext.Principal.Identity.Name;
-            timelineService = new  TimelineService(email,ModelState);
+            timelineService = new  TimelineService(email,new Models.ModelStateWrapper(new Models.ValidationMessageHolder(), ModelState));
 
         }
 

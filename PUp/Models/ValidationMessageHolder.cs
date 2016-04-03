@@ -19,6 +19,8 @@ namespace PUp.Models
             Message = message;
         }
 
+        
+
         public ValidationMessageHolder Add(string key,string msg)
         {
             Messages.Add(key, msg);

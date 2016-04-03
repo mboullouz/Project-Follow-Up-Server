@@ -11,7 +11,7 @@ namespace PUp.Services
 {
     public class ProjectService : BaseService
     {
-        public ProjectService(string email,  System.Web.Http.ModelBinding.ModelStateDictionary modelState) : base(email,modelState) { }
+        public ProjectService(string email, ModelStateWrapper modelStateWrapper) : base(email, modelStateWrapper) { }
 
 
         /// <summary>
@@ -73,27 +73,27 @@ namespace PUp.Services
             return projectModel;
         }
 
-        public ValidationMessageHolder CheckModel(AddProjectViewModel model,bool onEdit=false)
+        public ModelStateWrapper CheckModel(AddProjectViewModel model,bool onEdit=false)
         {
             if (model.EndAt <= model.StartAt) {
-                validationMessageHolder.Add("EndAt", "Date end must be superior to date start");
+                modelStateWrapper.AddError("EndAt", "Date end must be superior to date start");
             }
             if ( model.StartAt <= DateTime.Now.AddMinutes(30))
             {
-                validationMessageHolder.Add("StartAt", "Date start must be superior to actual date by at least 30 min");
+                modelStateWrapper.AddError("StartAt", "Date start must be superior to actual date by at least 30 min");
             }
             if (onEdit)
             {
                 if (model.Id <= 0)
                 {
-                    validationMessageHolder.Add("Id", "The Entity Id:" + model.Id + " is not valid");
+                    modelStateWrapper.AddError("Id", "The Entity Id:" + model.Id + " is not valid");
                 }
                 if (model.Id > 0 && repo.ProjectRepository.FindById(model.Id) == null)
                 {
-                    validationMessageHolder.Add("Id", "Can't find Entity with the Id:" + model.Id);
+                    modelStateWrapper.AddError("Id", "Can't find Entity with the Id:" + model.Id);
                 }
             }
-            return validationMessageHolder;
+            return modelStateWrapper;
         }
     }
 }

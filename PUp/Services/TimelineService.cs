@@ -11,7 +11,7 @@ namespace PUp.Services
     public class TimelineService: BaseService
     {
         
-        public TimelineService(string email, ModelStateDictionary modelState) : base(email, modelState)
+        public TimelineService(string email, Models.ModelStateWrapper modelStateWrapper) : base(email, modelStateWrapper)
         {
         }
 
