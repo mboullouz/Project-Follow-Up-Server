@@ -168,16 +168,7 @@ namespace PUp.Services
             return task;
         }
 
-        public bool IsModelValid(AddTaskViewModel model)
-        {
-            if (!repo.ProjectRepository.IsActive(model.ProjectId))
-            {
-                //  modelStateWrapper.Flash("Can't save the task, The form is not valid Or you are trying to edit an inactive project", FlashLevel.Warning);
-                return false;
-            }
-            return true;
-        }
-
+        
         public ValidationMessageHolder CheckModel(AddTaskViewModel model, bool onEdit = false)
         {
             var counter = 0;//Message Key must be unique so add counter to  differentiate

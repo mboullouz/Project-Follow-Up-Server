@@ -95,10 +95,10 @@ namespace PUp.Controllers
             //If startDate is set! must be handled by cheking the interval, else raise an error!
             ProjectEntity project = taskService.GetRepositoryManager().ProjectRepository.FindById(model.ProjectId);
             var executor = taskService.GetRepositoryManager().UserRepository.FindById(model.ExecutorId);
-            if (!taskService.IsModelValid(model))
-            {
-                return Edit(model.Id);
-            }
+            //if (!taskService.IsModelValid(model))
+            //{
+            //    return Edit(model.Id);
+            //}
             var task = taskService.GetInitializedTaskFromModel(model);
             if (!project.Contributors.Contains(task.Executor)) {
                 project.Contributors.Add(task.Executor);

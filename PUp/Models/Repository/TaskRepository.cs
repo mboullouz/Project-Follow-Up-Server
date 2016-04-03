@@ -104,14 +104,14 @@ namespace PUp.Models.Repository
             return intervalManager;
         }
 
-        public TaskEntity MarkDone(int id)
+        public void MarkDone(int id)
         {
             var task = FindById(id);
             task.Done = true;
             task.FinishAt = DateTime.Now;
             task.EditAt = DateTime.Now;
             DbContext.SaveChanges();
-            return task;
+            
         }
 
         /// <summary>
@@ -125,10 +125,14 @@ namespace PUp.Models.Repository
             t.Deleted = true;
             DbContext.SaveChanges();
         }
-
-        internal void MarkUndone(TaskEntity t)
+        public void MarkUndone(int id)
         {
-            t.EditAt = DateTime.Now;
+            var task = FindById(id);
+            MarkUndone(task);
+        }
+        public void MarkUndone(TaskEntity t)
+        {
+            t.EditAt = DateTime.Now;          
             t.Done   = false;
             DbContext.SaveChanges();
         }
