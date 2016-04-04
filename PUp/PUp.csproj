@@ -376,7 +376,6 @@
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
     <Content Include="Views\Shared\_Sidebare.cshtml" />
     <Content Include="Views\Shared\_Timeline.cshtml" />
-    <Content Include="Views\Shared\OLD_Layout.cshtml" />
     <Content Include="Views\Shared\_TopBar.cshtml" />
     <Content Include="Views\Shared\_LeftSideBar.cshtml" />
     <Content Include="Views\Shared\_RightSideBar.cshtml" />
