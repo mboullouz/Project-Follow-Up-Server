@@ -22,7 +22,7 @@ namespace PUp
             bundles.Add(new ScriptBundle("~/bundles/theme/js").Include(
                         "~/Scripts/js/*.js"));
 
-            */
+         
 
 
 
@@ -30,7 +30,8 @@ namespace PUp
             bundles.Add(new StyleBundle("~/Scripts/style/Content/css").Include(
                       "~/Scripts/css/*.css"
                       ));
-
+           
+           */
 
         }
     }

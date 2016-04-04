@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using PUp.Models.Entity;
 
-namespace PUp.Models.SimpleObject
+namespace PUp.Models.Dto
 {
     public class UserDto
     {

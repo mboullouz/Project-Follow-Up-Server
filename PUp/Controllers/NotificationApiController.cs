@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PUp.Models;
 using PUp.Models.Repository;
-using PUp.Models.SimpleObject;
+using PUp.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;

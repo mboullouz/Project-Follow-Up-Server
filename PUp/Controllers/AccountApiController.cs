@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
 using PUp.Models;
 using PUp.Models.Entity;
-using PUp.Models.SimpleObject;
+using PUp.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;

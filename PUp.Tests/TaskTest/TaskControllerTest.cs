@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PUp.Controllers;
 using System.Web.Mvc;
 using PUp.Models.Entity;
-using PUp.Models.SimpleObject;
+using PUp.Models.Dto;
 using PUp.ViewModels;
 using PUp.Models.Repository;
 using PUp.Tests.Helpers;

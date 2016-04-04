@@ -1,6 +1,6 @@
 ﻿using PUp.Models;
 using PUp.Models.Entity;
-using PUp.Models.SimpleObject;
+using PUp.Models.Dto;
 using PUp.ViewModels.Project;
 using System;
 using System.Collections.Generic;

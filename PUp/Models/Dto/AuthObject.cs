@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PUp.Models.SimpleObject
+namespace PUp.Models.Dto
 {
     public class AuthObject
     {
