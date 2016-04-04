@@ -272,15 +272,11 @@
     <Compile Include="Models\Repository\NotificationRepository.cs" />
     <Compile Include="Models\SimpleObject\AuthObject.cs" />
     <Compile Include="Models\SimpleObject\BaseDto.cs" />
-    <Compile Include="Models\SimpleObject\GenericJsonResponse.cs" />
     <Compile Include="Models\GroundInterval.cs" />
     <Compile Include="Models\SimpleObject\IssueDto.cs" />
     <Compile Include="Models\SimpleObject\NotificationDto.cs" />
     <Compile Include="Models\SimpleObject\ProjectDto.cs" />
-    <Compile Include="Models\SimpleObject\ProjectView.cs" />
     <Compile Include="Models\SimpleObject\TaskDto.cs" />
-    <Compile Include="Models\SimpleObject\TaskParam.cs" />
-    <Compile Include="Models\SimpleObject\TaskSimpleObjects.cs" />
     <Compile Include="Models\Repository\ProjectRepository.cs" />
     <Compile Include="Models\Repository\TaskRepository.cs" />
     <Compile Include="Models\Repository\UserRepository.cs" />

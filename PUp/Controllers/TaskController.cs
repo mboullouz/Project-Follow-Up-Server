@@ -29,6 +29,7 @@ namespace PUp.Controllers
             return View(taskService.GetTaskViewModelByProject(id));
         }
 
+        /*
         [HttpPost]
         public ActionResult ChangeState(TaskBasic taskBasic)
         {
@@ -43,7 +44,7 @@ namespace PUp.Controllers
             };
             return Json(res);
         }
-
+        */
         public ActionResult MarkDone(int id)
         {
             taskService.ChangeTaskState(id);
