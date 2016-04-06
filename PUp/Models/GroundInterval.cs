@@ -23,7 +23,7 @@ namespace PUp.Models
             }
         }
 
-        public void MakeNotAvelaibleHoursBeforeNow()
+        public void MakeNotAvailableHoursBeforeNow()
         {
             int actualHour = DateTime.Now.Hour;
             for (var hourKey = AppConst.DayStart; hourKey <= actualHour; hourKey++)
@@ -37,7 +37,7 @@ namespace PUp.Models
         public IDictionary<int, bool> AddDate(DateTime startDate, int durationInHours)
         {
             int startH = startDate.Hour;
-            MakeNotAvelaibleHoursBeforeNow();
+            MakeNotAvailableHoursBeforeNow();
             if (DateTime.Now.Hour>=startH || startH < AppConst.DayStart || startH > AppConst.DayEnd || !CheckForDateAndDuration(startDate,durationInHours))
             {
                 return Interval;
@@ -55,7 +55,7 @@ namespace PUp.Models
 
         public bool CheckForDateAndDuration(DateTime startDate, int duration)
         {
-            MakeNotAvelaibleHoursBeforeNow();
+            MakeNotAvailableHoursBeforeNow();
             if (IsFull())
             {
                 return false;

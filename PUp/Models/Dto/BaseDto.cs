@@ -13,5 +13,6 @@ namespace PUp.Models.Dto
             return JsonConvert.SerializeObject(this,
              Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
         }
+     
     }
 }
