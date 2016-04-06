@@ -24,7 +24,7 @@ namespace PUp.Services
             tasksViewModel.DeletedTasks = repo.DbContext.TaskSet.Include("Executor").Where(t => t.Deleted == true && t.Project.Id == id).ToList();
             if (!repo.ProjectRepository.IsActive(project))
             {
-                // modelStateWrapper.Flash("You are browsering a project that is no more active!");
+                 modelStateWrapper.AddError("ProjectExpired","You are browsering a project that is no more active!");
             }
             return tasksViewModel;
         }
@@ -56,9 +56,17 @@ namespace PUp.Services
             if (repo.ProjectRepository.IsActive(task.Project.Id))
             {
                 if (task.Done)
+                {
                     repo.TaskRepository.MarkUndone(task);
+                    repo.NotificationRepository.Add(CurrentUser(), "Task: " + task.Title + " Marked undone","#", LevelFlag.Info);
+                }
+
                 else
+                {
                     repo.TaskRepository.MarkDone(task.Id);
+                    repo.NotificationRepository.Add(CurrentUser(), "Task: " + task.Title + " Marked Done", "#", LevelFlag.Success);
+                }
+                   
             }
             else
             {
@@ -91,7 +99,7 @@ namespace PUp.Services
                     break;//no nead for more checks
                 }
             }
-            //  modelStateWrapper.Flash(message, level);
+            modelStateWrapper.AddError("SetDateForTask", message);
         }
 
         //TODO refactore AddTaskViewModel or create a special one for Edit with a base class!
