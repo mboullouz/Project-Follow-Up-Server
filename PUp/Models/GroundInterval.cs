@@ -4,7 +4,11 @@ using System.Linq;
 using System.Web;
 
 namespace PUp.Models
-{
+{   
+
+    /// <summary>
+    /// //TODO Add a description & purpose of this class
+    /// </summary>
     public class GroundInterval
     {
         public IDictionary<int, bool> Interval { get; set; }
@@ -61,7 +65,7 @@ namespace PUp.Models
                 return false;
             }
             int startH = startDate.Hour;
-            if (Interval[startH] || startH + duration > AppConst.DayEnd | startH < DateTime.Now.Hour)
+            if (Interval[startH] || startH + duration > AppConst.DayEnd || startH < DateTime.Now.Hour)
             {
                 return false;
             }

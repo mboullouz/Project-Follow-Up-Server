@@ -5,7 +5,12 @@ using System.Linq;
 using System.Web;
 
 namespace PUp.Models
-{
+{   
+
+    /// <summary>
+    /// Just a simple holder of all repositories int the app to make them available as one class
+    /// and initialized with the same Db context
+    /// </summary>
     public class RepositoryManager
     {
         public TaskRepository TaskRepository {  get; }
