@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using PUp.Models;
 
 namespace PUp.Services
 {
@@ -14,6 +15,13 @@ namespace PUp.Services
         {
             var issue = repo.IssueRepository.FindById(id);
             return new IssueDto(issue, 1);
+        }
+
+        public  List<IssueDto> GetByProject(int id)
+        {
+            var p = repo.ProjectRepository.FindById(id);
+            return  repo.IssueRepository.GetByProject(p).ToList().ToDto();
+            
         }
     }
 }
