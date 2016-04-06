@@ -24,6 +24,11 @@ namespace PUp.Models
         {
             validationMessageHolder.Add(key, errorMessage);
         }
+
+        public void AddSuccess(string key, string successMessage)
+        {
+            validationMessageHolder.AddSuccess(key, successMessage);
+        }
         
         public bool IsValid()
         {

@@ -9,8 +9,15 @@ namespace PUp.Models
     public class ValidationMessageHolder
     {
         public Dictionary<string,string> Messages { get; }
-        
+
+
+        /// <summary>
+        /// Let the user know about successful operations!
+        /// </summary>
+        public Dictionary<string, string> SuccessMessages { get; set; }
+
         public string Message { get; set; }
+        
 
         public ValidationMessageHolder(int state=1, string message="Model is valid")
         {
@@ -28,6 +35,13 @@ namespace PUp.Models
             Message = "Model is not valid";
             return this;
         }
+
+        public ValidationMessageHolder AddSuccess(string key, string msg)
+        {
+            SuccessMessages.Add(key, msg);
+            return this;
+        }
+
         public ValidationMessageHolder Clear()
         {
             Messages.Clear();
