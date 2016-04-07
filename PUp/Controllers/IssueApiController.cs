@@ -59,5 +59,12 @@ namespace PUp.Controllers
             }
             return Json(checkModel.ToJson());
         }
+
+        [HttpGet]
+        public JsonResult<string> MarkResolved(int id)
+        {
+            Init();
+            return Json(issueService.MarkResolved(id).ToJson());
+        }
     }
 }

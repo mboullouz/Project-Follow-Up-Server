@@ -67,5 +67,13 @@ namespace PUp.Services
             return new IssueDto(issue, 1);
         }
 
+        internal ModelStateWrapper MarkResolved(int id)
+        {
+            var issue = repo.IssueRepository.MarkResolved(id);
+            var project = issue.Project;
+            string message = " Issue: <" + issue.Description + "> is closed";
+            repo.NotificationRepository.NotifyAllUserInProject(project, message, LevelFlag.Success);
+            return modelStateWrapper;
+        }
     }
 }
