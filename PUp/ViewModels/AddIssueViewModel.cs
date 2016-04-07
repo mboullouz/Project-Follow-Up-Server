@@ -9,7 +9,8 @@ namespace PUp.ViewModels
 {
     public class AddIssueViewModel
     {
-        public int IdProject { get; set; }
+        public int Id { get; set; }
+        public int ProjectId { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
         public SelectList StatusList { get; set; }
@@ -17,7 +18,7 @@ namespace PUp.ViewModels
         public DateTime CreateAt { get; set; }
         public string RelatedArea { get; set; }
 
-        public AddIssueViewModel(int idProject)
+        public AddIssueViewModel(int projectId)
         {
             StatusList = new SelectList(
                 new List<SelectListItem>
@@ -26,7 +27,7 @@ namespace PUp.ViewModels
                     new SelectListItem { Selected = false, Text = IssueStatus.Resolved, Value = IssueStatus.Resolved},
                 }, "Value", "Text", 1);
             Deleted = false;
-            IdProject = idProject;
+            ProjectId = projectId;
             CreateAt = DateTime.Now;
            
         }

@@ -46,5 +46,18 @@ namespace PUp.Controllers
              Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
             return Json(list); 
         }
+
+        [HttpPost]
+        public JsonResult<string> Add(ViewModels.AddIssueViewModel model)
+        {
+            Init();
+            var checkModel = issueService.CheckModel(model);
+            if (checkModel.IsValid())
+            {
+                issueService.Add(model);
+                return Json(checkModel.ToJson());
+            }
+            return Json(checkModel.ToJson());
+        }
     }
 }
