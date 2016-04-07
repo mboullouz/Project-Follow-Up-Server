@@ -34,10 +34,10 @@ namespace PUp.Controllers
         [HttpPost]
         public ActionResult Add(AddIssueViewModel model)
         { 
-            ProjectEntity project = repo.ProjectRepository.FindById(model.IdProject);
+            ProjectEntity project = repo.ProjectRepository.FindById(model.ProjectId);
             if (!ModelState.IsValid)
             {
-                model.IdProject = project.Id;
+                model.ProjectId = project.Id;
                 return View(model);
             }
             IssueEntity issue = new IssueEntity
