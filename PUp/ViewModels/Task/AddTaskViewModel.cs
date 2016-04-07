@@ -103,11 +103,5 @@ namespace PUp.ViewModels.Task
         }
     }
 
-    /** Simple Key Value Class */
-    public class SimpleKeyValue<K,V>
-    {
-        public K Key { get; set; }
-        public V Value { get; set; }
- 
-    }
+
 }

@@ -13,36 +13,26 @@ namespace PUp.ViewModels
         public int ProjectId { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
-        public SelectList StatusList { get; set; }
+        public List<SimpleKeyValue<string,string>> StatusList { get; set; }
         public bool Deleted { get; set; }
         public DateTime CreateAt { get; set; }
         public string RelatedArea { get; set; }
 
         public AddIssueViewModel(int projectId)
         {
-            StatusList = new SelectList(
-                new List<SelectListItem>
-                {
-                    new SelectListItem { Selected = false, Text = IssueStatus.Open, Value = IssueStatus.Open},
-                    new SelectListItem { Selected = false, Text = IssueStatus.Resolved, Value = IssueStatus.Resolved},
-                }, "Value", "Text", 1);
-            Deleted = false;
             ProjectId = projectId;
-            CreateAt = DateTime.Now;
-           
+            Init();
         }
         public AddIssueViewModel( )
         {
-            StatusList = new SelectList(
-                new List<SelectListItem>
-                {
-                    new SelectListItem { Selected = true, Text = "Open", Value = "0"},
-                    new SelectListItem { Selected = false, Text = "Resolved", Value = "1"},
-                }, "Value", "Text", 1);
+            Init();
+        }
+        public void Init()
+        {
+            StatusList.Add(new SimpleKeyValue<string, string> { Key = "false", Value = IssueStatus.Open });
+            StatusList.Add(new SimpleKeyValue<string, string> { Key = "true", Value = IssueStatus.Resolved });
             Deleted = false;
-            
             CreateAt = DateTime.Now;
-
         }
     }
 }

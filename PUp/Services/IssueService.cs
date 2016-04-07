@@ -71,7 +71,7 @@ namespace PUp.Services
         {
             var issue = repo.IssueRepository.MarkResolved(id);
             var project = issue.Project;
-            string message = " Issue: <" + issue.Description + "> is closed";
+            string message = " Issue: <" + issue.Description + "> is marked resloved";
             repo.NotificationRepository.NotifyAllUserInProject(project, message, LevelFlag.Success);
             return modelStateWrapper;
         }
