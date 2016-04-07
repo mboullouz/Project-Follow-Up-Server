@@ -298,6 +298,7 @@
     <Compile Include="ViewModels\BaseModelView.cs" />
     <Compile Include="ViewModels\MenuModelView.cs" />
     <Compile Include="ViewModels\Project\AddProjectViewModel.cs" />
+    <Compile Include="ViewModels\SimpleKeyValue.cs" />
     <Compile Include="ViewModels\Task\AddTaskViewModel.cs" />
     <Compile Include="ViewModels\DashboardModelView.cs" />
     <Compile Include="ViewModels\Project\DetailsViewModel.cs" />
