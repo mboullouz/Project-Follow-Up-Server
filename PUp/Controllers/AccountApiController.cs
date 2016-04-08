@@ -39,6 +39,8 @@ namespace PUp.Controllers
             }
             catch (Exception e)
             {
+                //TODO add error to ModelStateWrapper and let the user know about this
+                Console.WriteLine(e.ToString());
                 return Content(HttpStatusCode.Forbidden, "0");
             }
 

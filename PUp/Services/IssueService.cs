@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using PUp.Models;
 using PUp.Models.Entity;
+using PUp.ViewModels.Issue;
 
 namespace PUp.Services
 {
@@ -24,7 +25,7 @@ namespace PUp.Services
             return  repo.IssueRepository.GetByProject(p).ToList().ToDto();
             
         }
-        public ModelStateWrapper CheckModel(ViewModels.AddIssueViewModel model, bool onEdit = false)
+        public ModelStateWrapper CheckModel( AddIssueViewModel model, bool onEdit = false)
         {
             if (model.ProjectId <= 0 || repo.ProjectRepository.FindById(model.ProjectId) == null)
             {
@@ -45,7 +46,7 @@ namespace PUp.Services
             return modelStateWrapper;
         }
 
-        public IssueDto Add(ViewModels.AddIssueViewModel model)
+        public IssueDto Add(AddIssueViewModel model)
         {
             ProjectEntity project = repo.ProjectRepository.FindById(model.ProjectId);
             IssueEntity issue = new IssueEntity
