@@ -6,10 +6,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PUp.ViewModels
+namespace PUp.ViewModels.Issue
 {
     public class AddIssueViewModel
-    {   
+    {    
 
         /// <summary>
         /// Required and iniialized to 0 in case of new 

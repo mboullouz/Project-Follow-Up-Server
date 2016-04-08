@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PUp.Services;
+using PUp.ViewModels.Issue;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace PUp.Controllers
         }
 
         [HttpPost]
-        public JsonResult<string> Add(ViewModels.AddIssueViewModel model)
+        public JsonResult<string> Add( AddIssueViewModel model)
         {
             Init();
             var checkModel = issueService.CheckModel(model);

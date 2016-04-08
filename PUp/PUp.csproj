@@ -292,11 +292,10 @@
     <Compile Include="Services\TaskService.cs" />
     <Compile Include="Services\TimelineService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\AddIssueViewModel.cs" />
+    <Compile Include="ViewModels\Issue\AddIssueViewModel.cs" />
     <Compile Include="ViewModels\Auth\LoginViewModel.cs" />
     <Compile Include="ViewModels\Auth\RegisterViewModel.cs" />
     <Compile Include="ViewModels\BaseModelView.cs" />
-    <Compile Include="ViewModels\MenuModelView.cs" />
     <Compile Include="ViewModels\Project\AddProjectViewModel.cs" />
     <Compile Include="ViewModels\SimpleKeyValue.cs" />
     <Compile Include="ViewModels\Task\AddTaskViewModel.cs" />

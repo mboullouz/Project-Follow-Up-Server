@@ -1,7 +1,7 @@
 ﻿using PUp.Models;
 using PUp.Models.Entity;
 using PUp.Models.Repository;
-using PUp.ViewModels;
+using PUp.ViewModels.Issue;
 using System;
 using System.Collections.Generic;
 using System.Linq;
