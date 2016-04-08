@@ -32,7 +32,7 @@ namespace PUp.Models
         {
             validationMessageHolder.AddSuccess(key, successMessage);
         }
-
+         //get state of messagenholder that already got init by ModelState
         public bool IsValid()
         {
             initMessages();
@@ -55,10 +55,10 @@ namespace PUp.Models
                     {
                         validationMessageHolder.Add(v.Value.AttemptedValue, e.ErrorMessage);
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
 
-                        //Some duplication
+                        Console. Log(e.ToString());
                     }
 
                 }
