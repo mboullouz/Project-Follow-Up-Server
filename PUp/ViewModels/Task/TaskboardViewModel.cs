@@ -8,7 +8,7 @@ using System.Web;
 
 namespace PUp.ViewModels.Task
 {
-    public class TaskboardViewModel
+    public class TaskboardViewModel : BaseModelView
     {
         public List<TaskDto> InProgress { get; set; }
         public List<TaskDto> Complete { get; set; }

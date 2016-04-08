@@ -7,7 +7,7 @@ using System.Web;
 
 namespace PUp.ViewModels.Project
 {
-    public class TableProjectModelView
+    public class TableProjectModelView : BaseModelView
     {
         public List<ProjectEntity> Projects { get; set; }
         public List<ProjectEntity> OtherProjects { get; set; }

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace PUp.ViewModels.Issue
 {
-    public class AddIssueViewModel
+    public class AddIssueViewModel : BaseModelView
     {    
 
         /// <summary>

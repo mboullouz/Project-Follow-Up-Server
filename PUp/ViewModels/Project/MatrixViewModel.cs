@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PUp.ViewModels.Project
 {
-    public class MatrixViewModel
+    public class MatrixViewModel : BaseModelView
     {
         public ProjectEntity Project { get; set; }
         public UserEntity User { get; set; }

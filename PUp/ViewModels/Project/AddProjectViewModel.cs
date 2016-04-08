@@ -8,7 +8,7 @@ using System.Web;
 
 namespace PUp.ViewModels.Project
 {
-    public class AddProjectViewModel
+    public class AddProjectViewModel : BaseModelView
     {
         [Required]
         [StringLength(100, ErrorMessage = "The {0} length must be betweeb {2} and  {1}  caracters.", MinimumLength = 10)]
@@ -47,17 +47,6 @@ namespace PUp.ViewModels.Project
             Id = p.Id;
         }
 
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this,
-            Formatting.None,
-            new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                MaxDepth = 1,
-
-            });
-
-        }
+        
     }
 }

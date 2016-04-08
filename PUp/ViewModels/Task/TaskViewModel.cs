@@ -9,7 +9,7 @@ namespace PUp.ViewModels.Task
     /// <summary>
     /// TODO change the name or remove!
     /// </summary>
-    public class TaskViewModel
+    public class TaskViewModel : BaseModelView
     {
         public List<TaskEntity> ActiveTasks { get; set; }
         public List<TaskEntity> DeletedTasks { get; set; }
