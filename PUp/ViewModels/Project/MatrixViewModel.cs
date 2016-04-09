@@ -30,7 +30,6 @@ namespace PUp.ViewModels.Project
 
         public void Init(ICollection<TaskEntity> tasks)
         {
-
             ImportantAndUrgent = new List<TaskEntity>();
             ImportantNotUrgent = new List<TaskEntity>();
             NotImportantButUrgent = new List<TaskEntity>();

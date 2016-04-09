@@ -15,9 +15,7 @@ using System.Web.Http.Results;
 
 namespace PUp.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountApiController : ApiController
     {
@@ -46,8 +44,7 @@ namespace PUp.Controllers
 
             return Content(HttpStatusCode.OK, user == null ? "0" : "1");
         }
-
-
+ 
         /// <summary>
         /// Verify that a user have a valid auth hash, the server will respond with 1
         /// else send an HTML page asking the user to login
@@ -67,7 +64,8 @@ namespace PUp.Controllers
         [System.Web.Mvc.ValidateAntiForgeryToken]
         public async System.Threading.Tasks.Task<NegotiatedContentResult<string>> Register(ViewModels.Auth.RegisterViewModel model)
         {
-            ValidationMessageHolder validationMessageHolder = new ValidationMessageHolder();
+            ModelStateWrapper modelStateWrapper = new ModelStateWrapper(new ValidationMessageHolder(), ModelState);
+
             if (ModelState.IsValid)
             {
                 var user = new UserEntity { Name = model.Name, UserName = model.Email, Email = model.Email };
@@ -83,15 +81,14 @@ namespace PUp.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
 
-                    return Content(HttpStatusCode.OK, validationMessageHolder.ToJson());
+                    return Content(HttpStatusCode.OK, modelStateWrapper.ToJson());
                 }
 
                 var errorCounter = 0;
                 foreach (var e in result.Errors)
                 {
-                    validationMessageHolder.Add("ModelState:" + errorCounter++, e);
+                    modelStateWrapper.AddError("ModelState:" + errorCounter++, e);
                 }
-
             }
             else
             {
@@ -100,14 +97,14 @@ namespace PUp.Controllers
                 {
                     foreach (var e in v.Errors)
                     {
-                        validationMessageHolder.Add("ModelState:" + errorCounter++, e.ErrorMessage);
+                        modelStateWrapper.AddError("ModelState:" + errorCounter++, e.ErrorMessage);
                     }
-                        
+
                 }
             }
 
             // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
-            return Content(HttpStatusCode.NotAcceptable, validationMessageHolder.ToJson());
+            return Content(HttpStatusCode.NotAcceptable, modelStateWrapper.ToJson());
         }
 
     }
