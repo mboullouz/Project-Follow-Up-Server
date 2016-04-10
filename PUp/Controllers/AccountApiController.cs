@@ -41,8 +41,8 @@ namespace PUp.Controllers
                 Console.WriteLine(e.ToString());
                 return Content(HttpStatusCode.Forbidden, "0");
             }
-
-            return Content(HttpStatusCode.OK, user == null ? "0" : "1");
+            var userDto = new UserDto(user);
+            return Content(HttpStatusCode.OK, user == null ? "0" : userDto.ToJson());
         }
  
         /// <summary>

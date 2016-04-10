@@ -6,7 +6,7 @@ using PUp.Models.Entity;
 
 namespace PUp.Models.Dto
 {
-    public class UserDto
+    public class UserDto:BaseDto
     {
        
 

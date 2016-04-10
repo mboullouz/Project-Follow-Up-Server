@@ -55,10 +55,9 @@ namespace PUp.Models
                     {
                         validationMessageHolder.Add(v.Value.AttemptedValue, e.ErrorMessage);
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-
-                        Console. Log(e.ToString());
+                        Console.WriteLine(ex.ToString());
                     }
 
                 }
