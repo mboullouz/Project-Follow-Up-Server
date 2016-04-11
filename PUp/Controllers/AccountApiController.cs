@@ -15,11 +15,15 @@ using System.Web.Http.Results;
 
 namespace PUp.Controllers
 {
-    
+
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountApiController : ApiController
     {
-
+        private ModelStateWrapper modelStateWrapper;
+        internal void Init()
+        {
+            modelStateWrapper = new ModelStateWrapper(new ValidationMessageHolder(), ModelState);
+        }
         /// <summary>
         /// Check a login model that contais username Or email, password and rememberMe
         /// </summary>
@@ -28,23 +32,22 @@ namespace PUp.Controllers
         [HttpPost]
         public NegotiatedContentResult<string> CheckCredentials(AuthObject model)
         {
-
+            Init();
             var UserManager = new UserManager<UserEntity>(new UserStore<UserEntity>(new DatabaseContext()));
             UserEntity user = null;
             try
-            {//model may = or contain null
+            { 
                 user = UserManager.Find(model.Username, model.Password);
             }
             catch (Exception e)
             {
-                //TODO add error to ModelStateWrapper and let the user know about this
-                Console.WriteLine(e.ToString());
+                modelStateWrapper.AddError("Exception", e.ToString());
                 return Content(HttpStatusCode.Forbidden, "0");
             }
             var userDto = new UserDto(user);
             return Content(HttpStatusCode.OK, user == null ? "0" : userDto.ToJson());
         }
- 
+
         /// <summary>
         /// Verify that a user have a valid auth hash, the server will respond with 1
         /// else send an HTML page asking the user to login
@@ -58,14 +61,12 @@ namespace PUp.Controllers
             return Content(HttpStatusCode.OK, "1");
         }
 
-
         [HttpPost]
         [AllowAnonymous]
         [System.Web.Mvc.ValidateAntiForgeryToken]
         public async System.Threading.Tasks.Task<NegotiatedContentResult<string>> Register(ViewModels.Auth.RegisterViewModel model)
         {
-            ModelStateWrapper modelStateWrapper = new ModelStateWrapper(new ValidationMessageHolder(), ModelState);
-
+            Init();
             if (ModelState.IsValid)
             {
                 var user = new UserEntity { Name = model.Name, UserName = model.Email, Email = model.Email };
