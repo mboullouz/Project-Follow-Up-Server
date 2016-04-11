@@ -42,14 +42,13 @@ namespace PUp.Controllers
             catch (Exception e)
             {
                 modelStateWrapper.AddError("Exception", e.ToString());
-              
             }
             if (user == null)
             {
-                return Content(HttpStatusCode.Forbidden, "0");
+                return Content(HttpStatusCode.Unauthorized, modelStateWrapper.ToJson());
             }
             var userDto = new UserDto(user);
-            return Content(HttpStatusCode.OK, user == null ? "0" : userDto.ToJson());
+            return Content(HttpStatusCode.OK,userDto.ToJson());
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace PUp.Controllers
         [HttpPost]
         public NegotiatedContentResult<string> Verify()
         {
-            return Content(HttpStatusCode.OK, "1");
+            return Content(HttpStatusCode.OK, "1"); //TODO "1" not needed, 200 is all to send back
         }
 
         [HttpPost]
@@ -104,7 +103,6 @@ namespace PUp.Controllers
                     {
                         modelStateWrapper.AddError("ModelState:" + errorCounter++, e.ErrorMessage);
                     }
-
                 }
             }
 
