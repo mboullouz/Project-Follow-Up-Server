@@ -42,6 +42,10 @@ namespace PUp.Controllers
             catch (Exception e)
             {
                 modelStateWrapper.AddError("Exception", e.ToString());
+              
+            }
+            if (user == null)
+            {
                 return Content(HttpStatusCode.Forbidden, "0");
             }
             var userDto = new UserDto(user);
