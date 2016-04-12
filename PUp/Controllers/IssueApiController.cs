@@ -11,6 +11,8 @@ using System.Web.Http.Results;
 
 namespace PUp.Controllers
 {
+    [App_Start.MyBasicAuth]
+    [Authorize]
     public class IssueApiController : ApiController
     {
         private IssueService issueService;
