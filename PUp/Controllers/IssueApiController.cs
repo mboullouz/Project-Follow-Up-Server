@@ -50,6 +50,21 @@ namespace PUp.Controllers
             return Json(list); 
         }
 
+
+        /// <summary>
+        /// Get model
+        /// Useful to initialize the model with data in case of an Edit
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult<string> Add(int id)
+        {
+            Init();
+            var model = new AddIssueViewModel(id);
+            return Json(model.ToJson());
+        }
+
         [HttpPost]
         public JsonResult<string> Add( AddIssueViewModel model)
         {
