@@ -55,7 +55,7 @@ namespace PUp.Controllers
         /// Get model
         /// Useful to initialize the model with data in case of an Edit
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">ProjectId : change this later to include Issue Id</param>
         /// <returns></returns>
         [HttpGet]
         public JsonResult<string> Add(int id)

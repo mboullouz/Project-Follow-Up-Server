@@ -40,8 +40,9 @@ namespace PUp.ViewModels.Issue
         public void Init()
         {
             Id = 0;
-            StatusList.Add(new SimpleKeyValue<string, string> { Key = "false", Value = IssueStatus.Open });
-            StatusList.Add(new SimpleKeyValue<string, string> { Key = "true", Value = IssueStatus.Resolved });
+            StatusList = new List<SimpleKeyValue<string, string>>();
+            StatusList.Add(new SimpleKeyValue<string, string> { Key = IssueStatus.Open, Value = IssueStatus.Open });
+            StatusList.Add(new SimpleKeyValue<string, string> { Key = IssueStatus.Resolved, Value = IssueStatus.Resolved });
             Deleted = false;
             CreateAt = DateTime.Now;
             Status = StatusList.FirstOrDefault().Key; //init 
