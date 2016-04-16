@@ -8,20 +8,20 @@ namespace PUp.Models
 {
     public class ValidationMessageHolder
     {
-        public Dictionary<string,string> Messages { get; }
+        public List<SimpleKeyValue<string, string>> Messages { get; }
 
 
         /// <summary>
         /// Let the user know about successful operations!
         /// </summary>
-        public Dictionary<string, string> SuccessMessages { get; set; }
+        public List<SimpleKeyValue<string, string>> SuccessMessages { get; set; }
 
         public string Message { get; set; }
         
 
         public ValidationMessageHolder(int state=1, string message="Model is valid")
         {
-            Messages = new Dictionary<string, string>();
+            Messages = new List<SimpleKeyValue<string, string>>();
             State = state;
             Message = message;
         }
@@ -30,7 +30,7 @@ namespace PUp.Models
 
         public ValidationMessageHolder Add(string key,string msg)
         {
-            Messages.Add(key, msg);
+            Messages.Add(new SimpleKeyValue<string, string> { Key = key, Value = msg });
             if (Messages.Count() > 0) State = 0;
             Message = "Model is not valid";
             return this;
@@ -38,7 +38,7 @@ namespace PUp.Models
 
         public ValidationMessageHolder AddSuccess(string key, string msg)
         {
-            SuccessMessages.Add(key, msg);
+            SuccessMessages.Add(new SimpleKeyValue<string,string> { Key=key, Value=msg });
             return this;
         }
 
