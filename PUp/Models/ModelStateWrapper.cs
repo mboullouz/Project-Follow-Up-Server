@@ -5,7 +5,7 @@ using System.Web.Http.ModelBinding;
 using System.Web.Mvc;
 
 namespace PUp.Models
-{   
+{
 
     /// <summary>
     /// This class hold state of a Request: all infomation about validations (in case there is some) then send them to the User
@@ -22,7 +22,7 @@ namespace PUp.Models
             this.validationMessageHolder = validationMessageWrapper;
             this.modelState = modelState;
         }
- 
+
         public void AddError(string key, string errorMessage)
         {
             validationMessageHolder.AddError(key, errorMessage);
@@ -32,7 +32,7 @@ namespace PUp.Models
         {
             validationMessageHolder.AddSuccess(key, successMessage);
         }
-         //get state of messagenholder that already got init by ModelState
+        //get state of messagenholder that already got init by ModelState
         public bool IsValid()
         {
             initMessages();
@@ -50,7 +50,11 @@ namespace PUp.Models
             {
                 foreach (var e in v.Errors)
                 {
+                    //Value can be null if user left field empty
+                    if (v.Value != null)
                         validationMessageHolder.AddError(v.Value.AttemptedValue, e.ErrorMessage);
+                    else
+                        validationMessageHolder.AddError("NoValueAttempted", e.ErrorMessage);
                 }
             }
         }
