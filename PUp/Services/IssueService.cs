@@ -76,5 +76,24 @@ namespace PUp.Services
             repo.NotificationRepository.NotifyAllUserInProject(project, message, LevelFlag.Success);
             return modelStateWrapper;
         }
+
+        internal ModelStateWrapper OpenCloseIssue(int id)
+        {
+            
+            var issue = repo.IssueRepository.FindById(id);
+            var project = issue.Project;
+            if (!repo.ProjectRepository.IsActive(project))
+            {
+                modelStateWrapper.AddError("MarkDone", "Project no more active");
+            }
+            else
+            {
+                repo.IssueRepository.OpenClose(id);
+                string message = " Issue status change: <" + issue.Description + "> is marked"+ issue.Status;
+                repo.NotificationRepository.NotifyAllUserInProject(project, message, LevelFlag.Success);
+            }
+          
+            return modelStateWrapper;
+        }
     }
 }

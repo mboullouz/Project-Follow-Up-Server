@@ -84,5 +84,17 @@ namespace PUp.Controllers
             Init();
             return Json(issueService.MarkResolved(id).ToJson());
         }
+
+        /// <summary>
+        /// Change ths status of an issue: mark CLOSE|OPEN
+        /// </summary>
+        /// <param name="id">issue id</param>
+        /// <returns>ValidationMessage</returns>
+        [HttpGet]
+        public JsonResult<string> OpenCloseIssue(int id)
+        {
+            Init();
+            return Json(issueService.OpenCloseIssue(id).ToJson());
+        }
     }
 }

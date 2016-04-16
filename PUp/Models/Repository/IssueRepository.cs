@@ -42,5 +42,26 @@ namespace PUp.Models.Repository
             DbContext.SaveChanges();
             return issue;
         }
+
+        
+        /// <summary>
+        /// Flip the state of an issue
+        /// </summary>
+        /// <param name="id"></param>
+        internal void OpenClose(int id)
+        {
+            var issue = FindById(id);
+            if (issue.Status == IssueStatus.Open)
+            {
+                issue.Status = IssueStatus.Resolved;
+              
+            }
+            else
+            {
+                issue.Status = IssueStatus.Open;
+            }
+           
+            DbContext.SaveChanges();
+        }
     }
 }
