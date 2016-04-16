@@ -75,13 +75,13 @@ namespace PUp.Models.Repository
 
          
         /// <summary>
-        /// Check if a project is still active, usseful before editing related tasks!
+        /// Check if a project is still active, usseful before editing related tasks|Issues ..
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
         public bool IsActive(ProjectEntity p)
         {
-            return GetActive().Contains(p);
+            return p.EndAt > DateTime.Now && p.Deleted == false;
                
         }
         public bool IsActive(int id)

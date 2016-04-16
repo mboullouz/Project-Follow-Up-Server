@@ -8,30 +8,36 @@ namespace PUp.Models
 {
     public class ValidationMessageHolder
     {
-        public List<SimpleKeyValue<string, string>> Messages { get; }
-
-
+        /// <summary>
+        /// Gather errors
+        /// </summary>
+        public List<SimpleKeyValue<string, string>> ErrorMessages { get; }
+ 
         /// <summary>
         /// Let the user know about successful operations!
         /// </summary>
         public List<SimpleKeyValue<string, string>> SuccessMessages { get; set; }
-
+ 
+        /// <summary>
+        /// General message a kind of summary!
+        /// </summary>
         public string Message { get; set; }
         
 
         public ValidationMessageHolder(int state=1, string message="Model is valid")
         {
-            Messages = new List<SimpleKeyValue<string, string>>();
+            ErrorMessages = new List<SimpleKeyValue<string, string>>();
+            SuccessMessages = new List<SimpleKeyValue<string, string>>();
             State = state;
             Message = message;
         }
 
         
 
-        public ValidationMessageHolder Add(string key,string msg)
+        public ValidationMessageHolder AddError(string key,string msg)
         {
-            Messages.Add(new SimpleKeyValue<string, string> { Key = key, Value = msg });
-            if (Messages.Count() > 0) State = 0;
+            ErrorMessages.Add(new SimpleKeyValue<string, string> { Key = key, Value = msg });
+            if (ErrorMessages.Count() > 0) State = 0;
             Message = "Model is not valid";
             return this;
         }
@@ -44,7 +50,7 @@ namespace PUp.Models
 
         public ValidationMessageHolder Clear()
         {
-            Messages.Clear();
+            ErrorMessages.Clear();
             State = 1;
             Message = "Model is valid";
             return this;
@@ -52,7 +58,7 @@ namespace PUp.Models
 
         public bool IsValid()
         {
-            if (Messages.Count() > 0) State = 0;
+            if (ErrorMessages.Count() > 0) State = 0;
             return Message.Count() > 0;
         }
 
@@ -65,6 +71,7 @@ namespace PUp.Models
         }
 
         //Additional field intended to be used by the result Json in the client
+        // If Valid State = 1  else 0
         //So need to be in sync with the state of validation 
         public int State { get; set; }
     }

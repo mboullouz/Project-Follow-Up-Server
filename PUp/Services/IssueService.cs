@@ -79,20 +79,18 @@ namespace PUp.Services
 
         internal ModelStateWrapper OpenCloseIssue(int id)
         {
-            
             var issue = repo.IssueRepository.FindById(id);
             var project = issue.Project;
-            if (!repo.ProjectRepository.IsActive(project))
+            if (repo.ProjectRepository.IsActive(project.Id))
             {
-                modelStateWrapper.AddError("MarkDone", "Project no more active");
+                repo.IssueRepository.OpenClose(id);
+                string message = " Issue status change: <" + issue.Description + "> is marked" + issue.Status;
+                repo.NotificationRepository.NotifyAllUserInProject(project, message, LevelFlag.Success);
             }
             else
             {
-                repo.IssueRepository.OpenClose(id);
-                string message = " Issue status change: <" + issue.Description + "> is marked"+ issue.Status;
-                repo.NotificationRepository.NotifyAllUserInProject(project, message, LevelFlag.Success);
+                modelStateWrapper.AddError("OpenCloseIssue", "Project no more active");
             }
-          
             return modelStateWrapper;
         }
     }

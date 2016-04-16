@@ -22,12 +22,12 @@ namespace PUp.Models.Repository
 
         public override IssueEntity FindById(int id)
         {
-            return DbContext.IssueSet.Where(i => i.Id == id).FirstOrDefault();
+            return GetAll().Where(i => i.Id == id).FirstOrDefault();
         }
 
         public List<IssueEntity> GetByProject(ProjectEntity p)
         {
-            return DbContext.IssueSet.Where(i => i.Project.Id == p.Id).ToList();
+            return GetAll().Where(i => i.Project.Id == p.Id).ToList();
         }
  
         public override void MarkDeleted(IssueEntity e)
@@ -54,13 +54,11 @@ namespace PUp.Models.Repository
             if (issue.Status == IssueStatus.Open)
             {
                 issue.Status = IssueStatus.Resolved;
-              
             }
             else
             {
                 issue.Status = IssueStatus.Open;
             }
-           
             DbContext.SaveChanges();
         }
     }

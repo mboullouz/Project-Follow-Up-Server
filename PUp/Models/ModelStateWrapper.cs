@@ -25,7 +25,7 @@ namespace PUp.Models
  
         public void AddError(string key, string errorMessage)
         {
-            validationMessageHolder.Add(key, errorMessage);
+            validationMessageHolder.AddError(key, errorMessage);
         }
 
         public void AddSuccess(string key, string successMessage)
@@ -46,22 +46,12 @@ namespace PUp.Models
 
         private void initMessages()
         {
-
             foreach (var v in modelState.Values)
             {
                 foreach (var e in v.Errors)
                 {
-                    try  //avoid error with the same -key
-                    {
-                        validationMessageHolder.Add(v.Value.AttemptedValue, e.ErrorMessage);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                    }
-
+                        validationMessageHolder.AddError(v.Value.AttemptedValue, e.ErrorMessage);
                 }
-
             }
         }
     }
