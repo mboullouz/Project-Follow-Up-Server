@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PUp.Models;
 using PUp.Services;
 using PUp.ViewModels.Issue;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Results;
 
@@ -29,10 +31,10 @@ namespace PUp.Controllers
         /// <param name="id">Issue id</param>
         /// <returns>Get an Issue by id </returns>
         [HttpGet]
-        public JsonResult<string> Get(int id)
+        public HttpResponseMessage Get(int id)
         {
             Init();
-            return Json(issueService.GetIssue(id).ToJson());
+            return this.CreateJsonResponse(issueService.GetIssue(id).ToJson());
         }
 
 
@@ -42,12 +44,12 @@ namespace PUp.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult<string> GetAll(int id)
+        public HttpResponseMessage GetAll(int id)
         {
             Init();
             var list = JsonConvert.SerializeObject(issueService.GetByProject(id),
-             Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-            return Json(list); 
+            Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+            return this.CreateJsonResponse(list);
         }
 
 
@@ -58,24 +60,24 @@ namespace PUp.Controllers
         /// <param name="id">ProjectId : change this later to include Issue Id</param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult<string> Add(int id)
+        public HttpResponseMessage Add(int id)
         {
             Init();
             var model = new AddIssueViewModel(id);
-            return Json(model.ToJson());
+            return this.CreateJsonResponse(model.ToJson());
         }
 
         [HttpPost]
-        public JsonResult<string> Add( AddIssueViewModel model)
+        public HttpResponseMessage Add( AddIssueViewModel model)
         {
             Init();
             var checkModel = issueService.CheckModel(model);
             if (checkModel.IsValid())
             {
                 issueService.Add(model);
-                return Json(checkModel.ToJson());
+                return this.CreateJsonResponse(checkModel.ToJson());
             }
-            return Json(checkModel.ToJson());
+            return this.CreateJsonResponse(checkModel.ToJson());
         }
 
         /// <summary>
@@ -84,10 +86,10 @@ namespace PUp.Controllers
         /// <param name="id">issue id</param>
         /// <returns>ValidationMessage</returns>
         [HttpGet]
-        public JsonResult<string> OpenCloseIssue(int id)
+        public HttpResponseMessage OpenCloseIssue(int id)
         {
             Init();
-            return Json(issueService.OpenCloseIssue(id).ToJson());
+            return this.CreateJsonResponse(issueService.OpenCloseIssue(id).ToJson());
         }
     }
 }

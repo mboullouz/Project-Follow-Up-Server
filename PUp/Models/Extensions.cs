@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Net.Http;
 
 namespace PUp.Models
 {
@@ -35,7 +36,7 @@ namespace PUp.Models
             var diff = DateTime.Now - entity.AddAt;
             if (diff.TotalMinutes < 1)
             {
-                return ((int)diff.TotalSeconds) + " s ago";
+                return ((int)diff.TotalSeconds) + "s ago";
             }
             else if (diff.TotalHours < 1)
             {
@@ -51,6 +52,6 @@ namespace PUp.Models
             }
 
         }
-
+ 
     }
 }

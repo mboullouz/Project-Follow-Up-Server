@@ -43,4 +43,13 @@ namespace PUp.Models
     }
 
 
+    /// <summary>
+    /// PUp media types as consts
+    /// </summary>
+    public class AppMediaType 
+    {
+        public const string APP_JSON = "application/json";
+    }
+
+
 }

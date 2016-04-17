@@ -230,6 +230,7 @@
     <Compile Include="App_Start\JobSchedulerConfig.cs" />
     <Compile Include="App_Start\MyBasicAuth.cs" />
     <Compile Include="Controllers\AccountApiController.cs" />
+    <Compile Include="Controllers\ControllerExtensions.cs" />
     <Compile Include="Controllers\DashboardApiController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\IssueApiController.cs" />
