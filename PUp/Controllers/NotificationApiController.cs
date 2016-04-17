@@ -31,7 +31,7 @@ namespace PUp.Controllers
 
 
         [HttpGet]
-        public NegotiatedContentResult<string> All()
+        public HttpResponseMessage All()
         {
             var email = RequestContext.Principal.Identity.Name;
             currentUser = userRepo.FindByEmail(email);
@@ -47,33 +47,14 @@ namespace PUp.Controllers
                   ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                   MaxDepth = 1,
               });
-            return Content(HttpStatusCode.OK, list);
+            return this.CreateJsonResponse(list);
         }
-
-
-
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value \n you called GET api/NotificationApi/Get(int id)";
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-
-        }
-
+ 
         // DELETE api/<controller>/5
-        public NegotiatedContentResult<string> Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
             var res = notifRepo.RemoveById(id);
-            return Content(HttpStatusCode.OK, res ? "Deleted" : "Nothing to delete!");
+            return this.CreateJsonResponse( res ? "Deleted" : "Nothing to delete!");
         }
     }
 }

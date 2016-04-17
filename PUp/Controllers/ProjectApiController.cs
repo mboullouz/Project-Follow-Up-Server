@@ -23,11 +23,10 @@ namespace PUp.Controllers
         {
             var email = RequestContext.Principal.Identity.Name;
             projectService = new ProjectService(email, new Models.ModelStateWrapper(new Models.ValidationMessageHolder(), ModelState));
-
         }
 
         [HttpGet]
-        public JsonResult<string> List()
+        public HttpResponseMessage List()
         {
             Init();
             var jsonContent = JsonConvert.SerializeObject(projectService.GetTableProjectForCurrentUser(),
@@ -38,24 +37,22 @@ namespace PUp.Controllers
                 MaxDepth = 1,
 
             });
-
-            return Json(jsonContent);
+            return this.CreateJsonResponse(jsonContent);
         }
 
         [HttpPost]
-        public JsonResult<string> Add(AddProjectViewModel model)
+        public HttpResponseMessage Add(AddProjectViewModel model)
         {
             Init();
             var checkModel = projectService.CheckModel(model);
-             
             if (!checkModel.IsValid())  
             {
-                return Json(checkModel.ToJson());
+                return this.CreateJsonResponse(checkModel.ToJson());
             }
             var project = projectService.GetInitializedProjectFromModel(model);
             projectService.GetRepositoryManager().ProjectRepository.Add(project);
             projectService.GetRepositoryManager().NotificationRepository.GenerateFor(project, new HashSet<UserEntity>(projectService.GetRepositoryManager().UserRepository.GetAll()));
-            return Json(checkModel.ToJson());
+            return this.CreateJsonResponse(checkModel.ToJson());
         }
 
 
@@ -66,14 +63,13 @@ namespace PUp.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult<string> Edit(AddProjectViewModel model)
+        public HttpResponseMessage Edit(AddProjectViewModel model)
         {
             Init();           
             var checkModel = projectService.CheckModel(model,true);
-
             if (!checkModel.IsValid())
             {
-                return Json(checkModel.ToJson());
+                return this.CreateJsonResponse(checkModel.ToJson());
             }
             ProjectEntity project = projectService.GetRepositoryManager().ProjectRepository.FindById(model.Id);
             project.Name = model.Name;
@@ -82,12 +78,11 @@ namespace PUp.Controllers
             project.Objective = model.Objective;
             project.Benifite = model.Benifite;
             projectService.GetRepositoryManager().ProjectRepository.DbContext.SaveChanges();
-
             foreach (var u in project.Contributors)
             {
                 projectService.GetRepositoryManager().NotificationRepository.Add(u, "Project: " + project.Name + " updated", "~/Project/Timeline" + project.Id, Models.LevelFlag.Info);
             }
-            return Json(checkModel.ToJson());
+            return this.CreateJsonResponse(checkModel.ToJson());
         }
 
 
@@ -97,32 +92,11 @@ namespace PUp.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult<string> Edit(int id)
+        public HttpResponseMessage Edit(int id)
         {
             Init();
-            return Json(projectService.GetInitializedViewByProjectId(id).ToJson());
+            return this.CreateJsonResponse(projectService.GetInitializedViewByProjectId(id).ToJson());
         }
-
-
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
+         
     }
 }
