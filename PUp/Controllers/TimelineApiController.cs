@@ -27,10 +27,10 @@ namespace PUp.Controllers
         /// <param name="id">Project id</param>
         /// <returns>Get a timeline by project </returns>
         [HttpGet]
-        public JsonResult<string> ByProject(int id)
+        public HttpResponseMessage ByProject(int id)
         {
             Init();
-            return Json(timelineService.GetByProject(id).ToJson());
+            return this.CreateJsonResponse(timelineService.GetByProject(id).ToJson());
         }
 
     }

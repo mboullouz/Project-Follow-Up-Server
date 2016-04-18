@@ -21,11 +21,10 @@ namespace PUp.Controllers
             dashboardService = new DashboardService(email, new Models.ModelStateWrapper(new Models.ValidationMessageHolder(), ModelState));
         }
         [HttpGet]
-        public JsonResult<string> Index()
+        public HttpResponseMessage Index()
         {
             Init();
-
-            return Json("OK");
+            return this.CreateJsonResponse("OK");
         }
  
     }

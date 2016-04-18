@@ -30,7 +30,7 @@ namespace PUp.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public NegotiatedContentResult<string> CheckCredentials(AuthObject model)
+        public HttpResponseMessage CheckCredentials(AuthObject model)
         {
             Init();
             var UserManager = new UserManager<UserEntity>(new UserStore<UserEntity>(new DatabaseContext()));
@@ -45,10 +45,10 @@ namespace PUp.Controllers
             }
             if (user == null)
             {
-                return Content(HttpStatusCode.Unauthorized, modelStateWrapper.ToJson());
+                return this.CreateJsonResponse(modelStateWrapper.ToJson(), HttpStatusCode.Unauthorized);
             }
             var userDto = new UserDto(user);
-            return Content(HttpStatusCode.OK,userDto.ToJson());
+            return this.CreateJsonResponse(userDto.ToJson());
         }
 
         /// <summary>
@@ -59,15 +59,15 @@ namespace PUp.Controllers
         [App_Start.MyBasicAuth]
         [Authorize]
         [HttpPost]
-        public NegotiatedContentResult<string> Verify()
+        public HttpResponseMessage Verify()
         {
-            return Content(HttpStatusCode.OK, "1"); //TODO "1" not needed, 200 is all to send back
+            return this.CreateJsonResponse("1"); //TODO "1" not needed, 200 is all to send back
         }
 
         [HttpPost]
         [AllowAnonymous]
         [System.Web.Mvc.ValidateAntiForgeryToken]
-        public async System.Threading.Tasks.Task<NegotiatedContentResult<string>> Register(ViewModels.Auth.RegisterViewModel model)
+        public async System.Threading.Tasks.Task<HttpResponseMessage> Register(ViewModels.Auth.RegisterViewModel model)
         {
             Init();
             if (ModelState.IsValid)
@@ -85,7 +85,7 @@ namespace PUp.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
 
-                    return Content(HttpStatusCode.OK, modelStateWrapper.ToJson());
+                    return this.CreateJsonResponse(modelStateWrapper.ToJson());
                 }
 
                 var errorCounter = 0;
@@ -105,9 +105,8 @@ namespace PUp.Controllers
                     }
                 }
             }
-
             // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
-            return Content(HttpStatusCode.NotAcceptable, modelStateWrapper.ToJson());
+            return this.CreateJsonResponse(modelStateWrapper.ToJson(), HttpStatusCode.NotAcceptable);
         }
 
     }
