@@ -1,5 +1,5 @@
 ﻿using PUp.Models;
-using PUp.Models.Entity;
+using PUp.Models.Dto;
 using PUp.ViewModels.Project;
 using System;
 using System.Collections.Generic;
@@ -8,11 +8,11 @@ using System.Web;
 
 namespace PUp.ViewModels
 {
-    public class DashboardModelView
+    public class DashboardModelView:BaseModelView
     {
-        public List<TaskEntity> CurrentTasks = new List<TaskEntity>();
-        public List<TaskEntity> OtherTasks = new List<TaskEntity>();
-        public List<TaskEntity> TodayDoneTasks = new List<TaskEntity>();
+        public List<TaskDto> CurrentTasks = new List<TaskDto>();
+        public List<TaskDto> OtherTasks = new List<TaskDto>();
+        public List<TaskDto> TodayDoneTasks = new List<TaskDto>();
      
         public MatrixViewModel MatrixVM {get;set;}
         public bool IsWorkingDayOver()

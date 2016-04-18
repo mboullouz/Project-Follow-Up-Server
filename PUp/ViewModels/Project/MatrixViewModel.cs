@@ -1,4 +1,5 @@
-﻿using PUp.Models.Entity;
+﻿using PUp.Models.Dto;
+using PUp.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,32 +9,32 @@ namespace PUp.ViewModels.Project
 {
     public class MatrixViewModel : BaseModelView
     {
-        public ProjectEntity Project { get; set; }
-        public UserEntity User { get; set; }
-        public List<TaskEntity> ImportantAndUrgent { get; set; }
-        public List<TaskEntity> ImportantNotUrgent { get; set; }
-        public List<TaskEntity> NotImportantButUrgent { get; set; }
-        public List<TaskEntity> NotImportantNotUrgent { get; set; }
+        public ProjectDto Project { get; set; }
+        public UserDto User { get; set; }
+        public List<TaskDto> ImportantAndUrgent { get; set; }
+        public List<TaskDto> ImportantNotUrgent { get; set; }
+        public List<TaskDto> NotImportantButUrgent { get; set; }
+        public List<TaskDto> NotImportantNotUrgent { get; set; }
 
 
-        public MatrixViewModel(ProjectEntity project, UserEntity user)
+        public MatrixViewModel(ProjectDto project, UserDto user)
         {
             Project = project;
             User = user;
             Init(project.Tasks);
         }
-        public MatrixViewModel(ICollection<TaskEntity> tasks, UserEntity user)
+        public MatrixViewModel(ICollection<TaskDto> tasks, UserDto user)
         {
             User = user;
             Init(tasks);
         }
 
-        public void Init(ICollection<TaskEntity> tasks)
+        public void Init(ICollection<TaskDto> tasks)
         {
-            ImportantAndUrgent = new List<TaskEntity>();
-            ImportantNotUrgent = new List<TaskEntity>();
-            NotImportantButUrgent = new List<TaskEntity>();
-            NotImportantNotUrgent = new List<TaskEntity>();
+            ImportantAndUrgent = new List<TaskDto>();
+            ImportantNotUrgent = new List<TaskDto>();
+            NotImportantButUrgent = new List<TaskDto>();
+            NotImportantNotUrgent = new List<TaskDto>();
 
             ImportantAndUrgent.AddRange(tasks.Where(t => t.Critical && t.Urgent && t.Executor == User));
             ImportantNotUrgent.AddRange(tasks.Where(t => t.Critical && !t.Urgent && t.Executor == User));
