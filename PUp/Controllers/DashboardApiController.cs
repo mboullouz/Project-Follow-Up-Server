@@ -24,7 +24,8 @@ namespace PUp.Controllers
         public HttpResponseMessage Index()
         {
             Init();
-            return this.CreateJsonResponse("OK");
+            var vm = dashboardService.GetInitialisedDashboard();
+            return this.CreateJsonResponse(vm.ToJson());
         }
  
     }
