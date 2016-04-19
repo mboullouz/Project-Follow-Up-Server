@@ -23,7 +23,7 @@ namespace PUp.Controllers
         {
             currentUser = repo.UserRepository.GetCurrentUser();
         }
-       
+        /*
         // GET: Dashboard
         public ActionResult Index()
         {
@@ -39,6 +39,7 @@ namespace PUp.Controllers
             dashboardMV.TodayDoneTasks = doneToday;
             return View(dashboardMV);
         }
+        */
  
     }
 }

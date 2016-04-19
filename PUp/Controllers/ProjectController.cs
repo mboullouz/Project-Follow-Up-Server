@@ -97,7 +97,7 @@ namespace PUp.Controllers
             TimelineViewModel projectTimeline = new TimelineViewModel(project);
             return View(projectTimeline);
         }
-
+        /*
         public ActionResult Info(int id)
         {
             ProjectEntity project =  projectService.GetRepositoryManager().ProjectRepository.FindById(id);
@@ -115,6 +115,7 @@ namespace PUp.Controllers
             MatrixViewModel mVM = new MatrixViewModel(project,  projectService.GetRepositoryManager().UserRepository.GetCurrentUser());
             return View(mVM);
         }
+        */
 
     }
 }

@@ -21,10 +21,6 @@ namespace PUp.ViewModels.Task
         {
         }
 
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this,
-             Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-        }
+         
     }
 }
