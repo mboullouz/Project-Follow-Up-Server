@@ -8,28 +8,43 @@ using System.Web;
 
 namespace PUp.ViewModels
 {
-    public class DashboardModelView:BaseModelView
+    public class DashboardModelView : BaseModelView
     {
         public List<TaskDto> CurrentTasks = new List<TaskDto>();
         public List<TaskDto> OtherTasks = new List<TaskDto>();
         public List<TaskDto> TodayDoneTasks = new List<TaskDto>();
-     
-        public MatrixViewModel MatrixVM {get;set;}
-        public bool IsWorkingDayOver()
+
+
+        public MatrixViewModel MatrixVM { get; set; }
+        public bool IsWorkingDayOver
         {
-            if (DateTime.Now.Hour < AppConst.DayStart || DateTime.Now.Hour > AppConst.DayEnd)
-                return true;
-            return false;
+            get
+            {
+                if (DateTime.Now.Hour < AppConst.DayStart || DateTime.Now.Hour > AppConst.DayEnd)
+                    return true;
+                return false;
+            }
+
         }
-        public AppConst AppConst { get; set; }
-        public string TaskStatus(DateTime startDate,bool done,int dureationInHours)
+        public AppConst AppConst
+        {
+            get
+            {
+                return AppConst;
+            }
+        }
+
+        /**
+        Move this to the client side!
+        */
+        public string ComputeTaskStatus(DateTime startDate, bool done, int dureationInHours)
         {
             string status = "";
             if (done)
             {
                 status = "Done";
             }
-            else if(!done && (startDate.Hour+dureationInHours)> AppConst.DayEnd)
+            else if (!done && (startDate.Hour + dureationInHours) > AppConst.DayEnd)
             {
                 status = "Task not finished in time!";
             }
@@ -37,8 +52,9 @@ namespace PUp.ViewModels
             {
                 status = "In progress !";
             }
-      
+
             return status;
         }
+
     }
 }

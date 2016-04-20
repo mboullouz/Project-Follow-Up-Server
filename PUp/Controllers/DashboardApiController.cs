@@ -21,7 +21,7 @@ namespace PUp.Controllers
             dashboardService = new DashboardService(email, new Models.ModelStateWrapper(new Models.ValidationMessageHolder(), ModelState));
         }
         [HttpGet]
-        public HttpResponseMessage Index()
+        public HttpResponseMessage GetAll()
         {
             Init();
             var vm = dashboardService.GetInitialisedDashboard();
