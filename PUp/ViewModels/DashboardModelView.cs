@@ -1,4 +1,5 @@
-﻿using PUp.Models;
+﻿using Newtonsoft.Json;
+using PUp.Models;
 using PUp.Models.Dto;
 using PUp.ViewModels.Project;
 using System;
@@ -26,11 +27,11 @@ namespace PUp.ViewModels
             }
 
         }
-        public AppConst AppConst
+        public AppConst Consts
         {
             get
             {
-                return AppConst;
+                return new AppConst();
             }
         }
 

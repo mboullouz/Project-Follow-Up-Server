@@ -14,7 +14,7 @@ namespace PUp.Models
     }
 
     public class AppConst
-    {   
+    {
         /**
         Useful when serializing/deserializing object
         */
@@ -25,15 +25,23 @@ namespace PUp.Models
         public const int HoursPerDay = 10;
         public const int DaysPerWeek = 5;
 
-        public static List<int> ToArray()
+        /**
+         Use in Json Object because consts are not serialized properly!
+        */
+        public List<SimpleKeyValue<string, int>> List
         {
-            var list = new List<int>();
-            list.Add(DayStart);
-            list.Add(DayEnd);
-            list.Add(HoursPerDay);
-            list.Add(DaysPerWeek);
-            return list;
+            get
+            {
+                var list = new List<SimpleKeyValue<string, int>>();
+                list.Add(new SimpleKeyValue<string, int> { Key = "DayStart", Value = DayStart });
+                list.Add(new SimpleKeyValue<string, int> { Key = "DayEnd", Value = DayEnd });
+                list.Add(new SimpleKeyValue<string, int> { Key = "HoursPerDay", Value = HoursPerDay });
+                list.Add(new SimpleKeyValue<string, int> { Key = "DaysPerWeek", Value = DaysPerWeek });
+                return list;
+            }
         }
+
+         
     }
 
     public class IssueStatus
@@ -46,7 +54,7 @@ namespace PUp.Models
     /// <summary>
     /// PUp media types as consts
     /// </summary>
-    public class AppMediaType 
+    public class AppMediaType
     {
         public const string APP_JSON = "application/json";
     }
