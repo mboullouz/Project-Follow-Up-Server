@@ -88,5 +88,12 @@ namespace PUp.Controllers
             return this.CreateJsonResponse(taskService.ChangeTaskState(id).ToJson());
         }
 
+        [HttpGet]
+        public HttpResponseMessage PlanTaskForCurrentDay(int id)
+        {
+            Init();
+            return this.CreateJsonResponse(taskService.PlanTaskForCurrentDay(id).ToJson());
+        }
+
     }
 }

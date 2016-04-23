@@ -47,7 +47,7 @@ namespace PUp.Models
                 return Interval;
             }
             /**
-            dont loop over past hours to now
+            * dont loop over past hours to now
             */
             for (var h = startH; h < startH + durationInHours; h++)
             {

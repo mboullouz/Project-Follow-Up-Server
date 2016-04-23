@@ -64,7 +64,7 @@ namespace PUp.Controllers
         /// <returns></returns>
         public ActionResult SetDate(int id)
         {
-            taskService.SetDateForTask(id);
+            taskService.PlanTaskForCurrentDay(id);
             return RedirectToAction("Index", "Dashboard", new { id = id });
         }
 

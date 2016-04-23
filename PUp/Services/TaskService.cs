@@ -75,13 +75,19 @@ namespace PUp.Services
             return modelStateWrapper;
         }
 
-        public void SetDateForTask(int id)
+
+        /// <summary>
+        /// //TODO Split this to several small methods
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ModelStateWrapper PlanTaskForCurrentDay(int id)
         {
             var task = repo.TaskRepository.FindById(id);
             if (!repo.ProjectRepository.IsActive(task.Project.Id))
             {
-                // modelStateWrapper.Flash("The project is no more active!", FlashLevel.Warning);
-                return;
+                modelStateWrapper.AddError("ProjectExpired", "You are browsering a project that is no more active!");
+                return modelStateWrapper;
             }
             var intervalManager = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Parse("00:00"));
 
@@ -93,13 +99,13 @@ namespace PUp.Services
                 if (!vK.Value && intervalManager.CheckForDateAndDuration(dateStartForTest, task.EstimatedTimeInMinutes / 60))
                 {
                     task.StartAt = dateStartForTest;
-                    repo.DbContext.SaveChanges();
-
-                    message = "Task added to the current day pile, Good luck!";
-                    break;//no nead for more checks
+                    repo.DbContext.SaveChanges();                      
+                    modelStateWrapper.AddSuccess("Success", "Task added to the current day pile, Good luck!");
+                    return modelStateWrapper;//no nead for more checks
                 }
             }
             modelStateWrapper.AddError("SetDateForTask", message);
+            return modelStateWrapper;
         }
 
         //TODO refactore AddTaskViewModel or create a special one for Edit with a base class!

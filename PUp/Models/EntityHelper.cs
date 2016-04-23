@@ -28,7 +28,7 @@ namespace PUp.Models
         /**
          Use in Json Object because consts are not serialized properly!
         */
-        public List<SimpleKeyValue<string, int>> List
+        public List<SimpleKeyValue<string, int>> ListConsts
         {
             get
             {
@@ -40,8 +40,7 @@ namespace PUp.Models
                 return list;
             }
         }
-
-         
+ 
     }
 
     public class IssueStatus
