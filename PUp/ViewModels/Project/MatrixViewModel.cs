@@ -36,10 +36,10 @@ namespace PUp.ViewModels.Project
             NotImportantButUrgent = new List<TaskDto>();
             NotImportantNotUrgent = new List<TaskDto>();
 
-            ImportantAndUrgent.AddRange(tasks.Where(t => t.Critical && t.Urgent && t.Executor == User));
-            ImportantNotUrgent.AddRange(tasks.Where(t => t.Critical && !t.Urgent && t.Executor == User));
-            NotImportantButUrgent.AddRange(tasks.Where(t => !t.Critical && t.Urgent && t.Executor == User));
-            NotImportantNotUrgent.AddRange(tasks.Where(t => !t.Critical && !t.Urgent && t.Executor == User));
+            ImportantAndUrgent.AddRange(tasks.Where(t => t.Critical && t.Urgent && t.Executor.Id == User.Id));
+            ImportantNotUrgent.AddRange(tasks.Where(t => t.Critical && !t.Urgent && t.Executor.Id == User.Id));
+            NotImportantButUrgent.AddRange(tasks.Where(t => !t.Critical && t.Urgent && t.Executor.Id == User.Id));
+            NotImportantNotUrgent.AddRange(tasks.Where(t => !t.Critical && !t.Urgent && t.Executor.Id == User.Id));
         }
     }
 }
