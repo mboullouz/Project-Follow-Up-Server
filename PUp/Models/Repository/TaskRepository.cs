@@ -136,5 +136,12 @@ namespace PUp.Models.Repository
             t.Done   = false;
             DbContext.SaveChanges();
         }
+
+        public void Postpone(TaskEntity task)
+        {
+            task.StartAt = null;
+            task.Postponed = true;
+            DbContext.SaveChanges();
+        }
     }
 }

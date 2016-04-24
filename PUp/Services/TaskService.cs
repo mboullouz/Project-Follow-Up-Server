@@ -24,7 +24,7 @@ namespace PUp.Services
             tasksViewModel.DeletedTasks = repo.DbContext.TaskSet.Include("Executor").Where(t => t.Deleted == true && t.Project.Id == id).ToList();
             if (!repo.ProjectRepository.IsActive(project))
             {
-                 modelStateWrapper.AddError("ProjectExpired","You are browsering a project that is no more active!");
+                modelStateWrapper.AddError("ProjectExpired", "You are browsering a project that is no more active!");
             }
             return tasksViewModel;
         }
@@ -58,7 +58,7 @@ namespace PUp.Services
                 if (task.Done)
                 {
                     repo.TaskRepository.MarkUndone(task);
-                    repo.NotificationRepository.Add(CurrentUser(), "Task: " + task.Title + " Marked undone","#", LevelFlag.Info);
+                    repo.NotificationRepository.Add(CurrentUser(), "Task: " + task.Title + " Marked undone", "#", LevelFlag.Info);
                 }
 
                 else
@@ -66,7 +66,7 @@ namespace PUp.Services
                     repo.TaskRepository.MarkDone(task.Id);
                     repo.NotificationRepository.Add(CurrentUser(), "Task: " + task.Title + " Marked Done", "#", LevelFlag.Success);
                 }
-                   
+
             }
             else
             {
@@ -99,7 +99,7 @@ namespace PUp.Services
                 if (!vK.Value && intervalManager.CheckForDateAndDuration(dateStartForTest, task.EstimatedTimeInMinutes / 60))
                 {
                     task.StartAt = dateStartForTest;
-                    repo.DbContext.SaveChanges();                      
+                    repo.DbContext.SaveChanges();
                     modelStateWrapper.AddSuccess("Success", "Task added to the current day pile, Good luck!");
                     return modelStateWrapper;//no nead for more checks
                 }
@@ -167,25 +167,25 @@ namespace PUp.Services
         }
 
         //TODO Refac-
-        public TaskEntity Postpone(int id)
+        public ModelStateWrapper Postpone(int id)
         {
             var task = repo.TaskRepository.FindById(id);
-            if (repo.ProjectRepository.IsActive(task.Project))
+            if (!repo.ProjectRepository.IsActive(task.Project.Id))
             {
-                task.StartAt = null;
-                repo.DbContext.SaveChanges();
+                modelStateWrapper.AddError("ProjectExpired", "You are browsering a project that is no more active!");
+                return modelStateWrapper;
             }
-            else
-            {
-                // modelStateWrapper.Flash("The project is no more active! task state can't be modified", FlashLevel.Warning);
-            }
-            return task;
+
+            repo.TaskRepository.Postpone(task);
+            modelStateWrapper.AddSuccess("TaskPostponed", "Task postponed successfully");
+
+            return modelStateWrapper;
         }
 
-        
+
         public ModelStateWrapper CheckModel(AddTaskViewModel model, bool onEdit = false)
         {
-             
+
             if (model.StartAt != null && DateTime.Now.AddMinutes(10) >= model.StartAt)
             {
                 modelStateWrapper.AddError("StartAt", "Date start must be superior to Now +10 min");

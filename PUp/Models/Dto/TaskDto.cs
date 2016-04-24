@@ -84,9 +84,13 @@ namespace PUp.Models.Dto
                 {
                     return "Task not finished in time!";
                 }
-                else
+                else if(!Done && (DateTime.Now> StartAt.GetValueOrDefault().AddMinutes(EstimatedTimeInMinutes) ) )
                 {
                     return "Time is over!";
+                }
+                else
+                {
+                    return "Unknown task status";
                 }
             }
         }

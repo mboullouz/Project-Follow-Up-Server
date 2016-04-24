@@ -46,6 +46,13 @@ namespace PUp.Controllers
             return this.CreateJsonResponse(taskService.Taskboard(id).ToJson());
         }
 
+        [HttpGet]
+        public HttpResponseMessage Postpone(int id)
+        {
+            Init();
+            return this.CreateJsonResponse(taskService.Postpone(id).ToJson());
+        }
+
         /// <summary>
         /// Get a view model for task Add
         /// </summary>
