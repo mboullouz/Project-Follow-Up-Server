@@ -10,18 +10,28 @@ using System.Security.Principal;
 using System.Net.Http;
 using PUp.Models.Dto;
 using PUp.Tests.Helpers;
+using PUp.ViewModels.Task;
 
 namespace PUp.Tests.TaskTest
 {
+    
+
     [TestClass]
     public class TaskApiTest
     {
-        RepositoryManager rep = new RepositoryManager();
-        [TestMethod]
-        public void Access_api_task_controller()
+        private RepositoryManager rep = new RepositoryManager();
+        TaskApiController apiController;
+
+        [TestInitialize]
+        public void Init()
         {
-            TaskApiController apiController = new TaskApiController();
+            apiController = new TaskApiController();
             ApiContextHelper.MockApiControllerRequest(apiController);
+        }
+
+        [TestMethod]
+        public void GetTaskById_ShouldReturnSerializedTaskDto() 
+        {
             var taskDtoResponse = apiController.Get(1).Content;
             var taskOne = rep.TaskRepository.FindById(1);
             var taskOneDto = new TaskDto(taskOne);
@@ -30,8 +40,20 @@ namespace PUp.Tests.TaskTest
             Assert.IsNotNull(taskOne);
             Assert.AreEqual(taskOne.Id,1);
             Assert.AreEqual(taskOneDto.Id,1);
-
             Assert.AreEqual(taskOneDto.ToJson(), taskDtoResponse.ReadAsStringAsync().Result);
+        }
+        [TestMethod]
+        public void GetTaskboardByProjectId_ShoudNotBeNull()
+        {
+             
+            var taskboardSerialized = apiController.Taskboard(1).Content.ReadAsStringAsync().Result;
+            var projectDto = new ProjectDto(rep.ProjectRepository.FindById(1));
+            string projectDtoJson = Util<ProjectDto>.ToJson(projectDto);
+            TaskboardViewModel tvm =   Util< TaskboardViewModel>.FromJson(taskboardSerialized);
+            Assert.IsNotNull(projectDtoJson);
+            Assert.IsNotNull(taskboardSerialized);
+            Assert.IsTrue(taskboardSerialized.Contains("1"));
+            Assert.AreEqual(projectDto.Id, tvm.Project.Id);
         }
 
     }

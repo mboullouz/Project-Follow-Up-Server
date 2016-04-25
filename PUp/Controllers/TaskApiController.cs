@@ -74,13 +74,13 @@ namespace PUp.Controllers
         public HttpResponseMessage Add(ViewModels.Task.AddTaskViewModel model)
         {
             Init();
-            var checkModel = taskService.CheckModel(model);
-            if (checkModel.IsValid())
+            var modelStateWrapper = taskService.CheckModel(model);
+            if (modelStateWrapper.IsValid())
             {
                 taskService.Add(model);
-                return this.CreateJsonResponse(checkModel.ToJson());
+                return this.CreateJsonResponse(modelStateWrapper.ToJson());
             }
-            return this.CreateJsonResponse(checkModel.ToJson());
+            return this.CreateJsonResponse(modelStateWrapper.ToJson());
         }
 
         /// <summary>

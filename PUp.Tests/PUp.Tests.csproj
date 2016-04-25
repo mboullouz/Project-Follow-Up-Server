@@ -148,6 +148,7 @@
     <Compile Include="Helpers\ContextHelper.cs" />
     <Compile Include="GeneralTest\GlobalTest.cs" />
     <Compile Include="Helpers\RouterDataHelper.cs" />
+    <Compile Include="Helpers\Util.cs" />
     <Compile Include="HomeTest\HomeControllerTest.cs" />
     <Compile Include="NotificationTest\NotificationModelTest.cs" />
     <Compile Include="NotificationTest\NotificationControllerTest.cs" />
