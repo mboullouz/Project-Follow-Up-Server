@@ -144,6 +144,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Helpers\ApiContextHelper.cs" />
     <Compile Include="Helpers\ContextHelper.cs" />
     <Compile Include="GeneralTest\GlobalTest.cs" />
     <Compile Include="Helpers\RouterDataHelper.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="NotificationTest\NotificationModelTest.cs" />
     <Compile Include="NotificationTest\NotificationControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskTest\TaskApiTest.cs" />
     <Compile Include="TaskTest\TaskControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
