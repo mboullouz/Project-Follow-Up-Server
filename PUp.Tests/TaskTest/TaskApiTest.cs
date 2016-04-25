@@ -45,7 +45,6 @@ namespace PUp.Tests.TaskTest
         [TestMethod]
         public void GetTaskboardByProjectId_ShoudNotBeNull()
         {
-             
             var taskboardSerialized = apiController.Taskboard(1).Content.ReadAsStringAsync().Result;
             var projectDto = new ProjectDto(rep.ProjectRepository.FindById(1));
             string projectDtoJson = Util<ProjectDto>.ToJson(projectDto);
@@ -54,6 +53,35 @@ namespace PUp.Tests.TaskTest
             Assert.IsNotNull(taskboardSerialized);
             Assert.IsTrue(taskboardSerialized.Contains("1"));
             Assert.AreEqual(projectDto.Id, tvm.Project.Id);
+        }
+
+        [TestMethod]
+        public void PostponeTask_ShouldNotPostponeOnNotActiveProject()
+        {
+            var taskEntity = rep.TaskRepository.FindById(1);
+            taskEntity.StartAt = DateTime.Now;
+            taskEntity.EndAt = DateTime.Now.AddHours(2);
+            taskEntity.Postponed = false;
+            var project = rep.ProjectRepository.FindById(taskEntity.Project.Id);
+            project.StartAt = DateTime.Now.AddHours(-100);
+            project.EndAt= DateTime.Now.AddHours(-50);
+
+            
+            rep.DbContext.SaveChanges();
+
+            
+
+            Assert.AreEqual(taskEntity, rep.TaskRepository.FindById(1));
+            
+            var stateSerialized = apiController.Postpone(1).Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(stateSerialized);
+            var newTaskEntity = rep.TaskRepository.FindById(1);
+            var validationMessageHolder= Util<ValidationMessageHolder>.FromJson(stateSerialized);
+            Assert.IsFalse(validationMessageHolder.State==1);
+            Assert.AreEqual(newTaskEntity.StartAt.GetValueOrDefault().Minute,DateTime.Now.Minute);
+            //Assert.IsTrue(newTaskEntity.Postponed);
+            //Assert.IsTrue(newTaskEntity.Postponed);
+            
         }
 
     }
