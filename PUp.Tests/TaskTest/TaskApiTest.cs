@@ -65,11 +65,8 @@ namespace PUp.Tests.TaskTest
             var project = rep.ProjectRepository.FindById(taskEntity.Project.Id);
             project.StartAt = DateTime.Now.AddHours(-100);
             project.EndAt= DateTime.Now.AddHours(-50);
-
             
             rep.DbContext.SaveChanges();
-
-            
 
             Assert.AreEqual(taskEntity, rep.TaskRepository.FindById(1));
             
@@ -82,6 +79,26 @@ namespace PUp.Tests.TaskTest
             //Assert.IsTrue(newTaskEntity.Postponed);
             //Assert.IsTrue(newTaskEntity.Postponed);
             
+        }
+
+        [TestMethod]
+        public void PostponeTask_ShouldPostoneOnActiveProject()
+        {
+            var taskEntity = rep.TaskRepository.FindById(1);
+            taskEntity.StartAt = DateTime.Now;
+            taskEntity.EndAt = DateTime.Now.AddHours(2);
+            taskEntity.Postponed = false;
+            var project = rep.ProjectRepository.FindById(taskEntity.Project.Id);
+            project.StartAt = DateTime.Now.AddHours(-100);
+            project.EndAt = DateTime.Now.AddHours(50);
+            rep.DbContext.SaveChanges();
+
+            var stateSerialized = apiController.Postpone(1).Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(stateSerialized);
+            
+            var validationMessageHolder = Util<ValidationMessageHolder>.FromJson(stateSerialized);
+            Assert.IsNotNull(validationMessageHolder);
+            Assert.AreEqual(1,validationMessageHolder.State);
         }
 
     }
