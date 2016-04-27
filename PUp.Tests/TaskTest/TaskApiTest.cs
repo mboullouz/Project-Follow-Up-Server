@@ -65,29 +65,18 @@ namespace PUp.Tests.TaskTest
         {
             var taskEntity = subScenario.UnpostponedAndRunningTask(1);
             subScenario.PrepareInactiveProject(taskEntity.Id);
-
-            Assert.AreEqual(taskEntity, rep.TaskRepository.FindById(1));
-            
             var stateSerialized = apiController.Postpone(1).Content.ReadAsStringAsync().Result;
             Assert.IsNotNull(stateSerialized);
-            var newTaskEntity = rep.TaskRepository.FindById(1);
             var validationMessageHolder= Util<ValidationMessageHolder>.FromJson(stateSerialized);
             Assert.IsFalse(validationMessageHolder.State==1);
-            Assert.AreEqual(newTaskEntity.StartAt.GetValueOrDefault().Minute,DateTime.Now.Minute);
             
         }
 
         [TestMethod]
         public void PostponeTask_ShouldPostoneOnActiveProject()
         {
-            var taskEntity = rep.TaskRepository.FindById(1);
-            taskEntity.StartAt = DateTime.Now;
-            taskEntity.EndAt = DateTime.Now.AddHours(2);
-            taskEntity.Postponed = false;
-            var project = rep.ProjectRepository.FindById(taskEntity.Project.Id);
-            project.StartAt = DateTime.Now.AddHours(-100);
-            project.EndAt = DateTime.Now.AddHours(50);
-            rep.DbContext.SaveChanges();
+            var taskEntity = subScenario.UnpostponedAndRunningTask(1);
+            subScenario.PrepareActiveProject(taskEntity.Id);
 
             var stateSerialized = apiController.Postpone(1).Content.ReadAsStringAsync().Result;
             Assert.IsNotNull(stateSerialized);
@@ -98,12 +87,7 @@ namespace PUp.Tests.TaskTest
            
         }
 
-        [TestMethod]
-        public void PostponeTask_ShouldPostoneOnActiveProject_UsingMockObject()
-        {
-             
-
-        }
+         
 
     }
 }
