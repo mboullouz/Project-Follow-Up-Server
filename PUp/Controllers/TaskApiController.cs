@@ -13,13 +13,12 @@ namespace PUp.Controllers
     [Authorize]
     public class TaskApiController : ApiController
     {
-        private TaskService  taskService;
-
-
+        //Make it accessible for tests 
+        public TaskService TaskService {get; set;}
         public void Init()
         {
             var email = RequestContext.Principal.Identity.Name;
-            taskService = new TaskService(email, new Models.ModelStateWrapper(new Models.ValidationMessageHolder(), ModelState));
+            TaskService = new TaskService(email, new Models.ModelStateWrapper(new Models.ValidationMessageHolder(), ModelState));
         }
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace PUp.Controllers
         public HttpResponseMessage Get(int id)
         {
             Init();
-            return this.CreateJsonResponse(taskService.GetTask(id).ToJson());
+            return this.CreateJsonResponse(TaskService.GetTask(id).ToJson());
         }
 
         /// <summary>
@@ -43,14 +42,14 @@ namespace PUp.Controllers
         public HttpResponseMessage Taskboard(int id)
         {
             Init();
-            return this.CreateJsonResponse(taskService.Taskboard(id).ToJson());
+            return this.CreateJsonResponse(TaskService.Taskboard(id).ToJson());
         }
 
         [HttpGet]
         public HttpResponseMessage Postpone(int id)
         {
             Init();
-            return this.CreateJsonResponse(taskService.Postpone(id).ToJson());
+            return this.CreateJsonResponse(TaskService.Postpone(id).ToJson());
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace PUp.Controllers
         public HttpResponseMessage Add(int id)
         {
             Init();
-            return this.CreateJsonResponse(taskService.GetAddTaskViewModelByProject(id).ToJson());
+            return this.CreateJsonResponse(TaskService.GetAddTaskViewModelByProject(id).ToJson());
         }
 
         /// <summary>
@@ -74,10 +73,10 @@ namespace PUp.Controllers
         public HttpResponseMessage Add(ViewModels.Task.AddTaskViewModel model)
         {
             Init();
-            var modelStateWrapper = taskService.CheckModel(model);
+            var modelStateWrapper = TaskService.CheckModel(model);
             if (modelStateWrapper.IsValid())
             {
-                taskService.Add(model);
+                TaskService.Add(model);
                 return this.CreateJsonResponse(modelStateWrapper.ToJson());
             }
             return this.CreateJsonResponse(modelStateWrapper.ToJson());
@@ -89,17 +88,17 @@ namespace PUp.Controllers
         /// <param name="id">task id</param>
         /// <returns>ValidationMessage</returns>
         [HttpGet]
-        public HttpResponseMessage ChangeTaskState(int id) 
+        public HttpResponseMessage ChangeTaskState(int id)
         {
             Init();
-            return this.CreateJsonResponse(taskService.ChangeTaskState(id).ToJson());
+            return this.CreateJsonResponse(TaskService.ChangeTaskState(id).ToJson());
         }
 
         [HttpGet]
         public HttpResponseMessage PlanTaskForCurrentDay(int id)
         {
             Init();
-            return this.CreateJsonResponse(taskService.PlanTaskForCurrentDay(id).ToJson());
+            return this.CreateJsonResponse(TaskService.PlanTaskForCurrentDay(id).ToJson());
         }
 
     }

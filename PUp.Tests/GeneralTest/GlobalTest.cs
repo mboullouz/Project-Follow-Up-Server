@@ -28,8 +28,7 @@ namespace PUp.Tests.GeneralTest
 
         [TestMethod]
         public void Test_user_entity_from_current_context_not_null()
-        {
-             
+        {   
             Assert.IsNotNull(ContextHelper.CurrentUserEntity()); 
             Assert.AreEqual("med@med.com", ContextHelper.CurrentUserEntity().Email);
         }
