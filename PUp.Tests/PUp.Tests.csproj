@@ -153,6 +153,7 @@
     <Compile Include="NotificationTest\NotificationModelTest.cs" />
     <Compile Include="NotificationTest\NotificationControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubScenario\SubScenario.cs" />
     <Compile Include="TaskTest\TaskApiTest.cs" />
     <Compile Include="TaskTest\TaskControllerTest.cs" />
   </ItemGroup>

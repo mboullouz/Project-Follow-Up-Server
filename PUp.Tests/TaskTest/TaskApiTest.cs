@@ -11,6 +11,9 @@ using System.Net.Http;
 using PUp.Models.Dto;
 using PUp.Tests.Helpers;
 using PUp.ViewModels.Task;
+using Moq;
+using PUp.Services;
+using PUp.Tests.SubScenario;
 
 namespace PUp.Tests.TaskTest
 {
@@ -20,12 +23,14 @@ namespace PUp.Tests.TaskTest
     public class TaskApiTest
     {
         private RepositoryManager rep = new RepositoryManager();
-        TaskApiController apiController;
+        private  SubScenarioBuilder subScenario;
+       TaskApiController apiController;
 
         [TestInitialize]
         public void Init()
         {
             apiController = new TaskApiController();
+            subScenario = new  SubScenarioBuilder(rep); 
             ApiContextHelper.MockApiControllerRequest(apiController);
         }
 
@@ -58,15 +63,8 @@ namespace PUp.Tests.TaskTest
         [TestMethod]
         public void PostponeTask_ShouldNotPostponeOnNotActiveProject()
         {
-            var taskEntity = rep.TaskRepository.FindById(1);
-            taskEntity.StartAt = DateTime.Now;
-            taskEntity.EndAt = DateTime.Now.AddHours(2);
-            taskEntity.Postponed = false;
-            var project = rep.ProjectRepository.FindById(taskEntity.Project.Id);
-            project.StartAt = DateTime.Now.AddHours(-100);
-            project.EndAt= DateTime.Now.AddHours(-50);
-            
-            rep.DbContext.SaveChanges();
+            var taskEntity = subScenario.UnpostponedAndRunningTask(1);
+            subScenario.PrepareInactiveProject(taskEntity.Id);
 
             Assert.AreEqual(taskEntity, rep.TaskRepository.FindById(1));
             
@@ -76,8 +74,6 @@ namespace PUp.Tests.TaskTest
             var validationMessageHolder= Util<ValidationMessageHolder>.FromJson(stateSerialized);
             Assert.IsFalse(validationMessageHolder.State==1);
             Assert.AreEqual(newTaskEntity.StartAt.GetValueOrDefault().Minute,DateTime.Now.Minute);
-            //Assert.IsTrue(newTaskEntity.Postponed);
-            //Assert.IsTrue(newTaskEntity.Postponed);
             
         }
 
@@ -95,10 +91,18 @@ namespace PUp.Tests.TaskTest
 
             var stateSerialized = apiController.Postpone(1).Content.ReadAsStringAsync().Result;
             Assert.IsNotNull(stateSerialized);
-            
+
             var validationMessageHolder = Util<ValidationMessageHolder>.FromJson(stateSerialized);
             Assert.IsNotNull(validationMessageHolder);
             Assert.AreEqual(1,validationMessageHolder.State);
+           
+        }
+
+        [TestMethod]
+        public void PostponeTask_ShouldPostoneOnActiveProject_UsingMockObject()
+        {
+             
+
         }
 
     }
