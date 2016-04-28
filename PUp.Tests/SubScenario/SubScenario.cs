@@ -1,5 +1,6 @@
 ﻿using PUp.Models;
 using PUp.Models.Entity;
+using PUp.ViewModels.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,5 +45,7 @@ namespace PUp.Tests.SubScenario
             rep.DbContext.SaveChanges();
             return taskEntity;
         }
+
+        
     }
 }
