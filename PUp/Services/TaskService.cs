@@ -115,7 +115,7 @@ namespace PUp.Services
             ProjectEntity project = repo.ProjectRepository.FindById(id);
             if (!repo.ProjectRepository.IsActive(project.Id))
             {
-                //  modelStateWrapper.Flash("This project is no more active, modifications won't be saved", FlashLevel.Warning);
+                return new AddTaskViewModel();
             }
             AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
             addTaskVM.AvailableDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Now);

@@ -102,9 +102,22 @@ namespace PUp.Tests.TaskTest
         public void AddTask_ShouldReturnAnInstanceOfTaskViewOnActiveProject()
         {
             var p = subScenario.PrepareActiveProject(1);
-            //var vmSerialized = apiController.Add(p.Id).Content.ReadAsStringAsync().Result;
-            //Assert.IsNotNull(vmSerialized);
+            var vmSerialized = apiController.Add(p.Id).Content.ReadAsStringAsync().Result;
+            var vmInstance = Util<AddTaskViewModel>.FromJson(vmSerialized);
+            Assert.IsNotNull(vmSerialized);
+            Assert.AreEqual(p.Id,vmInstance.ProjectId);
 
+        }
+
+        [TestMethod]
+        public void AddTask_ShouldReturnVoidInstanceOfTaskVMOnInactiveProject()
+        {
+            var p = subScenario.PrepareInactiveProject(1);
+            var vmSerialized = apiController.Add(p.Id).Content.ReadAsStringAsync().Result;
+            var vmNewInstance = Util<AddTaskViewModel>.FromJson(vmSerialized);
+            Assert.AreEqual(0,vmNewInstance.ProjectId);
+            Assert.AreEqual(0,vmNewInstance.Id);
+            Assert.AreEqual(null,vmNewInstance.Title);
         }
 
 
