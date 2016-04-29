@@ -2,21 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace PUp.Tests.Helpers
+namespace PUp.Helpers
 {
-    /// <summary>
-    /// TODO: Delete this and use Helper.AppJsonUtil from the app
-    /// </summary>
-    class Util<T>
+   
+    public  class AppJsonUtil<T>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public static string ToJson(T obj)
         {
             return JsonConvert.SerializeObject(obj,
@@ -25,7 +17,7 @@ namespace PUp.Tests.Helpers
 
         public static T FromJson(string json)
         {
-           return  JsonConvert.DeserializeObject<T>(json);
+            return JsonConvert.DeserializeObject<T>(json);
         }
     }
 }

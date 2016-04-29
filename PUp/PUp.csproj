@@ -236,6 +236,7 @@
     <Compile Include="Controllers\IssueApiController.cs" />
     <Compile Include="Controllers\ProjectApiController.cs" />
     <Compile Include="Controllers\TimelineApiController.cs" />
+    <Compile Include="Helpers\AppJsonUtil.cs" />
     <Compile Include="Jobs\AbstractBaseJob.cs" />
     <Compile Include="Jobs\IssuesAnalyzerJob.cs" />
     <Compile Include="Jobs\MorningSummaryJob.cs" />
@@ -291,6 +292,7 @@
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\DashboardService.cs" />
     <Compile Include="Services\IssueService.cs" />
+    <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\TaskService.cs" />
     <Compile Include="Services\TimelineService.cs" />
