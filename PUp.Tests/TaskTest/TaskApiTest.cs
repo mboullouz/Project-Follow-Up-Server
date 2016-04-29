@@ -136,7 +136,7 @@ namespace PUp.Tests.TaskTest
         }
 
         [TestMethod]
-        public void AddTask_ShouldPass_OnAddTaskWithItializedTaskVm()
+        public void AddTask_ShouldNotPass_OnAddTaskWithItializedTaskVm()
         {
             var p = subScenario.PrepareActiveProject(1);
             var vmSerialized = apiController.Add(p.Id).Content.ReadAsStringAsync().Result;
@@ -147,14 +147,20 @@ namespace PUp.Tests.TaskTest
                 var resSerialized = apiController.Add(vmInitializedInstance).Content.ReadAsStringAsync().Result;
                 validationMessageHolder = Util<ValidationMessageHolder>.FromJson(resSerialized);
             }
-
             catch (Exception e)
             {
                 Assert.IsTrue(e.Message.Contains("property does not exist"));
                 Assert.AreEqual(0, validationMessageHolder.State);
             }
-           
+        }
 
+        [TestMethod]
+        public void AddTask_ShouldSaveTask_OnInitializedTaskVM()
+        {
+            var vm = subScenario.InitAddTaskVMWithProjectAndUsersList(1);
+            var resSerialized = apiController.Add(vm).Content.ReadAsStringAsync().Result;
+            var validationMessageHolder = Util<ValidationMessageHolder>.FromJson(resSerialized);
+            Assert.AreEqual(1, validationMessageHolder.State);
         }
 
 

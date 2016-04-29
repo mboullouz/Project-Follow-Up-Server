@@ -46,6 +46,24 @@ namespace PUp.Tests.SubScenario
             return taskEntity;
         }
 
+        public AddTaskViewModel InitAddTaskVMWithProjectAndUsersList(int projectId)
+        {
+            var p = PrepareActiveProject(projectId);
+            var vm = new AddTaskViewModel {
+                ProjectId = projectId,
+                Critical = false,
+                Description = "This a so long desc to test the app, just enough long to pass the test, Lorem ipsum dollor kata nieko!",
+                ExecutorId = rep.UserRepository.GetFirstOrDefault().Id,
+                EstimatedTimeInMinutes = 120,
+                Title = "Some title for thes test and other scenarios ",
+                KeyFactor = false,
+                Urgent=true,
+                
+            };
+            
+            return vm;
+        }
+
         
     }
 }
