@@ -21,7 +21,6 @@ namespace PUp.Controllers
     {
         public NotificationService NotificationService { get; set; }
 
-
         public void Init()
         {
             var email = RequestContext.Principal.Identity.Name;
@@ -41,6 +40,13 @@ namespace PUp.Controllers
         {
             Init();
             return this.CreateJsonResponse(NotificationService.SeenUnseen(id).ToJson());
+        }
+
+        [HttpGet]
+        public HttpResponseMessage MarkDeleted(int id)
+        {
+            Init();
+            return this.CreateJsonResponse(NotificationService.MarkDeleted(id).ToJson());
         }
     }
 }

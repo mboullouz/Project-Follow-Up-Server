@@ -18,8 +18,9 @@ namespace PUp.Services
         {
             List<NotificationDto> notifs = new List<NotificationDto>();
             repo.NotificationRepository.GetByUser(currentUser)
+                .Where(n=>n.Deleted==false)
                 .OrderByDescending(n => n.AddAt).OrderByDescending(n=>!n.Seen)
-                .Take(10).ToList()
+                .Take(25).ToList()
                 .ForEach(n => notifs.Add(new NotificationDto(n)));
 
             return notifs;
@@ -28,6 +29,13 @@ namespace PUp.Services
         public ModelStateWrapper SeenUnseen(int notifId)
         {
             repo.NotificationRepository.SeenUnseen(notifId);
+            modelStateWrapper.AddSuccess("Success", "Notification visibility changed");
+            return modelStateWrapper;
+        }
+
+        public ModelStateWrapper MarkDeleted(int notifId)
+        {
+            repo.NotificationRepository.MarkDeleted(notifId);
             modelStateWrapper.AddSuccess("Success", "Notification visibility changed");
             return modelStateWrapper;
         }

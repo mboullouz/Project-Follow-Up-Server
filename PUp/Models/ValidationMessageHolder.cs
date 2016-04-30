@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PUp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,10 +65,7 @@ namespace PUp.Models
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-            });
+            return AppJsonUtil<ValidationMessageHolder>.ToJson(this);
         }
 
         //Additional field intended to be used by the result Json in the client

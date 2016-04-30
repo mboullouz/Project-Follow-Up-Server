@@ -145,7 +145,12 @@ namespace PUp.Models.Repository
         public override void MarkDeleted(NotificationEntity e)
         {
             e.Deleted = true;
+            e.DeleteAt = DateTime.Now;
             DbContext.SaveChanges();
+        }
+        public  void MarkDeleted(int  id)
+        {
+            MarkDeleted(FindById(id));
         }
     }
 }
