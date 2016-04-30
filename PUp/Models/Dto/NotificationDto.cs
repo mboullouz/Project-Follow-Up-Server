@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PUp.Models.Dto
 {
-    public class NotificationDto : IBasicEntity
+    public class NotificationDto :BaseDto, IBasicEntity
     {
 
         public int Id { get; set; }

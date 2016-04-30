@@ -10,6 +10,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Results;
+using PUp.Services;
+using PUp.Helpers;
 
 namespace PUp.Controllers
 {
@@ -17,43 +19,26 @@ namespace PUp.Controllers
     [Authorize]
     public class NotificationApiController : ApiController
     {
-        private DatabaseContext dbContext = new DatabaseContext();
-        private NotificationRepository notifRepo;
-        private UserRepository userRepo;
-        private Models.Entity.UserEntity currentUser = null;
+        public NotificationService NotificationService { get; set; }
 
 
-        public NotificationApiController()
+        public void Init()
         {
-            notifRepo = new NotificationRepository(dbContext);
-            userRepo = new UserRepository(dbContext);
+            var email = RequestContext.Principal.Identity.Name;
+            NotificationService = new NotificationService(email, new Models.ModelStateWrapper(new Models.ValidationMessageHolder(), ModelState));
         }
 
 
         [HttpGet]
         public HttpResponseMessage All()
         {
-            var email = RequestContext.Principal.Identity.Name;
-            currentUser = userRepo.FindByEmail(email);
-            List<NotificationDto> notifs = new List<NotificationDto>();
-            notifRepo.GetByUser(currentUser)
-                .OrderByDescending(n => n.AddAt)
-                .Take(10).ToList()
-                .ForEach(n => notifs.Add(new NotificationDto(n)));
-            var list = JsonConvert.SerializeObject(notifs,
-              Formatting.None,
-              new JsonSerializerSettings()
-              {
-                  ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                  MaxDepth = 1,
-              });
-            return this.CreateJsonResponse(list);
+            return this.CreateJsonResponse(AppJsonUtil<List<NotificationDto>>.ToJson(NotificationService.AllForCurrentUser()));
         }
  
         // DELETE api/<controller>/5
         public HttpResponseMessage Delete(int id)
         {
-            var res = notifRepo.RemoveById(id);
+            var res = false /* notifRepo.RemoveById(id)*/;
             return this.CreateJsonResponse( res ? "Deleted" : "Nothing to delete!");
         }
     }
