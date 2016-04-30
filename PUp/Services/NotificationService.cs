@@ -1,4 +1,5 @@
-﻿using PUp.Models.Dto;
+﻿using PUp.Models;
+using PUp.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,18 @@ namespace PUp.Services
         {
             List<NotificationDto> notifs = new List<NotificationDto>();
             repo.NotificationRepository.GetByUser(currentUser)
-                .OrderByDescending(n => n.AddAt)
+                .OrderByDescending(n => n.AddAt).OrderByDescending(n=>!n.Seen)
                 .Take(10).ToList()
                 .ForEach(n => notifs.Add(new NotificationDto(n)));
 
             return notifs;
+        }
+
+        public ModelStateWrapper SeenUnseen(int notifId)
+        {
+            repo.NotificationRepository.SeenUnseen(notifId);
+            modelStateWrapper.AddSuccess("Success", "Notification visibility changed");
+            return modelStateWrapper;
         }
     }
 }

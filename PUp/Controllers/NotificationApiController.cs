@@ -32,14 +32,15 @@ namespace PUp.Controllers
         [HttpGet]
         public HttpResponseMessage All()
         {
+            Init();
             return this.CreateJsonResponse(AppJsonUtil<List<NotificationDto>>.ToJson(NotificationService.AllForCurrentUser()));
         }
  
-        // DELETE api/<controller>/5
-        public HttpResponseMessage Delete(int id)
+        [HttpGet]
+        public HttpResponseMessage SeenUnseen(int id)
         {
-            var res = false /* notifRepo.RemoveById(id)*/;
-            return this.CreateJsonResponse( res ? "Deleted" : "Nothing to delete!");
+            Init();
+            return this.CreateJsonResponse(NotificationService.SeenUnseen(id).ToJson());
         }
     }
 }

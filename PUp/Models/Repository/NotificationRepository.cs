@@ -34,6 +34,13 @@ namespace PUp.Models.Repository
             return GetAll().Where(v => v.User.Id == id).ToList();
         }
 
+        internal void SeenUnseen(int notifId)
+        {
+            var notif = FindById(notifId);
+            notif.Seen = !notif.Seen;
+            DbContext.SaveChanges();
+        }
+
         public void Add(UserEntity user, string message = "", string url = "#", int level = LevelFlag.Info)
         {
             var notif = new NotificationEntity
