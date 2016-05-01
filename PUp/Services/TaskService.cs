@@ -182,6 +182,31 @@ namespace PUp.Services
             return modelStateWrapper;
         }
 
+        public TaskDto GenerateTaskFromIssue(int issueId)
+        {
+            var issue = repo.IssueRepository.FindById(issueId);
+            issue.Deleted = true;
+            issue.DeleteAt = DateTime.Now;
+            var project = repo.ProjectRepository.FindById(issue.Project.Id);
+            TaskEntity task = new TaskEntity
+            {
+                Title = "Task from unresolved issue",
+                Description = issue.Description,
+                Done = false,
+                Project = project,
+                AddAt = DateTime.Now,
+                EditAt = DateTime.Now,
+                EstimatedTimeInMinutes = 120,
+                StartAt = null,
+                KeyFactor = false,
+                Deleted = false,
+                Critical = true,
+                Urgent = true,
+                Executor = CurrentUser()
+            };
+            SaveNewTask(task);        
+            return new TaskDto(task);
+        }
 
         public ModelStateWrapper CheckModel(AddTaskViewModel model, bool onEdit = false)
         {

@@ -97,6 +97,8 @@ namespace PUp.Controllers
             Init();
             return this.CreateJsonResponse(projectService.GetInitializedViewByProjectId(id).ToJson());
         }
-         
+
+       
+
     }
 }
