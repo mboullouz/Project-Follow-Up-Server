@@ -182,7 +182,7 @@ namespace PUp.Services
             return modelStateWrapper;
         }
 
-        public TaskDto GenerateTaskFromIssue(int issueId)
+        public ModelStateWrapper GenerateTaskFromIssue(int issueId)
         {
             var issue = repo.IssueRepository.FindById(issueId);
             issue.Deleted = true;
@@ -191,7 +191,7 @@ namespace PUp.Services
             TaskEntity task = new TaskEntity
             {
                 Title = "Task from unresolved issue",
-                Description = issue.Description,
+                Description = "This is a task generated from the issue with the description: "+issue.Description,
                 Done = false,
                 Project = project,
                 AddAt = DateTime.Now,
@@ -204,8 +204,10 @@ namespace PUp.Services
                 Urgent = true,
                 Executor = CurrentUser()
             };
-            SaveNewTask(task);        
-            return new TaskDto(task);
+            repo.DbContext.IssueSet.Remove(issue);
+            SaveNewTask(task);
+            modelStateWrapper.AddSuccess("TaskGeneration","Task generated successfully");
+            return modelStateWrapper;
         }
 
         public ModelStateWrapper CheckModel(AddTaskViewModel model, bool onEdit = false)

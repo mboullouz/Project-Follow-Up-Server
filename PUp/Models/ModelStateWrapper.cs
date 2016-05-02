@@ -28,6 +28,11 @@ namespace PUp.Models
             validationMessageHolder.AddError(key, errorMessage);
         }
 
+        public void setMessage(string message)
+        {
+            validationMessageHolder.Message = message;
+        }
+
         public void AddSuccess(string key, string successMessage)
         {
             validationMessageHolder.AddSuccess(key, successMessage);
