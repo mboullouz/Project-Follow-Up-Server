@@ -36,7 +36,7 @@ namespace PUp.Services
         public ModelStateWrapper MarkDeleted(int notifId)
         {
             repo.NotificationRepository.MarkDeleted(notifId);
-            modelStateWrapper.AddSuccess("Success", "Notification visibility changed");
+            modelStateWrapper.AddSuccess("Success", "Notification is marked 'Deleted' ");
             return modelStateWrapper;
         }
     }

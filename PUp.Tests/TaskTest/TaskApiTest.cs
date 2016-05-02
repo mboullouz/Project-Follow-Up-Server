@@ -163,6 +163,10 @@ namespace PUp.Tests.TaskTest
             Assert.AreEqual(1, validationMessageHolder.State);
         }
 
+        /**
+        Test plan a task for the current day
+        */
+
 
     }
 }

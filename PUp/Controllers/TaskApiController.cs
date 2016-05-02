@@ -77,7 +77,6 @@ namespace PUp.Controllers
             if (modelStateWrapper.IsValid())
             {
                 TaskService.Add(model);
-                return this.CreateJsonResponse(modelStateWrapper.ToJson());
             }
             return this.CreateJsonResponse(modelStateWrapper.ToJson());
         }
@@ -101,5 +100,16 @@ namespace PUp.Controllers
             return this.CreateJsonResponse(TaskService.PlanTaskForCurrentDay(id).ToJson());
         }
 
+        /// <summary>
+        /// Generate à task from an issue then, the issue is marked 'deleted'
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public HttpResponseMessage GenetateTaskFromIssue(int id)
+        {
+            Init();
+            return this.CreateJsonResponse(TaskService.GenerateTaskFromIssue(id).ToJson());
+        }
     }
 }
