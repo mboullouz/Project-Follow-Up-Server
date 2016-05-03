@@ -300,7 +300,7 @@
     <Compile Include="ViewModels\Auth\RegisterViewModel.cs" />
     <Compile Include="ViewModels\BaseModelView.cs" />
     <Compile Include="ViewModels\Project\AddProjectViewModel.cs" />
-    <Compile Include="Models\SimpleKeyValue.cs" />
+    <Compile Include="Helpers\SimpleKeyValue.cs" />
     <Compile Include="ViewModels\Task\AddTaskViewModel.cs" />
     <Compile Include="ViewModels\DashboardModelView.cs" />
     <Compile Include="ViewModels\Project\DetailsViewModel.cs" />
