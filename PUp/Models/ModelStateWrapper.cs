@@ -19,7 +19,7 @@ namespace PUp.Models
 
         public ModelStateWrapper(ValidationMessageHolder validationMessageWrapper, System.Web.Http.ModelBinding.ModelStateDictionary modelState)
         {
-            this.validationMessageHolder = validationMessageWrapper;
+            validationMessageHolder = validationMessageWrapper;
             this.modelState = modelState;
         }
 

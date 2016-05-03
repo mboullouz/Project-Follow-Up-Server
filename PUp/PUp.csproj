@@ -320,7 +320,6 @@
     <Content Include="zDoc\handleTasksPerImportance.png" />
     <Content Include="zDoc\Importance-Vs-Urgency.gif" />
     <Content Include="zDoc\ImprovedDbModel_v2.png" />
-    <Content Include="ClassDiagram1.cd" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>

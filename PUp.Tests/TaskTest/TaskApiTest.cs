@@ -14,6 +14,7 @@ using PUp.ViewModels.Task;
 using Moq;
 using PUp.Services;
 using PUp.Tests.SubScenario;
+using PUp.Helpers;
 
 namespace PUp.Tests.TaskTest
 {
@@ -63,8 +64,8 @@ namespace PUp.Tests.TaskTest
         {
             var taskboardSerialized = apiController.Taskboard(1).Content.ReadAsStringAsync().Result;
             var projectDto = new ProjectDto(rep.ProjectRepository.FindById(1));
-            string projectDtoJson = Util<ProjectDto>.ToJson(projectDto);
-            TaskboardViewModel tvm = Util<TaskboardViewModel>.FromJson(taskboardSerialized);
+            string projectDtoJson = AppJsonUtil<ProjectDto>.ToJson(projectDto);
+            TaskboardViewModel tvm = AppJsonUtil<TaskboardViewModel>.FromJson(taskboardSerialized);
             Assert.IsNotNull(projectDtoJson);
             Assert.IsNotNull(taskboardSerialized);
             Assert.IsTrue(taskboardSerialized.Contains("1"));
@@ -78,7 +79,7 @@ namespace PUp.Tests.TaskTest
             subScenario.PrepareInactiveProject(taskEntity.Id);
             var stateSerialized = apiController.Postpone(1).Content.ReadAsStringAsync().Result;
             Assert.IsNotNull(stateSerialized);
-            var validationMessageHolder = Util<ValidationMessageHolder>.FromJson(stateSerialized);
+            var validationMessageHolder = AppJsonUtil<ValidationMessageHolder>.FromJson(stateSerialized);
             Assert.IsFalse(validationMessageHolder.State == 1);
 
         }
@@ -92,7 +93,7 @@ namespace PUp.Tests.TaskTest
             var stateSerialized = apiController.Postpone(1).Content.ReadAsStringAsync().Result;
             Assert.IsNotNull(stateSerialized);
 
-            var validationMessageHolder = Util<ValidationMessageHolder>.FromJson(stateSerialized);
+            var validationMessageHolder = AppJsonUtil<ValidationMessageHolder>.FromJson(stateSerialized);
             Assert.IsNotNull(validationMessageHolder);
             Assert.AreEqual(1, validationMessageHolder.State);
 
@@ -103,7 +104,7 @@ namespace PUp.Tests.TaskTest
         {
             var p = subScenario.PrepareActiveProject(1);
             var vmSerialized = apiController.Add(p.Id).Content.ReadAsStringAsync().Result;
-            var vmInstance = Util<AddTaskViewModel>.FromJson(vmSerialized);
+            var vmInstance = AppJsonUtil<AddTaskViewModel>.FromJson(vmSerialized);
             Assert.IsNotNull(vmSerialized);
             Assert.AreEqual(p.Id,vmInstance.ProjectId);
 
@@ -114,7 +115,7 @@ namespace PUp.Tests.TaskTest
         {
             var p = subScenario.PrepareInactiveProject(1);
             var vmSerialized = apiController.Add(p.Id).Content.ReadAsStringAsync().Result;
-            var vmNewInstance = Util<AddTaskViewModel>.FromJson(vmSerialized);
+            var vmNewInstance = AppJsonUtil<AddTaskViewModel>.FromJson(vmSerialized);
             Assert.AreEqual(0,vmNewInstance.ProjectId);
             Assert.AreEqual(0,vmNewInstance.Id);
             Assert.AreEqual(null,vmNewInstance.Title);
@@ -140,12 +141,12 @@ namespace PUp.Tests.TaskTest
         {
             var p = subScenario.PrepareActiveProject(1);
             var vmSerialized = apiController.Add(p.Id).Content.ReadAsStringAsync().Result;
-            var vmInitializedInstance = Util<AddTaskViewModel>.FromJson(vmSerialized);
+            var vmInitializedInstance = AppJsonUtil<AddTaskViewModel>.FromJson(vmSerialized);
             ValidationMessageHolder validationMessageHolder = new ValidationMessageHolder {State=0 };
             try
             {
                 var resSerialized = apiController.Add(vmInitializedInstance).Content.ReadAsStringAsync().Result;
-                validationMessageHolder = Util<ValidationMessageHolder>.FromJson(resSerialized);
+                validationMessageHolder = AppJsonUtil<ValidationMessageHolder>.FromJson(resSerialized);
             }
             catch (Exception e)
             {
@@ -159,7 +160,7 @@ namespace PUp.Tests.TaskTest
         {
             var vm = subScenario.InitAddTaskVMWithProjectAndUsersList(1);
             var resSerialized = apiController.Add(vm).Content.ReadAsStringAsync().Result;
-            var validationMessageHolder = Util<ValidationMessageHolder>.FromJson(resSerialized);
+            var validationMessageHolder = AppJsonUtil<ValidationMessageHolder>.FromJson(resSerialized);
             Assert.AreEqual(1, validationMessageHolder.State);
         }
 
