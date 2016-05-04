@@ -6,12 +6,13 @@ using System.Linq;
 using System.Web;
 using PUp.Models;
 using PUp.Models.Dto;
+using PUp.ViewModels.Dashboard;
 
 namespace PUp.Services
 {
     public class DashboardService: BaseService
     {
-        public DashboardService(string email, Models.ModelStateWrapper modelStateWrapper) : base(email, modelStateWrapper) { }
+        public DashboardService(string email,  ModelStateWrapper modelStateWrapper) : base(email, modelStateWrapper) { }
 
         public DashboardModelView GetInitialisedDashboard()
         {

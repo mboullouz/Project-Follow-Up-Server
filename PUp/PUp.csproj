@@ -257,7 +257,7 @@
     <Compile Include="Models\FormattedDbEntityValidationException.cs" />
     <Compile Include="Models\ModelStateWrapper.cs" />
     <Compile Include="Models\RepositoryManager.cs" />
-    <Compile Include="Models\Repository\AbstractRepository.cs" />
+    <Compile Include="Models\Repository\BaseAbstractRepository.cs" />
     <Compile Include="Models\Repository\IssueRepository.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -302,7 +302,7 @@
     <Compile Include="ViewModels\Project\AddProjectViewModel.cs" />
     <Compile Include="Helpers\SimpleKeyValue.cs" />
     <Compile Include="ViewModels\Task\AddTaskViewModel.cs" />
-    <Compile Include="ViewModels\DashboardModelView.cs" />
+    <Compile Include="ViewModels\Dashboard\DashboardModelView.cs" />
     <Compile Include="ViewModels\Project\DetailsViewModel.cs" />
     <Compile Include="ViewModels\Project\MatrixViewModel.cs" />
     <Compile Include="ViewModels\Project\TimelineViewModel.cs" />

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PUp.ViewModels
+namespace PUp.ViewModels.Dashboard
 {
     public class DashboardModelView : BaseModelView
     {
