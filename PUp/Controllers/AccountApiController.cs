@@ -101,7 +101,7 @@ namespace PUp.Controllers
                 {
                     foreach (var e in v.Errors)
                     {
-                        modelStateWrapper.AddError("ModelState:" + errorCounter++, e.ErrorMessage);
+                        modelStateWrapper.AddError("ModelStateValidation" + errorCounter++, e.ErrorMessage);
                     }
                 }
             }

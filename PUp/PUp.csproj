@@ -232,7 +232,6 @@
     <Compile Include="Controllers\AccountApiController.cs" />
     <Compile Include="Controllers\ControllerExtensions.cs" />
     <Compile Include="Controllers\DashboardApiController.cs" />
-    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\IssueApiController.cs" />
     <Compile Include="Controllers\ProjectApiController.cs" />
     <Compile Include="Controllers\TimelineApiController.cs" />
@@ -260,7 +259,6 @@
     <Compile Include="Models\Repository\BaseAbstractRepository.cs" />
     <Compile Include="Models\Repository\IssueRepository.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\TaskApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
