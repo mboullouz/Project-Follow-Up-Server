@@ -90,9 +90,20 @@ namespace PUp.Models.Repository
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="dateEndMin"></param>
+        /// <returns></returns>
         public GroundInterval AvelaibleHoursForUserAndDate(UserEntity user,DateTime dateEndMin)
         {
-            var currentTasks =  TodayTasksByUser(user);
+            /* Done task still in the interval and that
+               If we mark task "done" before time allowed expire, it "occupes" the interval
+               Ex: t1 start at 13H and scheduled to end at 17H,
+               if it's marked done at 14H the remaining time can't be allowed ot othder task 
+            */
+            var currentTasks =  TodayTasksByUser(user).Where(t=>t.Done== false);
             GroundInterval intervalManager = new GroundInterval();
             foreach (var t in currentTasks)
             {
