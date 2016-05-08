@@ -360,14 +360,9 @@
     <Content Include="Views\Project\Contributors.cshtml" />
     <Content Include="Views\Shared\_ProjectHeader.cshtml" />
     <Content Include="Views\Project\Info.cshtml" />
-    <Content Include="Views\Shared\_MatrixTable.cshtml" />
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
     <Content Include="Views\Shared\_Sidebare.cshtml" />
-    <Content Include="Views\Shared\_Timeline.cshtml" />
     <Content Include="Views\Shared\_TopBar.cshtml" />
-    <Content Include="Views\Shared\_LeftSideBar.cshtml" />
-    <Content Include="Views\Shared\_RightSideBar.cshtml" />
-    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
