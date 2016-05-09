@@ -63,8 +63,8 @@ namespace PUp.Models.Repository
 
         public HashSet<TaskEntity> TodayTasksByProject(ProjectEntity project) 
         {
-            var source = project.Tasks.Where(t =>  t.StartAt != null && t.EndAt <= DateTime.Now 
-                                                && t.Deleted == false ).OrderByDescending(v => v.StartAt);
+            var source = project.Tasks.Where(t =>  t.StartAt != null && t.Deleted == false 
+                                                && t.StartAt < DateTime.Now && t.EndAt>DateTime.Now).OrderByDescending(v => v.StartAt);
             return new HashSet<TaskEntity>(source);
         }
 
