@@ -61,6 +61,12 @@ namespace PUp.Models.Repository
             return new HashSet<TaskEntity>(source);
         }
 
+        public HashSet<TaskEntity> Complete(ProjectEntity project)
+        {
+            var source=GetAll().Where(t => t.Project.Id == project.Id && t.Done == true).OrderByDescending(v => v.StartAt).ToList();
+            return new HashSet<TaskEntity>(source);
+        }
+
         public HashSet<TaskEntity> TodayTasksByProject(ProjectEntity project) 
         {
             var source = project.Tasks.Where(t =>  t.StartAt != null && t.Deleted == false 

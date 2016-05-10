@@ -42,7 +42,7 @@ namespace PUp.Services
             {
                 InProgress = repo.TaskRepository.TodayTasksByProject(project).Where(t => t.Done == false).ToList().ToDto(), //TODO filter before 
                 Upcoming = repo.TaskRepository.Upcoming(project).ToList().ToDto(),
-                Complete = repo.TaskRepository.GetAll().Where(t => t.Project.Id==id &&  t.Done == true).ToList().ToDto(),
+                Complete = repo.TaskRepository.Complete(project).ToList().ToDto(),
                 Project = new ProjectDto(project),
             };
 
