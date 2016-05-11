@@ -10,8 +10,7 @@ namespace PUp.ViewModels
     {
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this,
-             Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+            return Helpers.AppJsonUtil<BaseModelView>.ToJson(this);
         }
     }
 }
