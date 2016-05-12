@@ -53,7 +53,7 @@ namespace PUp.Models.Dto
                 EndAt = t.EndAt;
                 DeleteAt = t.DeleteAt;
                 Deleted = t.Deleted;
-                Project = new ProjectDto(t.Project, 1);
+                Project = new ProjectDto(t.Project, 2);
                 Executor = new UserDto(t.Executor, depth);
                 TimeAgo = this.ComputeTimeAgo();
             }
