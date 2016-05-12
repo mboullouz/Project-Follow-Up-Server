@@ -58,10 +58,10 @@ namespace PUp.Controllers
         /// <param name="id">Project id</param>
         /// <returns>AddTaskViewModel </returns>
         [HttpGet]
-        public HttpResponseMessage Add(int id)
+        public HttpResponseMessage Add(int id, int taskId)
         {
             Init();
-            return this.CreateJsonResponse(TaskService.GetAddTaskViewModelByProject(id).ToJson());
+            return this.CreateJsonResponse(TaskService.GetAddTaskViewModelByProject(id,taskId).ToJson());
         }
 
         /// <summary>

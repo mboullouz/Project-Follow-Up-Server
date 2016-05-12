@@ -110,14 +110,24 @@ namespace PUp.Services
 
         //TODO refactore AddTaskViewModel or create a special one for Edit with a base class!
         //Then Or merge the two actions 
-        public AddTaskViewModel GetAddTaskViewModelByProject(int id)
+        public AddTaskViewModel GetAddTaskViewModelByProject(int id,int taskId)
         {
             ProjectEntity project = repo.ProjectRepository.FindById(id);
             if (!repo.ProjectRepository.IsActive(project.Id))
             {
                 return new AddTaskViewModel();
             }
-            AddTaskViewModel addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
+            AddTaskViewModel addTaskVM;
+            var task = repo.TaskRepository.FindById(taskId);
+            if (task != null)
+            {
+                addTaskVM = new AddTaskViewModel(task, repo.UserRepository.GetAll());
+            }
+            else
+            {
+                addTaskVM = new AddTaskViewModel(project.Id, repo.UserRepository.GetAll());
+            }
+           
             addTaskVM.AvailableDates = repo.TaskRepository.AvelaibleHoursForUserAndDate(currentUser, DateTime.Now);
             return addTaskVM;
         }
@@ -255,7 +265,6 @@ namespace PUp.Services
             {
                 task = repo.TaskRepository.FindById(model.Id);
             }
-
             task.Title = model.Title;
             task.Description = model.Description;
             task.Done = false;
@@ -280,16 +289,18 @@ namespace PUp.Services
         /// <param name="task"></param>
         public void SaveNewTask(TaskEntity task)
         {
-            try
+            if (task.Id <= 0)
             {
-                repo.TaskRepository.Add(task);
-                task.Project.Tasks.Add(task);
+                try
+                {
+                    repo.TaskRepository.Add(task);
+                    task.Project.Tasks.Add(task);
+                }
+                catch (Exception e)
+                {
+                    modelStateWrapper.AddError("Save", e.Message);
+                }
             }
-            catch (Exception e)
-            {
-                modelStateWrapper.AddError("Save", e.Message);
-            }
-
             task.Project.Contributors.Add(task.Executor);
             task.Project.Contributors.Add(currentUser);
             task.Project.Tasks.Add(task);
