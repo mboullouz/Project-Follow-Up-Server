@@ -63,7 +63,7 @@ namespace PUp.Services
             repo.IssueRepository.Add(issue);
             project.Issues.Add(issue);
             project.Contributors.Add(currentUser);//add on submitting an issues
-            string message = "New Issue is declared for the project <" + project.Name + ">";
+            string message = "New Issue is declared for the project '" + project.Name + "' ";
             repo.NotificationRepository.NotifyAllUserInProject(project, message, LevelFlag.Danger);
             return new IssueDto(issue, 1);
         }
@@ -72,7 +72,7 @@ namespace PUp.Services
         {
             var issue = repo.IssueRepository.MarkResolved(id);
             var project = issue.Project;
-            string message = " Issue: <" + issue.Description + "> is marked resloved";
+            string message = " Issue: '" + issue.Description + "' is marked resloved";
             repo.NotificationRepository.NotifyAllUserInProject(project, message, LevelFlag.Success);
             return modelStateWrapper;
         }
@@ -84,7 +84,7 @@ namespace PUp.Services
             if (repo.ProjectRepository.IsActive(project.Id))
             {
                 repo.IssueRepository.OpenClose(id);
-                string message = " Issue status change: <" + issue.Description + "> is marked" + issue.Status;
+                string message = " Issue status change: '" + issue.Description + "' is marked" + issue.Status;
                 repo.NotificationRepository.NotifyAllUserInProject(project, message, LevelFlag.Success);
             }
             else
