@@ -6,5 +6,5 @@ This project is <b>not</b> intended to follow strict REST convention.
 Techno <br>
 <ul>
     <li>.Net MVC 4.x</li>
-    <li>Basic Authentification </li>
+    <li>EF </li>
 </ul>
